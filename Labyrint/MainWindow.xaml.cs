@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,31 @@ namespace Labyrint
         public MainWindow()
         {
             InitializeComponent();
+
+            //Bind the KeyUp and KeyDown methods.
+            Window.GetWindow(this).KeyUp += KeyUp;
+            Window.GetWindow(this).KeyDown += KeyDown;
         }
+
+        /* KeyDown */
+        /* 
+        * Add the given key in the pressedKeys collection.
+        * The argument is the given key represented as a string.
+        */
+        public void KeyDown(object sender, KeyEventArgs args)
+        {
+            Debug.WriteLine(args.Key.ToString());
+        }
+
+        /* KeyDown */
+        /* 
+         * Remove the given key in the pressedKeys collection.
+         * The argument is the given key represented as a string.
+         */
+        public void KeyUp(object sender, KeyEventArgs args)
+        {
+            Debug.WriteLine(args.Key.ToString());
+        }
+
     }
 }
