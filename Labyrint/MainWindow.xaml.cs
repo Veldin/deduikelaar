@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LogSystem;
+using GameObjectFactory;
+
 
 namespace Labyrint
 {
@@ -29,6 +31,8 @@ namespace Labyrint
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
+
+            GameObjectFactoryFacade.innit();
         }
 
         /* KeyDown */

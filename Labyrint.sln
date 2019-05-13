@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrint", "Labyrint\Labyri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log", "Log\Log.csproj", "{7616142C-77AC-411B-ABB4-D38773455720}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze", "Maze\Maze.csproj", "{058BD082-4470-4593-B4B0-D5003CC96DE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7616142C-77AC-411B-ABB4-D38773455720}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7616142C-77AC-411B-ABB4-D38773455720}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7616142C-77AC-411B-ABB4-D38773455720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{058BD082-4470-4593-B4B0-D5003CC96DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{058BD082-4470-4593-B4B0-D5003CC96DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{058BD082-4470-4593-B4B0-D5003CC96DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{058BD082-4470-4593-B4B0-D5003CC96DE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

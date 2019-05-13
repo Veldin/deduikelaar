@@ -63,6 +63,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\GameObjectFactory\Builder.cs" />
+    <Compile Include="Classes\GameObjectFactory\Factory.cs" />
+    <Compile Include="Classes\GameObject.cs" />
+    <Compile Include="Classes\GameObjectFactory\GameObjectFactoryFacade.cs" />
+    <Compile Include="Classes\GameObjectFactory\Pool.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -98,6 +103,10 @@
     <ProjectReference Include="..\Log\Log.csproj">
       <Project>{7616142c-77ac-411b-abb4-d38773455720}</Project>
       <Name>Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Maze\Maze.csproj">
+      <Project>{058bd082-4470-4593-b4b0-d5003cc96de4}</Project>
+      <Name>Maze</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
