@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 577 557" style="enable-background:new 0 0 577 557;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#FF1D4E;stroke-width:35.689;stroke-linecap:round;stroke-miterlimit:10;}
+		
+	#Layer_8{
+		transform-origin: 50% 50%;
+		animation: rotate1Circle 4s infinite;
+	}
+	#Layer_7{
+		transform-origin: 50% 50%;
+		animation: rotate2Circle 4s infinite;
+	}
+	#Layer_6{
+		transform-origin: 50% 50%;
+		animation: rotate3Circle 4s infinite;
+	}
+
+	@keyframes rotate1Circle{
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	@keyframes rotate2Circle{
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(-360deg);
+		}
+	}
+	@keyframes rotate3Circle{
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	
+</style>
+<g id="Layer_8">
+	<path class="st0" d="M286.59,194.93c0.64-0.01,1.27-0.02,1.91-0.02c46.12,0,83.5,37.43,83.5,83.59s-37.38,83.59-83.5,83.59
+		S205,324.67,205,278.5c0-16,4.49-30.95,12.28-43.65"/>
+</g>
+<g id="Layer_7">
+	<path class="st0" d="M169.96,347.72c-11.89-20.32-18.71-43.98-18.71-69.22c0-75.8,61.45-137.25,137.25-137.25
+		S425.75,202.7,425.75,278.5S364.3,415.75,288.5,415.75c-20.94,0-40.78-4.69-58.54-13.07"/>
+</g>
+<g id="Layer_6">
+	<path class="st0" d="M458.22,357.72c-29.84,63.82-94.62,108.03-169.72,108.03c-103.42,0-187.25-83.83-187.25-187.25
+		S185.08,91.25,288.5,91.25s187.25,83.83,187.25,187.25c0,0.38,0,0.77,0,1.15"/>
+</g>
+</svg>
