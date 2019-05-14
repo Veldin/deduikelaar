@@ -68,6 +68,8 @@
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\GameObjectFactory\GameObjectFactoryFacade.cs" />
     <Compile Include="Classes\GameObjectFactory\Pool.cs" />
+    <Compile Include="Classes\IBehaviour.cs" />
+    <Compile Include="Classes\Target.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -108,6 +110,9 @@
       <Project>{058bd082-4470-4593-b4b0-d5003cc96de4}</Project>
       <Name>Maze</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\redrand.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
