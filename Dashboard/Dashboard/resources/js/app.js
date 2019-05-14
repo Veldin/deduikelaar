@@ -1,4 +1,4 @@
-require('./bootstrap');
+require('./materialize');
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
@@ -6,7 +6,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import Master from './components/Master';
 import CreateItem from './components/CreateItem';
 import DisplayItem from './components/DisplayItem';
-import Example from './components/Example';
+import Statistics from './components/Statistics';
 
 
 
@@ -15,7 +15,7 @@ render(
         <Route path="/" component={Master} >
             <Route path="/add-item" component={CreateItem} />
             <Route path="/see-item" component={DisplayItem} />
-            <Route path="/see-example" component={Example} />
+            <Route path="/see-example" component={Statistics} />
         </Route>
     </Router>,
-        document.getElementById('example'));
+        document.getElementById('superContainer'));
