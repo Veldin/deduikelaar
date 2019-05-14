@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Media;
+using System.IO;
+using LogSystem;
+using System.Reflection;
 
 namespace SoundSystem
 {
@@ -12,36 +15,47 @@ namespace SoundSystem
 
         Dictionary<String, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
 
-        public void addSound(String name, String location)
+        public void AddSound(String name, String location)
         {
-            addSoundAsync(name, location);
-        }
-        private async void addSoundAsync(String name, string location)
-        {
+            if (!File.Exists(location))
+            {
+                Log.Warning("Sound not found (" + name + "): " + location);
+                return;
+            }
+            Log.Debug("Added sound " + name + ": " + location);
             SoundPlayer player = new SoundPlayer(location);
             player.LoadAsync();
             sounds.Add(name, player);
         }
 
-        public void playSound(String name)
+        public void AddResource(String name, String res)
         {
-            using (SoundPlayer s = sounds[name])
+            String loc = Assembly.GetExecutingAssembly().Location + "\\..\\..\\Sounds\\" + res;
+            AddSound(name, loc);
+        }
+        
+        public void PlaySound(String name)
+        {
+            if (sounds.ContainsKey(name))
             {
-                s.Play();
+                sounds[name].Play();
+            }
+            else
+            {
+                Log.Warning("Sound " + name + " not found");
             }
         }
 
-        public void stopSound(String name)
+        public void StopSound(String name)
         {
-            using (SoundPlayer s = sounds[name])
+            if (sounds.ContainsKey(name))
             {
-                s.Stop();
+                sounds[name].Stop();
             }
-        }
-
-        public List<String> getSounds()
-        {
-            return sounds.Keys.ToList();
+            else
+            {
+                Log.Warning("Sound " + name + " not found");
+            }
         }
     }
 }
