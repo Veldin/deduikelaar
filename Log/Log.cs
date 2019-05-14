@@ -104,7 +104,7 @@ namespace LogSystem
         public static void Error(string message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
         {
             // Create the logMessage
-            LogMessage logMessage = factory.CreateMessage(message, ELoglevel.Warning, filePath, memberName, lineNumber);
+            LogMessage logMessage = factory.CreateMessage(message, ELoglevel.Error, filePath, memberName, lineNumber);
 
             // Add the logMessage to the logMessages if it isn't null
             if (logMessage != null)

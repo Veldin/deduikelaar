@@ -12,11 +12,12 @@
         public LogMessage(string message, ELoglevel logLevel, string creationTime, string filePath, string memberName, int lineNumber)
         {
             // Initializing the class variables
-            this.message = message;
-            this.logLevel = logLevel;
-            this.creationTime = creationTime;
-            this.filePath = filePath;
-            this.lineNumber = lineNumber;
+            this.message        = message;
+            this.logLevel       = logLevel;
+            this.creationTime   = creationTime;
+            this.filePath       = filePath;
+            this.memberName     = memberName;
+            this.lineNumber     = lineNumber;
         }
 
         /*********************************************************
