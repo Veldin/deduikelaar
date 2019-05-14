@@ -8,6 +8,16 @@ namespace Maze
 {
     public static class MazeFacade
     {
+        static MazeFacade()
+        {
+            
+        }
 
+        public static bool innit()
+        {
+            MazeFactory mazeFactory = new MazeFactory();
+
+            return true;
+        }
     }
 }
