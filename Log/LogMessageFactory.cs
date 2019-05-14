@@ -2,7 +2,7 @@
 
 namespace LogSystem
 {
-    class LogMessageFactory
+    public class LogMessageFactory
     {
         public LogMessageFactory()
         {

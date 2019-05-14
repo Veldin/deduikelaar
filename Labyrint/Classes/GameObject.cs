@@ -63,7 +63,7 @@ namespace GameObjectFactory
         protected String location;
 
 
-        public GameObject(float width = 0, float height = 0, float fromLeft = 0, float fromTop = 0, float LeftDrawOffset = 0, float RightDrawOffset = 0, float TopDrawOffset = 0, float BottomDrawOffset = 0)
+        public GameObject(float width = 0, float height = 0, float fromLeft = 0, float fromTop = 0)
         {
             //bitmaps = new Dictionary<string, BitmapImage>();
             bitmaps = GameObjectStatic.maps;
@@ -86,11 +86,6 @@ namespace GameObjectFactory
             {
                 rectangle = new Rectangle();
             }));
-
-            this.leftDrawOffset = LeftDrawOffset;
-            this.rightDrawOffset = RightDrawOffset;
-            this.topDrawOffset = TopDrawOffset;
-            this.bottomDrawOffset = BottomDrawOffset;
 
             this.health = 1200;
 
@@ -483,6 +478,42 @@ namespace GameObjectFactory
                 }
             }
             return false;
+        }
+
+
+        //reset
+        public void reset()
+        {
+            //bitmaps = new Dictionary<string, BitmapImage>();
+            bitmaps = GameObjectStatic.maps;
+            random = new Random(GetHashCode() + (int)DateTime.UtcNow.Ticks);
+
+            width = 0;
+            height = 0;
+            fromLeft = 0;
+            fromTop = 0;
+
+            onTickList = new List<IBehaviour>();
+            onDeathList = new List<IBehaviour>();
+
+            destroyed = false;
+
+            movementSpeed = 0;
+            group = 0;
+
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                rectangle = new Rectangle();
+            }));
+
+            this.health = 0;
+
+            assemblyName = "Labyrint";
+            //Default location of the sprite.
+
+            setActiveBitmap("Assets/redrand.png");
+            location = "Assets/redrand.png";
+            setActiveBitmap(location);
         }
 
 

@@ -96,10 +96,10 @@ namespace Labyrint
             pressedKeys = new HashSet<String>();
 
             //player = new GameObject(24 * 2.5f, 42 * 2.5f, 300, 300);
-            player = GameObjectFactoryFacade.GetGameObject("player");
+            player = GameObjectFactoryFacade.GetGameObject("player", 300, 300);
 
             this.Cursor = Cursors.None;
-            cursor = GameObjectFactoryFacade.GetGameObject("cursor");
+            cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
             player.Target = new Target(player, true);
             //player.Target = new Target(player);
