@@ -6,9 +6,7 @@ class Overview extends Component {
     return (
       <div class="container">
         <div class="row">
-          <div class="col s3 navigationContainer">
-            <Link to="/add-item">Item toevoegen</Link>
-          </div>
+          <div class="col s3 navigationContainer">1</div>
           <div class="col s9 overviewContainer">2</div>
         </div>
       </div>

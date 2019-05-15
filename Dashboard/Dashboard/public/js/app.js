@@ -61746,9 +61746,7 @@ function (_Component) {
         "class": "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         "class": "col s3 navigationContainer"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/add-item"
-      }, "Item toevoegen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         "class": "col s9 overviewContainer"
       }, "2")));
     }
