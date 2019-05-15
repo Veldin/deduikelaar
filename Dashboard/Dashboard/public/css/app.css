@@ -3,12 +3,13 @@
 .header {
   height: 80px;
   width: 100vw;
-  background-color: #1e344c;
+  background-color: #304964;
 }
 
 #superContainer {
-  background-color: #304964;
+  background-color: #1e344c;
   height: 100vh;
+  background-image: url(/images/DonkerBlauwAchtergrond.png?6a485a76b82b44dcca331882d1225c6e);
 }
 
 #superContainer .navigationContainer {

@@ -12,7 +12,6 @@
         
         </div>
         <div id="superContainer">
-            <div class="backgroundAccent"></div>
         </div>
         <script src="{{asset('js/app.js')}}" ></script>
     </body>
