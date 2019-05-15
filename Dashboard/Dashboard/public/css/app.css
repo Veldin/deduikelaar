@@ -8,13 +8,12 @@
 
 #superContainer {
   background-color: #1e344c;
-  height: 100vh;
-  background-size: 70%;
+  background-size: 45%;
   background-position: 100% 100%;
   background-repeat: no-repeat;
   background-color: #1e344c;
   height: 100vh;
-  background-image: url(/images/DonkerBlauwAchtergrond.png?6a485a76b82b44dcca331882d1225c6e);
+  background-image: url(/images/DonkerBlauwAchtergrond.png?cadb7d511e8c978610b29031ea3b9544);
 }
 
 #superContainer .navigationContainer {
@@ -3526,19 +3525,19 @@ table span.badge {
 
 .container {
   margin: 0 auto;
-  max-width: 1280px;
-  width: 90%;
+  max-width: 1440px;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {
   .container {
-    width: 85%;
+    width: 95%;
   }
 }
 
 @media only screen and (min-width : 993px) {
   .container {
-    width: 70%;
+    width: 95%;
   }
 }
 
