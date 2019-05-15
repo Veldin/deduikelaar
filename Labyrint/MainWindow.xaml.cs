@@ -61,6 +61,8 @@ namespace Labyrint
         private List<GameObject> gameObjects;
         private List<GameObject> backgroundObjects;
 
+        private float prevOffsetLeft;               // This is the previous left offset of the camera
+        private float prevOffsetTop;                // This is the previous top offset of the camera
 
         string assemblyName;
 
@@ -208,27 +210,10 @@ namespace Labyrint
             }
 
             //set the camera on the player position
+            prevOffsetLeft = cameraLeftOffset;
+            prevOffsetTop = cameraTopOffset;
             cameraLeftOffset = player.FromLeft - (width / 2) + player.Width / 2;
             cameraTopOffset = player.FromTop - (height / 2) + player.Height / 2;
-
-
-            player.Target.SetTarget(player, true);
-            if (pressedKeys.Contains("W"))
-            {
-                player.Target.AddFromTop(-5000);
-            }
-            if (pressedKeys.Contains("A"))
-            {
-                player.Target.AddFromLeft(-5000);
-            }
-            if (pressedKeys.Contains("S"))
-            {
-                player.Target.AddFromTop(5000);
-            }
-            if (pressedKeys.Contains("D"))
-            {
-                player.Target.AddFromLeft(5000);
-            }
 
             //For every gameobject in the room
             foreach (GameObject gameObject in loopList)
@@ -381,12 +366,24 @@ namespace Labyrint
                     differenceTop = newTarget.FromTop() - startTarget.FromTop();
                 }
 
-                // Create a new Target for the player in the right direction
-                player.Target = new Target(differenceLeft * 20f, differenceTop * 20f);
+                // Move the controllerAnchor with the camera so it doesnt leave the screen
+                controllerAnchor.FromLeft -= (prevOffsetLeft - cameraLeftOffset);
+                controllerAnchor.FromTop -= (prevOffsetTop - cameraTopOffset);
 
                 // Set the controllerCursor on the same position as the actual cursor
                 controllerCursor.FromLeft = cursor.FromLeft;
                 controllerCursor.FromTop = cursor.FromTop;
+
+                // This adds  movementspeed to the player depending on the distance between the controllerAnchor and the controllerCursor. It's capped on 700!            
+                player.MovementSpeed = controllerAnchor.distanceBetween(controllerCursor) * 2 > 700 ? 700 : controllerAnchor.distanceBetween(controllerCursor) * 2;
+
+                // Set the target of the player to the current pos of the player to reset the target
+                player.Target.SetFromLeft(player.FromLeft);
+                player.Target.SetFromTop(player.FromTop);
+
+                // Add the difference to the players target to move it in the right direction
+                player.Target.AddFromLeft(differenceLeft * 20f);
+                player.Target.AddFromTop(differenceTop * 20f);
             }
         }
 

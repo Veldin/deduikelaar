@@ -25,7 +25,7 @@ namespace GameObjectFactory
                 gameObject.Width = 24 * 2.5f;
                 gameObject.Height = 42 * 2.5f;
 
-                gameObject.MovementSpeed = 200;
+                gameObject.MovementSpeed = 0;
                 gameObject.Group = 1;
 
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
