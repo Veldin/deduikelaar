@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,17 @@ namespace Maze
 
         public Boolean isWall(int fromLeft, int fromTop)
         {
-            return true;
+            Debug.WriteLine(fromLeft + "| |" + fromTop);
+
+            try{
+                return walls[fromLeft, fromTop];
+
+            }
+            catch
+            {
+                return false;
+            }
         }
+
     }
 }

@@ -118,5 +118,9 @@
   <ItemGroup>
     <Resource Include="Assets\redrand.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tile.gif" />
+    <Resource Include="Assets\tile2.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

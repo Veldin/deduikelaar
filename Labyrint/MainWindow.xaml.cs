@@ -59,6 +59,8 @@ namespace Labyrint
         private GameObject cursor;
 
         private List<GameObject> gameObjects;
+        private List<GameObject> backgroundObjects;
+
 
         string assemblyName;
 
@@ -106,15 +108,34 @@ namespace Labyrint
             this.Cursor = Cursors.None;
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
-            player.Target = new Target(500,500);
+            //player.Target = new Target(500,500);
             //player.Target = new Target(player);
             //Debug.WriteLine(player.Target.FromLeft());
-            player.Target.AddFromLeft(20000);
-            player.Target.AddFromTop(20000);
+            //player.Target.AddFromLeft(20000);
+            //player.Target.AddFromTop(20000);
 
             //Debug.WriteLine(player.Target.FromLeft());
 
             gameObjects = new List<GameObject>();
+
+            backgroundObjects = new List<GameObject>();
+
+            //create a cell on everfromTop place in the double arrafromTop
+            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
+                {
+                    if (MazeFacade.isWall(fromLeft, fromTop))
+                    {
+                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+
 
             gameObjects.Add(player);
 
@@ -186,6 +207,25 @@ namespace Labyrint
             cameraLeftOffset = player.FromLeft - (width / 2) + player.Width / 2;
             cameraTopOffset = player.FromTop - (height / 2) + player.Height / 2;
 
+
+            player.Target.SetTarget(player, true);
+            if (pressedKeys.Contains("W"))
+            {
+                player.Target.AddFromTop(-5000);
+            }
+            if (pressedKeys.Contains("A"))
+            {
+                player.Target.AddFromLeft(-5000);
+            }
+            if (pressedKeys.Contains("S"))
+            {
+                player.Target.AddFromTop(5000);
+            }
+            if (pressedKeys.Contains("D"))
+            {
+                player.Target.AddFromLeft(5000);
+            }
+
             //For every gameobject in the room
             foreach (GameObject gameObject in loopList)
             {
@@ -232,12 +272,15 @@ namespace Labyrint
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
-            lock (gameObjects) //lock the gameobjects for duplication
+            lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
             {
+
                 try
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(gameObjects);
+                    loopList.AddRange(backgroundObjects);
+
                     loopList.Add(cursor);
                 }
                 catch
@@ -297,13 +340,14 @@ namespace Labyrint
 
         /* KeyDown */
         /* 
-        * Add the given key in the pressedKeys collection.
-        * The argument is the given key represented as a string.
-        */
+            * Add the given key in the pressedKeys collection.
+            * The argument is the given key represented as a string.
+            */
         public void KeyDown(object sender, KeyEventArgs args)
         {
-            Debug.WriteLine(args.Key.ToString());
+            pressedKeys.Add(args.Key.ToString());
         }
+
 
         /* KeyDown */
         /* 
@@ -312,7 +356,7 @@ namespace Labyrint
          */
         public void KeyUp(object sender, KeyEventArgs args)
         {
-            Debug.WriteLine(args.Key.ToString());
+            pressedKeys.Remove(args.Key.ToString());
         }
 
         /* IsKeyPressed */

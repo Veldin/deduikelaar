@@ -18,7 +18,6 @@ namespace Maze
 
         public Maze GetNewMaze()
         {
-
             cells = new Cell[51, 51];
 
             bool[,] walls = new bool[51, 51];
@@ -144,12 +143,10 @@ namespace Maze
 
                     if (testDraw.passable == true)
                     {
-                        Debug.Write(0);
                         walls[fromLeft, fromTop] = false;
                     }
                     else
                     {
-                        Debug.Write(1);
                         walls[fromLeft, fromTop] = true;
                     }
 

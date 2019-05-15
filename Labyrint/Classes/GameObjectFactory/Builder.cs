@@ -25,12 +25,16 @@ namespace GameObjectFactory
                 gameObject.Width = 24 * 2.5f;
                 gameObject.Height = 42 * 2.5f;
 
-                gameObject.MovementSpeed = 300;
+                gameObject.MovementSpeed = 200;
                 gameObject.Group = 1;
 
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
 
-                gameObject.MovementSpeed = 540f;
+                gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
+                //gameObject.AddFromLeft(1000);
+                //gameObject.AddFromTop(1000);
+
+
 
                 gameObject.setActiveBitmap("Assets/Redrand.png");
             }
@@ -41,6 +45,14 @@ namespace GameObjectFactory
                 gameObject.Height = 13 * 2.5f;
 
                 gameObject.setActiveBitmap("Assets/Cursor1.gif");
+            }
+
+            if (wantToGet == "tile")
+            {
+                gameObject.Width = 250f;
+                gameObject.Height = 250f;
+
+                gameObject.setActiveBitmap("Assets/tile.gif");
             }
         }
     }
