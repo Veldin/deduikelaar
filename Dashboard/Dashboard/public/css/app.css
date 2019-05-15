@@ -25,6 +25,11 @@
   background-color: green;
 }
 
+.inputFields {
+  background-color: cornflowerblue;
+  height: 200px;
+}
+
 .materialize-red {
   background-color: #e51c23 !important;
 }
