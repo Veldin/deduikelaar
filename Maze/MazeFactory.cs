@@ -18,9 +18,9 @@ namespace Maze
 
         public Maze GetNewMaze()
         {
-            cells = new Cell[51, 51];
+            cells = new Cell[9, 9];
 
-            bool[,] walls = new bool[51, 51];
+            bool[,] walls = new bool[9, 9];
 
 
             List<Cell> centreCells = new List<Cell>();

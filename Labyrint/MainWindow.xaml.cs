@@ -16,8 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LogSystem;
 using GameObjectFactory;
+using LogSystem;
 using Maze;
 
 
@@ -124,6 +124,11 @@ namespace Labyrint
 
             gameObjects = new List<GameObject>();
 
+            gameObjects.Add(player);
+
+            gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
+
+
             backgroundObjects = new List<GameObject>();
 
             //create a cell on everfromTop place in the double arrafromTop
@@ -143,7 +148,7 @@ namespace Labyrint
             }
 
 
-            gameObjects.Add(player);
+            
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 24, 40, 80));
@@ -151,7 +156,7 @@ namespace Labyrint
 
             //gameObjects.Add(new TextBox(42, 36, 300, 300,0,0,0,0, "text loltext loltext lol"));
 
-            renderDistance = 1200;
+            renderDistance = 2200;
 
             InitializeComponent();
 
@@ -384,6 +389,7 @@ namespace Labyrint
                 // Add the difference to the players target to move it in the right direction
                 player.Target.AddFromLeft(differenceLeft * 20f);
                 player.Target.AddFromTop(differenceTop * 20f);
+                Log.Debug("test");
             }
         }
 
