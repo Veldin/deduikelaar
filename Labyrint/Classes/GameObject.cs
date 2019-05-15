@@ -1,4 +1,5 @@
 ﻿using Labyrint;
+using Maze;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -144,12 +145,25 @@ namespace GameObjectFactory
         {
             this.fromTop += fromTop;
 
-            /*
-            if (floor.IsColliding(this))
+            if(MazeFacade.isWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
             {
                 this.fromTop -= fromTop;
-                AddTag("hitBorder");
-            }*/
+            }
+
+            if (MazeFacade.isWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+            {
+                this.fromTop -= fromTop;
+            }
+
+            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+            {
+                this.fromTop -= fromTop;
+            }
+
+            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+            {
+                this.fromTop -= fromTop;
+            }
 
             return this.fromTop;
         }
@@ -158,12 +172,25 @@ namespace GameObjectFactory
         {
             this.fromLeft += fromLeft;
 
-            /*
-            if (floor.IsColliding(this))
+            if (MazeFacade.isWall((int)this.fromLeft / 250, (int)this.fromTop / 250))
             {
                 this.fromLeft -= fromLeft;
-                AddTag("hitBorder");
-            }*/
+            }
+
+            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / 250, (int)this.fromTop / 250))
+            {
+                this.fromLeft -= fromLeft;
+            }
+
+            if (MazeFacade.isWall((int)this.fromLeft / 250, (int)(this.fromTop + this.Height) / 250))
+            {
+                this.fromLeft -= fromLeft;
+            }
+
+            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / 250, (int)(this.fromTop + this.Height) / 250))
+            {
+                this.fromLeft -= fromLeft;
+            }
 
             return this.fromLeft;
         }

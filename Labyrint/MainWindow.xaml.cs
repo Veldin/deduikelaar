@@ -59,12 +59,17 @@ namespace Labyrint
         private GameObject cursor;
 
         private List<GameObject> gameObjects;
+        private List<GameObject> backgroundObjects;
+
 
         string assemblyName;
 
         private int renderDistance;
 
         private Rectangle rectangle;
+
+        private GameObject controllerAnchor;
+        private GameObject controllerCursor;
 
         public MainWindow()
         {
@@ -73,13 +78,14 @@ namespace Labyrint
             // Add the OnMouseDown and the OnMouseUp as event handler
             AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(OnMouseDown), true);
             AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
+            
 
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
 
             GameObjectFactoryFacade.innit();
-            MazeFacade.init();
+            MazeFacade.Init();
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -106,15 +112,34 @@ namespace Labyrint
             this.Cursor = Cursors.None;
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
-            player.Target = new Target(500,500);
+            //player.Target = new Target(500,500);
             //player.Target = new Target(player);
             //Debug.WriteLine(player.Target.FromLeft());
-            player.Target.AddFromLeft(20000);
-            player.Target.AddFromTop(20000);
+            //player.Target.AddFromLeft(20000);
+            //player.Target.AddFromTop(20000);
 
             //Debug.WriteLine(player.Target.FromLeft());
 
             gameObjects = new List<GameObject>();
+
+            backgroundObjects = new List<GameObject>();
+
+            //create a cell on everfromTop place in the double arrafromTop
+            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
+                {
+                    if (MazeFacade.isWall(fromLeft, fromTop))
+                    {
+                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+
 
             gameObjects.Add(player);
 
@@ -186,6 +211,25 @@ namespace Labyrint
             cameraLeftOffset = player.FromLeft - (width / 2) + player.Width / 2;
             cameraTopOffset = player.FromTop - (height / 2) + player.Height / 2;
 
+
+            player.Target.SetTarget(player, true);
+            if (pressedKeys.Contains("W"))
+            {
+                player.Target.AddFromTop(-5000);
+            }
+            if (pressedKeys.Contains("A"))
+            {
+                player.Target.AddFromLeft(-5000);
+            }
+            if (pressedKeys.Contains("S"))
+            {
+                player.Target.AddFromTop(5000);
+            }
+            if (pressedKeys.Contains("D"))
+            {
+                player.Target.AddFromLeft(5000);
+            }
+
             //For every gameobject in the room
             foreach (GameObject gameObject in loopList)
             {
@@ -224,6 +268,8 @@ namespace Labyrint
                     });
                 }
             }
+
+           MovePlayer();
         }
 
 
@@ -232,12 +278,15 @@ namespace Labyrint
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
-            lock (gameObjects) //lock the gameobjects for duplication
+            lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
             {
+
                 try
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(gameObjects);
+                    loopList.AddRange(backgroundObjects);
+
                     loopList.Add(cursor);
                 }
                 catch
@@ -294,16 +343,64 @@ namespace Labyrint
             });
         }
 
+        /// <summary>
+        /// This method calculates the direction in which the player need to move and set the target.
+        /// This method is depending on the controllerAnchor and the cursor.
+        /// </summary>
+        private void MovePlayer()
+        {
+            // Only move the player if the mouse is down
+            if (IsMouseDown)
+            {
+                Target startTarget = new Target(controllerAnchor.FromLeft, controllerAnchor.FromTop);
+                Target newTarget = new Target(cursor.FromLeft, cursor.FromTop);
+
+                // Check the fromLeft difference between the target and the GameObject
+                float differenceLeft;
+                if (newTarget.FromLeft() - startTarget.FromLeft() == 0)
+                {
+                    // Set differenceLeft to very close to 0 to avoid errors with mathematics
+                    differenceLeft = 0.000000001f;
+                }
+                else
+                {
+                    // Calc the difference between the two fromLefts of the Targets
+                    differenceLeft = newTarget.FromLeft() - startTarget.FromLeft();
+                }
+
+                // Check the fromTop difference between the target and the GameObject
+                float differenceTop;
+                if (newTarget.FromTop() - startTarget.FromTop() == 0)
+                {
+                    // Set differenceTop to very close to 0 to avoid errors with mathematics
+                    differenceTop = 0.0000000001f;
+                }
+                else
+                {
+                    // Calc the difference between the two fromTops of the Targets
+                    differenceTop = newTarget.FromTop() - startTarget.FromTop();
+                }
+
+                // Create a new Target for the player in the right direction
+                player.Target = new Target(differenceLeft * 20f, differenceTop * 20f);
+
+                // Set the controllerCursor on the same position as the actual cursor
+                controllerCursor.FromLeft = cursor.FromLeft;
+                controllerCursor.FromTop = cursor.FromTop;
+            }
+        }
+
 
         /* KeyDown */
         /* 
-        * Add the given key in the pressedKeys collection.
-        * The argument is the given key represented as a string.
-        */
+            * Add the given key in the pressedKeys collection.
+            * The argument is the given key represented as a string.
+            */
         public void KeyDown(object sender, KeyEventArgs args)
         {
-            Debug.WriteLine(args.Key.ToString());
+            pressedKeys.Add(args.Key.ToString());
         }
+
 
         /* KeyDown */
         /* 
@@ -312,7 +409,7 @@ namespace Labyrint
          */
         public void KeyUp(object sender, KeyEventArgs args)
         {
-            Debug.WriteLine(args.Key.ToString());
+            pressedKeys.Remove(args.Key.ToString());
         }
 
         /* IsKeyPressed */
@@ -332,9 +429,14 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
-            Log.Debug("Mouse is down");
             // Set IsMouseDown on true
             IsMouseDown = true;
+
+            // Create the controller GameObjects
+            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
+            gameObjects.Add(controllerAnchor);
+            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
+            gameObjects.Add(controllerCursor);
         }
 
         /// <summary>
@@ -344,10 +446,16 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
-            Log.Debug("Mouse is up");
             // Set IsMouseDown on false
             IsMouseDown = false;
 
+            // Set the target of the player to the current position to stop it from moving
+            player.Target.SetFromLeft(player.FromLeft);
+            player.Target.SetFromTop(player.FromTop);
+
+            // Remove the anchor for the controller
+            controllerAnchor.destroyed = true;
+            controllerCursor.destroyed = true;
         }
     }
 }

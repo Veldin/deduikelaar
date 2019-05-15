@@ -25,12 +25,12 @@ namespace GameObjectFactory
                 gameObject.Width = 24 * 2.5f;
                 gameObject.Height = 42 * 2.5f;
 
-                gameObject.MovementSpeed = 300;
+                gameObject.MovementSpeed = 200;
                 gameObject.Group = 1;
 
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
 
-                gameObject.MovementSpeed = 540f;
+                gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
                 gameObject.setActiveBitmap("Assets/Redrand.png");
             }
@@ -41,6 +41,32 @@ namespace GameObjectFactory
                 gameObject.Height = 13 * 2.5f;
 
                 gameObject.setActiveBitmap("Assets/Cursor1.gif");
+            }
+
+            if (wantToGet == "tile")
+            {
+                gameObject.Width = 250f;
+                gameObject.Height = 250f;
+
+                gameObject.setActiveBitmap("Assets/tile.gif");
+            }
+
+            if (wantToGet == "ControllerAncher")
+            {
+                gameObject.Width = 50f;
+                gameObject.Height = 50f;
+
+                gameObject.Target = new Target(fromLeft, fromTop);
+
+                gameObject.setActiveBitmap("Assets/Redrand.png");
+            }
+
+            if (wantToGet == "ControllerCursor")
+            {
+                gameObject.Width = 46f;
+                gameObject.Height = 46f;
+
+                gameObject.setActiveBitmap("Assets/Redrand.png");
             }
         }
     }
