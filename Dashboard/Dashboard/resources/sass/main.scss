@@ -1,17 +1,18 @@
 // Body
-.col{
-	border: 1px solid #eee;
-    margin: 7px 0;
-    text-align: center;
-    line-height: 50px;
-    font-size: 28px;
-    background-color: $teal;
-    color: white;
-    padding: 0;
-}
-
 .header{
     height: 80px;
     width: 100vw;
-    background-color: #304964;
+    background-color: $primary-dark;
+}
+
+.container{
+	background-color: $primary-light;
+
+	.navigationContainer{
+		background-color: blue;
+	}
+
+	.overviewContainer{
+		background-color: green;
+	}
 }

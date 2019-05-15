@@ -1,20 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
-.col {
-  border: 1px solid #eee;
-  margin: 7px 0;
-  text-align: center;
-  line-height: 50px;
-  font-size: 28px;
-  background-color: #4dc0b5;
-  color: white;
-  padding: 0;
-}
-
 .header {
   height: 80px;
   width: 100vw;
+  background-color: #1e344c;
+}
+
+.container {
   background-color: #304964;
+}
+
+.container .navigationContainer {
+  background-color: blue;
+}
+
+.container .overviewContainer {
+  background-color: green;
 }
 
 .materialize-red {
