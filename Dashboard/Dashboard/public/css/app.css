@@ -11,6 +11,12 @@
   padding: 0;
 }
 
+.header {
+  height: 80px;
+  width: 100vw;
+  background-color: #304964;
+}
+
 .materialize-red {
   background-color: #e51c23 !important;
 }
