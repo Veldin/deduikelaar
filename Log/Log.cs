@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace LogSystem
@@ -25,10 +26,10 @@ namespace LogSystem
         /// <param name="filePath">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="memberName">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="lineNumber">Do not fill this in. This will be filled in automatically.</param>
-        public static void Message(string message, ELoglevel logLevel, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
+        public static void Message(object message, ELoglevel logLevel, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
         {
             // Create the logMessage
-            LogMessage logMessage = factory.CreateMessage(message, logLevel, filePath, memberName, lineNumber);
+            LogMessage logMessage = factory.CreateMessage(message.ToString(), logLevel, filePath, memberName, lineNumber);
 
             // Add the logMessage to the logMessages if it isn't null
             if (logMessage != null)
@@ -44,10 +45,10 @@ namespace LogSystem
         /// <param name="filePath">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="memberName">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="lineNumber">Do not fill this in. This will be filled in automatically.</param>
-        public static void Debug(string message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
+        public static void Debug(object message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
         {
             // Create the logMessage
-            LogMessage logMessage = factory.CreateMessage(message, ELoglevel.Debug, filePath, memberName, lineNumber);
+            LogMessage logMessage = factory.CreateMessage(message.ToString(), ELoglevel.Debug, filePath, memberName, lineNumber);
 
             // Add the logMessage to the logMessages if it isn't null
             if (logMessage != null)
@@ -63,10 +64,10 @@ namespace LogSystem
         /// <param name="filePath">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="memberName">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="lineNumber">Do not fill this in. This will be filled in automatically.</param>
-        public static void Info(string message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
+        public static void Info(object message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
         {
             // Create the logMessage
-            LogMessage logMessage = factory.CreateMessage(message, ELoglevel.Info, filePath, memberName, lineNumber);
+            LogMessage logMessage = factory.CreateMessage(message.ToString(), ELoglevel.Info, filePath, memberName, lineNumber);
 
             // Add the logMessage to the logMessages if it isn't null
             if (logMessage != null)
@@ -82,10 +83,10 @@ namespace LogSystem
         /// <param name="filePath">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="memberName">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="lineNumber">Do not fill this in. This will be filled in automatically.</param>
-        public static void Warning(string message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
+        public static void Warning(object message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
         {
             // Create the logMessage
-            LogMessage logMessage = factory.CreateMessage(message, ELoglevel.Warning, filePath, memberName, lineNumber);
+            LogMessage logMessage = factory.CreateMessage(message.ToString(), ELoglevel.Warning, filePath, memberName, lineNumber);
 
             // Add the logMessage to the logMessages if it isn't null
             if (logMessage != null)
@@ -101,10 +102,10 @@ namespace LogSystem
         /// <param name="filePath">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="memberName">Do not fill this in. This will be filled in automatically.</param>
         /// <param name="lineNumber">Do not fill this in. This will be filled in automatically.</param>
-        public static void Error(string message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
+        public static void Error(object message, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null, [CallerLineNumber] int lineNumber = 0)
         {
             // Create the logMessage
-            LogMessage logMessage = factory.CreateMessage(message, ELoglevel.Error, filePath, memberName, lineNumber);
+            LogMessage logMessage = factory.CreateMessage(message.ToString(), ELoglevel.Error, filePath, memberName, lineNumber);
 
             // Add the logMessage to the logMessages if it isn't null
             if (logMessage != null)
