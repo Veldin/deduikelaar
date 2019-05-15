@@ -61519,7 +61519,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 /* harmony import */ var _components_Overview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Overview */ "./resources/js/components/Overview.js");
-/* harmony import */ var _components_Overview__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_Overview__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_CreateItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/CreateItem */ "./resources/js/components/CreateItem.js");
 /* harmony import */ var _components_Statistics__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Statistics */ "./resources/js/components/Statistics.js");
 __webpack_require__(/*! ./materialize */ "./resources/js/materialize.js");
@@ -61534,7 +61533,7 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
   history: react_router__WEBPACK_IMPORTED_MODULE_2__["browserHistory"]
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Route"], {
   path: "/",
-  component: _components_Overview__WEBPACK_IMPORTED_MODULE_3___default.a
+  component: _components_Overview__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Route"], {
   path: "/add-item",
   component: _components_CreateItem__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -61556,6 +61555,7 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61573,6 +61573,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -61627,10 +61628,67 @@ function (_Component) {
 /*!*********************************************!*\
   !*** ./resources/js/components/Overview.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\resources\\js\\components\\Overview.js: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (8:6)\n\n\u001b[0m \u001b[90m  6 | \u001b[39m    \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[0m \u001b[90m  7 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m \u001b[36mclass\u001b[39m\u001b[33m=\u001b[39m\u001b[32m\"col s3 navigationContainer\"\u001b[39m\u001b[33m>\u001b[39m\u001b[35m1\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m \u001b[36mclass\u001b[39m\u001b[33m=\u001b[39m\u001b[32m\"col s9 overviewContainer\"\u001b[39m\u001b[33m>\u001b[39m\u001b[35m2\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 | \u001b[39m    )\u001b[0m\n\u001b[0m \u001b[90m 10 | \u001b[39m  }\u001b[0m\n\u001b[0m \u001b[90m 11 | \u001b[39m}\u001b[0m\n    at Object.raise (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:6322:17)\n    at Object.jsxParseElementAt (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:3574:12)\n    at Object.jsxParseElement (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:3584:17)\n    at Object.parseExprAtom (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:3591:19)\n    at Object.parseExprSubscripts (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8385:23)\n    at Object.parseMaybeUnary (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8365:21)\n    at Object.parseExprOps (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8252:23)\n    at Object.parseMaybeConditional (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8225:23)\n    at Object.parseMaybeAssign (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8172:21)\n    at Object.parseParenAndDistinguishExpression (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8937:28)\n    at Object.parseExprAtom (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8731:21)\n    at Object.parseExprAtom (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:3596:20)\n    at Object.parseExprSubscripts (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8385:23)\n    at Object.parseMaybeUnary (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8365:21)\n    at Object.parseExprOps (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8252:23)\n    at Object.parseMaybeConditional (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8225:23)\n    at Object.parseMaybeAssign (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8172:21)\n    at Object.parseExpression (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:8120:23)\n    at Object.parseReturnStatement (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10132:28)\n    at Object.parseStatementContent (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9811:21)\n    at Object.parseStatement (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9763:17)\n    at Object.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10340:25)\n    at Object.parseBlockBody (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10327:10)\n    at Object.parseBlock (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10311:10)\n    at Object.parseFunctionBody (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9382:24)\n    at Object.parseFunctionBodyAndFinish (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9352:10)\n    at Object.parseMethod (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9306:10)\n    at Object.pushClassMethod (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10743:30)\n    at Object.parseClassMemberWithIsStatic (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10668:12)\n    at Object.parseClassMember (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10607:10)\n    at withTopicForbiddingContext (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10562:14)\n    at Object.withTopicForbiddingContext (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9657:14)\n    at Object.parseClassBody (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10539:10)\n    at Object.parseClass (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:10513:22)\n    at Object.parseStatementContent (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9805:21)\n    at Object.parseStatement (C:\\xampp\\htdocs\\deduikelaar\\Dashboard\\Dashboard\\node_modules\\@babel\\parser\\lib\\index.js:9763:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Overview =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Overview, _Component);
+
+  function Overview() {
+    _classCallCheck(this, Overview);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Overview).apply(this, arguments));
+  }
+
+  _createClass(Overview, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "col s3 navigationContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/add-item"
+      }, "Item toevoegen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "col s9 overviewContainer"
+      }, "2")));
+    }
+  }]);
+
+  return Overview;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Overview);
 
 /***/ }),
 

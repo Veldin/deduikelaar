@@ -5,8 +5,12 @@
     background-color: $primary-dark;
 }
 
-.container{
+#superContainer{
 	background-color: $primary-light;
+	height: 100vh;
+
+	.backgroundAccent{
+	}
 
 	.navigationContainer{
 		background-color: blue;

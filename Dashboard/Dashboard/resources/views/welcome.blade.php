@@ -8,11 +8,11 @@
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div class="container">
-            <div class="header">
-            
-            </div>
-            <div id="superContainer"></div>            
+        <div class="header">
+        
+        </div>
+        <div id="superContainer">
+            <div class="backgroundAccent"></div>
         </div>
         <script src="{{asset('js/app.js')}}" ></script>
     </body>

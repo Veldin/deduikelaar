@@ -6,15 +6,16 @@
   background-color: #1e344c;
 }
 
-.container {
+#superContainer {
   background-color: #304964;
+  height: 100vh;
 }
 
-.container .navigationContainer {
+#superContainer .navigationContainer {
   background-color: blue;
 }
 
-.container .overviewContainer {
+#superContainer .overviewContainer {
   background-color: green;
 }
 
