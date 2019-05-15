@@ -10,7 +10,12 @@ namespace Maze
     {
         private bool[,] walls;
         private String sprite;
-        
+
+        public Maze()
+        {
+
+        }
+
         public Maze(bool[,] given)
         {
             walls = given;

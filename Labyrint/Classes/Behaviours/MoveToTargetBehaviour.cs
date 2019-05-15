@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,13 +46,12 @@ namespace Labyrint
 
             float originalmoveSpeed = gameobject.MovementSpeed;
 
-
             float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
             float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
 
-
             float moveTopDistance = gameobject.MovementSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = gameobject.MovementSpeed * (differenceLeftPercent / 100);
+
 
             if (gameobject.Target.FromLeft() > gameobject.FromLeft)
             {

@@ -4,3 +4,9 @@ C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Log\bin\Debug\Log.pdb
 C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Log\obj\Debug\Log.dll
 C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Log\obj\Debug\Log.pdb
 C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Log\obj\Debug\Log.csprojAssemblyReference.cache
+C:\Programs\deduikelaar\deduikelaar\Log\bin\Debug\Log.dll
+C:\Programs\deduikelaar\deduikelaar\Log\bin\Debug\Log.pdb
+C:\Programs\deduikelaar\deduikelaar\Log\obj\Debug\Log.csprojAssemblyReference.cache
+C:\Programs\deduikelaar\deduikelaar\Log\obj\Debug\Log.csproj.CoreCompileInputs.cache
+C:\Programs\deduikelaar\deduikelaar\Log\obj\Debug\Log.dll
+C:\Programs\deduikelaar\deduikelaar\Log\obj\Debug\Log.pdb

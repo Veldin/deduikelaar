@@ -101,11 +101,11 @@ namespace Labyrint
             this.Cursor = Cursors.None;
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
-            player.Target = new Target(player, true);
+            player.Target = new Target(500,500);
             //player.Target = new Target(player);
             //Debug.WriteLine(player.Target.FromLeft());
-            //player.Target.AddFromLeft(20000);
-            //player.Target.AddFromTop(20000);
+            player.Target.AddFromLeft(20000);
+            player.Target.AddFromTop(20000);
 
             //Debug.WriteLine(player.Target.FromLeft());
 
@@ -177,7 +177,6 @@ namespace Labyrint
                 }
             }
 
-
             //set the camera on the player position
             cameraLeftOffset = player.FromLeft - (width / 2) + player.Width / 2;
             cameraTopOffset = player.FromTop - (height / 2) + player.Height / 2;
@@ -217,11 +216,6 @@ namespace Labyrint
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         TestCanvas.Children.Remove(gameObject.rectangle);
-                        if (gameObject is TextBox)
-                        {
-                            //TextBox textblock = gameObject as TextBox;
-                            //TestCanvas.Children.Remove(textblock.textblock);
-                        }
                     });
                 }
             }
@@ -292,11 +286,7 @@ namespace Labyrint
 
                     }
                 }
-
-
             });
-
-
         }
 
 

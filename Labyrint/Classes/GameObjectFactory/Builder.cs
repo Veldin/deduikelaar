@@ -30,8 +30,6 @@ namespace GameObjectFactory
 
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
 
-                gameObject.Target = new Target(fromLeft, fromTop);
-
                 gameObject.MovementSpeed = 540f;
 
                 gameObject.setActiveBitmap("Assets/Redrand.png");
