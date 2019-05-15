@@ -58,6 +58,9 @@ namespace GameObjectFactory
         protected float movementSpeed;
         protected int group;
 
+        //Holds the string the builder used to make this object.
+        protected string builderType;
+
         //The sprite location and the CanvasBitmap are stored seperatly
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         //protected CanvasBitmap sprite;
@@ -238,6 +241,12 @@ namespace GameObjectFactory
             set { group = value; }
         }
 
+        public string BuilderType
+        {
+            get { return builderType; }
+            set { builderType = value; }
+        }
+
         public float Health
         {
             get { return health; }
@@ -415,6 +424,31 @@ namespace GameObjectFactory
             else
             {
                 differenceTopAbs = Math.Abs(gameObject.FromTop - (FromTop + (Height / 2)));
+            }
+
+            return differenceLeftAbs + differenceTopAbs;
+        }
+
+        public float DistanceBetween(float fromLeft, float fromTop)
+        {
+            float differenceLeftAbs;
+            if (fromLeft - (FromLeft + (Width / 2)) == 0)
+            {
+                differenceLeftAbs = 0;
+            }
+            else
+            {
+                differenceLeftAbs = Math.Abs(fromLeft - (FromLeft + (Width / 2)));
+            }
+
+            float differenceTopAbs;
+            if (fromTop - (FromTop + (Height / 2)) == 0)
+            {
+                differenceTopAbs = 0;
+            }
+            else
+            {
+                differenceTopAbs = Math.Abs(fromTop - (FromTop + (Height / 2)));
             }
 
             return differenceLeftAbs + differenceTopAbs;

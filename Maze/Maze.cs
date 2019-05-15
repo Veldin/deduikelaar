@@ -30,8 +30,6 @@ namespace Maze
 
         public Boolean isWall(int fromLeft, int fromTop)
         {
-            Debug.WriteLine(fromLeft + "| |" + fromTop);
-
             try{
                 return walls[fromLeft, fromTop];
 
