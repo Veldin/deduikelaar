@@ -68,6 +68,9 @@ namespace Labyrint
 
         private Rectangle rectangle;
 
+        private GameObject controllerAnchor;
+        private GameObject controllerCursor;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -75,13 +78,14 @@ namespace Labyrint
             // Add the OnMouseDown and the OnMouseUp as event handler
             AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(OnMouseDown), true);
             AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
+            
 
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
 
             GameObjectFactoryFacade.innit();
-            MazeFacade.init();
+            MazeFacade.Init();
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -264,6 +268,8 @@ namespace Labyrint
                     });
                 }
             }
+
+           MovePlayer();
         }
 
 
@@ -337,6 +343,53 @@ namespace Labyrint
             });
         }
 
+        /// <summary>
+        /// This method calculates the direction in which the player need to move and set the target.
+        /// This method is depending on the controllerAnchor and the cursor.
+        /// </summary>
+        private void MovePlayer()
+        {
+            // Only move the player if the mouse is down
+            if (IsMouseDown)
+            {
+                Target startTarget = new Target(controllerAnchor.FromLeft, controllerAnchor.FromTop);
+                Target newTarget = new Target(cursor.FromLeft, cursor.FromTop);
+
+                // Check the fromLeft difference between the target and the GameObject
+                float differenceLeft;
+                if (newTarget.FromLeft() - startTarget.FromLeft() == 0)
+                {
+                    // Set differenceLeft to very close to 0 to avoid errors with mathematics
+                    differenceLeft = 0.000000001f;
+                }
+                else
+                {
+                    // Calc the difference between the two fromLefts of the Targets
+                    differenceLeft = newTarget.FromLeft() - startTarget.FromLeft();
+                }
+
+                // Check the fromTop difference between the target and the GameObject
+                float differenceTop;
+                if (newTarget.FromTop() - startTarget.FromTop() == 0)
+                {
+                    // Set differenceTop to very close to 0 to avoid errors with mathematics
+                    differenceTop = 0.0000000001f;
+                }
+                else
+                {
+                    // Calc the difference between the two fromTops of the Targets
+                    differenceTop = newTarget.FromTop() - startTarget.FromTop();
+                }
+
+                // Create a new Target for the player in the right direction
+                player.Target = new Target(differenceLeft * 20f, differenceTop * 20f);
+
+                // Set the controllerCursor on the same position as the actual cursor
+                controllerCursor.FromLeft = cursor.FromLeft;
+                controllerCursor.FromTop = cursor.FromTop;
+            }
+        }
+
 
         /* KeyDown */
         /* 
@@ -376,9 +429,14 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
-            Log.Debug("Mouse is down");
             // Set IsMouseDown on true
             IsMouseDown = true;
+
+            // Create the controller GameObjects
+            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
+            gameObjects.Add(controllerAnchor);
+            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
+            gameObjects.Add(controllerCursor);
         }
 
         /// <summary>
@@ -388,10 +446,16 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
-            Log.Debug("Mouse is up");
             // Set IsMouseDown on false
             IsMouseDown = false;
 
+            // Set the target of the player to the current position to stop it from moving
+            player.Target.SetFromLeft(player.FromLeft);
+            player.Target.SetFromTop(player.FromTop);
+
+            // Remove the anchor for the controller
+            controllerAnchor.destroyed = true;
+            controllerCursor.destroyed = true;
         }
     }
 }

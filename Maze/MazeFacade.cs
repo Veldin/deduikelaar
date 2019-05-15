@@ -18,7 +18,7 @@ namespace Maze
             tileSize = 250;
         }
 
-        public static bool init()
+        public static bool Init()
         {
             mazeFactory = new MazeFactory();
             maze = mazeFactory.GetNewMaze();

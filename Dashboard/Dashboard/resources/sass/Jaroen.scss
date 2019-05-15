@@ -1,0 +1,26 @@
+// Body
+.header{
+    height: 80px;
+    width: 100vw;
+    background-color: $primary-light;
+}
+
+#superContainer{
+	background-color: $primary-dark;
+	height: 100vh;
+	background-size: 70%;
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: $primary-dark;
+    height: 100vh;
+	background-image: url("../../public/images/DonkerBlauwAchtergrond.png");
+
+
+	.navigationContainer{
+		background-color: blue;
+	}
+
+	.overviewContainer{
+		background-color: green;
+	}
+}

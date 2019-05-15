@@ -1,20 +1,28 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
-.col {
-  border: 1px solid #eee;
-  margin: 7px 0;
-  text-align: center;
-  line-height: 50px;
-  font-size: 28px;
-  background-color: #4dc0b5;
-  color: white;
-  padding: 0;
-}
-
 .header {
   height: 80px;
   width: 100vw;
   background-color: #304964;
+}
+
+#superContainer {
+  background-color: #1e344c;
+  height: 100vh;
+  background-size: 70%;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: #1e344c;
+  height: 100vh;
+  background-image: url(/images/DonkerBlauwAchtergrond.png?6a485a76b82b44dcca331882d1225c6e);
+}
+
+#superContainer .navigationContainer {
+  background-color: blue;
+}
+
+#superContainer .overviewContainer {
+  background-color: green;
 }
 
 .materialize-red {
