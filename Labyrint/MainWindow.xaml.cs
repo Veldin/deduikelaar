@@ -43,6 +43,7 @@ namespace Labyrint
 
         //Arraylist with all the gameObjects in the current game
         private HashSet<String> pressedKeys;
+        private bool IsMouseDown;
 
         //Camera
         private float cameraLeftOffset = 0;
@@ -69,12 +70,16 @@ namespace Labyrint
         {
             InitializeComponent();
 
+            // Add the OnMouseDown and the OnMouseUp as event handler
+            AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(OnMouseDown), true);
+            AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
+
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
 
             GameObjectFactoryFacade.innit();
-            MazeFacade.innit();
+            MazeFacade.init();
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -318,6 +323,31 @@ namespace Labyrint
         public Boolean IsKeyPressed(String virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
+        }
+
+        /// <summary>
+        /// This is the EventHandler of the MouseDownEvent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnMouseDown(object sender, MouseButtonEventArgs args)
+        {
+            Log.Debug("Mouse is down");
+            // Set IsMouseDown on true
+            IsMouseDown = true;
+        }
+
+        /// <summary>
+        /// This is the EventHandler of the MouseUpEvent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnMouseUp(object sender, MouseButtonEventArgs args)
+        {
+            Log.Debug("Mouse is up");
+            // Set IsMouseDown on false
+            IsMouseDown = false;
+
         }
     }
 }

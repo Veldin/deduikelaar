@@ -31,7 +31,7 @@ namespace LogSystem.Tests
             Assert.IsNotNull(testMessage.GetCreationTime());
             Assert.IsNotNull(testMessage.GetFilePath());
             Assert.AreEqual(testMessage.GetMemberName(), "MessageTest");
-            Assert.AreEqual(testMessage.GetLineNumber(), 27);
+            Assert.AreEqual(testMessage.GetLineNumber(), 25);
         }
 
         [TestMethod()]
@@ -46,7 +46,7 @@ namespace LogSystem.Tests
             Assert.IsNotNull(testMessage.GetCreationTime());
             Assert.IsNotNull(testMessage.GetFilePath());
             Assert.AreEqual(testMessage.GetMemberName(), "DebugTest");
-            Assert.AreEqual(testMessage.GetLineNumber(), 42);
+            Assert.AreEqual(testMessage.GetLineNumber(), 40);
         }
 
         [TestMethod()]
@@ -61,7 +61,7 @@ namespace LogSystem.Tests
             Assert.IsNotNull(testMessage.GetCreationTime());
             Assert.IsNotNull(testMessage.GetFilePath());
             Assert.AreEqual(testMessage.GetMemberName(), "InfoTest");
-            Assert.AreEqual(testMessage.GetLineNumber(), 57);
+            Assert.AreEqual(testMessage.GetLineNumber(), 55);
         }
 
         [TestMethod()]
@@ -76,7 +76,7 @@ namespace LogSystem.Tests
             Assert.IsNotNull(testMessage.GetCreationTime());
             Assert.IsNotNull(testMessage.GetFilePath());
             Assert.AreEqual(testMessage.GetMemberName(), "WarningTest");
-            Assert.AreEqual(testMessage.GetLineNumber(), 72);
+            Assert.AreEqual(testMessage.GetLineNumber(), 70);
         }
 
         [TestMethod()]
@@ -91,7 +91,7 @@ namespace LogSystem.Tests
             Assert.IsNotNull(testMessage.GetCreationTime());
             Assert.IsNotNull(testMessage.GetFilePath());
             Assert.AreEqual(testMessage.GetMemberName(), "ErrorTest");
-            Assert.AreEqual(testMessage.GetLineNumber(), 87);
+            Assert.AreEqual(testMessage.GetLineNumber(), 85);
         }
     }
 }

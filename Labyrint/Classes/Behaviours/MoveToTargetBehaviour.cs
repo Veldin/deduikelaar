@@ -12,14 +12,17 @@ namespace Labyrint
     {
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
         {
+            // Check if target if null, if so return false
             if (gameobject.Target is null)
             {
                 return false;
             }
 
+            // Check the fromLeft difference between the target and the GameObject
             float differenceLeftAbs;
             if (gameobject.Target.FromLeft() - (gameobject.FromLeft + (gameobject.Width / 2)) == 0)
             {
+                // Set differenceLeftAbs to very close to 0 to avoid errors with mathematics
                 differenceLeftAbs = 0.000000001f;
             }
             else

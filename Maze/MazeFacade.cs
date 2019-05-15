@@ -16,7 +16,7 @@ namespace Maze
             
         }
 
-        public static bool innit()
+        public static bool init()
         {
             mazeFactory = new MazeFactory();
             maze = mazeFactory.GetNewMaze();
