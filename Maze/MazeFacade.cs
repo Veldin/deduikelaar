@@ -13,7 +13,7 @@ namespace Maze
             
         }
 
-        public static bool init()
+        public static bool Init()
         {
             MazeFactory mazeFactory = new MazeFactory();
 

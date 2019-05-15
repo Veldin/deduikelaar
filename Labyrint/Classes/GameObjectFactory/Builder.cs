@@ -32,8 +32,6 @@ namespace GameObjectFactory
 
                 gameObject.Target = new Target(fromLeft, fromTop);
 
-                gameObject.MovementSpeed = 540f;
-
                 gameObject.setActiveBitmap("Assets/Redrand.png");
             }
 
@@ -44,6 +42,25 @@ namespace GameObjectFactory
 
                 gameObject.setActiveBitmap("Assets/Cursor1.gif");
             }
+
+            if (wantToGet == "ControllerAncher")
+            {
+                gameObject.Width = 50f;
+                gameObject.Height = 50f;
+
+                gameObject.Target = new Target(fromLeft, fromTop);
+
+                gameObject.setActiveBitmap("Assets/Redrand.png");
+            }
+
+            if (wantToGet == "ControllerCursor")
+            {
+                gameObject.Width = 46f;
+                gameObject.Height = 46f;
+
+                gameObject.setActiveBitmap("Assets/Redrand.png");
+            }
+
         }
     }
 }
