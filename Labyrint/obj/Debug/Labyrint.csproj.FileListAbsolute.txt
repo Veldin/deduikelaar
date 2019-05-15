@@ -18,3 +18,23 @@ C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.ex
 C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.pdb
 C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Labyrint\bin\Debug\Maze.dll
 C:\Users\Robin\Documents\De Duikelaar\deduikelaar\Labyrint\bin\Debug\Maze.pdb
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Labyrint.exe.config
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Labyrint.exe
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Labyrint.pdb
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Log.dll
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Maze.dll
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Log.pdb
+C:\Programs\deduikelaar\deduikelaar\Labyrint\bin\Debug\Maze.pdb
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.csprojAssemblyReference.cache
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\MainWindow.g.cs
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\App.g.cs
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint_MarkupCompile.cache
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint_MarkupCompile.lref
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\MainWindow.baml
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.g.resources
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.Properties.Resources.resources
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.csproj.GenerateResource.cache
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.csproj.CoreCompileInputs.cache
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.csproj.CopyComplete
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.exe
+C:\Programs\deduikelaar\deduikelaar\Labyrint\obj\Debug\Labyrint.pdb

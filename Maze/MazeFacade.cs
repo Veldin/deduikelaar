@@ -8,6 +8,9 @@ namespace Maze
 {
     public static class MazeFacade
     {
+        private static Maze maze;
+        private static MazeFactory mazeFactory;
+
         static MazeFacade()
         {
             
@@ -15,9 +18,15 @@ namespace Maze
 
         public static bool Init()
         {
-            MazeFactory mazeFactory = new MazeFactory();
+            mazeFactory = new MazeFactory();
+            maze = mazeFactory.GetNewMaze();
 
             return true;
+        }
+
+        public static void NewMaze()
+        {
+            maze = mazeFactory.GetNewMaze();
         }
     }
 }

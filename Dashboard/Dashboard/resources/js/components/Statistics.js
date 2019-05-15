@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Router, Route, Link } from 'react-router';
 
-export default class Example extends Component {
+export default class Statistics extends Component {
     render() {
         return (
             <div className="container">
