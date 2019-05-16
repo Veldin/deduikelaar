@@ -28,22 +28,23 @@ namespace Maze
 
         public Boolean hasAllBorders()
         {
-            if (north.passable)
+            if (north is null || north.passable)
             {
                 return false;
             }
-            if (east.passable)
+            if (east is null || east.passable)
             {
                 return false;
             }
-            if (south.passable)
+            if (south is null || south.passable)
             {
                 return false;
             }
-            if (west.passable)
+            if (west is null || west.passable)
             {
                 return false;
             }
+
             return true;
         }
     }

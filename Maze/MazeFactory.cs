@@ -12,15 +12,35 @@ namespace Maze
         public MazeFactory()
         {
 
-
-
         }
 
-        public Maze GetNewMaze()
+        public Maze GetNewMaze(int leftSize = 9, int rightSize = 9)
         {
-            cells = new Cell[9, 9];
+            //Deu to cells needing to be able to have walls the maze sizes need to be odd
+            //and the minimum amount of cells is 3 
+            if (leftSize < 3)
+            {
+                leftSize = 3;
+            }
 
-            bool[,] walls = new bool[9, 9];
+            if (rightSize < 3)
+            {
+                rightSize = 3;
+            }
+
+            if (leftSize % 2 == 0)
+            {
+                leftSize++;
+            }
+
+            if (rightSize % 2 == 0)
+            {
+                rightSize++;
+            }
+
+            cells = new Cell[leftSize, rightSize];
+
+            bool[,] walls = new bool[leftSize, rightSize];
 
 
             List<Cell> centreCells = new List<Cell>();

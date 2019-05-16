@@ -28,17 +28,25 @@ namespace Maze
             set { walls = value; }
         }
 
-        public Boolean isWall(int fromLeft, int fromTop)
+        public Boolean IsWall(int fromLeft, int fromTop)
         {
-            try{
-                return walls[fromLeft, fromTop];
-
-            }
-            catch
+            if (Walls is null)
             {
                 return false;
             }
-        }
 
+            //Check out of bounds
+            if (fromLeft > walls.GetLength(0) - 1 || fromLeft < 0)
+            {
+                return false;
+            }
+
+            if (fromTop > walls.GetLength(1) - 1 || fromTop < 0)
+            {
+                return false;
+            }
+
+            return walls[fromLeft, fromTop];
+        }
     }
 }
