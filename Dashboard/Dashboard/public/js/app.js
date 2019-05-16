@@ -44461,7 +44461,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s10"
+        className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "last_name",
         type: "text"
@@ -44470,16 +44470,26 @@ function (_Component) {
       }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s10"
+        className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "last_name",
         type: "text"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         "for": "last_name"
-      }, "Beschrijving"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Beschrijving"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        "for": "last_name"
+      }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s10"
+        className: "switch existingFile"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "lever"
+      }), "Ja"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-field input-field"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -44491,7 +44501,62 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "file-path validate",
         type: "text"
-      }))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        "for": "last_name"
+      }, "Quiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "switch quiz"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "lever"
+      }), "Ja"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "buttonLeft",
+        type: "button"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "fas fa-chevron-left"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        name: "group1",
+        type: "radio",
+        checked: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        name: "group1",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        name: "group1",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        name: "group1",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "buttonRight",
+        type: "button"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "fas fa-chevron-right"
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s7 inputFields"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "example"
@@ -44553,13 +44618,35 @@ function (_Component) {
   _createClass(Master, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s2 navigationContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "col s12 navigationItem",
+        activeClassName: "col s12 navigationItem active",
         to: "/overview"
-      }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "navigationItemText"
+      }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "col s12 navigationItem",
+        activeClassName: "col s12 navigationItem active",
         to: "/add-item"
-      }, "2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "navigationItemText"
+      }, "Item Toevoegen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "col s12 navigationItem",
+        activeClassName: "col s12 navigationItem active",
         to: "/see-example"
-      }, "3"), this.props.children);
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "navigationItemText"
+      }, "Voorbeeld"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s1"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s9 contentContainer"
+      }, this.props.children)));
     }
   }]);
 
@@ -44617,24 +44704,7 @@ function (_Component) {
   _createClass(Overview, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col s3 navigationContainer"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NavLink, {
-        "class": "col s12 navigationItem",
-        to: "/overview"
-      }, "Overzicht"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NavLink, {
-        "class": "col s12 navigationItem",
-        to: "/add-item"
-      }, "Item Toevoegen"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NavLink, {
-        "class": "col s12 navigationItem",
-        to: "/see-example"
-      }, "Voorbeeld")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col s9 overviewContainer"
-      }, "2")));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
     }
   }]);
 
@@ -44716,6 +44786,17 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/logotest.png":
+/*!**********************************************!*\
+  !*** ./resources/js/components/logotest.png ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/logotest.png?0984c254b0f1de64f67b19e08b9b9a8c";
+
+/***/ }),
+
 /***/ "./resources/js/materialize.js":
 /*!*************************************!*\
   !*** ./resources/js/materialize.js ***!
@@ -44745,8 +44826,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

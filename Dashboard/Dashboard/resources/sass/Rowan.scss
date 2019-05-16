@@ -3,5 +3,17 @@
 }
 
 .example{
-    background-color: darkcyan;
+    background-color: $accent-red;
+}
+
+.existingFile, .quiz{
+    margin-left: 10px;
+}
+
+.fa-chevron-right{
+    font-size: 10px;
+}
+
+.buttonLeft, .buttonRight{
+    
 }
