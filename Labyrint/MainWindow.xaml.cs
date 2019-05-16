@@ -136,13 +136,9 @@ namespace Labyrint
             {
                 for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
                 {
-                    if (MazeFacade.isWall(fromLeft, fromTop))
+                    if (MazeFacade.IsWall(fromLeft, fromTop))
                     {
                         backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
-                    }
-                    else
-                    {
-                        
                     }
                 }
             }

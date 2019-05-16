@@ -11,12 +11,7 @@ namespace Maze
         private static Maze maze;
         private static MazeFactory mazeFactory;
 
-        public static int tileSize;
-
-        static MazeFacade()
-        {
-            tileSize = 250;
-        }
+        public static int tileSize = 250;
 
         public static bool Init()
         {
@@ -31,6 +26,11 @@ namespace Maze
             maze = mazeFactory.GetNewMaze();
         }
 
+        public static Maze GetMaze()
+        {
+            return maze;
+        }
+
         public static int GetMazeWidth()
         {
             return maze.Walls.GetLength(0);
@@ -41,9 +41,9 @@ namespace Maze
             return maze.Walls.GetLength(1);
         }
 
-        public static Boolean isWall(int fromLeft, int fromTop)
+        public static Boolean IsWall(int fromLeft, int fromTop)
         {
-            return maze.isWall(fromLeft, fromTop);
+            return maze.IsWall(fromLeft, fromTop);
         }
     }
 }

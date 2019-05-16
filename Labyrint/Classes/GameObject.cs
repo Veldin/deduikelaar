@@ -148,22 +148,22 @@ namespace GameObjectFactory
         {
             this.fromTop += fromTop;
 
-            if(MazeFacade.isWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+            if(MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
             {
                 this.fromTop -= fromTop;
             }
 
-            if (MazeFacade.isWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+            if (MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
             {
                 this.fromTop -= fromTop;
             }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
             {
                 this.fromTop -= fromTop;
             }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
             {
                 this.fromTop -= fromTop;
             }
@@ -175,22 +175,22 @@ namespace GameObjectFactory
         {
             this.fromLeft += fromLeft;
 
-            if (MazeFacade.isWall((int)this.fromLeft / 250, (int)this.fromTop / 250))
+            if (MazeFacade.IsWall((int)this.fromLeft / 250, (int)this.fromTop / 250))
             {
                 this.fromLeft -= fromLeft;
             }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / 250, (int)this.fromTop / 250))
+            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / 250, (int)this.fromTop / 250))
             {
                 this.fromLeft -= fromLeft;
             }
 
-            if (MazeFacade.isWall((int)this.fromLeft / 250, (int)(this.fromTop + this.Height) / 250))
+            if (MazeFacade.IsWall((int)this.fromLeft / 250, (int)(this.fromTop + this.Height) / 250))
             {
                 this.fromLeft -= fromLeft;
             }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / 250, (int)(this.fromTop + this.Height) / 250))
+            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / 250, (int)(this.fromTop + this.Height) / 250))
             {
                 this.fromLeft -= fromLeft;
             }
