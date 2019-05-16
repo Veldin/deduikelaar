@@ -51,9 +51,9 @@ namespace Maze.Tests
             Maze maze;
 
             //create a cell on everfromTop place in the double arrafromTop
-            for (int fromLeft = 0; fromLeft < 1000; fromLeft++)
+            for (int fromLeft = 0; fromLeft < 10; fromLeft++)
             {
-                for (int fromTop = 0; fromTop < 1000; fromTop++)
+                for (int fromTop = 0; fromTop < 10; fromTop++)
                 {
                     maze = null;
                     maze = mazeFactory.GetNewMaze(fromLeft, fromTop);

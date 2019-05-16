@@ -14,6 +14,27 @@ namespace Maze
 
         }
 
+        /// <summary>
+        /// Creates a new maze using the "Randomized Depth-First Search" algorithm. Smalles size maze is 3 by 3. If a even number is given its made odd (by adding 1).
+        /// If a maze smaller then 3x3 is requested the maze wil be generated 3x3 anyway.
+        /// </summary>
+        /// <remarks>
+        /// The randomized depth-first search algorithm of maze generation implemented using a stack:
+        ///     1. Start with a grid that has no edges(all walls)
+        ///     2. Make the initial cell the current cell
+        ///     3. Push the current cell to the stack and mark it as visited
+        ///     4. While the stack is not empty
+        ///        1. If the current cell has unvisited neighbours
+        ///            1. Choose one of these neighbours randomly
+        ///            2. Remove the wall(add an edge) between the current cell and the chosen neighbor
+        ///            3. Push the neighbor to the stack and mark is as visited
+        ///            4. Make the neighbor the current cell
+        ///        2. Else
+        ///            1. Pop a cell from the stack and make it the current cell
+        /// </remarks>
+        /// <param name="leftSize">The width of the maze.</param>
+        /// <param name="rightSize">The height of the maze.</param>
+        /// <returns>The created Maze</returns>
         public Maze GetNewMaze(int leftSize = 9, int rightSize = 9)
         {
             //Deu to cells needing to be able to have walls the maze sizes need to be odd
@@ -38,11 +59,12 @@ namespace Maze
                 rightSize++;
             }
 
+            //Creates a cells array with the same size as the eventual maze.
             cells = new Cell[leftSize, rightSize];
-
+            //The walls of the grid that is eventualy returned
             bool[,] walls = new bool[leftSize, rightSize];
 
-
+            //The cells in the centre. Thease are anchor points where walls are between. 
             List<Cell> centreCells = new List<Cell>();
 
             //int[int[,]] cells = new int[1];
@@ -53,7 +75,6 @@ namespace Maze
                 for (int fromTop = 0; fromTop < cells.GetLength(1); fromTop++)
                 {
                     Cell needle = new Cell(fromLeft, fromTop, false);
-
                     cells[fromLeft, fromTop] = needle;
 
                     //Get the cels that have uneven fromLeft and fromTop to be sure thefromTop share borders to remove (to create a maze)
@@ -65,7 +86,7 @@ namespace Maze
                 }
             }
 
-            //Set the walls of the centre cells.
+            //Set the walls reference of the centre cells.
             foreach (Cell cell in centreCells)
             {
                 cell.north = cells[cell.fromLeft, cell.fromTop - 1];
@@ -96,12 +117,7 @@ namespace Maze
 
                 Cell selectedNeighbour = null;
 
-                foreach (Cell n in neighbours)
-                {
-                    ////Debug.WriteLine(n);
-                }
-
-
+                //Check if all the nodes are null
                 if (neighbours[0] == null && neighbours[1] == null && neighbours[2] == null && neighbours[3] == null)
                 {
                     //Pop a cell from the stack and make it the current cell
@@ -109,7 +125,6 @@ namespace Maze
                 }
                 else
                 {
-
                     int side = 0;
 
                     while (selectedNeighbour == null)
