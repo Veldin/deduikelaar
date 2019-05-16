@@ -22,8 +22,9 @@ class CreateItem extends Component {
                 </div>
               </div>
 
+              <label for="last_name">Bestaand document</label>
               <div className="row">
-                <div className="switch">
+                <div className="switch existingFile">
                   <label>
                     Nee
                     <input type="checkbox"></input>
@@ -46,6 +47,43 @@ class CreateItem extends Component {
                 </div>
               </div>
               </div>
+
+              <label for="last_name">Quiz</label>
+              <div className="row">
+                <div className="switch quiz">
+                  <label>
+                    Nee
+                    <input type="checkbox"></input>
+                    <span className="lever"></span>
+                    Ja
+                  </label>
+                </div>
+              </div>
+
+              <div className="row">
+                <button className="buttonLeft" type="button"><i class="fas fa-chevron-left"></i></button>
+                  <label className="col s4">
+                    <input className="with-gap" name="group1" type="radio" checked></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </label>
+
+                  <label className="col s4">
+                    <input className="with-gap" name="group1" type="radio"></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </label>
+
+                  <label className="col s4">
+                    <input className="with-gap" name="group1" type="radio"></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </label>
+
+                  <label className="col s4">
+                    <input className="with-gap" name="group1" type="radio"></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </label>
+                  <button className="buttonRight" type="button"><i class="fas fa-chevron-right"></i></button>
+              </div>
+
             </form>
           </div>
 

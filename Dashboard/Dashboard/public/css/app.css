@@ -31,7 +31,16 @@
 }
 
 .example {
-  background-color: darkcyan;
+  background-color: #ff0043;
+}
+
+.existingFile,
+.quiz {
+  margin-left: 10px;
+}
+
+.fa-chevron-right {
+  font-size: 10px;
 }
 
 .materialize-red {
