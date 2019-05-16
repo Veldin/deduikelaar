@@ -5,7 +5,7 @@ class Master extends Component {
   render(){
     return (
       <div className="container">
-        <div className="row">
+        <div className="row content">
           <div className="col s2 navigationContainer">
             <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
               <span className="navigationItemText">Overzicht</span>

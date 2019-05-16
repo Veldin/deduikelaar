@@ -2,6 +2,10 @@
 
 }
 
+.containerAddItem{
+    padding: 10px;
+}
+
 .example{
     background-color: $accent-red;
 }
@@ -10,10 +14,20 @@
     margin-left: 10px;
 }
 
-.fa-chevron-right{
-    font-size: 10px;
+.quiz{
+    margin-bottom: 10px;
 }
 
 .buttonLeft, .buttonRight{
-    
+    position: absolute;
 }
+
+
+div.itemCollection {
+    overflow: auto;
+    white-space: nowrap;
+  }
+  
+  div.item {
+    display: inline-block;
+  }
