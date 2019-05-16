@@ -44687,17 +44687,28 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         "class": "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col s3 navigationContainer"
+        "class": "col s2 navigationContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         "class": "col s12 navigationItem",
+        activeClassName: "col s12 navigationItem active",
         to: "/overview"
-      }, "Overzicht"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "class": "navigationItemText"
+      }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         "class": "col s12 navigationItem",
+        activeClassName: "col s12 navigationItem active",
         to: "/add-item"
-      }, "Item Toevoegen"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "class": "navigationItemText"
+      }, "Item Toevoegen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         "class": "col s12 navigationItem",
+        activeClassName: "col s12 navigationItem active",
         to: "/see-example"
-      }, "Voorbeeld")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "class": "navigationItemText"
+      }, "Voorbeeld"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "col s1"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         "class": "col s9 overviewContainer"
       }, "2")));
     }

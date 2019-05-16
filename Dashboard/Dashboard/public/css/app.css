@@ -2,7 +2,6 @@
 
 .header {
   height: 80px;
-  width: 100vw;
   background-color: #304964;
 }
 
@@ -12,18 +11,27 @@
   background-position: 100% 100%;
   background-repeat: no-repeat;
   background-color: #1e344c;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
 }
 
 #superContainer .navigationContainer .navigationItem {
-  background-color: #304964;
   width: 100%;
-  height: 30px;
-  color: white;
+  height: 40px;
+  color: #8391a5;
   display: flex;
   align-items: center;
-  color: white;
+}
+
+#superContainer .navigationContainer .navigationItem.active {
+  background-color: #304964;
+  margin-left: -50px;
+}
+
+#superContainer .navigationContainer .navigationItem.active .navigationItemText {
+  color: #e7edf2;
+  margin-left: 50px;
 }
 
 #superContainer .overviewContainer {

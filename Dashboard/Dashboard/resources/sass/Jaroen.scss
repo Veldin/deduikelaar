@@ -1,7 +1,6 @@
 // Body
 .header{
     height: 80px;
-    width: 100vw;
     background-color: $primary-light;
 }
 
@@ -11,21 +10,28 @@
     background-position: 100% 100%;
     background-repeat: no-repeat;
     background-color: $primary-dark;
-    height: 100vh;
+	min-height: 100vh;
+    height: 100%;
 	background-image: url("../../public/images/backgroundAccent.png");
-
 
 	.navigationContainer{
 		.navigationItem{
-			background-color: $primary-light;
 			width: 100%;
-			height: 30px;
-			color: white;
+			height: 40px;
+			color: $secondary-light;
 			display: flex;
     		align-items: center;
-    		color: white;
+
+			&.active{
+				background-color: $primary-light;
+				margin-left: -50px;
+
+				.navigationItemText{
+					color: $secondary-dark;
+					margin-left: 50px;
+				}
+			}
 		}
-		
 	}
 
 	.overviewContainer{
