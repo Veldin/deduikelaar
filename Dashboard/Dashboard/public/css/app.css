@@ -24,6 +24,10 @@
   align-items: center;
 }
 
+#superContainer .navigationContainer .navigationItem:hover {
+  color: #e7edf2;
+}
+
 #superContainer .navigationContainer .navigationItem.active {
   background-color: #304964;
   margin-left: -50px;
@@ -32,10 +36,6 @@
 #superContainer .navigationContainer .navigationItem.active .navigationItemText {
   color: #e7edf2;
   margin-left: 50px;
-}
-
-#superContainer .overviewContainer {
-  background-color: green;
 }
 
 .example {
