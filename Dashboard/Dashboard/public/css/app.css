@@ -6,14 +6,17 @@
 }
 
 #superContainer {
+  background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
   background-color: #1e344c;
   background-size: 45%;
   background-position: 100% 100%;
   background-repeat: no-repeat;
-  background-color: #1e344c;
   min-height: 100vh;
   height: 100%;
-  background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
+}
+
+#superContainer .navigationContainer {
+  margin-top: 85px;
 }
 
 #superContainer .navigationContainer .navigationItem {
@@ -36,6 +39,20 @@
 #superContainer .navigationContainer .navigationItem.active .navigationItemText {
   color: #e7edf2;
   margin-left: 50px;
+}
+
+#superContainer .contentContainer .overviewFilter {
+  color: #8391a5;
+  height: 75px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+#superContainer .contentContainer .overviewFilter .overviewSwitch {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .example {

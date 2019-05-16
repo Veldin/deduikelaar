@@ -44621,7 +44621,7 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
+        className: "row content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s2 navigationContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -44704,7 +44704,20 @@ function (_Component) {
   _createClass(Overview, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row overviewFilter"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s2 overviewLabel"
+      }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s10 overviewSwitch"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "switch"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        checked: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "lever"
+      }), "Alle"))));
     }
   }]);
 
