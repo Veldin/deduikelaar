@@ -2,6 +2,32 @@
 
 }
 
-.example{
-    background-color: darkcyan;
+.containerAddItem{
+    padding: 10px;
 }
+
+.example{
+    background-color: $accent-red;
+}
+
+.existingFile, .quiz{
+    margin-left: 10px;
+}
+
+.quiz{
+    margin-bottom: 10px;
+}
+
+.buttonLeft, .buttonRight{
+    position: absolute;
+}
+
+
+div.itemCollection {
+    overflow: auto;
+    white-space: nowrap;
+  }
+  
+  div.item {
+    display: inline-block;
+  }

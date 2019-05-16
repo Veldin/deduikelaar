@@ -1,34 +1,57 @@
 // Body
 .header{
     height: 80px;
-    width: 100vw;
     background-color: $primary-light;
 }
 
 #superContainer{
+	background-image: url("../../public/images/backgroundAccent.png");
 	background-color: $primary-dark;
 	background-size: 45%;
     background-position: 100% 100%;
     background-repeat: no-repeat;
-    background-color: $primary-dark;
-    height: 100vh;
-	background-image: url("../../public/images/backgroundAccent.png");
-
+	min-height: 100vh;
+    height: 100%;
 
 	.navigationContainer{
+		margin-top: 85px;
+
 		.navigationItem{
-			background-color: $primary-light;
 			width: 100%;
-			height: 30px;
-			color: white;
+			height: 40px;
+			color: $secondary-light;
 			display: flex;
     		align-items: center;
-    		color: white;
+
+			&:hover{
+		        color: $secondary-dark;
+		    }
+
+			&.active{
+				background-color: $primary-light;
+				margin-left: -50px;
+
+				.navigationItemText{
+					color: $secondary-dark;
+					margin-left: 50px;
+				}
+			}
 		}
-		
 	}
 
-	.overviewContainer{
-		background-color: green;
+	.contentContainer{
+		.overviewFilter{
+			color: $secondary-light;
+			height: 75px;
+			margin-bottom: 10px;
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-around;
+
+			.overviewSwitch{
+				display: flex;
+    			justify-content: flex-end;
+			}
+		}
 	}
 }

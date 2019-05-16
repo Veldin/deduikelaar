@@ -4,10 +4,11 @@ import { Router, Route, Link } from 'react-router';
 class CreateItem extends Component {
     render() {
       return (
-      <div className="container-fluid">
+      <div className="container-fluid containerAddItem">
         <div className="row">
 
           <div className="col s5 inputFields">
+
             <form>
             <div className="row">
               <div className="input-field col s11">
@@ -22,8 +23,9 @@ class CreateItem extends Component {
                 </div>
               </div>
 
+              <label for="last_name">Bestaand document</label>
               <div className="row">
-                <div className="switch">
+                <div className="switch existingFile">
                   <label>
                     Nee
                     <input type="checkbox"></input>
@@ -46,6 +48,44 @@ class CreateItem extends Component {
                 </div>
               </div>
               </div>
+
+                <label for="last_name">Quiz</label>
+                <div className="row">
+                  <div className="switch quiz">
+                    <label>
+                      Nee
+                      <input type="checkbox"></input>
+                      <span className="lever"></span>
+                      Ja
+                    </label>
+                  </div>
+                </div>
+
+              <label for="last_name">Kies een item</label>
+              <div className="row col s12 itemCollection">
+
+                  <div className="item">
+                    <input className="with-gap" name="group1" type="radio" checked></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </div>
+
+                  <div className="item">
+                    <input className="with-gap" name="group1" type="radio"></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </div>
+
+                  <div className="item">
+                    <input className="with-gap" name="group1" type="radio"></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </div>
+
+                  <div className="item">
+                    <input className="with-gap" name="group1" type="radio"></input>
+                    <span><img src={ require('./logotest.png') } /></span>
+                  </div>
+                  
+              </div>
+
             </form>
           </div>
 

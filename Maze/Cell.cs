@@ -26,24 +26,29 @@ namespace Maze
             this.visited = false;
         }
 
+        /// <summary>
+        /// Checks if all (north/east/south/west) borders are not passable.
+        /// </summary>
+        /// <returns>False if one or more of the borders are passable or null.</returns>
         public Boolean hasAllBorders()
         {
-            if (north.passable)
+            if (north is null || north.passable)
             {
                 return false;
             }
-            if (east.passable)
+            if (east is null || east.passable)
             {
                 return false;
             }
-            if (south.passable)
+            if (south is null || south.passable)
             {
                 return false;
             }
-            if (west.passable)
+            if (west is null || west.passable)
             {
                 return false;
             }
+
             return true;
         }
     }

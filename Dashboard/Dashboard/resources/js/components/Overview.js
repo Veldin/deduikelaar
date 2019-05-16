@@ -4,14 +4,17 @@ import { Router, Route, Link } from 'react-router';
 class Overview extends Component {
   render(){
     return (
-      <div class="container">
-        <div class="row">
-          <div class="col s3 navigationContainer">
-            <Link class="col s12 navigationItem" to="/overview">Overzicht</Link>
-            <Link class="col s12 navigationItem" to="/add-item">Item Toevoegen</Link>
-            <Link class="col s12 navigationItem" to="/see-example">Voorbeeld</Link>
+      <div className="row overviewFilter">
+        <div className="col s2 overviewLabel">Alle Items</div>
+        <div className="col s10 overviewSwitch">
+          <div className="switch">
+            <label>
+              Alleen Actief
+              <input type="checkbox" checked></input> //TODO: checkbox cant uncheck
+              <span className="lever"></span>
+              Alle
+            </label>
           </div>
-          <div class="col s9 overviewContainer">2</div>
         </div>
       </div>
     )
