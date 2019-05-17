@@ -175,22 +175,22 @@ namespace GameObjectFactory
         {
             this.fromLeft += fromLeft;
 
-            if (MazeFacade.IsWall((int)this.fromLeft / 250, (int)this.fromTop / 250))
+            if (MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
             {
                 this.fromLeft -= fromLeft;
             }
 
-            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / 250, (int)this.fromTop / 250))
+            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
             {
                 this.fromLeft -= fromLeft;
             }
 
-            if (MazeFacade.IsWall((int)this.fromLeft / 250, (int)(this.fromTop + this.Height) / 250))
+            if (MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
             {
                 this.fromLeft -= fromLeft;
             }
 
-            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / 250, (int)(this.fromTop + this.Height) / 250))
+            if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
             {
                 this.fromLeft -= fromLeft;
             }

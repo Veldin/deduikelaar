@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace GameObjectFactory
 
         public static void ReturnGameObject(GameObject target)
         {
+            Log.Debug(target);
             factory.ReturnGameObject(target);
         }
 

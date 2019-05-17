@@ -62,8 +62,8 @@ namespace GameObjectFactory
 
             if (wantToGet == "tile")
             {
-                gameObject.Width = 250f;
-                gameObject.Height = 250f;
+                gameObject.Width = 200f;
+                gameObject.Height = 200f;
 
                 gameObject.setActiveBitmap("Assets/tile.gif");
             }

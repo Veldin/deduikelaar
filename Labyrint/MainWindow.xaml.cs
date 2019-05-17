@@ -128,23 +128,8 @@ namespace Labyrint
 
             gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
 
-
             backgroundObjects = new List<GameObject>();
-
-            //create a cell on everfromTop place in the double arrafromTop
-            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
-            {
-                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
-                {
-                    if (MazeFacade.IsWall(fromLeft, fromTop))
-                    {
-                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
-                    }
-                }
-            }
-
-
-            
+            populateBackgroundObject();
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 24, 40, 80));
@@ -248,10 +233,13 @@ namespace Labyrint
 
                     //If a gameObject is marked to be destroyed remove it from the list and remove them from the canvas
                     gameObjects.Remove(gameObject);
+
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         TestCanvas.Children.Remove(gameObject.rectangle);
                     });
+
+                    GameObjectFactoryFacade.ReturnGameObject(gameObject);
                 }
             }
 
@@ -385,7 +373,6 @@ namespace Labyrint
                 // Add the difference to the players target to move it in the right direction
                 player.Target.AddFromLeft(differenceLeft * 20f);
                 player.Target.AddFromTop(differenceTop * 20f);
-                Log.Debug("test");
             }
         }
 
@@ -455,6 +442,20 @@ namespace Labyrint
             // Remove the anchor for the controller
             controllerAnchor.destroyed = true;
             controllerCursor.destroyed = true;
+        }
+
+        private void populateBackgroundObject()
+        {
+            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
+                {
+                    if (MazeFacade.IsWall(fromLeft, fromTop))
+                    {
+                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                    }
+                }
+            }
         }
     }
 }

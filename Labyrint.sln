@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogTests", "LogTests\LogTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeTests", "MazeTests\MazeTests.csproj", "{47A16AB1-8BAB-40DE-B819-E28D9ED24369}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundSystem", "SoundSystem\SoundSystem.csproj", "{12AC1CD2-8628-4848-8427-3B6453A58EB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundSystemTests", "SoundSystemTests\SoundSystemTests.csproj", "{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{47A16AB1-8BAB-40DE-B819-E28D9ED24369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47A16AB1-8BAB-40DE-B819-E28D9ED24369}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47A16AB1-8BAB-40DE-B819-E28D9ED24369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
