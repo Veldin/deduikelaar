@@ -1,9 +1,11 @@
-// Body
+
+// Header
 .header{
     height: 80px;
     background-color: $primary-light;
 }
 
+// Body
 #superContainer{
 	background-image: url("../../public/images/backgroundAccent.png");
 	background-color: $primary-dark;
@@ -52,6 +54,10 @@
 				display: flex;
     			justify-content: flex-end;
 			}
+		}
+
+		.overviewCards{
+			
 		}
 	}
 }

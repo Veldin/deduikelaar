@@ -1,19 +1,30 @@
 import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
+import Card from './Card/Card';
 
 class Overview extends Component {
   render(){
     return (
-      <div className="row overviewFilter">
-        <div className="col s2 overviewLabel">Alle Items</div>
-        <div className="col s10 overviewSwitch">
-          <div className="switch">
-            <label>
-              Alleen Actief
-              <input type="checkbox" checked></input> //TODO: checkbox cant uncheck
-              <span className="lever"></span>
-              Alle
-            </label>
+      <div className="overviewContentContainer">
+        <div className="row overviewFilter">
+          <div className="col s2 overviewLabel">Alle Items</div>
+          <div className="col s10 overviewSwitch">
+            <div className="switch">
+              <label>
+                Alleen Actief
+                <input type="checkbox" checked></input> /* TODO: checkbox cant uncheck */
+                <span className="lever"></span>
+                Alle
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="row overviewCards">
+          <div className="cards-container">
+            <Card title="test title" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
+            <Card title="test title 2" active="1" emoteOne="2" emoteTwo="11" emoteThree="5" />
+            <Card title="test title 3" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
+            <Card title="test title 4" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
           </div>
         </div>
       </div>
