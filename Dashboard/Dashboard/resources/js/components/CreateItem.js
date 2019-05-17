@@ -64,26 +64,33 @@ class CreateItem extends Component {
               <label for="last_name">Kies een item</label>
               <div className="row col s12 itemCollection">
 
+                <label for="item1">
                   <div className="item">
-                    <input className="with-gap" name="group1" type="radio" checked></input>
+                    <input className="with-gap" id="item1" name="items" type="radio"></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
+                </label>
 
+                <label for="item2">
                   <div className="item">
-                    <input className="with-gap" name="group1" type="radio"></input>
+                    <input className="with-gap" id="item2" name="items" type="radio" checked></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
+                </label>
 
+                <label for="item3">
                   <div className="item">
-                    <input className="with-gap" name="group1" type="radio"></input>
+                    <input className="with-gap" id="item3" name="items" type="radio"></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
+                </label>
 
+                <label for="item4">
                   <div className="item">
-                    <input className="with-gap" name="group1" type="radio"></input>
+                    <input className="with-gap" id="item4" name="items" type="radio"></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
-                  
+                </label>
               </div>
 
             </form>
