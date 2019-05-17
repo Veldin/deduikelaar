@@ -541,7 +541,7 @@ namespace GameObjectFactory
          * Checks whether or not this gameobject is coliding with the given gameOjbect
          * The argument is the given gameObject
         */
-        virtual public Boolean IsColliding(List<GameObject> gameObjects, GameObject givenGameObject)
+        virtual public Boolean IsColliding(GameObject givenGameObject)
         {
             //Check if you are comparing to youself.
             if (this == givenGameObject || givenGameObject is null)

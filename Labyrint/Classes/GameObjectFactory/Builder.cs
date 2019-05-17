@@ -53,6 +53,8 @@ namespace GameObjectFactory
 
                 gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
+                gameObject.onTickList.Add(new PickupCollisionBehavior());
+
 
                 gameObject.MovementSpeed = 1200;
 
