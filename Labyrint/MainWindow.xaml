@@ -9,8 +9,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
 >
-    <Viewbox KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" >
-        <Canvas Margin="0" Width="1280" Height="720" Name="TestCanvas" />
-    </Viewbox>
+
+    <Grid x:Name="LayoutRoot">
+        <Viewbox KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" >
+            <Canvas Margin="0" Width="1280" Height="720" Name="TestCanvas" />
+        </Viewbox>
+        <WebBrowser x:Name="Browser" Visibility="Hidden"/>
+    </Grid>
 </Window>
 

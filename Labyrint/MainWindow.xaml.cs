@@ -258,7 +258,7 @@ namespace Labyrint
                 }
             }
 
-           MovePlayer();
+            MovePlayer();
         }
 
 
@@ -495,8 +495,8 @@ namespace Labyrint
                 // create the pickup
                 newPickup = GameObjectFactoryFacade.GetGameObject(
                     "pickup", 
-                    randomFromLeft * MazeFacade.tileSize, 
-                    randomFromTop * MazeFacade.tileSize
+                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
+                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2
                 );
             } while (newPickup.distanceBetween(player) < 800); //if its to close to the player pick a new location
 
