@@ -21,10 +21,10 @@ class Overview extends Component {
         </div>
         <div className="row overviewCards">
           <div className="cards-container">
-            <Card title="test title" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
-            <Card title="test title 2" active="1" emoteOne="2" emoteTwo="11" emoteThree="5" />
-            <Card title="test title 3" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
-            <Card title="test title 4" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
+            <Card title="De brief van Karel" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
+            <Card title="De brief van Karel" active="1" emoteOne="2" emoteTwo="11" emoteThree="5" />
+            <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
+            <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
           </div>
         </div>
       </div>

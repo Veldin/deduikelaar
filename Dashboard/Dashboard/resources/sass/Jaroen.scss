@@ -1,4 +1,3 @@
-
 // Header
 .header{
     height: 80px;
@@ -57,7 +56,26 @@
 		}
 
 		.overviewCards{
-			
+			.card{
+				background-color: rgba(84,110,122,0.6); //needs to be rgba because of opacity
+
+				.card-title{
+					color: $secondary-light;
+					font-size: 1.2rem;
+					font-weight: 400;
+				}
+
+				.deleteItem{
+					display: flex;
+					justify-content: flex-end;
+					color: $accent-red;
+				}
+
+				.switch{
+					display: flex;
+				    justify-content: flex-start;
+				}
+			}
 		}
 	}
 }

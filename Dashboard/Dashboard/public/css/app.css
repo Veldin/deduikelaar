@@ -55,9 +55,25 @@
   justify-content: flex-end;
 }
 
-#superContainer .contentContainer .overviewCards .iets {
-  background-color: red;
-  height: 100px;
+#superContainer .contentContainer .overviewCards .card {
+  background-color: rgba(84, 110, 122, 0.6);
+}
+
+#superContainer .contentContainer .overviewCards .card .card-title {
+  color: #8391a5;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+#superContainer .contentContainer .overviewCards .card .deleteItem {
+  display: flex;
+  justify-content: flex-end;
+  color: #ff0043;
+}
+
+#superContainer .contentContainer .overviewCards .card .switch {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .containerAddItem {
