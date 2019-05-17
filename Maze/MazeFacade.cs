@@ -11,7 +11,7 @@ namespace Maze
         private static Maze maze;
         private static MazeFactory mazeFactory;
 
-        public static int tileSize = 200;
+        public static int tileSize = 100;
 
         /// <summary>
         /// Sets the mazeFactory variable and creates a new maze using the factory.

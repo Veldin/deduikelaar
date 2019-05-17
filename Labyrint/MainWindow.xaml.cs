@@ -258,8 +258,8 @@ namespace Labyrint
                 try
                 {
                     //Try to duplicate the arraylist.
-                    loopList = new ArrayList(gameObjects);
-                    loopList.AddRange(backgroundObjects);
+                    loopList = new ArrayList(backgroundObjects);
+                    loopList.AddRange(gameObjects);
 
                     loopList.Add(cursor);
                 }
@@ -444,6 +444,9 @@ namespace Labyrint
             controllerCursor.destroyed = true;
         }
 
+        /// <summary>
+        /// Loops trough the maze and adds background objects where walls are.
+        /// </summary>
         private void populateBackgroundObject()
         {
             for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)

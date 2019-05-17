@@ -35,7 +35,7 @@ namespace Maze
         /// <param name="leftSize">The width of the maze.</param>
         /// <param name="rightSize">The height of the maze.</param>
         /// <returns>The created Maze</returns>
-        public Maze GetNewMaze(int leftSize = 9, int rightSize = 9)
+        public Maze GetNewMaze(int leftSize = 25, int rightSize = 25)
         {
             //Deu to cells needing to be able to have walls the maze sizes need to be odd
             //and the minimum amount of cells is 3 
