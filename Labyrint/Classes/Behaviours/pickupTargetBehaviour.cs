@@ -11,8 +11,8 @@ namespace Labyrint
 {
     public class pickupTargetBehaviour : IBehaviour
     {
-        private float destinationFromLeft;
-        private float destinationFromTop;
+        private readonly float destinationFromLeft;
+        private readonly float destinationFromTop;
 
         //The pickup floats around an anchor.
         private GameObject anchor;

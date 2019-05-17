@@ -89,6 +89,8 @@ namespace Labyrint
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
 
+            random = new Random();
+
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 rectangle = new Rectangle();
@@ -126,8 +128,25 @@ namespace Labyrint
 
             gameObjects.Add(player);
 
-            gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
+            //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
 
+
+            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
+                {
+                    if (!MazeFacade.IsWall(fromLeft, fromTop))
+                    {
+                        ///gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                    }
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                DropNewPickup();
+            }
+            
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
 
@@ -152,10 +171,6 @@ namespace Labyrint
 
         public void Run()
         {
-            if (random is null)
-            {
-                random = new Random();
-            }
 
             now = Stopwatch.GetTimestamp();
             delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
@@ -243,7 +258,7 @@ namespace Labyrint
                 }
             }
 
-           MovePlayer();
+            MovePlayer();
         }
 
 
@@ -459,6 +474,33 @@ namespace Labyrint
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates a new pickup somewere in the maze.
+        /// </summary>
+        private void DropNewPickup()
+        {
+            GameObject newPickup; //holds the new pickup
+            do
+            {
+                int randomFromTop, randomFromLeft;
+                do
+                {
+                    //Get a random wall position
+                    randomFromTop = random.Next(MazeFacade.GetMazeHeight());
+                    randomFromLeft = random.Next(MazeFacade.GetMazeWidth());
+                }while (MazeFacade.IsWall(randomFromTop, randomFromLeft)); //If its a wall pick a new location
+                
+                // create the pickup
+                newPickup = GameObjectFactoryFacade.GetGameObject(
+                    "pickup", 
+                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
+                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2
+                );
+            } while (newPickup.distanceBetween(player) < 800); //if its to close to the player pick a new location
+
+            gameObjects.Add(newPickup);
         }
     }
 }
