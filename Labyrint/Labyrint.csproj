@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Classes\Behaviours\MoveToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
     <Compile Include="Classes\GameObjectFactory\Builder.cs" />
     <Compile Include="Classes\GameObjectFactory\Factory.cs" />
     <Compile Include="Classes\GameObject.cs" />
