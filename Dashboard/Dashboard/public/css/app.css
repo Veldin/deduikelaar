@@ -2,36 +2,109 @@
 
 .header {
   height: 80px;
-  width: 100vw;
   background-color: #304964;
 }
 
 #superContainer {
+  background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
   background-color: #1e344c;
   background-size: 45%;
   background-position: 100% 100%;
   background-repeat: no-repeat;
-  background-color: #1e344c;
-  height: 100vh;
-  background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
+  min-height: 100vh;
+  height: 100%;
+}
+
+#superContainer .navigationContainer {
+  margin-top: 85px;
 }
 
 #superContainer .navigationContainer .navigationItem {
-  background-color: #304964;
   width: 100%;
-  height: 30px;
-  color: white;
+  height: 40px;
+  color: #8391a5;
   display: flex;
   align-items: center;
-  color: white;
 }
 
-#superContainer .overviewContainer {
-  background-color: green;
+#superContainer .navigationContainer .navigationItem:hover {
+  color: #e7edf2;
+}
+
+#superContainer .navigationContainer .navigationItem.active {
+  background-color: #304964;
+  margin-left: -50px;
+}
+
+#superContainer .navigationContainer .navigationItem.active .navigationItemText {
+  color: #e7edf2;
+  margin-left: 50px;
+}
+
+#superContainer .contentContainer .overviewFilter {
+  color: #8391a5;
+  height: 75px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+#superContainer .contentContainer .overviewFilter .overviewSwitch {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#superContainer .contentContainer .overviewCards .card {
+  background-color: rgba(84, 110, 122, 0.6);
+}
+
+#superContainer .contentContainer .overviewCards .card .card-title {
+  color: #8391a5;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+#superContainer .contentContainer .overviewCards .card .deleteItem {
+  display: flex;
+  justify-content: flex-end;
+  color: #ff0043;
+}
+
+#superContainer .contentContainer .overviewCards .card .switch {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.containerAddItem {
+  padding: 10px;
 }
 
 .example {
-  background-color: darkcyan;
+  background-color: #ff0043;
+}
+
+.existingFile,
+.quiz {
+  margin-left: 10px;
+}
+
+.quiz {
+  margin-bottom: 10px;
+}
+
+.buttonLeft,
+.buttonRight {
+  position: absolute;
+}
+
+div.itemCollection {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.item {
+  display: inline-block;
 }
 
 .materialize-red {

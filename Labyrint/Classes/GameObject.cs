@@ -57,6 +57,7 @@ namespace GameObjectFactory
 
         protected float movementSpeed;
         protected int group;
+        protected Boolean collision;
 
         //Holds the string the builder used to make this object.
         protected string builderType;
@@ -146,53 +147,69 @@ namespace GameObjectFactory
 
         public float AddFromTop(float fromTop)
         {
+            return AddFromTop(fromTop, collision);
+        }
+
+        public float AddFromTop(float fromTop, Boolean collition)
+        {
             this.fromTop += fromTop;
 
-            if(MazeFacade.isWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+            if (collision)
             {
-                this.fromTop -= fromTop;
-            }
+                if(MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+                {
+                    this.fromTop -= fromTop;
+                }
 
-            if (MazeFacade.isWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
-            {
-                this.fromTop -= fromTop;
-            }
+                if (MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+                {
+                    this.fromTop -= fromTop;
+                }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
-            {
-                this.fromTop -= fromTop;
-            }
+                if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+                {
+                    this.fromTop -= fromTop;
+                }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
-            {
-                this.fromTop -= fromTop;
+                if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+                {
+                    this.fromTop -= fromTop;
+                }
             }
 
             return this.fromTop;
         }
 
-        public float AddFromLeft(float fromLeft)
+        public float AddFromLeft(float fromTop)
+        {
+            return AddFromLeft(fromTop, collision);
+        }
+
+        public float AddFromLeft(float fromLeft, Boolean collision)
         {
             this.fromLeft += fromLeft;
 
-            if (MazeFacade.isWall((int)this.fromLeft / 250, (int)this.fromTop / 250))
+            if (collision)
             {
-                this.fromLeft -= fromLeft;
-            }
+                if (MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+                {
+                    this.fromLeft -= fromLeft;
+                }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / 250, (int)this.fromTop / 250))
-            {
-                this.fromLeft -= fromLeft;
-            }
+                if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)this.fromTop / MazeFacade.tileSize))
+                {
+                    this.fromLeft -= fromLeft;
+                }
 
-            if (MazeFacade.isWall((int)this.fromLeft / 250, (int)(this.fromTop + this.Height) / 250))
-            {
-                this.fromLeft -= fromLeft;
-            }
+                if (MazeFacade.IsWall((int)this.fromLeft / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+                {
+                    this.fromLeft -= fromLeft;
+                }
 
-            if (MazeFacade.isWall((int)(this.fromLeft + this.Width) / 250, (int)(this.fromTop + this.Height) / 250))
-            {
-                this.fromLeft -= fromLeft;
+                if (MazeFacade.IsWall((int)(this.fromLeft + this.Width) / MazeFacade.tileSize, (int)(this.fromTop + this.Height) / MazeFacade.tileSize))
+                {
+                    this.fromLeft -= fromLeft;
+                }
             }
 
             return this.fromLeft;
@@ -263,6 +280,12 @@ namespace GameObjectFactory
         {
             get { return random; }
             set { random = value; }
+        }
+
+        public Boolean Collition
+        {
+            get { return collision; }
+            set { collision = value; }
         }
 
         //Move to target
@@ -518,7 +541,7 @@ namespace GameObjectFactory
          * Checks whether or not this gameobject is coliding with the given gameOjbect
          * The argument is the given gameObject
         */
-        virtual public Boolean IsColliding(List<GameObject> gameObjects, GameObject givenGameObject)
+        virtual public Boolean IsColliding(GameObject givenGameObject)
         {
             //Check if you are comparing to youself.
             if (this == givenGameObject || givenGameObject is null)

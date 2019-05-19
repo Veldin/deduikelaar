@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,14 @@ namespace GameObjectFactory
             return true;
         }
 
-        public static GameObject GetGameObject(string wantToGet, float fromLeft, float fromTop)
+        public static GameObject GetGameObject(string wantToGet, float fromLeft = 0, float fromTop = 0)
         {
             return factory.GetGameObject(wantToGet, fromLeft, fromTop);
         }
 
         public static void ReturnGameObject(GameObject target)
         {
+            Log.Debug(target);
             factory.ReturnGameObject(target);
         }
 

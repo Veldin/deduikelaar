@@ -89,6 +89,9 @@ namespace Labyrint
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
 
+            random = new Random();
+
+
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 rectangle = new Rectangle();
@@ -126,30 +129,27 @@ namespace Labyrint
 
             gameObjects.Add(player);
 
-            gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
+            //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
 
 
-
-            backgroundObjects = new List<GameObject>();
-
-            //create a cell on everfromTop place in the double arrafromTop
             for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
                 {
-                    if (MazeFacade.isWall(fromLeft, fromTop))
+                    if (!MazeFacade.IsWall(fromLeft, fromTop))
                     {
-                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
-                    }
-                    else
-                    {
-                        
+                        ///gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
                     }
                 }
             }
 
-
+            for (int i = 0; i < 5; i++)
+            {
+                DropNewPickup();
+            }
             
+            backgroundObjects = new List<GameObject>();
+            populateBackgroundObject();
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 24, 40, 80));
@@ -167,10 +167,6 @@ namespace Labyrint
 
         public void Run()
         {
-            if (random is null)
-            {
-                random = new Random();
-            }
 
             now = Stopwatch.GetTimestamp();
             delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
@@ -246,10 +242,13 @@ namespace Labyrint
 
                     //If a gameObject is marked to be destroyed remove it from the list and remove them from the canvas
                     gameObjects.Remove(gameObject);
+
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         gameCanvas.Children.Remove(gameObject.rectangle);
                     });
+
+                    GameObjectFactoryFacade.ReturnGameObject(gameObject);
                 }
             }
 
@@ -268,8 +267,8 @@ namespace Labyrint
                 try
                 {
                     //Try to duplicate the arraylist.
-                    loopList = new ArrayList(gameObjects);
-                    loopList.AddRange(backgroundObjects);
+                    loopList = new ArrayList(backgroundObjects);
+                    loopList.AddRange(gameObjects);
 
                     loopList.Add(cursor);
                 }
@@ -474,6 +473,50 @@ namespace Labyrint
             // Remove the anchor for the controller
             controllerAnchor.destroyed = true;
             controllerCursor.destroyed = true;
+        }
+
+        /// <summary>
+        /// Loops trough the maze and adds background objects where walls are.
+        /// </summary>
+        private void populateBackgroundObject()
+        {
+            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
+                {
+                    if (MazeFacade.IsWall(fromLeft, fromTop))
+                    {
+                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a new pickup somewere in the maze.
+        /// </summary>
+        private void DropNewPickup()
+        {
+            GameObject newPickup; //holds the new pickup
+            do
+            {
+                int randomFromTop, randomFromLeft;
+                do
+                {
+                    //Get a random wall position
+                    randomFromTop = random.Next(MazeFacade.GetMazeHeight());
+                    randomFromLeft = random.Next(MazeFacade.GetMazeWidth());
+                }while (MazeFacade.IsWall(randomFromTop, randomFromLeft)); //If its a wall pick a new location
+                
+                // create the pickup
+                newPickup = GameObjectFactoryFacade.GetGameObject(
+                    "pickup", 
+                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
+                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2
+                );
+            } while (newPickup.distanceBetween(player) < 800); //if its to close to the player pick a new location
+
+            gameObjects.Add(newPickup);
         }
     }
 }

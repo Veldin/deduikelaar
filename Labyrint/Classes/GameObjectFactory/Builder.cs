@@ -1,4 +1,5 @@
 ﻿using Labyrint;
+using Maze;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,12 @@ namespace GameObjectFactory
 
             gameObject.FromLeft = fromLeft;
             gameObject.FromTop = fromTop;
+            gameObject.Collition = true;
 
             if (wantToGet == "player")
             {
-                gameObject.Width = 24 * 2.5f;
-                gameObject.Height = 42 * 2.5f;
+                gameObject.Width = 15 * 2.5f;
+                gameObject.Height = 15 * 2.5f;
 
                 gameObject.MovementSpeed = 0;
                 gameObject.Group = 1;
@@ -46,24 +48,27 @@ namespace GameObjectFactory
 
             if (wantToGet == "pickup")
             {
-                gameObject.Width = 40f;
-                gameObject.Height = 40f;
+                gameObject.Width = 30f;
+                gameObject.Height = 30f;
 
-                gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft + 500, gameObject.FromTop + 500));
+                gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
+                gameObject.onTickList.Add(new PickupCollisionBehavior());
 
-                gameObject.MovementSpeed = 100;
+
+                gameObject.MovementSpeed = 1200;
 
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
+                gameObject.Collition = false;
 
                 gameObject.setActiveBitmap("Assets/tile2.gif");
             }
 
             if (wantToGet == "tile")
             {
-                gameObject.Width = 250f;
-                gameObject.Height = 250f;
+                gameObject.Width = MazeFacade.tileSize;
+                gameObject.Height = MazeFacade.tileSize;
 
                 gameObject.setActiveBitmap("Assets/tile.gif");
             }
