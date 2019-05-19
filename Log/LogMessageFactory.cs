@@ -20,7 +20,7 @@ namespace LogSystem
         public LogMessage CreateMessage(string message, ELoglevel logLevel, string filePath, string memberName, int lineNumber)
         {  
             // Get current time
-            string creationTime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss.fff");
+            string creationTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.fff");
 
             // Write message into the console
             string[] split = filePath.Split('\\');
