@@ -104,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Camera\CameraSystem.csproj">
+      <Project>{04e6f60e-596c-4e7c-8998-e091ac69e6ca}</Project>
+      <Name>CameraSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Log\Log.csproj">
       <Project>{7616142c-77ac-411b-abb4-d38773455720}</Project>
       <Name>Log</Name>

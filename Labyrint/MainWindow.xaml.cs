@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using GameObjectFactory;
 using LogSystem;
 using Maze;
+using CameraSystem;
 
 
 namespace Labyrint
@@ -46,8 +47,7 @@ namespace Labyrint
         private bool IsMouseDown;
 
         //Camera
-        private float cameraLeftOffset = 0;
-        private float cameraTopOffset = 0;
+        private  Camera camera;
 
         //The brush used to fill in the background
         SolidColorBrush backgroundBrush;
@@ -61,8 +61,6 @@ namespace Labyrint
         private List<GameObject> gameObjects;
         private List<GameObject> backgroundObjects;
 
-        private float prevOffsetLeft;               // This is the previous left offset of the camera
-        private float prevOffsetTop;                // This is the previous top offset of the camera
 
         string assemblyName;
 
@@ -80,7 +78,6 @@ namespace Labyrint
             // Add the OnMouseDown and the OnMouseUp as event handler
             AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(OnMouseDown), true);
             AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
-            
 
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
@@ -88,6 +85,9 @@ namespace Labyrint
 
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
+
+            // Create the camera
+            camera = new Camera(gameCanvas, mainWindow);
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -129,6 +129,7 @@ namespace Labyrint
             gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
 
 
+
             backgroundObjects = new List<GameObject>();
 
             //create a cell on everfromTop place in the double arrafromTop
@@ -157,11 +158,6 @@ namespace Labyrint
             //gameObjects.Add(new TextBox(42, 36, 300, 300,0,0,0,0, "text loltext loltext lol"));
 
             renderDistance = 2200;
-
-            InitializeComponent();
-
-            Window.GetWindow(this).KeyUp += KeyUp;
-            Window.GetWindow(this).KeyDown += KeyDown;
 
             fps = 999999999; //Desired max fps.
             interval = 1000 / fps;
@@ -215,10 +211,8 @@ namespace Labyrint
             }
 
             //set the camera on the player position
-            prevOffsetLeft = cameraLeftOffset;
-            prevOffsetTop = cameraTopOffset;
-            cameraLeftOffset = player.FromLeft - (width / 2) + player.Width / 2;
-            cameraTopOffset = player.FromTop - (height / 2) + player.Height / 2;
+            camera.SetFromLeft(player.FromLeft - (width / 2) + player.Width / 2);
+            camera.SetFromTop(player.FromTop - (height / 2) + player.Height / 2);
 
             //For every gameobject in the room
             foreach (GameObject gameObject in loopList)
@@ -237,7 +231,7 @@ namespace Labyrint
             //Set the new curser location
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                Point p = Mouse.GetPosition(TestCanvas);
+                Point p = Mouse.GetPosition(gameCanvas);
                 cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
                 cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
             });
@@ -254,12 +248,12 @@ namespace Labyrint
                     gameObjects.Remove(gameObject);
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        TestCanvas.Children.Remove(gameObject.rectangle);
+                        gameCanvas.Children.Remove(gameObject.rectangle);
                     });
                 }
             }
 
-           MovePlayer();
+            MovePlayer();
         }
 
 
@@ -289,27 +283,29 @@ namespace Labyrint
             //Run it in the UI thread
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                //TestCanvas.Children.Clear();    //Remove all recs from the canvas, start clean every loop
+                //gameCanvas.Children.Clear();    //Remove all recs from the canvas, start clean every loop
 
-                TestCanvas.Background = backgroundBrush;
+                gameCanvas.Background = backgroundBrush;
 
                 Rectangle bgRect = rectangle;
 
                 bgRect.Width = 1280;
                 bgRect.Height = 720;
 
+                //Log.Debug("Width " + viewBox.ActualWidth);
+
                 Canvas.SetLeft(bgRect, 0);
                 Canvas.SetTop(bgRect, 0);
 
-                if (!TestCanvas.Children.Contains(bgRect))
-                    TestCanvas.Children.Add(bgRect);
+                if (!gameCanvas.Children.Contains(bgRect))
+                    gameCanvas.Children.Add(bgRect);
 
                 foreach (GameObject gameObject in loopList)
                 {
 
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
-                        TestCanvas.Children.Remove(gameObject.rectangle);
+                        gameCanvas.Children.Remove(gameObject.rectangle);
                     }
                     else
                     {
@@ -321,11 +317,11 @@ namespace Labyrint
                             rect.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
 
                             // Set up the position in the window, at mouse coordonate
-                            Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - cameraLeftOffset);
-                            Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - cameraTopOffset);
+                            Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
+                            Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
 
-                            if (!TestCanvas.Children.Contains(rect))
-                                TestCanvas.Children.Add(rect);
+                            if (!gameCanvas.Children.Contains(rect))
+                                gameCanvas.Children.Add(rect);
                         }
 
                     }
@@ -372,15 +368,15 @@ namespace Labyrint
                 }
 
                 // Move the controllerAnchor with the camera so it doesnt leave the screen
-                controllerAnchor.FromLeft -= (prevOffsetLeft - cameraLeftOffset);
-                controllerAnchor.FromTop -= (prevOffsetTop - cameraTopOffset);
+                controllerAnchor.FromLeft -= (camera.GetPrevFromLeft() - camera.GetFromLeft());
+                controllerAnchor.FromTop -= (camera.GetPrevFromTop() - camera.GetFromTop());
 
                 // Set the controllerCursor on the same position as the actual cursor
                 controllerCursor.FromLeft = cursor.FromLeft;
                 controllerCursor.FromTop = cursor.FromTop;
 
                 // This adds  movementspeed to the player depending on the distance between the controllerAnchor and the controllerCursor. It's capped on 700!            
-                player.MovementSpeed = controllerAnchor.distanceBetween(controllerCursor) * 2 > 700 ? 700 : controllerAnchor.distanceBetween(controllerCursor) * 2;
+                player.MovementSpeed = 500 + controllerAnchor.distanceBetween(controllerCursor) > 700 ? 700 : 500 + controllerAnchor.distanceBetween(controllerCursor);
 
                 // Set the target of the player to the current pos of the player to reset the target
                 player.Target.SetFromLeft(player.FromLeft);
@@ -389,10 +385,8 @@ namespace Labyrint
                 // Add the difference to the players target to move it in the right direction
                 player.Target.AddFromLeft(differenceLeft * 20f);
                 player.Target.AddFromTop(differenceTop * 20f);
-                Log.Debug("test");
             }
         }
-
 
         /* KeyDown */
         /* 
@@ -402,6 +396,24 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
+
+            //Log.Debug(viewBox.ActualHeight);
+            Log.Debug("------------------------------------------------------------");
+            Log.Debug(cursor.FromLeft);
+            Log.Debug(cursor.FromTop);
+            //Log.Debug("---");
+            //Log.Debug(mainWindow.ActualWidth);
+            //Log.Debug(viewBox.ActualWidth);
+            //Log.Debug(gameCanvas.Width);
+            //Log.Debug("---");
+            //Log.Debug(mainWindow.ActualHeight);
+            //Log.Debug(viewBox.ActualHeight);
+            //Log.Debug(gameCanvas.ActualHeight);
+            //Log.Debug("---");
+            //Log.Debug(viewBox.ActualWidth/gameCanvas.ActualWidth);
+            //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
+            Log.Debug("---");
+            camera.GenerateHeightAndWidth();
         }
 
 
@@ -440,6 +452,9 @@ namespace Labyrint
             gameObjects.Add(controllerAnchor);
             controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
             gameObjects.Add(controllerCursor);
+
+            Log.Debug(controllerAnchor.FromLeft);
+            Log.Debug(controllerAnchor.FromTop);
         }
 
         /// <summary>

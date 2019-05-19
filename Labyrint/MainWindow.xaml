@@ -7,10 +7,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labyrint"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="350" Width="525" Name="mainWindow"
 >
-    <Viewbox KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" >
-        <Canvas Margin="0" Width="1280" Height="720" Name="TestCanvas" />
+    <Viewbox Name="viewBox" KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" >
+        <Canvas Margin="0" Width="1280" Height="720" Name="gameCanvas" />
     </Viewbox>
 </Window>
 
