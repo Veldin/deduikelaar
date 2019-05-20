@@ -61,7 +61,6 @@ namespace Labyrint
         private List<GameObject> gameObjects;
         private List<GameObject> backgroundObjects;
 
-
         string assemblyName;
 
         private int renderDistance;
@@ -138,7 +137,7 @@ namespace Labyrint
                 {
                     if (!MazeFacade.IsWall(fromLeft, fromTop))
                     {
-                        ///gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                        //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
                     }
                 }
             }
@@ -154,10 +153,7 @@ namespace Labyrint
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 24, 40, 80));
 
-
-            //gameObjects.Add(new TextBox(42, 36, 300, 300,0,0,0,0, "text loltext loltext lol"));
-
-            renderDistance = 2200;
+            renderDistance = 1200;
 
             fps = 999999999; //Desired max fps.
             interval = 1000 / fps;
@@ -167,7 +163,6 @@ namespace Labyrint
 
         public void Run()
         {
-
             now = Stopwatch.GetTimestamp();
             delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
 
@@ -216,7 +211,7 @@ namespace Labyrint
                 //OnTick every gameObject
                 if (IsKeyPressed("Space"))
                 {
-                    gameObject.OnTick(gameObjects, pressedKeys, delta * 5f);
+                    gameObject.OnTick(gameObjects, pressedKeys, delta * 7f);
                 }
                 else
                 {
@@ -227,9 +222,15 @@ namespace Labyrint
             //Set the new curser location
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                Point p = Mouse.GetPosition(gameCanvas);
-                cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
-                cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
+                try{
+                    Point p = Mouse.GetPosition(gameCanvas);
+                    cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
+                    cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
+                }
+                catch
+                {
+                    Log.Warning("Could not find pointer location");
+                }
             });
 
             //Destory old objects
@@ -263,13 +264,11 @@ namespace Labyrint
             ArrayList loopList;
             lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
             {
-
                 try
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(backgroundObjects);
                     loopList.AddRange(gameObjects);
-
                     loopList.Add(cursor);
                 }
                 catch
@@ -282,8 +281,6 @@ namespace Labyrint
             //Run it in the UI thread
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                //gameCanvas.Children.Clear();    //Remove all recs from the canvas, start clean every loop
-
                 gameCanvas.Background = backgroundBrush;
 
                 Rectangle bgRect = rectangle;
@@ -291,13 +288,12 @@ namespace Labyrint
                 bgRect.Width = 1280;
                 bgRect.Height = 720;
 
-                //Log.Debug("Width " + viewBox.ActualWidth);
-
                 Canvas.SetLeft(bgRect, 0);
                 Canvas.SetTop(bgRect, 0);
 
+                //If the canvas does not contain the BGRect, add it.
                 if (!gameCanvas.Children.Contains(bgRect))
-                    gameCanvas.Children.Add(bgRect);
+                    gameCanvas.Children.Insert(0, bgRect);
 
                 foreach (GameObject gameObject in loopList)
                 {
@@ -308,21 +304,28 @@ namespace Labyrint
                     }
                     else
                     {
-                        if (!(gameObject is TextBox))
+                        Rectangle rect = gameObject.rectangle;
+
+                        rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
+                        rect.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
+
+                        // Set up the position in the window, at mouse coordonate
+                        Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
+                        Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
+
+                        if (!gameCanvas.Children.Contains(rect))
                         {
-                            Rectangle rect = gameObject.rectangle;
-
-                            rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
-                            rect.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
-
-                            // Set up the position in the window, at mouse coordonate
-                            Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
-                            Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
-
-                            if (!gameCanvas.Children.Contains(rect))
+                            //If the gameobject is important to be seen add it to the end of the array
+                            if (gameObject.highVisibility)
+                            {
                                 gameCanvas.Children.Add(rect);
+                            }
+                            else
+                            {
+                                gameCanvas.Children.Insert(0,rect);
+                            }
                         }
-
+                            
                     }
                 }
             });

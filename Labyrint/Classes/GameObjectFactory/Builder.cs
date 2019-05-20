@@ -70,7 +70,10 @@ namespace GameObjectFactory
                 gameObject.Width = MazeFacade.tileSize;
                 gameObject.Height = MazeFacade.tileSize;
 
+                gameObject.highVisibility = false;
+
                 gameObject.setActiveBitmap("Assets/tile.gif");
+
             }
 
             if (wantToGet == "ControllerAncher")
