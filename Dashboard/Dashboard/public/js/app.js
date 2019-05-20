@@ -54306,7 +54306,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var card = function card(props) {
+  var total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
+  var percentageEmoteOne = Math.round(props.emoteOne / total * 100) + '%';
+  var percentageEmoteTwo = Math.round(props.emoteTwo / total * 100) + '%';
+  var percentageEmoteThree = Math.round(props.emoteThree / total * 100) + '%';
+  var percentageEmoteOneDOM = {
+    width: percentageEmoteOne
+  };
+  var percentageEmoteTwoDOM = {
+    width: percentageEmoteTwo
+  };
+  var percentageEmoteThreeDOM = {
+    width: percentageEmoteThree
+  };
+  console.log(total + "lol: ");
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12 m4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54329,14 +54346,59 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "deleteItem"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faTimes"]
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faTrashAlt"]
   })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "card-title"
-  }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."))));
+  }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row feedback"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s9"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress positiveFeedbackBar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "determinate",
+    style: percentageEmoteOneDOM
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s2"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.emoteOne)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s1 emoteIcon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faSmile"]
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row feedback"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s9"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress neutralFeedbackBar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "determinate",
+    style: percentageEmoteTwoDOM
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s2"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.emoteTwo)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s1 emoteIcon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faSadTear"]
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row feedback"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s9"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "progress negativeFeedbackBar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "determinate",
+    style: percentageEmoteThreeDOM
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s2"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.emoteThree)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s1 emoteIcon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faAngry"]
+  })))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (card);
@@ -54584,7 +54646,7 @@ function (_Component) {
         to: "/see-example"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "navigationItemText"
-      }, "Voorbeeld"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Statestieken"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s1"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s9 contentContainer"
@@ -54661,7 +54723,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         checked: true
-      }), " /* TODO: checkbox cant uncheck */", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lever"
       }), "Alle")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewCards"
@@ -54677,7 +54739,7 @@ function (_Component) {
         title: "De brief van Karel",
         active: "1",
         emoteOne: "2",
-        emoteTwo: "11",
+        emoteTwo: "888",
         emoteThree: "5"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: "De brief van Karel",

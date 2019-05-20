@@ -14,7 +14,7 @@ class Master extends Component {
               <span className="navigationItemText">Item Toevoegen</span>
             </Link>
             <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/see-example">
-              <span className="navigationItemText">Voorbeeld</span>
+              <span className="navigationItemText">Statestieken</span>
             </Link>
           </div>
           <div className="col s1"></div>

@@ -12,7 +12,7 @@ class Overview extends Component {
             <div className="switch">
               <label>
                 Alleen Actief
-                <input type="checkbox" checked></input> /* TODO: checkbox cant uncheck */
+                <input type="checkbox" checked></input> {/* TODO: checkbox cant uncheck */}
                 <span className="lever"></span>
                 Alle
               </label>
@@ -22,7 +22,7 @@ class Overview extends Component {
         <div className="row overviewCards">
           <div className="cards-container">
             <Card title="De brief van Karel" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
-            <Card title="De brief van Karel" active="1" emoteOne="2" emoteTwo="11" emoteThree="5" />
+            <Card title="De brief van Karel" active="1" emoteOne="2" emoteTwo="888" emoteThree="5" />
             <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
             <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
           </div>
