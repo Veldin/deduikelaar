@@ -80,10 +80,6 @@
   padding: 10px;
 }
 
-.example {
-  background-color: #ff0043;
-}
-
 .existingFile,
 .quiz {
   margin-left: 10px;
@@ -105,6 +101,26 @@ div.itemCollection {
 
 div.item {
   display: inline-block;
+}
+
+.cancelButton,
+.saveButton {
+  border-radius: 30px;
+  width: 120px;
+}
+
+.cancelButton {
+  background-color: #ff0043 !important;
+}
+
+.background {
+  background-color: rgba(84, 110, 122, 0.6);
+  height: 400px;
+}
+
+.card {
+  background-color: burlywood;
+  height: 400px;
 }
 
 .materialize-red {
@@ -3609,7 +3625,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {

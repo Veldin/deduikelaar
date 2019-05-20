@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
+import Example from './example/Example';
 
 class CreateItem extends Component {
     render() {
@@ -36,17 +37,17 @@ class CreateItem extends Component {
               </div>
 
               <div className="row">
-              <div className="input-field col s11">
-                <div className="file-field input-field">
-                  <div className="btn">
-                    <span>Bestand downloaden</span>
-                    <input type="file"></input>
-                  </div>
-                  <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text"></input>
+                <div className="input-field col s11">
+                  <div className="file-field input-field">
+                    <div className="btn">
+                      <span>Bestand</span>
+                      <input type="file"></input>
+                    </div>
+                    <div className="file-path-wrapper">
+                      <input className="file-path validate" type="text" placeholder="Upload hier het gewenste bestand"></input>
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
 
                 <label for="last_name">Quiz</label>
@@ -93,20 +94,27 @@ class CreateItem extends Component {
                 </label>
               </div>
 
+              <div className="row">
+                <div className="input-field col s4">
+                  <button class="btn waves-effect waves-light cancelButton" type="submit" name="action">Annuleren</button>
+                </div>
+                <div className="input-field col s4">
+                  <button class="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
+                </div>
+
+              </div>
+
             </form>
           </div>
 
 
 
-          <div className="col s7 inputFields">
+          <div className="col s7 example">
 
-            <div className="example">
-
-              <p>hoi dit is een voorbeeld</p>
-
-            </div>
+              <Example title="De brief van Karel" content="1" />
 
           </div>
+
         </div>
       </div>
       )
