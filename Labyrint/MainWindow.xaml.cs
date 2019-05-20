@@ -137,7 +137,7 @@ namespace Labyrint
                 {
                     if (!MazeFacade.IsWall(fromLeft, fromTop))
                     {
-                        //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                        gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
                     }
                 }
             }
@@ -153,10 +153,7 @@ namespace Labyrint
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 24, 40, 80));
 
-
-            //gameObjects.Add(new TextBox(42, 36, 300, 300,0,0,0,0, "text loltext loltext lol"));
-
-            renderDistance = 2200;
+            renderDistance = 1200;
 
             fps = 999999999; //Desired max fps.
             interval = 1000 / fps;
@@ -166,7 +163,6 @@ namespace Labyrint
 
         public void Run()
         {
-
             now = Stopwatch.GetTimestamp();
             delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
 
@@ -215,7 +211,7 @@ namespace Labyrint
                 //OnTick every gameObject
                 if (IsKeyPressed("Space"))
                 {
-                    gameObject.OnTick(gameObjects, pressedKeys, delta * 5f);
+                    gameObject.OnTick(gameObjects, pressedKeys, delta * 7f);
                 }
                 else
                 {
@@ -266,16 +262,13 @@ namespace Labyrint
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
-            ArrayList bgList;
             lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
             {
-
                 try
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(backgroundObjects);
                     loopList.AddRange(gameObjects);
-
                     loopList.Add(cursor);
                 }
                 catch
@@ -284,8 +277,6 @@ namespace Labyrint
                     return;
                 }
             }
-
-
 
             //Run it in the UI thread
             Application.Current.Dispatcher.Invoke((Action)delegate
@@ -324,6 +315,7 @@ namespace Labyrint
 
                         if (!gameCanvas.Children.Contains(rect))
                         {
+                            //If the gameobject is important to be seen add it to the end of the array
                             if (gameObject.highVisibility)
                             {
                                 gameCanvas.Children.Add(rect);

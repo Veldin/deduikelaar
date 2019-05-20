@@ -10,11 +10,24 @@ namespace Labyrint
 {
     class PickupCollisionBehavior : IBehaviour
     {
+        List<GameObject> loopList;
+
+        public PickupCollisionBehavior(){
+            List<GameObject> loopList = new List<GameObject>();
+        }
+
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
         {
-            foreach(GameObject needle in gameObjects)
+
+            loopList.Clear();
+            lock (gameObjects)
             {
-                if (needle.BuilderType == "player" && gameobject.IsColliding(needle))
+                loopList.AddRange(gameObjects);
+            }
+
+            foreach (GameObject needle in loopList)
+            {
+                if (needle != null && needle.BuilderType == "player" && gameobject.IsColliding(needle))
                 {
                     gameobject.destroyed = true;
                 }

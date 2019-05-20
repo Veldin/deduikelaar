@@ -84,6 +84,8 @@ namespace GameObjectFactory
             onTickList = new List<IBehaviour>();
 
             destroyed = false;
+
+            //Dictates of this object is important to be visible
             highVisibility = true;
 
             movementSpeed = 0;
