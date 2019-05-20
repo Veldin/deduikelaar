@@ -10,16 +10,17 @@ namespace Labyrint
 {
     class PickupCollisionBehavior : IBehaviour
     {
-        List<GameObject> loopList;
+        public List<GameObject> loopList;
 
         public PickupCollisionBehavior(){
-            List<GameObject> loopList = new List<GameObject>();
+            loopList = new List<GameObject>();
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
         {
-
+ 
             loopList.Clear();
+
             lock (gameObjects)
             {
                 loopList.AddRange(gameObjects);

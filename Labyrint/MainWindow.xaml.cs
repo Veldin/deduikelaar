@@ -137,7 +137,7 @@ namespace Labyrint
                 {
                     if (!MazeFacade.IsWall(fromLeft, fromTop))
                     {
-                        gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                        //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
                     }
                 }
             }
