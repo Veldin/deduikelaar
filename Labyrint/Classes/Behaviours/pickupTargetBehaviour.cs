@@ -71,11 +71,11 @@ namespace Labyrint
                 //Place it to the left or right of the player depending on what side the item is.
                 if (diffFromLeft > 0)
                 {
-                    gameobject.Target.AddFromLeft(percentageFromTop * -1);
+                    gameobject.Target.AddFromLeft((percentageFromTop * -1) * 2);
                 }
                 else
                 {
-                    gameobject.Target.AddFromLeft(percentageFromTop);
+                    gameobject.Target.AddFromLeft(percentageFromTop * 2);
                 }
 
                 gameobject.Target.SetFromTop(destinationFromTop + (diffFromTop));
