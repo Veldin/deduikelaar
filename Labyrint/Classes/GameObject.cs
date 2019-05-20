@@ -18,7 +18,6 @@ namespace GameObjectFactory
 
     public class GameObject
     {
-
         private Dictionary<string, BitmapImage> bitmaps;
 
         //Target!
@@ -26,7 +25,6 @@ namespace GameObjectFactory
 
         //Strategies
         public List<IBehaviour> onTickList;
-        public List<IBehaviour> onDeathList;
 
         //Location where this gameObject is within the game.
         //This is also used for the hitbox 
@@ -34,6 +32,7 @@ namespace GameObjectFactory
         protected float height;
         protected float fromLeft;
         protected float fromTop;
+        protected int fromBehind;
 
         protected float health;
         protected float maxHealth;
@@ -55,8 +54,11 @@ namespace GameObjectFactory
         public Random random;
         public Boolean destroyed;
 
+        public Boolean highVisibility;
+
         protected float movementSpeed;
         protected int group;
+
         protected Boolean collision;
 
         //Holds the string the builder used to make this object.
@@ -80,12 +82,13 @@ namespace GameObjectFactory
             this.fromTop = fromTop;
 
             onTickList = new List<IBehaviour>();
-            onDeathList = new List<IBehaviour>();
 
             destroyed = false;
+            highVisibility = true;
 
             movementSpeed = 0;
             group = 0;
+
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -95,8 +98,8 @@ namespace GameObjectFactory
             this.health = 1200;
 
             assemblyName = "Labyrint";
-            //Default location of the sprite.
 
+            //Default location of the sprite.
             setActiveBitmap("Assets/redrand.png");
             location = "Assets/redrand.png";
             setActiveBitmap(location);
@@ -131,6 +134,12 @@ namespace GameObjectFactory
         {
             get { return fromTop; }
             set { fromTop = value; }
+        }
+
+        public int FromBehind
+        {
+            get { return fromBehind; }
+            set { fromBehind = value; }
         }
 
         //Methods to add ammounts to fields that have to do with positioning of the GameOgject.
@@ -498,11 +507,9 @@ namespace GameObjectFactory
         {
             if (Location != set)
             {
-
                 Application.Current.Dispatcher.Invoke((Action)delegate
                 {
                     Location = set;
-                    //if (rectangle is null) { rectangle = new Rectangle(); }
                     rectangle.Fill = new ImageBrush
                     {
                         ImageSource = getActiveBitmap(assemblyName)
@@ -549,15 +556,10 @@ namespace GameObjectFactory
                 return false;
             }
 
-            //Console.WriteLine(FromLeft + " < " + givenGameObject.FromLeft + givenGameObject.Width);
-
             if (FromLeft < givenGameObject.FromLeft + givenGameObject.Width && FromLeft + Width > givenGameObject.FromLeft)
             {
-                //Console.WriteLine("left-rite");
-
                 if (FromTop < givenGameObject.FromTop + givenGameObject.Height && FromTop + Height > givenGameObject.FromTop)
                 {
-                    //Console.WriteLine("also top bottom");
                     return true;
                 }
             }
@@ -566,7 +568,7 @@ namespace GameObjectFactory
 
 
         //reset
-        public void reset()
+        public void Reset()
         {
             //bitmaps = new Dictionary<string, BitmapImage>();
             bitmaps = GameObjectStatic.maps;
@@ -578,7 +580,6 @@ namespace GameObjectFactory
             fromTop = 0;
 
             onTickList = new List<IBehaviour>();
-            onDeathList = new List<IBehaviour>();
 
             destroyed = false;
 
@@ -599,7 +600,6 @@ namespace GameObjectFactory
             location = "Assets/redrand.png";
             setActiveBitmap(location);
         }
-
 
         /* CollitionEffect */
         /*
