@@ -16,7 +16,7 @@ namespace Labyrint
             {
                 if (needle.BuilderType == "player" && gameobject.IsColliding(needle))
                 {
-                    Log.Debug("col");
+                    gameobject.destroyed = true;
                 }
             }
 
