@@ -63,12 +63,14 @@
   color: #8391a5;
   font-size: 1.2rem;
   font-weight: 400;
+  margin-bottom: 0px;
 }
 
 #superContainer .contentContainer .overviewCards .card .deleteItem {
   display: flex;
   justify-content: flex-end;
   color: #ff0043;
+  font-size: 1.2rem;
 }
 
 #superContainer .contentContainer .overviewCards .card .switch {
@@ -76,12 +78,30 @@
   justify-content: flex-start;
 }
 
-.containerAddItem {
-  padding: 10px;
+#superContainer .contentContainer .overviewCards .card .feedback {
+  margin-bottom: 0px;
 }
 
-.example {
+#superContainer .contentContainer .overviewCards .card .feedback .emoteIcon {
+  display: flex;
+  justify-content: flex-end;
+  color: #77c6a0;
+  font-size: 1.2rem;
+}
+
+#superContainer .contentContainer .overviewCards .card .progress {
+  height: 10px;
+  background-color: #1e344c;
+  border-radius: 7px;
+}
+
+#superContainer .contentContainer .overviewCards .card .progress .determinate {
   background-color: #ff0043;
+  border-radius: 7px;
+}
+
+.containerAddItem {
+  padding: 10px;
 }
 
 .existingFile,
@@ -105,6 +125,32 @@ div.itemCollection {
 
 div.item {
   display: inline-block;
+}
+
+.cancelButton,
+.saveButton {
+  border-radius: 30px;
+  width: 120px;
+}
+
+.cancelButton {
+  background-color: #ff0043 !important;
+}
+
+.background {
+  background-color: rgba(84, 110, 122, 0.6);
+  height: 400px;
+}
+
+.exampleCard {
+  background-color: #d3b792;
+  height: 400px;
+  margin-top: 4%;
+}
+
+.emoteIconExample {
+  color: #8391a5;
+  font-size: 3rem;
 }
 
 .materialize-red {
@@ -3609,7 +3655,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {

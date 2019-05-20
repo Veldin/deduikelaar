@@ -76,7 +76,7 @@ namespace GameObjectFactory
 
         private void ResetGameObject(GameObject target)
         {
-            target.reset();
+            target.Reset();
         }
 
         private void Populate(int poolsize)

@@ -6,10 +6,6 @@
     padding: 10px;
 }
 
-.example{
-    background-color: $accent-red;
-}
-
 .existingFile, .quiz{
     margin-left: 10px;
 }
@@ -31,3 +27,28 @@ div.itemCollection {
   div.item {
     display: inline-block;
   }
+
+.cancelButton, .saveButton{
+    border-radius: 30px;
+    width: 120px;
+}
+
+.cancelButton{
+    background-color: $accent-red !important;
+}
+
+.background{
+    background-color: rgba(84,110,122,0.6);  //needs to be rgba because of opacity
+    height: 400px;
+}
+
+.exampleCard{
+    background-color: $card-brown;
+    height: 400px;
+    margin-top: 4%;
+}
+
+.emoteIconExample{
+    color: $secondary-light;
+    font-size: 3rem;
+}
