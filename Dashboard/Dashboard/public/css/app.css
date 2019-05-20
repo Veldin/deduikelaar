@@ -142,9 +142,15 @@ div.item {
   height: 400px;
 }
 
-.card {
-  background-color: burlywood;
+.exampleCard {
+  background-color: #d3b792;
   height: 400px;
+  margin-top: 4%;
+}
+
+.emoteIconExample {
+  color: #8391a5;
+  font-size: 3rem;
 }
 
 .materialize-red {
