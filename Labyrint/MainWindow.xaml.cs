@@ -403,9 +403,9 @@ namespace Labyrint
             pressedKeys.Add(args.Key.ToString());
 
             //Log.Debug(viewBox.ActualHeight);
-            Log.Debug("------------------------------------------------------------");
-            Log.Debug(cursor.FromLeft);
-            Log.Debug(cursor.FromTop);
+            //Log.Debug("------------------------------------------------------------");
+            //Log.Debug(cursor.FromLeft);
+            //Log.Debug(cursor.FromTop);
             //Log.Debug("---");
             //Log.Debug(mainWindow.ActualWidth);
             //Log.Debug(viewBox.ActualWidth);
@@ -417,7 +417,9 @@ namespace Labyrint
             //Log.Debug("---");
             //Log.Debug(viewBox.ActualWidth/gameCanvas.ActualWidth);
             //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
-            Log.Debug("---");
+            //Log.Debug("---");
+            FileReaderWriterFacade.ReadFile("Items\\a.txt", "html");
+
             camera.GenerateHeightAndWidth();
         }
 
@@ -520,7 +522,7 @@ namespace Labyrint
                     randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
                     randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2
                 );
-            } while (newPickup.distanceBetween(player) < 800); //if its to close to the player pick a new location
+            } while (newPickup.distanceBetween(player) < 0); //if its to close to the player pick a new location
 
             gameObjects.Add(newPickup);
         }

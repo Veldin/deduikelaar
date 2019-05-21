@@ -6,21 +6,21 @@ import { faSadTear } from '@fortawesome/free-solid-svg-icons'
 import { faAngry } from '@fortawesome/free-solid-svg-icons'
 
 const card = (props) => {
-  let total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
+  const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
 
-  let percentageEmoteOne = Math.round((props.emoteOne / total) * 100) +'%';
-  let percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100) +'%';
-  let percentageEmoteThree = Math.round((props.emoteThree / total) * 100) +'%';
+  const percentageEmoteOne = Math.round((props.emoteOne / total) * 100) +'%';
+  const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100) +'%';
+  const percentageEmoteThree = Math.round((props.emoteThree / total) * 100) +'%';
 
-  let percentageEmoteOneDOM = {
+  const percentageEmoteOneDOM = {
     width: percentageEmoteOne
   };
 
-  let percentageEmoteTwoDOM = {
+  const percentageEmoteTwoDOM = {
     width: percentageEmoteTwo
   };
 
-  let percentageEmoteThreeDOM = {
+  const percentageEmoteThreeDOM = {
     width: percentageEmoteThree
   };
 
@@ -33,7 +33,7 @@ const card = (props) => {
               <div className="switch">
                 <label>
                   Actief
-                  <input type="checkbox" checked></input> 
+                  <input type="checkbox" defaultChecked></input> 
                   <span className="lever"></span>
                   Inactief
                 </label>

@@ -44,7 +44,10 @@
     <Compile Include="FileReader.cs" />
     <Compile Include="FileReaderWriterFacade.cs" />
     <Compile Include="FileWriter.cs" />
+    <Compile Include="IReadFormat.cs" />
     <Compile Include="IWriteFormat.cs" />
+    <Compile Include="ReadFormatFactory.cs" />
+    <Compile Include="ReadFormats\HtmlReadFormat.cs" />
     <Compile Include="WriteFormats\LogWriterformat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WriteFormatFactory.cs" />

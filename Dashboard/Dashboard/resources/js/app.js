@@ -11,11 +11,11 @@ import Statistics from './components/Statistics';
 
 
 render(
-  <Router history={browserHistory}>
+  	<Router history={browserHistory}>
         <Route path="/" component={Master} >
         	<Route path="/overview" component={Overview} />
             <Route path="/add-item" component={CreateItem} />
             <Route path="/see-example" component={Statistics} />
         </Route>
     </Router>,
-        document.getElementById('superContainer'));
+document.getElementById('superContainer'));

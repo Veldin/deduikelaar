@@ -10,9 +10,14 @@ namespace FileReaderWriterSystem
 {
     class FileReader
     {
+        private ReadFormatFactory factory;
+        private Dictionary<string, IReadFormat> readFormats;
+
         public FileReader()
         {
+            factory = new ReadFormatFactory();
 
+            readFormats = new Dictionary<string, IReadFormat>();
         }
 
         /// <summary>
@@ -20,8 +25,32 @@ namespace FileReaderWriterSystem
         /// </summary>
         /// <param name="filePath">Give the file path of the file</param>
         /// <returns>Returns all text from the file</returns>
-        public string ReadFile(string filePath)
+        public string ReadFile(string filePath, string readFormat = null)
         {
+            // Check if a write format is requested
+            if (readFormat != null)
+            {
+                // Check if the write format does already exist
+                if (readFormats.ContainsKey(readFormat))
+                {
+                    // Write the text with the method of the write format
+                    readFormats[readFormat].ReadFile(filePath);
+                    return null;
+                }
+                else
+                {
+                    // Try to add the write format to the writeformats dictionarty
+                    AddReadFormat(readFormat);
+                }
+
+                // Try to write the text with the writeFormat
+                if (readFormats.ContainsKey(readFormat))
+                {
+                    readFormats[readFormat].ReadFile(filePath);
+                    return null;
+                }
+            }
+
             try
             {   // Open the text file using a stream reader.
                 using (StreamReader sr = new StreamReader(filePath))
@@ -30,7 +59,7 @@ namespace FileReaderWriterSystem
                     String line = sr.ReadToEnd();
 
                     // Log the file that is read
-                    Log.Debug("The following file is read: " + filePath);
+                    //Log.Debug("The following file is read: " + filePath);
 
                     // Return the contents of the file
                     return line;
@@ -89,6 +118,19 @@ namespace FileReaderWriterSystem
             }
 
             return fileNames;
+        }
+
+        /// <summary>
+        /// This method adds a new writeFormat to the dictionary
+        /// </summary>
+        /// <param name="key">The name of the writeFormat</param>
+        /// <param name="writeFormat">The actual writeFormat</param>
+        private void AddReadFormat(string key)
+        {
+            if (factory.CreateReadFormat(key) != null)
+            {
+                readFormats.Add(key, factory.CreateReadFormat(key));
+            }
         }
 
     }

@@ -14,17 +14,17 @@ class CreateItem extends Component {
             <div className="row">
               <div className="input-field col s11">
                 <input id="last_name" type="text"></input>
-                <label for="last_name">Titel</label>
+                <label htmlFor="last_name">Titel</label>
               </div>
               </div>
               <div className="row">
                 <div className="input-field col s11">
                   <input id="last_name" type="text"></input>
-                  <label for="last_name">Beschrijving</label>
+                  <label htmlFor="last_name">Beschrijving</label>
                 </div>
               </div>
 
-              <label for="last_name">Bestaand document</label>
+              <label htmlFor="last_name">Bestaand document</label>
               <div className="row">
                 <div className="switch existingFile">
                   <label>
@@ -50,7 +50,7 @@ class CreateItem extends Component {
                 </div>
               </div>
 
-                <label for="last_name">Quiz</label>
+                <label htmlFor="last_name">Quiz</label>
                 <div className="row">
                   <div className="switch quiz">
                     <label>
@@ -62,31 +62,31 @@ class CreateItem extends Component {
                   </div>
                 </div>
 
-              <label for="last_name">Kies een item</label>
+              <label htmlFor="last_name">Kies een item</label>
               <div className="row col s12 itemCollection">
 
-                <label for="item1">
+                <label htmlFor="item1">
                   <div className="item">
                     <input className="with-gap" id="item1" name="items" type="radio"></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
                 </label>
 
-                <label for="item2">
+                <label htmlFor="item2">
                   <div className="item">
-                    <input className="with-gap" id="item2" name="items" type="radio" checked></input>
+                    <input className="with-gap" id="item2" name="items" type="radio" defaultChecked></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
                 </label>
 
-                <label for="item3">
+                <label htmlFor="item3">
                   <div className="item">
                     <input className="with-gap" id="item3" name="items" type="radio"></input>
                     <span><img src={ require('./logotest.png') } /></span>
                   </div>
                 </label>
 
-                <label for="item4">
+                <label htmlFor="item4">
                   <div className="item">
                     <input className="with-gap" id="item4" name="items" type="radio"></input>
                     <span><img src={ require('./logotest.png') } /></span>
@@ -96,10 +96,10 @@ class CreateItem extends Component {
 
               <div className="row">
                 <div className="input-field col s4">
-                  <button class="btn waves-effect waves-light cancelButton" type="submit" name="action">Annuleren</button>
+                  <button className="btn waves-effect waves-light cancelButton" type="submit" name="action">Annuleren</button>
                 </div>
                 <div className="input-field col s4">
-                  <button class="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
+                  <button className="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
                 </div>
 
               </div>
