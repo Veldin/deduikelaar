@@ -2,6 +2,17 @@
 .header{
     height: 80px;
     background-color: $primary-light;
+
+    .logoHeader{
+    	background-image: url("../../public/images/logoHorizontal.png");
+    	background-size: contain;
+    	height: 55px;
+    	margin-top: 10px;
+	    margin-left: 45px;
+	    width: 100%;
+   		background-position: 0% 45%;
+    	background-repeat: no-repeat;
+    }
 }
 
 // Body
@@ -63,17 +74,41 @@
 					color: $secondary-light;
 					font-size: 1.2rem;
 					font-weight: 400;
+					margin-bottom: 0px;
 				}
 
 				.deleteItem{
 					display: flex;
 					justify-content: flex-end;
 					color: $accent-red;
+					font-size: 1.2rem;
 				}
 
 				.switch{
 					display: flex;
 				    justify-content: flex-start;
+				}
+
+				.feedback{
+					margin-bottom: 0px;
+
+					.emoteIcon{
+						display: flex;
+    					justify-content: flex-end;
+    					color: $accent-green;
+    					font-size: 1.2rem;
+					}
+				}
+
+				.progress{
+					height: 10px;
+					background-color: $primary-dark;
+					border-radius: 7px;
+
+					.determinate{
+						background-color: $accent-red;
+						border-radius: 7px;
+					}
 				}
 			}
 		}
