@@ -1,4 +1,5 @@
 ﻿using Labyrint;
+using LogSystem;
 using Maze;
 using System;
 using System.Collections;
@@ -493,7 +494,7 @@ namespace GameObjectFactory
 
             if (!bitmaps.ContainsKey(Location))
             {
-                Debug.WriteLine("pack://application:,,,/" + assemblyName + ";component/" + Location, UriKind.Absolute);
+                Log.Debug("pack://application:,,,/" + assemblyName + ";component/" + Location);
                 BitmapImage newBitmap = new BitmapImage(new Uri("pack://application:,,,/" + assemblyName + ";component/" + Location, UriKind.Absolute));
                 bitmaps.Add(Location, newBitmap);
 
