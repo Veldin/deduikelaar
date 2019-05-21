@@ -8,13 +8,6 @@
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div class="header">
-            <div class="row">
-                <div class="col s12">
-                    <div class="logoHeader"></div>
-                </div>
-            </div>
-        </div>
         <div id="superContainer">
         </div>
         <script src="{{asset('js/app.js')}}" ></script>

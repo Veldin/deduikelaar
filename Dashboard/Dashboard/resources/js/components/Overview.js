@@ -3,6 +3,12 @@ import { Router, Route, Link } from 'react-router';
 import Card from './Card/Card';
 
 class Overview extends Component {
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json))
+  }
+
   render(){
     return (
       <div className="overviewContentContainer">
@@ -12,7 +18,7 @@ class Overview extends Component {
             <div className="switch">
               <label>
                 Alleen Actief
-                <input type="checkbox" checked></input> {/* TODO: checkbox cant uncheck */}
+                <input type="checkbox" defaultChecked></input>
                 <span className="lever"></span>
                 Alle
               </label>
