@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 
 namespace FileReaderWriterSystem
 {
-    public class WriteFormatFactory
+    public class ReadFormatFactory
     {
-        public WriteFormatFactory()
+        public ReadFormatFactory()
         {
 
         }
 
-        public IWriteFormat CreateWriteFormat(string writeFormatId)
+        public IReadFormat CreateReadFormat(string readFormatId)
         {
             // Define the writeFormat
-            IWriteFormat writeFormat;
+            IReadFormat readFormat;
 
             // Create a writeFormat depending on the writeFormatId
-            switch (writeFormatId)
+            switch (readFormatId)
             {
-                case "logFormat":
-                    writeFormat = new LogWriterformat();
+                case "html":
+                    readFormat = new HtmlReadFormat();
                     break;
                 default:
-                    writeFormat = null;
+                    readFormat = null;
                     break;
             }
 
             // Return the writeFormat
-            return writeFormat; 
+            return readFormat; 
         }
     }
 }
