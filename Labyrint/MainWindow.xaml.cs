@@ -20,7 +20,7 @@ using GameObjectFactory;
 using LogSystem;
 using Maze;
 using CameraSystem;
-
+using FileReaderWriterSystem;
 
 namespace Labyrint
 {
@@ -84,6 +84,9 @@ namespace Labyrint
 
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
+            FileReaderWriterFacade.Init();
+            //Log.Debug(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt");
+            //FileReaderWriterFacade.WriteText(new string[] { "bla" }, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt", false);
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
