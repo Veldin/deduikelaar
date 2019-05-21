@@ -11,7 +11,7 @@ namespace Maze
         private static Maze maze;
         private static MazeFactory mazeFactory;
 
-        public static int tileSize = 100;
+        public static int tileSize = 80;
 
         /// <summary>
         /// Sets the mazeFactory variable and creates a new maze using the factory.
@@ -20,7 +20,7 @@ namespace Maze
         public static bool Init()
         {
             mazeFactory = new MazeFactory();
-            maze = mazeFactory.GetNewMaze();
+            maze = mazeFactory.GetConcatNewMaze();
 
             return true;
         }

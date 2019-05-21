@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,8 +12,98 @@ namespace Maze
 
         public MazeFactory()
         {
-
+            
         }
+
+        public Maze GetConcatNewMaze(int leftSize = 12, int rightSize = 12)
+        {
+            Maze leftUpper = GetNewMaze(leftSize, rightSize);
+            Maze leftLower = GetNewMaze(leftSize, rightSize);
+            Maze rightUpper = GetNewMaze(leftSize, rightSize);
+            Maze rightLowwer = GetNewMaze(leftSize, rightSize);
+
+            int FullWidth = leftUpper.Walls.GetLength(0) + rightUpper.Walls.GetLength(0) - 1;
+            int FullHeight = leftUpper.Walls.GetLength(1) + leftLower.Walls.GetLength(1) - 1;
+
+            bool[,] fullWalls = new bool[FullWidth, FullHeight];
+
+            int leftoffset = 0;
+            int topoffset = 0;
+            for (int fromLeft = 0; fromLeft < leftUpper.Walls.GetLength(0); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < leftUpper.Walls.GetLength(1); fromTop++)
+                {
+                    fullWalls[fromLeft + leftoffset, fromTop + topoffset] = leftUpper.Walls[fromLeft, fromTop];
+                }
+            }
+
+            leftoffset = leftUpper.Walls.GetLength(0) - 1;
+            topoffset = 0;
+            for (int fromLeft = 0; fromLeft < rightUpper.Walls.GetLength(0); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < rightUpper.Walls.GetLength(1); fromTop++)
+                {
+                    fullWalls[fromLeft + topoffset, fromTop + leftoffset] = rightUpper.Walls[fromLeft, fromTop];
+                }
+            }
+
+            leftoffset = 0;
+            topoffset = leftUpper.Walls.GetLength(1) - 1;
+            for (int fromLeft = 0; fromLeft < leftLower.Walls.GetLength(0); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < leftLower.Walls.GetLength(1); fromTop++)
+                {
+                    fullWalls[fromLeft + topoffset, fromTop + leftoffset] = leftLower.Walls[fromLeft, fromTop];
+                }
+            }
+
+            leftoffset = leftUpper.Walls.GetLength(0) - 1;
+            topoffset = leftUpper.Walls.GetLength(1) - 1;
+            for (int fromLeft = 0; fromLeft < rightLowwer.Walls.GetLength(0); fromLeft++)
+            {
+                for (int fromTop = 0; fromTop < rightLowwer.Walls.GetLength(1); fromTop++)
+                {
+                    fullWalls[fromLeft + topoffset, fromTop + leftoffset] = rightLowwer.Walls[fromLeft, fromTop];
+                }
+            }
+
+            // The middle point of the maze
+            int middlePoint = leftUpper.Walls.GetLength(0) - 1;
+            Random random = new Random();
+
+            //For every point to the edge from the middle a random wall is removed.
+            List<int> choices = new List<int>();
+            for (int i = 0; i < middlePoint; i += 2)
+            {
+                choices.Add(i + 1);
+            }
+            fullWalls[middlePoint, choices[random.Next(choices.Count)]] = false;
+
+            choices.Clear();
+            for (int i = middlePoint; i < middlePoint * 2; i += 2)
+            {
+                choices.Add(i + 1);
+            }
+            fullWalls[middlePoint, choices[random.Next(choices.Count)]] = false;
+
+            choices.Clear();
+            for (int i = 0; i < middlePoint; i += 2)
+            {
+                choices.Add(i + 1);
+            }
+            fullWalls[choices[random.Next(choices.Count)], middlePoint] = false;
+
+            choices.Clear();
+            for (int i = middlePoint; i < middlePoint * 2; i += 2)
+            {
+                choices.Add(i + 1);
+            }
+            fullWalls[choices[random.Next(choices.Count)], middlePoint] = false;
+
+            //Return the wall.
+            return new Maze(fullWalls);
+        }
+
 
         /// <summary>
         /// Creates a new maze using the "Randomized Depth-First Search" algorithm. Smalles size maze is 3 by 3. If a even number is given its made odd (by adding 1).
@@ -100,12 +191,13 @@ namespace Maze
              */
 
             Cell currentCell = centreCells[0];
-            int index = 0;
 
             Stack cellStack = new Stack();
 
             cellStack.Push(currentCell);
             currentCell.visited = true;
+
+            int lastSide = 0;
 
             while (cellStack.Count > 0)
             {
@@ -131,9 +223,19 @@ namespace Maze
                     {
                         side = random.Next(0, 4);
                         selectedNeighbour = neighbours[side];
-
-                        Debug.WriteLine(side);
                     }
+
+                    if (lastSide == side)
+                    {
+                        selectedNeighbour = null;
+                        while (selectedNeighbour == null)
+                        {
+                            side = random.Next(0, 4);
+                            selectedNeighbour = neighbours[side];
+                        }
+                    }
+
+                    lastSide = side;
 
                     switch (side)
                     {
@@ -157,10 +259,6 @@ namespace Maze
                     selectedNeighbour.visited = true;
                     currentCell = selectedNeighbour;
                 }
-
-
-
-
             }
 
             /*while (cellStack.Count > 0)
@@ -169,20 +267,27 @@ namespace Maze
             }*/
 
 
-
             for (int fromLeft = 0; fromLeft < cells.GetLength(0); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < cells.GetLength(1); fromTop++)
                 {
                     Cell testDraw = cells[fromLeft, fromTop];
 
-                    if (testDraw.passable == true)
+                    if (centreCells.Contains(testDraw))
                     {
-                        walls[fromLeft, fromTop] = false;
+                        Debug.Write(" "+ CountNeighbours(testDraw) + " ");
                     }
-                    else
-                    {
-                        walls[fromLeft, fromTop] = true;
+                    else { 
+                        if (testDraw.passable == true)
+                        {
+                            walls[fromLeft, fromTop] = false;
+                            Debug.Write("   ");
+                        }
+                        else
+                        {
+                            walls[fromLeft, fromTop] = true;
+                            Debug.Write(" X ");
+                        }
                     }
 
                 }
@@ -191,9 +296,67 @@ namespace Maze
             }
             Debug.WriteLine("_____________");
 
-            Maze maze = new Maze(walls);
+            int countCellsWithMoreThenThreeNeighbours = 0;
+            foreach (Cell cell in centreCells)
+            {
+                if (CountNeighbours(cell) >= 3)
+                {
+                    countCellsWithMoreThenThreeNeighbours++;
+                    Debug.Write("p");
+                }
+                else
+                {
+                    Debug.Write("-");
+                }
+            }
+
+            Debug.Write("countCellsWithMoreThenThreeNeighbours >" + countCellsWithMoreThenThreeNeighbours);
+
+
+            Maze maze = null;
+            if (countCellsWithMoreThenThreeNeighbours < 3)
+            {
+                maze = GetNewMaze(leftSize, rightSize);
+            }
+            else
+            {
+                maze = new Maze(walls);
+            }
+
             return maze;
         }
+
+        private int CountNeighbours(Cell cell)
+        {
+            int neighbours = 0;
+
+            //northNeighbour
+            if (cell.north != null && cell.north.passable == true)
+            {
+                neighbours++;
+            }
+
+            //eastNeighbour
+            if (cell.east != null && cell.east.passable == true)
+            {
+                neighbours++;
+            }
+
+            //southNeighbour
+            if (cell.south != null && cell.south.passable == true)
+            {
+                neighbours++;
+            }
+
+            //southNeighbour
+            if (cell.west != null && cell.west.passable == true)
+            {
+                neighbours++;
+            }
+
+            return neighbours;
+        }
+
 
         private Cell[] getUnvisitedNeighbours(Cell cell)
         {
@@ -239,11 +402,6 @@ namespace Maze
                     neighbours[3] = westNeighbour;
                 }
             }
-
-            //neighbours[0] = northNeighbour;
-            //neighbours[1] = eastNeighbour;
-            //neighbours[2] = southNeighbour;
-            //neighbours[3] = westNeighbour;
 
             return neighbours;
         }

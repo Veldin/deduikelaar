@@ -54337,7 +54337,7 @@ var card = function card(props) {
     className: "switch"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "checkbox",
-    checked: true
+    defaultChecked: true
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "lever"
   }), "Inactief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54467,7 +54467,7 @@ function (_Component) {
         id: "last_name",
         type: "text"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "last_name"
+        htmlFor: "last_name"
       }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54476,9 +54476,9 @@ function (_Component) {
         id: "last_name",
         type: "text"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "last_name"
+        htmlFor: "last_name"
       }, "Beschrijving"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "last_name"
+        htmlFor: "last_name"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54504,7 +54504,7 @@ function (_Component) {
         type: "text",
         placeholder: "Upload hier het gewenste bestand"
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "last_name"
+        htmlFor: "last_name"
       }, "Quiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54514,11 +54514,11 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lever"
       }), "Ja"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "last_name"
+        htmlFor: "last_name"
       }, "Kies een item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "item1"
+        htmlFor: "item1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -54529,7 +54529,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "item2"
+        htmlFor: "item2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -54537,11 +54537,11 @@ function (_Component) {
         id: "item2",
         name: "items",
         type: "radio",
-        checked: true
+        defaultChecked: true
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "item3"
+        htmlFor: "item3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -54552,7 +54552,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "item4"
+        htmlFor: "item4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -54567,13 +54567,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        "class": "btn waves-effect waves-light cancelButton",
+        className: "btn waves-effect waves-light cancelButton",
         type: "submit",
         name: "action"
       }, "Annuleren")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        "class": "btn waves-effect waves-light saveButton",
+        className: "btn waves-effect waves-light saveButton",
         type: "submit",
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54639,7 +54639,24 @@ function (_Component) {
   _createClass(Master, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s8"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "logoHeader"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-field col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "buttonHeader",
+        to: "/add-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn waves-effect waves-light createItemButton",
+        type: "submit",
+        name: "action"
+      }, "Item toevoegen"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row content"
@@ -54654,12 +54671,6 @@ function (_Component) {
       }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "col s12 navigationItem",
         activeClassName: "col s12 navigationItem active",
-        to: "/add-item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "navigationItemText"
-      }, "Item Toevoegen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "col s12 navigationItem",
-        activeClassName: "col s12 navigationItem active",
         to: "/see-example"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "navigationItemText"
@@ -54667,7 +54678,7 @@ function (_Component) {
         className: "col s1"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s9 contentContainer"
-      }, this.props.children)));
+      }, this.props.children))));
     }
   }]);
 
@@ -54725,6 +54736,15 @@ function (_Component) {
   }
 
   _createClass(Overview, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      fetch('https://jsonplaceholder.typicode.com/todos/1').then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return console.log(json);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54739,8 +54759,8 @@ function (_Component) {
         className: "switch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
-        checked: true
-      }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        defaultChecked: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lever"
       }), "Alle")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewCards"
@@ -54949,8 +54969,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

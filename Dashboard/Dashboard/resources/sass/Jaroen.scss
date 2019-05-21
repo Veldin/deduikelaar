@@ -1,9 +1,3 @@
-// Header
-.header{
-    height: 80px;
-    background-color: $primary-light;
-}
-
 // Body
 #superContainer{
 	background-image: url("../../public/images/backgroundAccent.png");
@@ -14,8 +8,30 @@
 	min-height: 100vh;
     height: 100%;
 
+	.header{
+	    height: 80px;
+	    background-color: $primary-light;
+
+	    .logoHeader{
+	    	background-image: url("../../public/images/logoHorizontal.png");
+	    	background-size: contain;
+	    	height: 55px;
+	    	margin-top: 10px;
+		    margin-left: 45px;
+	   		background-position: 0% 45%;
+	    	background-repeat: no-repeat;
+	    }
+
+	    .buttonHeader{
+	    	display: flex;
+		    justify-content: flex-end;
+		    margin-right: 40px;
+		    margin-top: 5px;
+	    }
+	}
+
 	.navigationContainer{
-		margin-top: 85px;
+		margin-top: 93px;
 
 		.navigationItem{
 			width: 100%;
@@ -84,7 +100,7 @@
 					.emoteIcon{
 						display: flex;
     					justify-content: flex-end;
-    					color: $accent-green;
+    					color: $secondary-light;
     					font-size: 1.2rem;
 					}
 				}
