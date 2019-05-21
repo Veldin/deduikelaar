@@ -9,7 +9,11 @@
     </head>
     <body>
         <div class="header">
-        
+            <div class="row">
+                <div class="col s12">
+                    <div class="logoHeader"></div>
+                </div>
+            </div>
         </div>
         <div id="superContainer">
         </div>

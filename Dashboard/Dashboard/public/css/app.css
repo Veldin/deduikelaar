@@ -5,6 +5,17 @@
   background-color: #304964;
 }
 
+.header .logoHeader {
+  background-image: url(/images/logoHorizontal.png?e75629f6b22e2df5b3f98d3a0175ce51);
+  background-size: contain;
+  height: 55px;
+  margin-top: 10px;
+  margin-left: 45px;
+  width: 100%;
+  background-position: 0% 45%;
+  background-repeat: no-repeat;
+}
+
 #superContainer {
   background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
   background-color: #1e344c;
@@ -142,8 +153,8 @@ div.item {
   height: 400px;
 }
 
-.card {
-  background-color: burlywood;
+.exampleCard {
+  background-color: #d3b792;
   height: 400px;
 }
 
@@ -3649,7 +3660,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 90%;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {

@@ -2,6 +2,17 @@
 .header{
     height: 80px;
     background-color: $primary-light;
+
+    .logoHeader{
+    	background-image: url("../../public/images/logoHorizontal.png");
+    	background-size: contain;
+    	height: 55px;
+    	margin-top: 10px;
+	    margin-left: 45px;
+	    width: 100%;
+   		background-position: 0% 45%;
+    	background-repeat: no-repeat;
+    }
 }
 
 // Body
