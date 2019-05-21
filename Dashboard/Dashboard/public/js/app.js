@@ -54525,9 +54525,12 @@ function (_Component) {
         className: "with-gap",
         id: "item1",
         name: "items",
-        type: "radio"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+        type: "radio",
+        defaultChecked: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./envelope2.png */ "./resources/js/components/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54536,10 +54539,11 @@ function (_Component) {
         className: "with-gap",
         id: "item2",
         name: "items",
-        type: "radio",
-        defaultChecked: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./candle.png */ "./resources/js/components/candle.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54549,8 +54553,10 @@ function (_Component) {
         id: "item3",
         name: "items",
         type: "radio"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./envelope2.png */ "./resources/js/components/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54560,8 +54566,10 @@ function (_Component) {
         id: "item4",
         name: "items",
         type: "radio"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./logotest.png */ "./resources/js/components/logotest.png")
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ./candle.png */ "./resources/js/components/candle.png")
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54872,6 +54880,28 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/candle.png":
+/*!********************************************!*\
+  !*** ./resources/js/components/candle.png ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/candle.png?e502baaf55b1c0560614734657f4b302";
+
+/***/ }),
+
+/***/ "./resources/js/components/envelope2.png":
+/*!***********************************************!*\
+  !*** ./resources/js/components/envelope2.png ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/envelope2.png?e249b16e5e6eed380df4130dd01f5c5c";
+
+/***/ }),
+
 /***/ "./resources/js/components/example/Example.js":
 /*!****************************************************!*\
   !*** ./resources/js/components/example/Example.js ***!
@@ -54926,17 +54956,6 @@ var example = function example(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (example);
-
-/***/ }),
-
-/***/ "./resources/js/components/logotest.png":
-/*!**********************************************!*\
-  !*** ./resources/js/components/logotest.png ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/logotest.png?0984c254b0f1de64f67b19e08b9b9a8c";
 
 /***/ }),
 

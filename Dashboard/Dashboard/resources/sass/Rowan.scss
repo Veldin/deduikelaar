@@ -4,6 +4,8 @@
 
 .containerAddItem{
     padding: 10px;
+    margin-top: 83px;  // ligt er aan of we wel of niet menu erbij doen of deze pagina compleet het scherm vullen
+
 }
 
 .existingFile, .quiz{
@@ -53,6 +55,10 @@ div.itemCollection {
     font-size: 3rem;
 }
 
+.itemImage img{
+    height: 170px;
+    padding: 15px;
+}
 
 
 // Style for scrollbar
