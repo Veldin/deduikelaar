@@ -18,8 +18,8 @@ namespace Maze.Tests
             Maze maze;
 
             maze = mazeFactory.GetNewMaze();
-            Assert.AreEqual(maze.Walls.GetLength(0), 9);
-            Assert.AreEqual(maze.Walls.GetLength(1), 9);
+            Assert.AreEqual(maze.Walls.GetLength(0), 25);
+            Assert.AreEqual(maze.Walls.GetLength(1), 25);
         }
 
         [TestMethod()]
