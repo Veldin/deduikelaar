@@ -25,17 +25,22 @@ namespace GameObjectFactory
 
             if (wantToGet == "player")
             {
-                gameObject.Width = 15 * 2.5f;
-                gameObject.Height = 15 * 2.5f;
+                //gameObject.Width = 15 * 2.5f;
+                //gameObject.Height = 15 * 2.5f;
+
+                gameObject.Width = 40f;
+                gameObject.Height = 40f;
 
                 gameObject.MovementSpeed = 0;
                 gameObject.Group = 1;
+
+                gameObject.TopDrawOffset = 15;
 
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
 
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
-                gameObject.setActiveBitmap("Assets/Redrand.png");
+                gameObject.setActiveBitmap("Assets/Sprites/right1_145_200_32.gif");
             }
 
             if (wantToGet == "cursor")
@@ -72,7 +77,7 @@ namespace GameObjectFactory
 
                 gameObject.highVisibility = false;
 
-                gameObject.setActiveBitmap("Assets/tile.gif");
+                gameObject.setActiveBitmap("Assets/wall_600_600_16.gif");
 
             }
 
