@@ -174,7 +174,7 @@ class LabyrintApiController extends Controller
         //    ]
         //}
         if(isset($_GET['onlyActive'])){
-            $stories = \App\Story::with('feedback')->where('active', 0)->get();
+            $stories = \App\Story::with('feedback')->where('active', 1)->get();
         }else{
             $stories = \App\Story::with('feedback')->get();
         }
