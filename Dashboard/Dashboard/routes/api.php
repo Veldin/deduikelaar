@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +12,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+
+Route::get('order', 'Api\LabyrintApiController@getOrder');
+Route::get('stories', 'Api\LabyrintApiController@getStories');
+Route::get('feedback', 'Api\LabyrintApiController@getFeedback');
+Route::get('statistics', 'Api\LabyrintApiController@getStatistics');
