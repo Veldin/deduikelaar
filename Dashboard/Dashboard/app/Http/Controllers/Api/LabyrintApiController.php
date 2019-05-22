@@ -20,6 +20,17 @@ class LabyrintApiController extends Controller
                    //prevents browser from storing history with each change:
                    window.history.replaceState(null, 'documentation', '/api/v1/');
                 }
+                var header = document.querySelector('#applicationHeader');
+                    header.style.display = 'none';
+                var h1 = document.createElement('h1');
+                    h1.innerHTML = 'Documentation';
+                    h1.style.color = '#FFF';
+                    h1.style.paddingTop = '15px';
+                    h1.style.paddingLeft = '20px';
+                    
+                    header.parentNode.appendChild(h1);
+//                for(var i=0; i < header.length; i++){
+//                }
             },500);
         </script>
         ";
