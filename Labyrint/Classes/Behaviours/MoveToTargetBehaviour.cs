@@ -42,7 +42,8 @@ namespace Labyrint
 
             float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
 
-            if (!(totalDifferenceAbs < -1 || totalDifferenceAbs > 1))
+            //If they are close each other to each other don't move
+            if (totalDifferenceAbs < 50)
             {
                 return true;
             }
@@ -55,23 +56,53 @@ namespace Labyrint
             float moveTopDistance = gameobject.MovementSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = gameobject.MovementSpeed * (differenceLeftPercent / 100);
 
+            float moveTopDistanceDelta = (moveTopDistance * delta) / 10000;
+            float moveLeftDistanceDelta = (moveLeftDistance * delta) / 10000;
 
             if (gameobject.Target.FromLeft() > gameobject.FromLeft)
             {
-                gameobject.AddFromLeft((moveLeftDistance * delta) / 10000);
+                if (differenceLeftAbs < moveLeftDistanceDelta)
+                {
+                    gameobject.AddFromLeft(differenceLeftAbs);
+                }
+                else
+                {
+                    gameobject.AddFromLeft(moveLeftDistanceDelta);
+                }
             }
             else
             {
-                gameobject.AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
+                if (differenceLeftAbs < moveLeftDistanceDelta)
+                {
+                    gameobject.AddFromLeft(differenceLeftAbs * -1);
+                }
+                else
+                {
+                    gameobject.AddFromLeft(moveLeftDistanceDelta * -1);
+                }
             }
 
             if (gameobject.Target.FromTop() > gameobject.FromTop)
             {
-                gameobject.AddFromTop((moveTopDistance * delta) / 10000);
+                if (differenceTopAbs < moveTopDistanceDelta)
+                {
+                    gameobject.AddFromTop(differenceTopAbs);
+                }
+                else
+                {
+                    gameobject.AddFromTop(moveTopDistanceDelta);
+                }
             }
             else
             {
-                gameobject.AddFromTop(((moveTopDistance * delta) / 10000) * -1);
+                if (differenceTopAbs < moveTopDistanceDelta)
+                {
+                    gameobject.AddFromTop(differenceTopAbs * -1);
+                }
+                else
+                {
+                    gameobject.AddFromTop(moveTopDistanceDelta * -1);
+                }
             }
 
             return true;

@@ -39,14 +39,11 @@ div.itemCollection {
     background-color: $accent-red !important;
 }
 
-.background{
-    background-color: rgba(84,110,122,0.6);  //needs to be rgba because of opacity
-    height: 400px;
-}
+
 
 .exampleCard{
     background-color: $card-brown;
-    height: 400px;
+    height: 500px;
     margin-top: 4%;
 }
 
@@ -79,4 +76,23 @@ div.itemCollection {
 
 ::-webkit-scrollbar-thumb:hover {
     background: $super-light; 
+}
+
+
+// example 
+
+.background{
+    background-color: rgba(84,110,122,0.6);  //needs to be rgba because of opacity
+    height: 600px;
+}
+
+.exampleCard .title{
+    padding: 0px 10px;
+    font-size: 1.8rem;
+}
+
+.exampleCard .content{
+    height: 310px;
+    padding: 0px 10px;
+    overflow: auto;
 }
