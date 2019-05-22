@@ -46,11 +46,11 @@
 
 			&.active{
 				background-color: $primary-light;
-				margin-left: -50px;
+				margin-left: -55px;
 
 				.navigationItemText{
 					color: $secondary-dark;
-					margin-left: 50px;
+					margin-left: 55px;
 				}
 			}
 		}
@@ -95,13 +95,15 @@
 				}
 
 				.feedback{
-					margin-bottom: 0px;
+					p{
+						color: $secondary-light;
+					}
 
-					.emoteIcon{
-						display: flex;
-    					justify-content: flex-end;
-    					color: $secondary-light;
-    					font-size: 1.2rem;
+					.bar{
+						#hsbar{
+							height: 10px;
+    						border-radius: 10px;
+						}
 					}
 				}
 
