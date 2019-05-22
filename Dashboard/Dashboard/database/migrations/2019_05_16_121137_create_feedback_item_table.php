@@ -14,7 +14,7 @@ class CreateFeedbackItemTable extends Migration
     public function up()
     {
         Schema::create('feedbackItem', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('feedback');
 
             $table->integer('feedbackId')->unsigned();
