@@ -54345,6 +54345,12 @@ var card = function card(props) {
   var percentageEmoteThreeDOM = {
     width: percentageEmoteThree
   };
+
+  function deleteItem(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12 m4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54365,7 +54371,8 @@ var card = function card(props) {
   }), "Inactief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s2"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "deleteItem"
+    className: "deleteItem",
+    onClick: deleteItem
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTrashAlt"]
   })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
