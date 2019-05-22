@@ -25,8 +25,6 @@ namespace GameObjectFactory
 
             if (wantToGet == "player")
             {
-                //gameObject.Width = 15 * 2.5f;
-                //gameObject.Height = 15 * 2.5f;
 
                 gameObject.Width = 40f;
                 gameObject.Height = 40f;
@@ -37,6 +35,7 @@ namespace GameObjectFactory
                 gameObject.TopDrawOffset = 15;
 
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
+                gameObject.onTickList.Add(new PlayerSpriteBehaviour());
 
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 

@@ -4,7 +4,7 @@ import Card from './Card/Card';
 
 class Overview extends Component {
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    fetch('/api/v1/overview')
       .then(response => response.json())
       .then(json => console.log(json))
   }
