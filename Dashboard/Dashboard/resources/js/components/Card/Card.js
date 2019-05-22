@@ -25,6 +25,11 @@ const card = (props) => {
     width: percentageEmoteThree
   };
 
+  function deleteItem(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+  
   return (        
     <div className="col s12 m4">
       <div className="card">
@@ -41,7 +46,7 @@ const card = (props) => {
               </div>
             </div>
             <div className="col s2">
-              <div className="deleteItem">
+              <div className="deleteItem" onClick={deleteItem}>
                 <FontAwesomeIcon icon={faTrashAlt} />
               </div>
             </div>
