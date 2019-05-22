@@ -155,14 +155,9 @@ div.item {
   background-color: #ff0043 !important;
 }
 
-.background {
-  background-color: rgba(84, 110, 122, 0.6);
-  height: 400px;
-}
-
 .exampleCard {
   background-color: #d3b792;
-  height: 400px;
+  height: 500px;
   margin-top: 4%;
 }
 
@@ -193,6 +188,22 @@ div.item {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b1bfd3;
+}
+
+.background {
+  background-color: rgba(84, 110, 122, 0.6);
+  height: 600px;
+}
+
+.exampleCard .title {
+  padding: 0px 10px;
+  font-size: 1.8rem;
+}
+
+.exampleCard .content {
+  height: 310px;
+  padding: 0px 10px;
+  overflow: auto;
 }
 
 .materialize-red {
