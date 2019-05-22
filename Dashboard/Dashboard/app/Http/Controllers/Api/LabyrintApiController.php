@@ -29,8 +29,6 @@ class LabyrintApiController extends Controller
                     h1.style.paddingLeft = '20px';
                     
                     header.parentNode.appendChild(h1);
-//                for(var i=0; i < header.length; i++){
-//                }
             },500);
         </script>
         ";
@@ -43,12 +41,7 @@ class LabyrintApiController extends Controller
         $stories = \App\Story::with('feedback')->get();
         $feedbacks = \App\Feedback::with('feedbackItems')->get();
 
-
-
         foreach ($stories as $story){
-
-
-
             $questions = [];
             foreach ($feedbacks as $feedback){
                 $answers = [];
@@ -60,9 +53,10 @@ class LabyrintApiController extends Controller
                     ];
                 }
                 foreach ($story->feedback as $feedbackItem){
+                    if($feedbackItem->question->id != $feedback->id) continue;
                     if( isset($answers[$feedbackItem->id]) &&
-                        $answers[$feedbackItem->id]['count'] ){
-                        $answers[$feedbackItem->id]['count']++;
+                        isset($answers[$feedbackItem->id]['count']) ){
+                        $answers[$feedbackItem->id]['count'] += 1;
                     }
                 }
                 $answers = array_values($answers);
