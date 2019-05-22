@@ -11,6 +11,25 @@ class LabyrintApiController extends Controller
 {
 
 
+    public function documentation(){
+
+        return file_get_contents("https://alwinkroesen.docs.apiary.io/")."
+        <script>
+            setTimeout(function(){
+                if (window.history.replaceState) {
+                   //prevents browser from storing history with each change:
+                   window.history.replaceState(null, 'documentation', '/api/v1/');
+                }
+            },500);
+        </script>
+        ";
+
+    }
+
+    public function getOverview(){
+
+        return  response()->json(json_decode("{ overview: [ { storyID: 1, title: \"De brief van karel\", active: true, feedback: [ { question: \"Wat was jouw gevoel hierbij?\", answers: [ { answerId: 1, answer: \"\u1F603\", count: 10 }, { answerId: 2, answer: \"\u1F634\", count: 7 }, { answerId: 3, answer: \"\u1F92F\", count: 0 }, ] }, { question: \"Was het te begrijpen?\", answers: [ { answerId: 1, answer: \"Ja\", count: 18 }, { answerId: 2, answer: \"Nee\", count: 7 } ] } ] }, { storyID: 2, title: \"De brief van gert\", feedback: [ { question: \"Wat was jouw gevoel hierbij?\", answers: [ { answerId: 1, answer: \"\u1F603\", count: 10 }, { answerId: 2, answer: \"\u1F634\", count: 7 }, { answerId: 3, answer: \"\u1F92F\", count: 0 }, ] }, { question: \"Was het te begrijpen?\", answers: [ { answerId: 1, answer: \"Ja\", count: 18 }, { answerId: 2, answer: \"Nee\", count: 7 } ] } ] } ] }"));
+    }
 
     public function getOrder(){
 
@@ -127,52 +146,6 @@ class LabyrintApiController extends Controller
     }
 
     public function getStatistics(){
-        //{
-        //    statistics: [
-        //        {
-        //            storyID: 1,
-        //            title: "De brief van karel",
-        //            feedback: [
-        //                {
-        //                    question: "",
-        //                    answers: [
-        //                        {
-        //                            answerId: 1,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                        {
-        //                            answerId: 2,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                    ]
-        //                }
-        //            ]
-        //        },
-        //        {
-        //            storyID: 2,
-        //            title: "De brief van gert",
-        //            feedback: [
-        //                {
-        //                    question: "",
-        //                    answers: [
-        //                        {
-        //                            answerId: 1,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                        {
-        //                            answerId: 2,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                    ]
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //}
         if(isset($_GET['onlyActive'])){
             $stories = \App\Story::with('feedback')->where('active', 1)->get();
         }else{
