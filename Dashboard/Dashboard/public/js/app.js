@@ -54422,7 +54422,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _example_Example__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./example/Example */ "./resources/js/components/example/Example.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54445,29 +54446,36 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+
 var CreateItem =
 /*#__PURE__*/
 function (_Component) {
   _inherits(CreateItem, _Component);
 
   function CreateItem() {
+    var _this;
+
     _classCallCheck(this, CreateItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CreateItem).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateItem).call(this));
+    _this.state = {
+      value: ''
+    };
+    return _this;
   }
 
   _createClass(CreateItem, [{
+    key: "changeState",
+    value: function changeState(event) {
+      console.log("qweqwe");
+      this.setState({
+        value: event.target.value
+      });
+    }
+  }, {
     key: "render",
-    // constructor(props) {
-    //   super(props);
-    //   this.titleExample = this.titleExample.bind(this);
-    // }
-    // const titleExample = () => {
-    //   console.log("qweqwe");
-    // }
-    // titleExample = () => {
-    //   console.log("hoiiii");
-    // }
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid containerAddItem"
@@ -54475,19 +54483,24 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s5 inputFields"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-field col s11"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "title",
+        className: "inputField",
+        type: "text",
+        onChange: this.changeState.bind(this)
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "last_name"
+      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "last_name",
-        type: "text"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        id: "last_name",
+        className: "inputField",
         type: "text"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
@@ -54600,10 +54613,45 @@ function (_Component) {
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s7 example"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        title: "De brief van Karel",
-        content: "1"
-      }))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s12 background"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s12 exampleCard"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", this.state.value, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Voor het project moet er onderzoek gedaan worden naar het ontwikkelen van een applicatie die er voor zorgt dat bezoekers van het museum via een touchscreen tafel kennis op kunnen doen over de tweede wereldoorlog. Om dit te doen is het belangrijk dat er onderzoek gedaan wordt naar wat museum de Duikelaar precies wil. Daarnaast wordt er ook onderzoek gedaan naar kennismanagement zodat het systeem dat gebouwd wordt overeenkomt met de eisen van de klant. Om de resultaten van het onderzoek en de aanpak van het project vast te leggen wordt alle informatie beschreven in een aantal documenten, namelijk: Om de applicatie goed te kunnen realiseren zijn er een aantal eisen opgesteld door de opdrachtgever. Deze eisen zorgen ervoor dat het doel van een correct werkend spel behaald kan worden. Gedurende het project moet er gewerkt worden via de SCRUM methodiek. Dit houdt in dat er acht sprints van \xE9\xE9n week zijn waarbij aan het eind van elke sprint een tussenproduct wordt gepresenteerd aan de opdrachtgever; Er moet gebruik gemaakt worden van de cloud; De applicatie moet op de touchscreen tafel, die bij het museum aanwezig is, gespeeld kunnen worden. Dit houdt in dat er touch ondersteuning moet zijn; De code van de applicatie moet voldoen aan de code conventies van NHL Stenden. 3.3 Eisen scriptieAan het eind van de projectperiode moet er een scriptie van 18.000 woorden opgesteld worden waarin het project in detail beschreven wordt. Deze moet voldoen aan de eisen die op")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "quiz"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "quizQuestion1"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "quizQuestion2"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "quizQuestion3"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "quizQuestion4"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "feedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "emoOne"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s2 emoteIconExample"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSmile"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "emoTwo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s2 emoteIconExample"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSadTear"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "emoThree"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s2 emoteIconExample"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faAngry"]
+      })))))))));
     }
   }]);
 
@@ -54922,71 +54970,6 @@ module.exports = "/images/envelope2.png?e249b16e5e6eed380df4130dd01f5c5c";
 
 /***/ }),
 
-/***/ "./resources/js/components/example/Example.js":
-/*!****************************************************!*\
-  !*** ./resources/js/components/example/Example.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-
-
-
-
-
-
-var example = function example(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s12 background"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s12 exampleCard"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "title"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "content"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Voor het project moet er onderzoek gedaan worden naar het ontwikkelen van een applicatie die er voor zorgt dat bezoekers van het museum via een touchscreen tafel kennis op kunnen doen over de tweede wereldoorlog. Om dit te doen is het belangrijk dat er onderzoek gedaan wordt naar wat museum de Duikelaar precies wil. Daarnaast wordt er ook onderzoek gedaan naar kennismanagement zodat het systeem dat gebouwd wordt overeenkomt met de eisen van de klant. Om de resultaten van het onderzoek en de aanpak van het project vast te leggen wordt alle informatie beschreven in een aantal documenten, namelijk: Om de applicatie goed te kunnen realiseren zijn er een aantal eisen opgesteld door de opdrachtgever. Deze eisen zorgen ervoor dat het doel van een correct werkend spel behaald kan worden. Gedurende het project moet er gewerkt worden via de SCRUM methodiek. Dit houdt in dat er acht sprints van \xE9\xE9n week zijn waarbij aan het eind van elke sprint een tussenproduct wordt gepresenteerd aan de opdrachtgever; Er moet gebruik gemaakt worden van de cloud; De applicatie moet op de touchscreen tafel, die bij het museum aanwezig is, gespeeld kunnen worden. Dit houdt in dat er touch ondersteuning moet zijn; De code van de applicatie moet voldoen aan de code conventies van NHL Stenden. 3.3 Eisen scriptieAan het eind van de projectperiode moet er een scriptie van 18.000 woorden opgesteld worden waarin het project in detail beschreven wordt. Deze moet voldoen aan de eisen die op")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "quiz"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "quizQuestion1"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "quizQuestion2"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "quizQuestion3"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "quizQuestion4"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "feedback"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "emoOne"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s2 emoteIconExample"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faSmile"]
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "emoTwo"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s2 emoteIconExample"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faSadTear"]
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "emoThree"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s2 emoteIconExample"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faAngry"]
-  }))))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (example);
-
-/***/ }),
-
 /***/ "./resources/js/materialize.js":
 /*!*************************************!*\
   !*** ./resources/js/materialize.js ***!
@@ -55016,8 +54999,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
