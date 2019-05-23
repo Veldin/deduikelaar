@@ -24,27 +24,27 @@ namespace FileReaderWriterSystem
                     switch (i % 7)
                     {
                         case 0:
-                            outputFile.WriteLine("LogLevel: " + text[i]);
+                            outputFile.Write("LogLevel: " + text[i] + "\t\t");
                             break;
                         case 1:
-                            outputFile.WriteLine("Date: " + text[i]);
+                            outputFile.Write("Date: " + text[i] + "\t\t");
                             break;
                         case 2:
-                            outputFile.WriteLine("Time: " + text[i]);
+                            outputFile.Write("Time: " + text[i] + "\t\t");
                             break;
                         case 3:
-                            outputFile.WriteLine("File: " + text[i]);
+                            outputFile.WriteLine("");
+                            outputFile.Write("File: " + text[i] + "\t\t");
                             break;
                         case 4:
-                            outputFile.WriteLine("Method: " + text[i]);
+                            outputFile.Write("Method: " + text[i] + "\t\t");
                             break;
                         case 5:
-                            outputFile.WriteLine("Line number: " + text[i]);
+                            outputFile.Write("Line number: " + text[i] + "\t\t");
                             break;
                         case 6:
                             outputFile.WriteLine(" ");
                             outputFile.WriteLine("Message: " + text[i]);
-                            outputFile.WriteLine(" ");
                             outputFile.WriteLine("-------------------------------------------------------------");
                             break;
                     }

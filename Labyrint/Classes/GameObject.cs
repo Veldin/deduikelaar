@@ -92,11 +92,15 @@ namespace GameObjectFactory
             movementSpeed = 0;
             group = 0;
 
-
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            try{
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    rectangle = new Rectangle();
+                }));
+            }catch
             {
-                rectangle = new Rectangle();
-            }));
+                Log.Warning("Can't invoke Application.Current.Dispatcher.");
+            }
 
             this.health = 1200;
 
@@ -510,14 +514,21 @@ namespace GameObjectFactory
         {
             if (Location != set)
             {
-                Application.Current.Dispatcher.Invoke((Action)delegate
+                try
                 {
-                    Location = set;
-                    rectangle.Fill = new ImageBrush
+                    Application.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        ImageSource = getActiveBitmap(assemblyName)
-                    };
-                });
+                        Location = set;
+                        rectangle.Fill = new ImageBrush
+                        {
+                            ImageSource = getActiveBitmap(assemblyName)
+                        };
+                    });
+                }
+                catch
+                {
+                    Log.Warning("Can't invoke Application.Current.Dispatcher.");
+                }
                 return true;
             }
 
@@ -589,10 +600,17 @@ namespace GameObjectFactory
             movementSpeed = 0;
             group = 0;
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            try
             {
-                rectangle = new Rectangle();
-            }));
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    rectangle = new Rectangle();
+                }));
+            }
+            catch
+            {
+                Log.Warning("Can't invoke Application.Current.Dispatcher.");
+            }
 
             this.health = 0;
 

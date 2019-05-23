@@ -9,7 +9,7 @@ const example = (props) => {
         <div className="col s12 background">
             <div className="col s12 exampleCard">
                 <div className="title">
-                <p>btn waves-effect waves-light save</p>
+                    {/* <p> {this.state.title} </p> */}
                 </div>
                 <div className="content">
                 <p>Voor het project moet er onderzoek gedaan worden naar het ontwikkelen van een applicatie die er voor zorgt dat bezoekers van het museum via een touchscreen tafel kennis op kunnen doen over de tweede wereldoorlog. Om dit te doen is het belangrijk dat er onderzoek gedaan wordt naar wat museum de Duikelaar precies wil. Daarnaast wordt er ook onderzoek gedaan naar kennismanagement zodat het systeem dat gebouwd wordt overeenkomt met de eisen van de klant.

@@ -54458,6 +54458,16 @@ function (_Component) {
 
   _createClass(CreateItem, [{
     key: "render",
+    // constructor(props) {
+    //   super(props);
+    //   this.titleExample = this.titleExample.bind(this);
+    // }
+    // const titleExample = () => {
+    //   console.log("qweqwe");
+    // }
+    // titleExample = () => {
+    //   console.log("hoiiii");
+    // }
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid containerAddItem"
@@ -54472,9 +54482,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "last_name",
         type: "text"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
-      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
@@ -54744,9 +54752,15 @@ function (_Component) {
   _inherits(Overview, _Component);
 
   function Overview() {
+    var _this;
+
     _classCallCheck(this, Overview);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Overview).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
+    _this.state = {
+      totalCards: 0
+    };
+    return _this;
   }
 
   _createClass(Overview, [{
@@ -54754,9 +54768,9 @@ function (_Component) {
     value: function componentDidMount() {
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
-      }).then(function (json) {
-        return console.log(json);
-      });
+      }).then(this.setState({
+        totalCards: 4
+      }));
     }
   }, {
     key: "render",
@@ -54780,7 +54794,7 @@ function (_Component) {
         className: "row overviewCards"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cards-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.totalCards), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: "De brief van Karel",
         active: "1",
         emoteOne: "4",
@@ -54934,7 +54948,7 @@ var example = function example(props) {
     className: "col s12 exampleCard"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "title"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "btn waves-effect waves-light save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "content"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Voor het project moet er onderzoek gedaan worden naar het ontwikkelen van een applicatie die er voor zorgt dat bezoekers van het museum via een touchscreen tafel kennis op kunnen doen over de tweede wereldoorlog. Om dit te doen is het belangrijk dat er onderzoek gedaan wordt naar wat museum de Duikelaar precies wil. Daarnaast wordt er ook onderzoek gedaan naar kennismanagement zodat het systeem dat gebouwd wordt overeenkomt met de eisen van de klant. Om de resultaten van het onderzoek en de aanpak van het project vast te leggen wordt alle informatie beschreven in een aantal documenten, namelijk: Om de applicatie goed te kunnen realiseren zijn er een aantal eisen opgesteld door de opdrachtgever. Deze eisen zorgen ervoor dat het doel van een correct werkend spel behaald kan worden. Gedurende het project moet er gewerkt worden via de SCRUM methodiek. Dit houdt in dat er acht sprints van \xE9\xE9n week zijn waarbij aan het eind van elke sprint een tussenproduct wordt gepresenteerd aan de opdrachtgever; Er moet gebruik gemaakt worden van de cloud; De applicatie moet op de touchscreen tafel, die bij het museum aanwezig is, gespeeld kunnen worden. Dit houdt in dat er touch ondersteuning moet zijn; De code van de applicatie moet voldoen aan de code conventies van NHL Stenden. 3.3 Eisen scriptieAan het eind van de projectperiode moet er een scriptie van 18.000 woorden opgesteld worden waarin het project in detail beschreven wordt. Deze moet voldoen aan de eisen die op")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "quiz"
