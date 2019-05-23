@@ -21,7 +21,7 @@ class CreateStoryFeedbackTable extends Migration
 
             $table->integer('feedbackId')->unsigned()->nullable();
             $table->foreign('feedbackId')->references('id')
-                ->on('feedback')->onDelete('cascade');
+                ->on('feedbackItem')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -1,4 +1,5 @@
 import React from 'react';
+import HSBar from 'react-horizontal-stacked-bar-chart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
@@ -8,9 +9,9 @@ import { faAngry } from '@fortawesome/free-solid-svg-icons'
 const card = (props) => {
   const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
 
-  const percentageEmoteOne = Math.round((props.emoteOne / total) * 100) +'%';
-  const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100) +'%';
-  const percentageEmoteThree = Math.round((props.emoteThree / total) * 100) +'%';
+  const percentageEmoteOne = Math.round((props.emoteOne / total) * 100);
+  const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100);
+  const percentageEmoteThree = Math.round((props.emoteThree / total) * 100);
 
   const percentageEmoteOneDOM = {
     width: percentageEmoteOne
@@ -24,6 +25,11 @@ const card = (props) => {
     width: percentageEmoteThree
   };
 
+  function deleteItem(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+  
   return (        
     <div className="col s12 m4">
       <div className="card">
@@ -40,7 +46,7 @@ const card = (props) => {
               </div>
             </div>
             <div className="col s2">
-              <div className="deleteItem">
+              <div className="deleteItem" onClick={deleteItem}>
                 <FontAwesomeIcon icon={faTrashAlt} />
               </div>
             </div>
@@ -51,42 +57,19 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
+            <div className="col s3">
+              <p>Gevoel:</p>
+            </div>
             <div className="col s9">
-              <div className="progress positiveFeedbackBar">
-                  <div className="determinate" style={percentageEmoteOneDOM}></div>
+              <div className="bar">
+                <HSBar
+                  data={[
+                    { value: percentageEmoteOne, description: percentageEmoteOne, color: "#ff0043" },
+                    { value: percentageEmoteTwo, description: percentageEmoteTwo, color: "#77c6a0" },
+                    { value: percentageEmoteThree, description: percentageEmoteThree, color: "#d1d33d" }
+                  ]}
+                />
               </div>
-            </div>
-            <div className="col s2">
-              <p>{props.emoteOne}</p>
-            </div>
-            <div className="col s1 emoteIcon">
-              <p><FontAwesomeIcon icon={faSmile} /></p>
-            </div>
-          </div>
-          <div className="row feedback">
-            <div className="col s9">
-              <div className="progress neutralFeedbackBar">
-                  <div className="determinate" style={percentageEmoteTwoDOM}></div>
-              </div>
-            </div>
-            <div className="col s2">
-              <p>{props.emoteTwo}</p>
-            </div>
-            <div className="col s1 emoteIcon">
-              <p><FontAwesomeIcon icon={faSadTear} /></p>
-            </div>
-          </div>
-          <div className="row feedback">
-            <div className="col s9">
-              <div className="progress negativeFeedbackBar">
-                  <div className="determinate" style={percentageEmoteThreeDOM}></div>
-              </div>
-            </div>
-            <div className="col s2">
-              <p>{props.emoteThree}</p>
-            </div>
-            <div className="col s1 emoteIcon">
-              <p><FontAwesomeIcon icon={faAngry} /></p>
             </div>
           </div>
          </div>

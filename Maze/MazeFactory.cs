@@ -15,6 +15,12 @@ namespace Maze
             
         }
 
+        /// <summary>
+        /// Returns a maze that is created from 4 mazes stuck together. This makes for mazes that feel more random and gives more ways to get to the same point (easyer to traverse)
+        /// </summary>
+        /// <param name="leftSize">The with size of the maze (where there are 4 generated of).</param>
+        /// <param name="rightSize">The height size of the maze (where there are 4 generated of).</param>
+        /// <returns>An int that indicates the passable walls surrounding the cell.</returns>
         public Maze GetConcatNewMaze(int leftSize = 12, int rightSize = 12)
         {
             Maze leftUpper = GetNewMaze(leftSize, rightSize);
@@ -201,9 +207,8 @@ namespace Maze
 
             while (cellStack.Count > 0)
             {
-                //Debug.WriteLine(cellStack.Count);
 
-                Cell[] neighbours = getUnvisitedNeighbours(currentCell);
+                Cell[] neighbours = GetUnvisitedNeighbours(currentCell);
 
                 Random random = new Random();
 
@@ -261,72 +266,54 @@ namespace Maze
                 }
             }
 
-            /*while (cellStack.Count > 0)
-            {
-                currentCell = cellStack.Pop() as Cell;
-            }*/
-
-
+            //Convert the cell array to a boolean array containing the value true or false based on the passability of a cell.
             for (int fromLeft = 0; fromLeft < cells.GetLength(0); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < cells.GetLength(1); fromTop++)
                 {
                     Cell testDraw = cells[fromLeft, fromTop];
 
-                    if (centreCells.Contains(testDraw))
+                    if (testDraw.passable == true)
                     {
-                        Debug.Write(" "+ CountNeighbours(testDraw) + " ");
+                        walls[fromLeft, fromTop] = false;
                     }
-                    else { 
-                        if (testDraw.passable == true)
-                        {
-                            walls[fromLeft, fromTop] = false;
-                            Debug.Write("   ");
-                        }
-                        else
-                        {
-                            walls[fromLeft, fromTop] = true;
-                            Debug.Write(" X ");
-                        }
+                    else
+                    {
+                        walls[fromLeft, fromTop] = true;
                     }
-
                 }
-                Debug.WriteLine("");
-
             }
-            Debug.WriteLine("_____________");
 
+            ///To create a more random looking (but not true random feeling) maze. The amound of splits with 3 rouds are counted.
+            ///If there are not more then 2 of them rebuild the maze. (This avoids mazes that feel to repeditice.)
             int countCellsWithMoreThenThreeNeighbours = 0;
             foreach (Cell cell in centreCells)
             {
-                if (CountNeighbours(cell) >= 3)
+                if (CountPassableWalls(cell) >= 3)
                 {
                     countCellsWithMoreThenThreeNeighbours++;
-                    Debug.Write("p");
-                }
-                else
-                {
-                    Debug.Write("-");
                 }
             }
-
-            Debug.Write("countCellsWithMoreThenThreeNeighbours >" + countCellsWithMoreThenThreeNeighbours);
-
 
             Maze maze = null;
             if (countCellsWithMoreThenThreeNeighbours < 3)
             {
-                maze = GetNewMaze(leftSize, rightSize);
+                maze = GetNewMaze(leftSize, rightSize); //Remake the maze
             }
             else
             {
-                maze = new Maze(walls);
+                maze = new Maze(walls); //Put the walls in the container
             }
 
             return maze;
         }
 
-        private int CountNeighbours(Cell cell)
+        /// <summary>
+        /// Counts the walls that are passible around the given cell.
+        /// </summary>
+        /// <param name="cell">The given cell to measure from.</param>
+        /// <returns>An int that indicates the passable walls surrounding the cell.</returns>
+        private int CountPassableWalls(Cell cell)
         {
             int neighbours = 0;
 
@@ -357,11 +344,16 @@ namespace Maze
             return neighbours;
         }
 
-
-        private Cell[] getUnvisitedNeighbours(Cell cell)
+        /// <summary>
+        /// Gets an array of size 4 with the unvisited neighbours filled in and null on the other values.
+        /// The first value is the north cell, second the east, third the south, and fourth the west cell.
+        /// This ignores whether or not the wall between the neighbours is there or not.
+        /// </summary>
+        /// <param name="cell">The Cell the unvisitedneighbours you want.</param>
+        /// <returns>A cell array with the unvisited neighbours filled in.</returns>
+        private Cell[] GetUnvisitedNeighbours(Cell cell)
         {
             Cell[] neighbours = new Cell[4];
-
 
             Cell northNeighbour = null;
             if (cell.fromTop - 2 > 0)

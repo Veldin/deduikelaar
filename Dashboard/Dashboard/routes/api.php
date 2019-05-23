@@ -14,6 +14,8 @@
 
 
 
+Route::get('/', 'Api\LabyrintApiController@documentation');
+Route::get('overview', 'Api\LabyrintApiController@getOverview');
 Route::get('order', 'Api\LabyrintApiController@getOrder');
 Route::get('stories', 'Api\LabyrintApiController@getStories');
 Route::get('feedback', 'Api\LabyrintApiController@getFeedback');

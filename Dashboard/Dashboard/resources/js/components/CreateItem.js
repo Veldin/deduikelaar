@@ -3,6 +3,18 @@ import { Router, Route, Link } from 'react-router';
 import Example from './example/Example';
 
 class CreateItem extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.titleExample = this.titleExample.bind(this);
+  // }
+
+  // const titleExample = () => {
+  //   console.log("qweqwe");
+  // }
+
+  // titleExample = () => {
+  //   console.log("hoiiii");
+  // }
     render() {
       return (
       <div className="container-fluid containerAddItem">
@@ -13,8 +25,8 @@ class CreateItem extends Component {
             <form>
             <div className="row">
               <div className="input-field col s11">
-                <input id="last_name" type="text"></input>
-                <label htmlFor="last_name">Titel</label>
+                <input id="last_name" type="text"  ></input>
+                {/* <label htmlFor="last_name">Titel</label>  onClick={this.titleExample}*/}
               </div>
               </div>
               <div className="row">

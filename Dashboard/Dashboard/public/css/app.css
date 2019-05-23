@@ -50,12 +50,12 @@
 
 #superContainer .navigationContainer .navigationItem.active {
   background-color: #304964;
-  margin-left: -50px;
+  margin-left: -55px;
 }
 
 #superContainer .navigationContainer .navigationItem.active .navigationItemText {
   color: #e7edf2;
-  margin-left: 50px;
+  margin-left: 55px;
 }
 
 #superContainer .contentContainer .overviewFilter {
@@ -95,15 +95,13 @@
   justify-content: flex-start;
 }
 
-#superContainer .contentContainer .overviewCards .card .feedback {
-  margin-bottom: 0px;
+#superContainer .contentContainer .overviewCards .card .feedback p {
+  color: #8391a5;
 }
 
-#superContainer .contentContainer .overviewCards .card .feedback .emoteIcon {
-  display: flex;
-  justify-content: flex-end;
-  color: #8391a5;
-  font-size: 1.2rem;
+#superContainer .contentContainer .overviewCards .card .feedback .bar #hsbar {
+  height: 10px;
+  border-radius: 10px;
 }
 
 #superContainer .contentContainer .overviewCards .card .progress {
@@ -155,14 +153,9 @@ div.item {
   background-color: #ff0043 !important;
 }
 
-.background {
-  background-color: rgba(84, 110, 122, 0.6);
-  height: 400px;
-}
-
 .exampleCard {
   background-color: #d3b792;
-  height: 400px;
+  height: 500px;
   margin-top: 4%;
 }
 
@@ -193,6 +186,22 @@ div.item {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b1bfd3;
+}
+
+.background {
+  background-color: rgba(84, 110, 122, 0.6);
+  height: 600px;
+}
+
+.exampleCard .title {
+  padding: 0px 10px;
+  font-size: 1.8rem;
+}
+
+.exampleCard .content {
+  height: 310px;
+  padding: 0px 10px;
+  overflow: auto;
 }
 
 .materialize-red {
@@ -3697,7 +3706,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 90%;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {

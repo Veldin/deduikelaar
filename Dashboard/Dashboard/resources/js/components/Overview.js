@@ -3,10 +3,22 @@ import { Router, Route, Link } from 'react-router';
 import Card from './Card/Card';
 
 class Overview extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      totalCards: 0
+    };
+  }
+
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    fetch('/api/v1/overview')
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(
+        this.setState({
+          totalCards: 4
+        })
+      )
   }
 
   render(){
@@ -27,6 +39,7 @@ class Overview extends Component {
         </div>
         <div className="row overviewCards">
           <div className="cards-container">
+          <p>{this.state.totalCards}</p>
             <Card title="De brief van Karel" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
             <Card title="De brief van Karel" active="1" emoteOne="2" emoteTwo="888" emoteThree="5" />
             <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />

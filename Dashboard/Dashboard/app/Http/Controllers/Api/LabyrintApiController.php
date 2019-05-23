@@ -11,12 +11,85 @@ class LabyrintApiController extends Controller
 {
 
 
+    public function documentation(){
+
+        return file_get_contents("https://alwinkroesen.docs.apiary.io/")."
+        <script>
+            setTimeout(function(){
+                if (window.history.replaceState) {
+                   //prevents browser from storing history with each change:
+                   window.history.replaceState(null, 'documentation', '/api/v1/');
+                }
+                var header = document.querySelector('#applicationHeader');
+                    header.style.display = 'none';
+                var h1 = document.createElement('h1');
+                    h1.innerHTML = 'Documentation';
+                    h1.style.color = '#FFF';
+                    h1.style.paddingTop = '15px';
+                    h1.style.paddingLeft = '20px';
+                    
+                    header.parentNode.appendChild(h1);
+            },500);
+        </script>
+        ";
+
+    }
+
+    public function getOverview(){
+
+        $data = [];
+        $stories = \App\Story::with('feedback')->get();
+        $feedbacks = \App\Feedback::with('feedbackItems')->get();
+
+        foreach ($stories as $story){
+            $questions = [];
+            foreach ($feedbacks as $feedback){
+                $answers = [];
+                foreach ($feedback->feedbackItems as $feedbackItem){
+                    $answers[$feedbackItem->id] = [
+                        'feedbackId' => $feedbackItem->id,
+                        'answer' => $feedbackItem->feedback,
+                        'count' => 0,
+                    ];
+                }
+                foreach ($story->feedback as $feedbackItem){
+                    if($feedbackItem->question->id != $feedback->id) continue;
+                    if( isset($answers[$feedbackItem->id]) &&
+                        isset($answers[$feedbackItem->id]['count']) ){
+                        $answers[$feedbackItem->id]['count'] += 1;
+                    }
+                }
+                $answers = array_values($answers);
+                usort($answers, function($a, $b) {
+                    return $a['count'] - $b['count'];
+                });
+
+                $questions[] = [
+                    'question' => $feedback->question,
+                    'extraInfo' => $feedback->extraInfo,
+                    'feedbackType' => $feedback->feedbackType,
+                    'answers' => array_values($answers)
+                ];
+            }
+
+            $data[] = [
+                'storyId' => $story->id,
+                'title' => $story->title,
+                'description' => $story->description,
+                'icon' => $story->icon,
+                'active' => $story->active,
+                'feedback' => $questions
+            ];
+
+        }
+
+        return  response()->json($data);
+    }
 
     public function getOrder(){
 
 
         return  response()->json([
-            'order' => [
                 [
                     'storyId' => 1,
                     'feedbackId' => 1
@@ -33,7 +106,6 @@ class LabyrintApiController extends Controller
                     'storyId' => 3,
                     'feedbackId' => 1
                 ],
-            ]
         ]);
     }
 
@@ -127,52 +199,6 @@ class LabyrintApiController extends Controller
     }
 
     public function getStatistics(){
-        //{
-        //    statistics: [
-        //        {
-        //            storyID: 1,
-        //            title: "De brief van karel",
-        //            feedback: [
-        //                {
-        //                    question: "",
-        //                    answers: [
-        //                        {
-        //                            answerId: 1,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                        {
-        //                            answerId: 2,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                    ]
-        //                }
-        //            ]
-        //        },
-        //        {
-        //            storyID: 2,
-        //            title: "De brief van gert",
-        //            feedback: [
-        //                {
-        //                    question: "",
-        //                    answers: [
-        //                        {
-        //                            answerId: 1,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                        {
-        //                            answerId: 2,
-        //                            answer: "",
-        //                            count: 10
-        //                        },
-        //                    ]
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //}
         if(isset($_GET['onlyActive'])){
             $stories = \App\Story::with('feedback')->where('active', 1)->get();
         }else{
