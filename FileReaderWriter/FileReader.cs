@@ -25,7 +25,7 @@ namespace FileReaderWriterSystem
         /// </summary>
         /// <param name="filePath">Give the file path of the file</param>
         /// <returns>Returns all text from the file</returns>
-        public string ReadFile(string filePath, string readFormat = null)
+        public string ReadFile(string filePath, string readFormat = null, object value = null)
         {
             // Check if a write format is requested
             if (readFormat != null)
@@ -34,7 +34,7 @@ namespace FileReaderWriterSystem
                 if (readFormats.ContainsKey(readFormat))
                 {
                     // Write the text with the method of the write format
-                    readFormats[readFormat].ReadFile(filePath);
+                    readFormats[readFormat].ReadFile(filePath, value);
                     return null;
                 }
                 else
@@ -46,7 +46,7 @@ namespace FileReaderWriterSystem
                 // Try to write the text with the writeFormat
                 if (readFormats.ContainsKey(readFormat))
                 {
-                    readFormats[readFormat].ReadFile(filePath);
+                    readFormats[readFormat].ReadFile(filePath, value);
                     return null;
                 }
             }
@@ -59,8 +59,9 @@ namespace FileReaderWriterSystem
                     String line = sr.ReadToEnd();
 
                     // Log the file that is read
-                    //Log.Debug("The following file is read: " + filePath);
+                    Log.Debug("The following file is read: " + filePath);
 
+                    Log.Debug(line);
                     // Return the contents of the file
                     return line;
                 }
@@ -82,11 +83,16 @@ namespace FileReaderWriterSystem
         /// <returns>All the names of the files in the folder</returns>
         public string[] CheckFolder(string filePath)
         {
-            // Create a DirectoryInf o from the directory of the given pathfile
-            DirectoryInfo dirInfo = new DirectoryInfo(filePath);
+            // Create and empty DirectoryInfo
+            DirectoryInfo dirInfo = null;
 
-            // Check if the file path is valic
-            if (!dirInfo.Exists)
+            // Check if the file path is valid
+            try
+            {
+                // Create a DirectoryInf o from the directory of the given pathfile
+                dirInfo = new DirectoryInfo(filePath);
+            }
+            catch
             {
                 Log.Warning("The given file path: '" + filePath + "' is not valid");
                 return null;
@@ -110,12 +116,8 @@ namespace FileReaderWriterSystem
             {
                 fileNames[fileNames.Length - folders.Length + j] = folders[j].Name;
             }
-
-            // Debugging all files that will be returned
-            foreach (string a in fileNames)
-            {
-                Log.Debug(a);
-            }
+            
+            Log.Debug("The contents of the following folder is shown: " + filePath);
 
             return fileNames;
         }

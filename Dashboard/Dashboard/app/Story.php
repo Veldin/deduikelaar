@@ -18,15 +18,13 @@ class Story extends Model
 
 
     public function storyItems(){
-        return $this->hasMany(StoryItem::class);
+        return $this->hasMany(StoryItem::class, 'storyId', 'id');
     }
 
 
     public function feedback()
     {
-//        return $this->hasManyThrough(Story::class, StoryFeedback::class, 'feedbackId', 'id', 'id', 'storyId');
-//        return $this->belongsToMany(Feed::class, 'storyFeedback');
-//        return $this->hasMany(StoryFeedback::class, 'storyId');
         return $this->hasManyThrough(FeedbackItem::class, StoryFeedback::class, 'storyId', 'id', 'id', 'feedbackId');
     }
+
 }

@@ -87,10 +87,9 @@ class LabyrintApiController extends Controller
     }
 
     public function getOrder(){
-
+        // TODO: Implement API getting te order
 
         return  response()->json([
-            'order' => [
                 [
                     'storyId' => 1,
                     'feedbackId' => 1
@@ -107,64 +106,36 @@ class LabyrintApiController extends Controller
                     'storyId' => 3,
                     'feedbackId' => 1
                 ],
-            ]
         ]);
     }
 
 
+
     public function getStories(){
 
-// { stories:
-//    [
-//        {
-//            storyId: 1,
-//            type: "text | image | video | quiz | audio",
-//            html: "<html></html>",
-//
-//        }
-//    ]
-//}
-        return  response()->json([
-            'stories' => [
-                [
-                    'storyId'   => 1,
-                    'type'      => "text",
-                    'html'      => "<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-             <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
-                         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-             <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>"
-                ],
-                [
-                    'storyId'   => 2,
-                    'type'      => "video",
-                    'html'      => "<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-             <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
-                         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-             <title>Document</title>
-</head>
-<body>
-  video
-</body>
-</html>"
-                ],
-            ]
-        ]);
+        $data = [];
+        $stories = Story::with('storyItems')->where('active', 1)->get();
+
+        foreach ($stories as $story){
+            $data[] = [
+                'storyId' => $story->id,
+                'icon' => $story->icon,
+                'html' => view('information-piece', compact('story'))->render()
+            ];
+        }
+        return $data;
+    }
+
+    public function testStory(){
+
+        $story = Story::with('storyItems')->where('active', 1)->find(1);
+        return view('information-piece', compact('story'));
     }
 
 
     public function getFeedback(){
 
+        // TODO: Implement API getting feedback
 
         return  response()->json([
             'feedback' => [
@@ -230,6 +201,20 @@ class LabyrintApiController extends Controller
         }
 
         return  response()->json($data);
+    }
+
+
+    public function deleteStory($storyId){
+        $story = Story::find($storyId);
+        if($story){
+            $story->delete();
+            return response()->json([
+                'response' => 'success'
+            ]);
+        }
+        return response()->json([
+            'response' => 'failed'
+        ]);
     }
 
 }

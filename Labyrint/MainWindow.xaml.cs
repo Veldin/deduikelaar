@@ -21,6 +21,7 @@ using LogSystem;
 using Maze;
 using CameraSystem;
 using FileReaderWriterSystem;
+using ApiParser;
 
 namespace Labyrint
 {
@@ -418,7 +419,14 @@ namespace Labyrint
             //Log.Debug(viewBox.ActualWidth/gameCanvas.ActualWidth);
             //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
             //Log.Debug("---");
-            FileReaderWriterFacade.ReadFile("Items\\a.txt", "html");
+            
+            ApiParserFacade.AddStory();
+            ApiParserFacade.SaveStories();
+            ApiParserFacade.AddQuestion();
+            ApiParserFacade.SaveQuestions();
+            ApiParserFacade.AddItemOrder();
+            ApiParserFacade.SaveItemOrders();
+
 
             camera.GenerateHeightAndWidth();
         }
