@@ -135,6 +135,16 @@
     <Resource Include="Assets\tile2.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\wall_200_200_16.gif" />
+    <Resource Include="Assets\wall_600_600_16.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\front1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\front2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\front3_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\left1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\left2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\left3_145_200_32.gif" />
     <Resource Include="Assets\Sprites\right1_145_200_32.gif" />
     <Resource Include="Assets\Sprites\right1_289_400_32.gif" />
     <Resource Include="Assets\Sprites\right2_145_200_32.gif" />
@@ -143,8 +153,9 @@
     <Resource Include="Assets\Sprites\right3_289_400_32.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\wall_200_200_16.gif" />
-    <Resource Include="Assets\wall_600_600_16.gif" />
+    <Resource Include="Assets\Sprites\back1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\back2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\back3_145_200_32.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
