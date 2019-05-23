@@ -17,6 +17,7 @@ namespace Labyrint
         private float animationDeltaMax;
 
         private int frame;
+        private string position;
 
         public PlayerSpriteBehaviour()
         {
@@ -24,19 +25,53 @@ namespace Labyrint
             lastPositionFromTop = 0;
             animationDeltaMax = 1000;
             animationDelta = animationDeltaMax;
+            position = "right";
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
         {
             bool moved = false;
-            if (Math.Abs(lastPositionFromLeft - gameobject.FromLeft) > 0.1f)
+            if (Math.Abs(lastPositionFromLeft - gameobject.FromLeft) > 0.01f)
             {
                 moved = true;
             }
-            if (Math.Abs(lastPositionFromTop - gameobject.FromTop) > 0.1f)
+            if (Math.Abs(lastPositionFromTop - gameobject.FromTop) > 0.01f)
             {
                 moved = true;
             }
+
+            //Check if there was movement horisontal or vertical
+            if (Math.Abs(lastPositionFromLeft - gameobject.FromLeft) > Math.Abs(lastPositionFromTop - gameobject.FromTop))
+            {
+                //Moving horisontal
+                //Check if moving left or right
+                if (lastPositionFromLeft < gameobject.FromLeft)
+                {
+                    //moving right
+                    position = "right";
+                }
+                else
+                {
+                    //moving left
+                    position = "left";
+                }
+            }
+            else
+            {
+                //Moving vertical
+                //Check if moving up or down
+                if (lastPositionFromTop < gameobject.FromTop)
+                {
+                    //moving down
+                    position = "front";
+                }
+                else
+                {
+                    //moving up
+                    position = "back";
+                }
+            }
+
             lastPositionFromLeft = gameobject.FromLeft;
             lastPositionFromTop = gameobject.FromTop;
 
@@ -51,9 +86,12 @@ namespace Labyrint
                         frame = 1;
                     }
                     Log.Debug(frame);
+
+                    animationDelta = animationDeltaMax;
+                    //'assets/sprites/left2_145_200_32.gif'.'
+                    gameobject.setActiveBitmap("Assets/Sprites/"+ position + frame + "_145_200_32.gif");
                 }
 
-                gameobject.setActiveBitmap("Assets/Sprites/right"+ frame + "_145_200_32.gif");
             }
 
             return false;

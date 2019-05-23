@@ -16,9 +16,18 @@ namespace FileReaderWriterSystem
 
         public static void Init()
         {
+            // Create the necessary folders
             fileWriter.CreateFolder(appDataPath);
             fileWriter.CreateFolder(appDataPath + "Log");
             fileWriter.CreateFolder(appDataPath + "Items");
+
+            // If there is a log file, delete it
+            if (CheckFolder("Log").Contains("Log.txt"))
+            {
+                DeleteFile(new string[] { "Log\\Log.txt" });
+            }
+
+            Log.Debug("FileReaderWriterSystem is initiated");
         }
 
         /// <summary>
@@ -26,9 +35,9 @@ namespace FileReaderWriterSystem
         /// </summary>
         /// <param name="filePath">Give the file path of the file</param>
         /// <returns>Returns all text from the file</returns>
-        public static string ReadFile(string filePath, string readFormat = null)
+        public static string ReadFile(string filePath, string readFormat = null, object value = null)
         {
-            return fileReader.ReadFile(appDataPath + filePath, readFormat);
+            return fileReader.ReadFile(appDataPath + filePath, readFormat, value);
         }
 
         /// <summary>

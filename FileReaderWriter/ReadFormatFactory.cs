@@ -22,9 +22,6 @@ namespace FileReaderWriterSystem
             // Create a writeFormat depending on the writeFormatId
             switch (readFormatId)
             {
-                case "html":
-                    readFormat = new HtmlReadFormat();
-                    break;
                 default:
                     readFormat = null;
                     break;

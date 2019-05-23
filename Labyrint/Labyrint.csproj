@@ -107,6 +107,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApiParser\ApiParser.csproj">
+      <Project>{b1757604-d7c3-48bb-ad1b-3a3a0180b399}</Project>
+      <Name>ApiParser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Camera\CameraSystem.csproj">
       <Project>{04e6f60e-596c-4e7c-8998-e091ac69e6ca}</Project>
       <Name>CameraSystem</Name>
@@ -135,6 +139,16 @@
     <Resource Include="Assets\tile2.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\wall_200_200_16.gif" />
+    <Resource Include="Assets\wall_600_600_16.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\front1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\front2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\front3_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\left1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\left2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\left3_145_200_32.gif" />
     <Resource Include="Assets\Sprites\right1_145_200_32.gif" />
     <Resource Include="Assets\Sprites\right1_289_400_32.gif" />
     <Resource Include="Assets\Sprites\right2_145_200_32.gif" />
@@ -143,8 +157,9 @@
     <Resource Include="Assets\Sprites\right3_289_400_32.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\wall_200_200_16.gif" />
-    <Resource Include="Assets\wall_600_600_16.gif" />
+    <Resource Include="Assets\Sprites\back1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\back2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\back3_145_200_32.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
