@@ -27,6 +27,13 @@ const card = (props) => {
 
   function deleteItem(e) {
     e.preventDefault();
+    fetch('/api/v1/overview/1',{
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+    })
   }
   
   return (        
