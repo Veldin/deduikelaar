@@ -27,7 +27,6 @@ const card = (props) => {
 
   function deleteItem(e) {
     e.preventDefault();
-    console.log('The link was clicked.');
   }
   
   return (        
