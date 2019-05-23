@@ -88,28 +88,28 @@ class CreateItem extends Component {
                 <label htmlFor="item1">
                   <div className="item">
                     <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
-                    <span className="itemImage"><img src={ require('./envelope2.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item2">
                   <div className="item">
                     <input className="with-gap" id="item2" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('./candle.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/candle.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item3">
                   <div className="item">
                     <input className="with-gap" id="item3" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('./envelope2.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item4">
                   <div className="item">
                     <input className="with-gap" id="item4" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('./candle.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/candle.png') } /></span>
                   </div>
                 </label>
               </div>
@@ -132,7 +132,10 @@ class CreateItem extends Component {
           <div className="col s7 example">
 
             <div className="col s12 background">
-              <div className="col s12 exampleCard">
+            
+              <div className="col s12">
+              <div className=" exampleCard">
+              <div className="all">
                   <div className="title">
                       <p> {this.state.value} </p>
                   </div>
@@ -176,7 +179,9 @@ class CreateItem extends Component {
                   </div>
 
                   </div>
+                  </div>
 
+              </div>
               </div>
           </div>
           </div>
