@@ -204,6 +204,10 @@ div.item {
   overflow: auto;
 }
 
+.inputField {
+  color: #e7edf2 !important;
+}
+
 .materialize-red {
   background-color: #e51c23 !important;
 }
@@ -3706,7 +3710,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
