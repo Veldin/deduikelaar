@@ -54263,6 +54263,28 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./public/images/candle.png":
+/*!**********************************!*\
+  !*** ./public/images/candle.png ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/candle.png?e502baaf55b1c0560614734657f4b302";
+
+/***/ }),
+
+/***/ "./public/images/envelope2.png":
+/*!*************************************!*\
+  !*** ./public/images/envelope2.png ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/envelope2.png?e249b16e5e6eed380df4130dd01f5c5c";
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -54557,7 +54579,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./envelope2.png */ "./resources/js/components/envelope2.png")
+        src: __webpack_require__(/*! ../../../public/images/envelope2.png */ "./public/images/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54570,7 +54592,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./candle.png */ "./resources/js/components/candle.png")
+        src: __webpack_require__(/*! ../../../public/images/candle.png */ "./public/images/candle.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54583,7 +54605,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./envelope2.png */ "./resources/js/components/envelope2.png")
+        src: __webpack_require__(/*! ../../../public/images/envelope2.png */ "./public/images/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54596,7 +54618,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ./candle.png */ "./resources/js/components/candle.png")
+        src: __webpack_require__(/*! ../../../public/images/candle.png */ "./public/images/candle.png")
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54616,7 +54638,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s12 background"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s12 exampleCard"
+        className: "col s12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " exampleCard"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "all"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "title"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", this.state.value, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54651,7 +54677,7 @@ function (_Component) {
         className: "col s2 emoteIconExample"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faAngry"]
-      })))))))));
+      })))))))))));
     }
   }]);
 
@@ -54814,11 +54840,15 @@ function (_Component) {
   _createClass(Overview, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
-      }).then(this.setState({
-        totalCards: 4
-      }));
+      }).then(function (data) {
+        return _this2.setState({
+          totalCards: Object.keys(data).length
+        });
+      });
     }
   }, {
     key: "render",
@@ -54945,28 +54975,6 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/candle.png":
-/*!********************************************!*\
-  !*** ./resources/js/components/candle.png ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/candle.png?e502baaf55b1c0560614734657f4b302";
-
-/***/ }),
-
-/***/ "./resources/js/components/envelope2.png":
-/*!***********************************************!*\
-  !*** ./resources/js/components/envelope2.png ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/envelope2.png?e249b16e5e6eed380df4130dd01f5c5c";
 
 /***/ }),
 
