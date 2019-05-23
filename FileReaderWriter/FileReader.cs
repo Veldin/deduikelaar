@@ -83,11 +83,16 @@ namespace FileReaderWriterSystem
         /// <returns>All the names of the files in the folder</returns>
         public string[] CheckFolder(string filePath)
         {
-            // Create a DirectoryInf o from the directory of the given pathfile
-            DirectoryInfo dirInfo = new DirectoryInfo(filePath);
+            // Create and empty DirectoryInfo
+            DirectoryInfo dirInfo = null;
 
-            // Check if the file path is valic
-            if (!dirInfo.Exists)
+            // Check if the file path is valid
+            try
+            {
+                // Create a DirectoryInf o from the directory of the given pathfile
+                dirInfo = new DirectoryInfo(filePath);
+            }
+            catch
             {
                 Log.Warning("The given file path: '" + filePath + "' is not valid");
                 return null;
@@ -111,12 +116,8 @@ namespace FileReaderWriterSystem
             {
                 fileNames[fileNames.Length - folders.Length + j] = folders[j].Name;
             }
-
-            // Debugging all files that will be returned
-            foreach (string a in fileNames)
-            {
-                Log.Debug(a);
-            }
+            
+            Log.Debug("The contents of the following folder is shown: " + filePath);
 
             return fileNames;
         }
