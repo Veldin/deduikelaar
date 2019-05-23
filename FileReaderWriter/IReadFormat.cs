@@ -8,6 +8,6 @@ namespace FileReaderWriterSystem
 {
     public interface IReadFormat
     {
-        object ReadFile(string filePath);
+        object ReadFile(string filePath, object value = null);
     }
 }

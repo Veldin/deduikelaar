@@ -26,9 +26,9 @@ namespace FileReaderWriterSystem
         /// </summary>
         /// <param name="filePath">Give the file path of the file</param>
         /// <returns>Returns all text from the file</returns>
-        public static string ReadFile(string filePath, string readFormat = null)
+        public static string ReadFile(string filePath, string readFormat = null, object value = null)
         {
-            return fileReader.ReadFile(appDataPath + filePath, readFormat);
+            return fileReader.ReadFile(appDataPath + filePath, readFormat, value);
         }
 
         /// <summary>
