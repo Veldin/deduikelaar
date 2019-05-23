@@ -96,6 +96,13 @@ namespace ApiParser
 
             // Read the file with stories
             string json = FileReaderWriterFacade.ReadFile("Items\\Stories.json");
+            
+            // IsEmpty check
+            if (json == null)
+            {
+                Log.Warning("Stories.json is missing or empty");
+                return;
+            }
 
             // Convert the json file to the objects
             List<Story> val = JsonConvert.DeserializeObject<List<Story>>(json);
@@ -104,7 +111,7 @@ namespace ApiParser
             stories.AddRange(val);
 
             // Give the programmer feedback
-            Log.Debug("Stories added");
+            Log.Debug(stories.Count + " stories added");
         }
 
         /// <summary>
@@ -118,6 +125,13 @@ namespace ApiParser
             // Read the file with questions
             string json = FileReaderWriterFacade.ReadFile("Items\\Feedback.json");
 
+            // IsEmpty check
+            if (json == null)
+            {
+                Log.Warning("Feedback.json is missing or empty");
+                return;
+            }
+
             // Convert the json to Questions objects
             List<Question> val = JsonConvert.DeserializeObject<List<Question>>(json);
 
@@ -125,7 +139,7 @@ namespace ApiParser
             questions.AddRange(val);
 
             // Give the programmer feedback
-            Log.Debug("Questions added");
+            Log.Debug(questions.Count + " question(s) added");
         }
 
         /// <summary>
@@ -139,6 +153,13 @@ namespace ApiParser
             // Read the json file with the itemorder
             string json = FileReaderWriterFacade.ReadFile("Items\\ItemOrder.json");
 
+            // IsEmpty check
+            if (json == null)
+            {
+                Log.Warning("ItemOrder.json is missing or empty");
+                return;
+            }
+
             // Convert the json to ItemOrder objects
             Queue<ItemOrder> val = JsonConvert.DeserializeObject<Queue<ItemOrder>>(json);
 
@@ -149,7 +170,7 @@ namespace ApiParser
             }
             
             // Give the programmer feedback
-            Log.Debug("ItemOrders added");
+            Log.Debug(itemOrders.Count + " itemOrder(s) added");
         }
 
         /// <summary>
@@ -223,5 +244,7 @@ namespace ApiParser
             // Give the programmer feedback
             Log.Debug("itemOrders saved");
         }
+
+
     }
 }

@@ -16,9 +16,18 @@ namespace FileReaderWriterSystem
 
         public static void Init()
         {
+            // Create the necessary folders
             fileWriter.CreateFolder(appDataPath);
             fileWriter.CreateFolder(appDataPath + "Log");
             fileWriter.CreateFolder(appDataPath + "Items");
+
+            // If there is a log file, delete it
+            if (CheckFolder("Log").Contains("Log.txt"))
+            {
+                DeleteFile(new string[] { "Log\\Log.txt" });
+            }
+
+            Log.Debug("FileReaderWriterSystem is initiated");
         }
 
         /// <summary>
