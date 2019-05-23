@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 
+use App\Feedback;
 use App\Http\Controllers\Controller;
 use App\Story;
 
@@ -135,40 +136,30 @@ class LabyrintApiController extends Controller
 
     public function getFeedback(){
 
-        // TODO: Implement API getting feedback
+        $feedbacks = Feedback::with('feedbackItems')->get();
 
-        return  response()->json([
-            'feedback' => [
-                [
-                    'feedbackId' => 1,
-                    'question' => "Wat was je gevoel bij het verhaal?",
-                    'answers' => [
-                        [
-                            'answerId' => 1,
-                            'response' => '\u0029'
-                        ],
-                        [
-                            'answerId' => 2,
-                            'response' => '\u0030'
-                        ]
-                    ]
-                ],
-                [
-                    'feedbackId' => 2,
-                    'question' => "Was de tekst voor jou leesbaar?",
-                    'answers' => [
-                        [
-                            'answerId' => 3,
-                            'response' => 'Ja'
-                        ],
-                        [
-                            'answerId' => 4,
-                            'response' => 'Nee'
-                        ]
-                    ]
-                ],
-            ]
-        ]);
+        $data = [];
+
+        foreach ($feedbacks as $feedback){
+            $answers = [];
+
+            foreach ($feedback->feedbackItems as $feedbackItem){
+                $answers[] = [
+                    'answerId' => $feedbackItem->id,
+                    'response' => $feedbackItem->feedback
+                ];
+            }
+
+            $data[] = [
+                'feedbackId' => $feedback->id,
+                'question' => $feedback->question,
+                'extraInfo' => $feedback->extraInfo,
+                'feedbackType' => $feedback->feedbackType,
+                'answers' => $answers
+            ];
+        }
+
+        return  response()->json($data);
     }
 
     public function getStatistics(){
