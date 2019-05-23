@@ -3,10 +3,15 @@ import { Router, Route, Link } from 'react-router';
 import Card from './Card/Card';
 
 class Overview extends Component {
+  totalCards;
+
   componentDidMount() {
     fetch('/api/v1/overview')
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(
+        this.totalCards = json.length
+        console.log(this.totalCards)
+      )
   }
 
   render(){
