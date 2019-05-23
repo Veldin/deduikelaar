@@ -54840,11 +54840,15 @@ function (_Component) {
   _createClass(Overview, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
-      }).then(this.setState({
-        totalCards: 4
-      }));
+      }).then(function (data) {
+        return _this2.setState({
+          totalCards: Object.keys(data).length
+        });
+      });
     }
   }, {
     key: "render",
