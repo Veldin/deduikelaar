@@ -21,6 +21,25 @@ Route::get('/', function () {
 
 Route::get('/test', function(){
     $story = \App\Story::create([
+        'title' => "test".count(\App\Story::get()),
+        'icon' => "testIcon".count(\App\Story::get()),
+        'description' => "Geen",
+    ]);
+
+    \App\StoryItem::create([
+        'text' => 'test',
+        'storyId' => $story->id
+    ]);
+    \App\StoryItem::create([
+        'text' => 'test2',
+        'storyId' => $story->id
+    ]);
+
+
+    return "";
+});
+Route::get('/tests', function(){
+    $story = \App\Story::create([
             'title' => "test".count(\App\Story::get()),
             'icon' => "testIcon".count(\App\Story::get()),
             'description' => "Geen",

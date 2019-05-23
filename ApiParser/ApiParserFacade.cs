@@ -7,9 +7,19 @@ namespace ApiParser
 {
     public static class ApiParserFacade
     {
-        private static Queue<ItemOrder> itemOrders = new Queue<ItemOrder>();            // A Queue that has the ItemOrder s in it which holds the order 
-        private static List<Story> stories = new List<Story>();                         // A list that holds all the stories that can be shown
-        private static List<Question> questions = new List<Question>();                 // A list that holds the questions and answers to ask the user
+        private static Queue<ItemOrder> itemOrders = new Queue<ItemOrder>();                // A Queue that has the ItemOrder s in it which holds the order 
+        private static List<Story> stories = new List<Story>();                             // A list that holds all the stories that can be shown
+        private static List<Question> questions = new List<Question>();                     // A list that holds the questions and answers to ask the user
+        private static List<FeedbackStatistic> statistics = new List<FeedbackStatistic>();  // A list that holds objects where the statisics can be calculated off
+
+        public static void Init()
+        {
+            // Fill all the static collections from the json files
+            AddStatistics();
+            AddItemOrder();
+            AddQuestion();
+            AddStory();
+        }
 
         /// <summary>
         /// Get the next ItemOrder
@@ -98,7 +108,7 @@ namespace ApiParser
             string json = FileReaderWriterFacade.ReadFile("Items\\Stories.json");
             
             // IsEmpty check
-            if (json == null)
+            if (json == null || json.Length < 5)
             {
                 Log.Warning("Stories.json is missing or empty");
                 return;
@@ -126,7 +136,7 @@ namespace ApiParser
             string json = FileReaderWriterFacade.ReadFile("Items\\Feedback.json");
 
             // IsEmpty check
-            if (json == null)
+            if (json == null || json.Length < 5)
             {
                 Log.Warning("Feedback.json is missing or empty");
                 return;
@@ -154,7 +164,7 @@ namespace ApiParser
             string json = FileReaderWriterFacade.ReadFile("Items\\ItemOrder.json");
 
             // IsEmpty check
-            if (json == null)
+            if (json == null || json.Length < 5)
             {
                 Log.Warning("ItemOrder.json is missing or empty");
                 return;
@@ -171,6 +181,34 @@ namespace ApiParser
             
             // Give the programmer feedback
             Log.Debug(itemOrders.Count + " itemOrder(s) added");
+        }
+
+        /// <summary>
+        /// Add the statistics to the statistics list
+        /// </summary>
+        public static void AddStatistics()
+        {
+            // Clear the list to make sure it is empty
+            statistics.Clear();
+
+            // Read the json file with the itemorder
+            string json = FileReaderWriterFacade.ReadFile("Items\\Statistics.json");
+
+            // IsEmpty check
+            if (json == null || json.Length < 5)
+            {
+                Log.Warning("Statistics.json is missing or empty");
+                return;
+            }
+
+            // Convert the json to ItemOrder objects
+            List<FeedbackStatistic> val = JsonConvert.DeserializeObject<List<FeedbackStatistic>>(json);
+
+            // Add the list from the json file to the static list
+            statistics.AddRange(val);
+
+            // Give the programmer feedback
+            Log.Debug(statistics.Count + " statistics added");
         }
 
         /// <summary>
@@ -245,6 +283,25 @@ namespace ApiParser
             Log.Debug("itemOrders saved");
         }
 
+        /// <summary>
+        /// Add a FeedbackStatistic to the json file
+        /// </summary>
+        /// <param name="storyId">The storyId of the story</param>
+        /// <param name="answerId">The answerId of the answer</param>
+        public static void SaveFeedbackStatistic(int storyId, int answerId)
+        {
+            // Create a FeebackStatistic object
+            statistics.Add(new FeedbackStatistic(storyId, answerId));
+
+            // Convert the statistics list to json
+            string json = JsonConvert.SerializeObject(statistics);
+
+            // Write the json in a json file
+            FileReaderWriterFacade.WriteText(new string[] { json }, "Items\\Statistics.json", false);
+
+            // Give the programmer feedback
+            Log.Debug("statistics saved");
+        }
 
     }
 }

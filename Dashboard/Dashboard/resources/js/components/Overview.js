@@ -15,8 +15,8 @@ class Overview extends Component {
     fetch('/api/v1/overview')
       .then(response => response.json())
       .then(
-        this.setState({
-          totalCards: 4
+        data => this.setState({
+          totalCards: Object.keys(data).length
         })
       )
   }
@@ -39,7 +39,7 @@ class Overview extends Component {
         </div>
         <div className="row overviewCards">
           <div className="cards-container">
-          <p>{this.state.totalCards}</p>
+            <p>{this.state.totalCards}</p>
             <Card title="De brief van Karel" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
             <Card title="De brief van Karel" active="1" emoteOne="2" emoteTwo="888" emoteThree="5" />
             <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />

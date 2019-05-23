@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 
+use App\Feedback;
 use App\Http\Controllers\Controller;
 use App\Story;
 
@@ -87,7 +88,7 @@ class LabyrintApiController extends Controller
     }
 
     public function getOrder(){
-
+        // TODO: Implement API getting te order
 
         return  response()->json([
                 [
@@ -110,92 +111,55 @@ class LabyrintApiController extends Controller
     }
 
 
+
     public function getStories(){
 
-// { stories:
-//    [
-//        {
-//            storyId: 1,
-//            type: "text | image | video | quiz | audio",
-//            html: "<html></html>",
-//
-//        }
-//    ]
-//}
-        return  response()->json([
-            'stories' => [
-                [
-                    'storyId'   => 1,
-                    'type'      => "text",
-                    'html'      => "<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-             <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
-                         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-             <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>"
-                ],
-                [
-                    'storyId'   => 2,
-                    'type'      => "video",
-                    'html'      => "<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-             <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
-                         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-             <title>Document</title>
-</head>
-<body>
-  video
-</body>
-</html>"
-                ],
-            ]
-        ]);
+        $data = [];
+        $stories = Story::with('storyItems')->where('active', 1)->get();
+
+        foreach ($stories as $story){
+            $data[] = [
+                'storyId' => $story->id,
+                'icon' => $story->icon,
+                'html' => view('information-piece', compact('story'))->render()
+            ];
+        }
+        return $data;
+    }
+
+    public function testStory(){
+
+        $story = Story::with('storyItems')->where('active', 1)->find(1);
+        return view('information-piece', compact('story'));
     }
 
 
     public function getFeedback(){
 
+        $feedbacks = Feedback::with('feedbackItems')->get();
 
-        return  response()->json([
-            'feedback' => [
-                [
-                    'feedbackId' => 1,
-                    'question' => "Wat was je gevoel bij het verhaal?",
-                    'answers' => [
-                        [
-                            'answerId' => 1,
-                            'response' => '\u0029'
-                        ],
-                        [
-                            'answerId' => 2,
-                            'response' => '\u0030'
-                        ]
-                    ]
-                ],
-                [
-                    'feedbackId' => 2,
-                    'question' => "Was de tekst voor jou leesbaar?",
-                    'answers' => [
-                        [
-                            'answerId' => 3,
-                            'response' => 'Ja'
-                        ],
-                        [
-                            'answerId' => 4,
-                            'response' => 'Nee'
-                        ]
-                    ]
-                ],
-            ]
-        ]);
+        $data = [];
+
+        foreach ($feedbacks as $feedback){
+            $answers = [];
+
+            foreach ($feedback->feedbackItems as $feedbackItem){
+                $answers[] = [
+                    'answerId' => $feedbackItem->id,
+                    'response' => $feedbackItem->feedback
+                ];
+            }
+
+            $data[] = [
+                'feedbackId' => $feedback->id,
+                'question' => $feedback->question,
+                'extraInfo' => $feedback->extraInfo,
+                'feedbackType' => $feedback->feedbackType,
+                'answers' => $answers
+            ];
+        }
+
+        return  response()->json($data);
     }
 
     public function getStatistics(){
@@ -228,6 +192,20 @@ class LabyrintApiController extends Controller
         }
 
         return  response()->json($data);
+    }
+
+
+    public function deleteStory($storyId){
+        $story = Story::find($storyId);
+        if($story){
+            $story->delete();
+            return response()->json([
+                'response' => 'success'
+            ]);
+        }
+        return response()->json([
+            'response' => 'failed'
+        ]);
     }
 
 }

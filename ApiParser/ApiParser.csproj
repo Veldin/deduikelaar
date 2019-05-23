@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Anwser.cs" />
     <Compile Include="ApiParserFacade.cs" />
-    <Compile Include="Feedback.cs" />
+    <Compile Include="FeedbackStatistic.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="ItemOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
