@@ -111,7 +111,7 @@ namespace ApiParser
             stories.AddRange(val);
 
             // Give the programmer feedback
-            Log.Debug("Stories added");
+            Log.Debug(stories.Count + " stories added");
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace ApiParser
             // IsEmpty check
             if (json == null)
             {
-                Log.Warning("Stories.json is missing or empty");
+                Log.Warning("Feedback.json is missing or empty");
                 return;
             }
 
@@ -139,7 +139,7 @@ namespace ApiParser
             questions.AddRange(val);
 
             // Give the programmer feedback
-            Log.Debug("Questions added");
+            Log.Debug(questions.Count + " question(s) added");
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace ApiParser
             // IsEmpty check
             if (json == null)
             {
-                Log.Warning("Stories.json is missing or empty");
+                Log.Warning("ItemOrder.json is missing or empty");
                 return;
             }
 
@@ -170,7 +170,7 @@ namespace ApiParser
             }
             
             // Give the programmer feedback
-            Log.Debug("ItemOrders added");
+            Log.Debug(itemOrders.Count + " itemOrder(s) added");
         }
 
         /// <summary>
