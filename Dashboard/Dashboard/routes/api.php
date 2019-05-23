@@ -13,6 +13,7 @@
 */
 
 
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Api\LabyrintApiController@documentation');
 Route::get('overview', 'Api\LabyrintApiController@getOverview');
@@ -24,3 +25,6 @@ Route::get('test', function(){
 });
 Route::get('feedback', 'Api\LabyrintApiController@getFeedback');
 Route::get('statistics', 'Api\LabyrintApiController@getStatistics');
+
+
+Route::delete('overview/{storyId}', 'Api\LabyrintApiController@deleteStory');

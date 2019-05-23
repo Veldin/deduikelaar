@@ -87,7 +87,7 @@ class LabyrintApiController extends Controller
     }
 
     public function getOrder(){
-
+        // TODO: Implement API getting te order
 
         return  response()->json([
                 [
@@ -135,6 +135,7 @@ class LabyrintApiController extends Controller
 
     public function getFeedback(){
 
+        // TODO: Implement API getting feedback
 
         return  response()->json([
             'feedback' => [
@@ -200,6 +201,20 @@ class LabyrintApiController extends Controller
         }
 
         return  response()->json($data);
+    }
+
+
+    public function deleteStory($storyId){
+        $story = Story::find($storyId);
+        if($story){
+            $story->delete();
+            return response()->json([
+                'response' => 'success'
+            ]);
+        }
+        return response()->json([
+            'response' => 'failed'
+        ]);
     }
 
 }
