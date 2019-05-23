@@ -47,7 +47,7 @@ namespace FileReaderWriterSystem
             };
 
             // Write the array as logFormat in the log file
-            WriteText(text, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\Log\\Log.txt", false, "logFormat");
+            WriteText(text, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\Log\\Log.txt", true, "logFormat");
         }
 
         /// <summary>
