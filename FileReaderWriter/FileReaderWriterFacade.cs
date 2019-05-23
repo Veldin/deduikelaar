@@ -77,6 +77,14 @@ namespace FileReaderWriterSystem
             }
         }
 
+        /// <summary>
+        /// Returns the appDataPath
+        /// </summary>
+        public static string GetAppDataPath()
+        {
+            return appDataPath;
+        }
+
 
     }
 }
