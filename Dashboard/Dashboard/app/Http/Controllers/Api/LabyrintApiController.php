@@ -90,7 +90,6 @@ class LabyrintApiController extends Controller
 
 
         return  response()->json([
-            'order' => [
                 [
                     'storyId' => 1,
                     'feedbackId' => 1
@@ -107,7 +106,6 @@ class LabyrintApiController extends Controller
                     'storyId' => 3,
                     'feedbackId' => 1
                 ],
-            ]
         ]);
     }
 

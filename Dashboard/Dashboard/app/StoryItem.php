@@ -14,7 +14,8 @@ class StoryItem extends Model
     protected $table = 'storyItem';
 
     protected $fillable = [
-        'text'
+        'text',
+        'storyId'
     ];
 
     public function story() {

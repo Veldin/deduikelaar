@@ -19,7 +19,8 @@ class File extends Model
         'realName',
         'fileType',
         'extension',
-        'path'
+        'path',
+        'storyItemId'
     ];
 
     public function storyItem() {
