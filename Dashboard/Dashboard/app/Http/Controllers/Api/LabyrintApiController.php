@@ -215,6 +215,12 @@ class LabyrintApiController extends Controller
                     if($a['total'] == $b['total']) return 0;
                     return ($a['total'] < $b['total']) ? -1 : 1;
                 });
+            }else{
+                // Only sort stories
+                usort($a, function ($a, $b) {
+                    if($a['total'] == $b['total']) return 0;
+                    return ($a['total'] < $b['total']) ? -1 : 1;
+                });
             }
 
             foreach ($a as $k => $b){
