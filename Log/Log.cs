@@ -7,7 +7,7 @@ namespace LogSystem
     public static class Log
     {
         private static List<ILogObserver> observers = new List<ILogObserver>();
-        private static LogMessageFactory factory    = new LogMessageFactory();              // This is the LogMessageFactory which handles the creation of all the LogMessages
+        private static LogMessageFactory factory = new LogMessageFactory();              // This is the LogMessageFactory which handles the creation of all the LogMessages
         private static List<LogMessage> logMessages = new List<LogMessage>();               // This is the list with all the LogMessages
 
         /// <summary>
