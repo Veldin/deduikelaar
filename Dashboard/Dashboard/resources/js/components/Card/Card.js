@@ -27,7 +27,13 @@ const card = (props) => {
 
   function deleteItem(e) {
     e.preventDefault();
-    console.log('The link was clicked.');
+    fetch('/api/v1/overview/1',{
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+    })
   }
   
   return (        

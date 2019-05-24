@@ -54263,6 +54263,17 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./public/images/binocular2.png":
+/*!**************************************!*\
+  !*** ./public/images/binocular2.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/binocular2.png?33972d4137747631b235137589e75f2b";
+
+/***/ }),
+
 /***/ "./public/images/candle.png":
 /*!**********************************!*\
   !*** ./public/images/candle.png ***!
@@ -54274,6 +54285,17 @@ module.exports = "/images/candle.png?e502baaf55b1c0560614734657f4b302";
 
 /***/ }),
 
+/***/ "./public/images/candle2.png":
+/*!***********************************!*\
+  !*** ./public/images/candle2.png ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/candle2.png?04dd80e4251b1d6ab4a455de000632f0";
+
+/***/ }),
+
 /***/ "./public/images/envelope2.png":
 /*!*************************************!*\
   !*** ./public/images/envelope2.png ***!
@@ -54281,7 +54303,7 @@ module.exports = "/images/candle.png?e502baaf55b1c0560614734657f4b302";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/envelope2.png?e249b16e5e6eed380df4130dd01f5c5c";
+module.exports = "/images/envelope2.png?a66fb5573f96d6d5e75e69ae7e9fbd2d";
 
 /***/ }),
 
@@ -54370,7 +54392,13 @@ var card = function card(props) {
 
   function deleteItem(e) {
     e.preventDefault();
-    console.log('The link was clicked.');
+    fetch('/api/v1/overview/1', {
+      method: 'DELETE'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (response) {
+      console.log(response);
+    });
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54483,7 +54511,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateItem).call(this));
     _this.state = {
-      value: ''
+      value: 'Vul hier de titel in'
     };
     return _this;
   }
@@ -54592,7 +54620,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ../../../public/images/candle.png */ "./public/images/candle.png")
+        src: __webpack_require__(/*! ../../../public/images/candle2.png */ "./public/images/candle2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54605,7 +54633,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ../../../public/images/envelope2.png */ "./public/images/envelope2.png")
+        src: __webpack_require__(/*! ../../../public/images/binocular2.png */ "./public/images/binocular2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -54840,11 +54868,15 @@ function (_Component) {
   _createClass(Overview, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
-      }).then(this.setState({
-        totalCards: 4
-      }));
+      }).then(function (data) {
+        return _this2.setState({
+          totalCards: Object.keys(data).length
+        });
+      });
     }
   }, {
     key: "render",
@@ -55003,8 +55035,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
