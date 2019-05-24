@@ -147,43 +147,37 @@ class LabyrintApiController extends Controller
                 $sfs[$fi->question->id]['total']++;
                 $sfs[$fi->question->id]['items'][$fi->id]['count']++;
             }
+
             foreach ($sfs as $k => $v){
-                // Sort feedbackitems lowest first
+                // Sort feedbackitems, lowest first
                 usort($v['items'], function ($a, $b) {
 //                    var_dump($a['count']);
                     if($a['count'] == $b['count']) return 0;
                     return ($a['count'] < $b['count']) ? -1 : 1;
                 });
-                // Put them into
                 $sfs[$k]['items'] = $v['items'];
                 $total += $sfs[$k]['total'];
             }
 
 //            $a['b'][$story->id] = $sfs;
 
+            // Sort feedback, lowest first
             usort($sfs, function ($a, $b) {
                 if($a['total'] == $b['total']) return 0;
-                return ($a['total'] > $b['total']) ? -1 : 1;
+                return ($a['total'] < $b['total']) ? -1 : 1;
             });
+
+            // Set feedback
             $a[$story->id] = [
                 'id' => $story->id,
                 'total' => $total,
                 'feedback' => $sfs
             ];
-
-
-
-//            $a['b'][$story->id] = $sfs;
-
         }
-        usort($a, function ($a, $b) {
-            if($a['total'] == $b['total']) return 0;
-            return ($a['total'] < $b['total']) ? -1 : 1;
-        });
+
 
 
         $order = [];
-//        $order[] = $fs;
         $fbOrder = [];
         foreach ($fs as $f){
             $fbOrder[$f['id']] = [
@@ -194,7 +188,36 @@ class LabyrintApiController extends Controller
 
         // Return minimal 1000 stories
         for($i=0;$i<1000;){
-            foreach ($a as $b){
+
+            if($i>0){ // Skip sorting the first time (already sorted)
+
+                foreach ($a as $j => $story){
+
+                    $sfs = $story['feedback'];
+                    foreach ($sfs as $k => $v){
+                        // Sort feedbackitems, lowest first
+                        usort($v['items'], function ($a, $b) {
+                            if($a['count'] == $b['count']) return 0;
+                            return ($a['count'] < $b['count']) ? -1 : 1;
+                        });
+                        $sfs[$k]['items'] = $v['items'];
+                        $total += $sfs[$k]['total'];
+                    }
+                    // Sort feedback, lowest first
+                    usort($sfs, function ($a, $b) {
+                        if($a['total'] == $b['total']) return 0;
+                        return ($a['total'] < $b['total']) ? -1 : 1;
+                    });
+                    $a[$j]['feedback'] = $sfs;
+                }
+
+                usort($a, function ($a, $b) {
+                    if($a['total'] == $b['total']) return 0;
+                    return ($a['total'] < $b['total']) ? -1 : 1;
+                });
+            }
+
+            foreach ($a as $k => $b){
                 $i++;
                 $fid = $b['feedback'][0]['id'];
                 $fbTempOrder = $fbOrder;
@@ -209,6 +232,21 @@ class LabyrintApiController extends Controller
                     }
                 }
                 $fbOrder[$fid]['count']++;
+                $a[$k]['total']++;
+                $fbnum = -1; // feebackNum
+                $fbinum = -1; // feedbackItemNum
+                foreach ($b['feedback'] as $n => $f){
+                    $fbnum = $n;
+                    foreach ($f['items'] as $m => $fi){
+                        if($fi['id'] == $fid){
+                            $fbinum = $m;
+                            break;
+                        }
+                    }
+                    if($fbinum >= 0) break;
+                }
+
+                $a[$k]['feedback'][$fbnum]['items'][$fbinum]['count']++;
                 $order[] = [
                     'storyId' => $b['id'],
                     'feedbackId' => $fid
@@ -217,24 +255,6 @@ class LabyrintApiController extends Controller
         }
         return response()->json($order);
 
-        return  response()->json([
-                [
-                    'storyId' => 1,
-                    'feedbackId' => 1
-                ],
-                [
-                    'storyId' => 2,
-                    'feedbackId' => 3
-                ],
-                [
-                    'storyId' => 8,
-                    'feedbackId' => 2
-                ],
-                [
-                    'storyId' => 3,
-                    'feedbackId' => 1
-                ],
-        ]);
     }
 
 
