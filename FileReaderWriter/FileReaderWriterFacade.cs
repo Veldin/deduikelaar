@@ -93,8 +93,6 @@ namespace FileReaderWriterSystem
         {
             return appDataPath;
         }
-
-
     }
 }
 
