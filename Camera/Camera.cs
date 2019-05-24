@@ -32,6 +32,9 @@ namespace CameraSystem
             prevFromLeft = 0;
             prevFromTop = 0;
 
+            width = 0;
+            height = 0;
+
             GenerateHeightAndWidth();
         }
         
@@ -136,6 +139,13 @@ namespace CameraSystem
             double widthFac = windowWidthBorderless / gameCanvas.ActualWidth;
             double heightFac = windowHeightBorderless / gameCanvas.ActualHeight;
 
+            if (Double.IsNaN(widthFac) || Double.IsNaN(heightFac))
+            {
+                width = 0;
+                height = 0;
+                Log.Warning("Camera Width or Height is NaN");
+                return;
+            }
             // Check which factor is the highest and set the heigth and width based on that
             if (widthFac > heightFac)
             {
