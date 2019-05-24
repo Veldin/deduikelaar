@@ -18,9 +18,9 @@ namespace GameObjectFactory
             return true;
         }
 
-        public static GameObject GetGameObject(string wantToGet, float fromLeft = 0, float fromTop = 0)
+        public static GameObject GetGameObject(string wantToGet, float fromLeft = 0, float fromTop = 0, object value = null)
         {
-            return factory.GetGameObject(wantToGet, fromLeft, fromTop);
+            return factory.GetGameObject(wantToGet, fromLeft, fromTop, value);
         }
 
         public static void ReturnGameObject(GameObject target)

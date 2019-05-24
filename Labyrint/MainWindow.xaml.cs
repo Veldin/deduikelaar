@@ -22,6 +22,7 @@ using Maze;
 using CameraSystem;
 using FileReaderWriterSystem;
 using ApiParser;
+using BrowserUIControl;
 
 namespace Labyrint
 {
@@ -82,6 +83,8 @@ namespace Labyrint
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
+            //Window.GetWindow(this).SizeChanged += SizeChanged;
+
 
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
@@ -150,19 +153,43 @@ namespace Labyrint
             {
                 DropNewPickup();
             }
-            
+
+            TestBrowser();
+
+            PopulateButtonObject();
+
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
+
+            
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
 
             renderDistance = 1200;
 
+            TestBrowser();
+
             fps = 999999999; //Desired max fps.
             interval = 1000 / fps;
             then = Stopwatch.GetTimestamp();
             Run();
+        }
+
+
+        private void TestBrowser()
+        {
+            //browser.Refresh();
+            var str = "<html><head></head><body>sdf</body></html>";
+            //browser.NavigateToString(str);
+
+            //browser = new System.Windows.Controls.WebBrowser();
+            //browser.Visibility = Visibility.Visible;
+            browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath())); //Inits a new navigate call
+
+            browser.NavigateToString("<HTML><H2><B>This page comes using String</B><P></P></H2>");
+
+            //browser.NavigateToString(str);
         }
 
         public void Run()
@@ -267,13 +294,14 @@ namespace Labyrint
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
             lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
-            {
+                    {
                 try
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(backgroundObjects);
                     loopList.AddRange(gameObjects);
-                    loopList.Add(cursor);
+
+                    loopList.Add(cursor); 
                 }
                 catch
                 {
@@ -509,6 +537,23 @@ namespace Labyrint
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        private void PopulateButtonObject()
+        {
+
+            for (int i = 0; i < 4; i++)
+            {
+                gameObjects.Add(GameObjectFactoryFacade.GetGameObject(
+                    "button",
+                    i,
+                    i,
+                    camera
+                ));
+            }
+        }
+
+        /// <summary>
         /// Creates a new pickup somewere in the maze.
         /// </summary>
         private void DropNewPickup()
@@ -533,6 +578,15 @@ namespace Labyrint
             } while (newPickup.distanceBetween(player) < 0); //if its to close to the player pick a new location
 
             gameObjects.Add(newPickup);
+        }
+
+        public void SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //camera.
+            if(e.WidthChanged || e.HeightChanged){
+                camera.GenerateHeightAndWidth();
+            }
+            Log.Debug("changed" + camera.GetWidth());
         }
     }
 }

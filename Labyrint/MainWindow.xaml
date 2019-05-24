@@ -6,14 +6,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labyrint"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Name="mainWindow"
+        Title="MainWindow" Height="350" Width="525" Name="mainWindow" 
 >
-    
+
     <Grid x:Name="LayoutRoot">
-        <Viewbox Name="viewBox" KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" >
+        <Viewbox Name="viewBox" KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" SizeChanged="SizeChanged" >
             <Canvas Margin="0" Width="1280" Height="720" Name="gameCanvas" />
         </Viewbox>
-        <WebBrowser x:Name="Browser" Visibility="Hidden"/>
+        <Viewbox Visibility="Hidden" Name="browserViewBox" Margin="10,10,10,10" RenderOptions.BitmapScalingMode="NearestNeighbor">
+            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200"/>
+        </Viewbox>
     </Grid>
 
 </Window>
