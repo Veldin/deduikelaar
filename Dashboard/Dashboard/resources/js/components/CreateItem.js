@@ -85,33 +85,41 @@ class CreateItem extends Component {
               <label htmlFor="last_name">Kies een item</label>
               <div className="row col s12 itemCollection">
 
-                <label htmlFor="item1">
+              <label htmlFor="item1">
+                  <div className="item">
+                    <input className="with-gap" id="item4" name="items" type="radio"></input>
+                    <span className="itemImage"><img src={ require('../../../public/images/rat2.png') } /></span>
+                  </div>
+                </label>
+
+                <label htmlFor="item2">
                   <div className="item">
                     <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
                     <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
                   </div>
                 </label>
 
-                <label htmlFor="item2">
+                <label htmlFor="item3">
                   <div className="item">
                     <input className="with-gap" id="item2" name="items" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/candle2.png') } /></span>
                   </div>
                 </label>
 
-                <label htmlFor="item3">
+                <label htmlFor="item4">
                   <div className="item">
                     <input className="with-gap" id="item3" name="items" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/binocular2.png') } /></span>
                   </div>
                 </label>
 
-                <label htmlFor="item4">
+                <label htmlFor="item5">
                   <div className="item">
-                    <input className="with-gap" id="item4" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('../../../public/images/candle.png') } /></span>
+                    <input className="with-gap" id="item3" name="items" type="radio"></input>
+                    <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
                   </div>
                 </label>
+
               </div>
 
               <div className="row">
