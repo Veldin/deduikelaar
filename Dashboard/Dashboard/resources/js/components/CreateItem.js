@@ -12,7 +12,7 @@ class CreateItem extends Component {
   constructor() {
     super();
     this.state = {
-      value: ''
+      value: 'Vul hier de titel in'
     }
   }
 
@@ -95,14 +95,14 @@ class CreateItem extends Component {
                 <label htmlFor="item2">
                   <div className="item">
                     <input className="with-gap" id="item2" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('../../../public/images/candle.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/candle2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item3">
                   <div className="item">
                     <input className="with-gap" id="item3" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/binocular2.png') } /></span>
                   </div>
                 </label>
 

@@ -16,21 +16,45 @@ class LabyrintApiController extends Controller
 
         return file_get_contents("https://alwinkroesen.docs.apiary.io/")."
         <script>
-            setTimeout(function(){
+        function whenReady(){
+            var header = document.querySelector('#applicationHeader');
+            if(!header){
+                
+                setTimeout(function(){
+                    whenReady()
+                },500);
+            }else{
                 if (window.history.replaceState) {
                    //prevents browser from storing history with each change:
                    window.history.replaceState(null, 'documentation', '/api/v1/');
                 }
-                var header = document.querySelector('#applicationHeader');
-                    header.style.display = 'none';
+//                var app = document.querySelector('#application');
+//                    app.style.zIndex = '1';
+//                    app.style.marginTop = '-15px';
+//                    app.style.height = '40px';
+//                    app.style.overflow = 'hidden';
+                    
+//                var headerContainer = document.querySelector('#applicationHeader');
+////                    headerContainer
+//                
+//                var header = document.querySelector('#applicationHeader');
+                var elements = document.querySelectorAll('#applicationHeader *');
+                
+                for(var i=0; i<elements.length;i++){
+                    elements[i].style.display = 'none';
+                }
+                
+//                    header.style.display = 'none';
                 var h1 = document.createElement('h1');
-                    h1.innerHTML = 'Documentation';
+                    h1.innerHTML = 'Api Documentation <br /><span style=\"font-style: italic;font-size: 14px;padding-top: 10px;display: inline-block;\">De Duikelaar</span>';
                     h1.style.color = '#FFF';
-                    h1.style.paddingTop = '15px';
+                    h1.style.paddingTop = '0px';
                     h1.style.paddingLeft = '20px';
                     
-                    header.parentNode.appendChild(h1);
-            },500);
+                    header.appendChild(h1);
+            }
+        }
+        whenReady();
         </script>
         ";
 
@@ -89,6 +113,109 @@ class LabyrintApiController extends Controller
 
     public function getOrder(){
         // TODO: Implement API getting te order
+
+        // Get the stories and feedback
+        $stories = Story::with('feedback')->where('active', 1)->get();
+        $feedbacks = Feedback::with('feedbackItems')->get();
+
+        // Create a default array for the feedback for each story
+        $fs = [];
+        foreach ($feedbacks as $feedback){
+            $fis = [];
+            foreach ($feedback->feedbackItems as $fi){
+                $fis[$fi->id] = [
+                    'id' => $fi->id,
+                    'count' => 0
+                ];
+            }
+            $fs[$feedback->id] = [
+                'id' => $feedback->id,
+                'total' => 0,
+                'items' => $fis
+            ];
+        }
+
+        // Create a list of stories
+        $a = [];
+        foreach ($stories as $story){
+
+            // Set default array in a temp variable
+            $sfs = $fs;
+            $total = 0;
+            foreach ($story->feedback as $fi){
+                // Calculate the amount of feedback given
+                $sfs[$fi->question->id]['total']++;
+                $sfs[$fi->question->id]['items'][$fi->id]['count']++;
+            }
+            foreach ($sfs as $k => $v){
+                // Sort feedbackitems lowest first
+                usort($v['items'], function ($a, $b) {
+//                    var_dump($a['count']);
+                    if($a['count'] == $b['count']) return 0;
+                    return ($a['count'] < $b['count']) ? -1 : 1;
+                });
+                // Put them into
+                $sfs[$k]['items'] = $v['items'];
+                $total += $sfs[$k]['total'];
+            }
+
+//            $a['b'][$story->id] = $sfs;
+
+            usort($sfs, function ($a, $b) {
+                if($a['total'] == $b['total']) return 0;
+                return ($a['total'] > $b['total']) ? -1 : 1;
+            });
+            $a[$story->id] = [
+                'id' => $story->id,
+                'total' => $total,
+                'feedback' => $sfs
+            ];
+
+
+
+//            $a['b'][$story->id] = $sfs;
+
+        }
+        usort($a, function ($a, $b) {
+            if($a['total'] == $b['total']) return 0;
+            return ($a['total'] < $b['total']) ? -1 : 1;
+        });
+
+
+        $order = [];
+//        $order[] = $fs;
+        $fbOrder = [];
+        foreach ($fs as $f){
+            $fbOrder[$f['id']] = [
+                'id' => $f['id'],
+                'count' => 0
+            ];
+        }
+
+        // Return minimal 1000 stories
+        for($i=0;$i<1000;){
+            foreach ($a as $b){
+                $i++;
+                $fid = $b['feedback'][0]['id'];
+                $fbTempOrder = $fbOrder;
+                usort($fbTempOrder, function($a, $b){
+                    if($a['count'] == $b['count']) return 0;
+                    return ($a['count'] < $b['count']) ? -1 : 1;
+                });
+                if($fbTempOrder[0]['id'] != $fid){
+                    // NOT EVERY TIME THE SAME FEEDBACK
+                    if($fbTempOrder[0]['count']+2 < $fbOrder[$fid]['count']){
+                        $fid = $fbTempOrder[0]['id'];
+                    }
+                }
+                $fbOrder[$fid]['count']++;
+                $order[] = [
+                    'storyId' => $b['id'],
+                    'feedbackId' => $fid
+                ];
+            }
+        }
+        return response()->json($order);
 
         return  response()->json([
                 [
