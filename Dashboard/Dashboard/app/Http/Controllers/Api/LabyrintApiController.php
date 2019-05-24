@@ -12,6 +12,10 @@ class LabyrintApiController extends Controller
 {
 
 
+    /**
+     * Get the documentation
+     * @return string
+     */
     public function documentation(){
 
         return file_get_contents("https://alwinkroesen.docs.apiary.io/")."
@@ -60,6 +64,10 @@ class LabyrintApiController extends Controller
 
     }
 
+    /**
+     * Get list of stories for the overview
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOverview(){
 
         $data = [];
@@ -111,8 +119,11 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
+    /**
+     * Get the order of stories with feedback
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOrder(){
-        // TODO: Implement API getting te order
 
         // Get the stories and feedback
         $stories = Story::with('feedback')->where('active', 1)->get();
@@ -158,8 +169,6 @@ class LabyrintApiController extends Controller
                 $sfs[$k]['items'] = $v['items'];
                 $total += $sfs[$k]['total'];
             }
-
-//            $a['b'][$story->id] = $sfs;
 
             // Sort feedback, lowest first
             usort($sfs, function ($a, $b) {
@@ -210,18 +219,14 @@ class LabyrintApiController extends Controller
                     });
                     $a[$j]['feedback'] = $sfs;
                 }
-
-                usort($a, function ($a, $b) {
-                    if($a['total'] == $b['total']) return 0;
-                    return ($a['total'] < $b['total']) ? -1 : 1;
-                });
-            }else{
-                // Only sort stories
-                usort($a, function ($a, $b) {
-                    if($a['total'] == $b['total']) return 0;
-                    return ($a['total'] < $b['total']) ? -1 : 1;
-                });
             }
+
+
+            // Sort stories
+            usort($a, function ($a, $b) {
+                if($a['total'] == $b['total']) return 0;
+                return ($a['total'] < $b['total']) ? -1 : 1;
+            });
 
             foreach ($a as $k => $b){
                 $i++;
@@ -264,7 +269,10 @@ class LabyrintApiController extends Controller
     }
 
 
-
+    /**
+     * Get all stories
+     * @return array
+     */
     public function getStories(){
 
         $data = [];
@@ -280,6 +288,10 @@ class LabyrintApiController extends Controller
         return $data;
     }
 
+    /**
+     * TODO: REMOVE TEST STORY
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function testStory(){
 
         $story = Story::with('storyItems')->where('active', 1)->find(1);
@@ -287,6 +299,10 @@ class LabyrintApiController extends Controller
     }
 
 
+    /**
+     * Get all the feedback
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getFeedback(){
 
         $feedbacks = Feedback::with('feedbackItems')->get();
@@ -315,6 +331,10 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
+    /**
+     * Get the statistics
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getStatistics(){
         if(isset($_GET['onlyActive'])){
             $stories = \App\Story::with('feedback')->where('active', 1)->get();
@@ -348,6 +368,11 @@ class LabyrintApiController extends Controller
     }
 
 
+    /**
+     * Delete a story
+     * @param $storyId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteStory($storyId){
         $story = Story::find($storyId);
         if($story){
