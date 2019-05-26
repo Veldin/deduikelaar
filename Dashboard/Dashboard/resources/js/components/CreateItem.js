@@ -12,24 +12,46 @@ class CreateItem extends Component {
   constructor() {
     super();
     this.state = {
-      value: 'Vul hier de titel in'
+      title: 'Vul hier de titel in',
+      textArea: 'Vul hier de tekst in',
+      isChecked: true
     }
   }
 
   changeState(event) {
-    console.log("qweqwe");
     this.setState({
-      value: event.target.value
+      title: event.target.value
+    })
+  }
+  changeStateTextArea(event) {
+    this.setState({
+      textArea: event.target.value
     })
   }
 
+  changeStateSwitch(event) {
+      console.log("doei");
+      this.setState({
+        isChecked: !this.state.isChecked
+      });
+      console.log(this.state.isChecked);
+  }
+
+
     render() {
+      const isChecked = {
+        display: this.state.isChecked ? "block" : "none"
+      };
+      
+      const hidden = {
+        display: this.state.isChecked ? "none" : "block"
+      }
+
       return (
       <div className="container-fluid containerAddItem">
         <div className="row">
 
           <div className="col s5 inputFields">
-<p></p>
             <form>
             <div className="row">
               <div className="input-field col s11">
@@ -49,14 +71,23 @@ class CreateItem extends Component {
                 <div className="switch existingFile">
                   <label>
                     Nee
-                    <input type="checkbox"></input>
+                    <input type="checkbox" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
                     <span className="lever"></span>
                     Ja
                   </label>
                 </div>
               </div>
 
-              <div className="row">
+              <div className="row" style={ hidden }>
+                  <div className="row">
+                    <div className="input-field col s11">
+                      <textarea id="textarea1" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
+                      <label htmlFor="textarea1">Eigen tekst</label>
+                    </div>
+                  </div>
+              </div>
+
+              <div className="row" style={ isChecked }>
                 <div className="input-field col s11">
                   <div className="file-field input-field">
                     <div className="btn">
@@ -70,34 +101,34 @@ class CreateItem extends Component {
                 </div>
               </div>
 
-                <label htmlFor="last_name">Quiz</label>
-                <div className="row">
-                  <div className="switch quiz">
-                    <label>
-                      Nee
-                      <input type="checkbox"></input>
-                      <span className="lever"></span>
-                      Ja
-                    </label>
-                  </div>
+              <label htmlFor="last_name">Quiz</label>
+              <div className="row">
+                <div className="switch quiz">
+                  <label>
+                    Nee
+                    <input type="checkbox"></input>
+                    <span className="lever"></span>
+                    Ja
+                  </label>
                 </div>
+              </div>
 
               <label htmlFor="last_name">Kies een item</label>
               <div className="row col s12 itemCollection">
 
               <label htmlFor="item1">
-                  <div className="item">
-                    <input className="with-gap" id="item4" name="items" type="radio"></input>
-                    <span className="itemImage"><img src={ require('../../../public/images/rat2.png') } /></span>
-                  </div>
-                </label>
+                <div className="item">
+                  <input className="with-gap" id="item4" name="items" type="radio"></input>
+                  <span className="itemImage"><img src={ require('../../../public/images/rat2.png') } /></span>
+                </div>
+              </label>
 
-                <label htmlFor="item2">
-                  <div className="item">
-                    <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
-                    <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
-                  </div>
-                </label>
+              <label htmlFor="item2">
+                <div className="item">
+                  <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
+                  <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
+                </div>
+              </label>
 
                 <label htmlFor="item3">
                   <div className="item">
@@ -145,18 +176,10 @@ class CreateItem extends Component {
               <div className=" exampleCard">
               <div className="all">
                   <div className="title">
-                      <p> {this.state.value} </p>
+                    <p> {this.state.title} </p>
                   </div>
                   <div className="content">
-                  <p>Voor het project moet er onderzoek gedaan worden naar het ontwikkelen van een applicatie die er voor zorgt dat bezoekers van het museum via een touchscreen tafel kennis op kunnen doen over de tweede wereldoorlog. Om dit te doen is het belangrijk dat er onderzoek gedaan wordt naar wat museum de Duikelaar precies wil. Daarnaast wordt er ook onderzoek gedaan naar kennismanagement zodat het systeem dat gebouwd wordt overeenkomt met de eisen van de klant.
-                      Om de resultaten van het onderzoek en de aanpak van het project vast te leggen wordt alle informatie beschreven in een aantal documenten, namelijk:
-                      Om de applicatie goed te kunnen realiseren zijn er een aantal eisen opgesteld door de opdrachtgever. Deze eisen zorgen ervoor dat het doel van een correct werkend spel behaald kan worden.
-                      Gedurende het project moet er gewerkt worden via de SCRUM methodiek. Dit houdt in dat er acht sprints van één week zijn waarbij aan het eind van elke sprint een tussenproduct wordt gepresenteerd aan de opdrachtgever;
-                      Er moet gebruik gemaakt worden van de cloud;
-                      De applicatie moet op de touchscreen tafel, die bij het museum aanwezig is, gespeeld kunnen worden. Dit houdt in dat er touch ondersteuning moet zijn;
-                      De code van de applicatie moet voldoen aan de code conventies van NHL Stenden.
-                      3.3 Eisen scriptieAan het eind van de projectperiode moet er een scriptie van 18.000 woorden opgesteld worden waarin het project in detail beschreven wordt. Deze moet voldoen aan de eisen die op
-                  </p>
+                    <p> {this.state.textArea} </p>
                   </div>
                   <div className="quiz">
                       <div className="quizQuestion1">
