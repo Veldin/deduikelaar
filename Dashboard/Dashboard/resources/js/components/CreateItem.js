@@ -42,7 +42,8 @@ class CreateItem extends Component {
     this.setState({
       showPopup: !this.state.showPopup
     });
-
+  }
+  
   createItem(e) {
     e.preventDefault();
     fetch('/api/v1/story/',{
