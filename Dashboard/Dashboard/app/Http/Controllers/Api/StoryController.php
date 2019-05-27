@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Feedback;
+use App\File;
 use App\Http\Controllers\Controller;
 use App\Story;
 use App\StoryItem;
@@ -133,9 +134,24 @@ class StoryController extends Controller
                 'storyId' => $story->id
             ]);
 
-//            if(isset($files[$num])){
-//
-//            }
+            if(isset($files[$num])){
+                $f = $files[$num];
+                $extension = $f->getClientOriginalExtension();
+                $fn = $f->getClientOriginalName();
+                $filename = rand(11111111, 99999999) . '.' . $extension;
+//                while(file_exists($filename))
+                $files[$num]->storeAs("/uploads/story/", $filename, "local");
+
+//                var_dump($num);
+                File::create([
+                    'fileName' => $filename,
+                    'realName' => $fn,
+                    'fileType' => $f->getMimeType(),
+                    'extension' => $extension,
+                    'path' => 'uploads/story/',
+                    'storyItemId' => $storyItem->id
+                ]);
+            }
 
         }
 
