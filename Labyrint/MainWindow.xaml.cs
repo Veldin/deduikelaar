@@ -253,6 +253,15 @@ namespace Labyrint
                 }
             }
 
+            //OnTick all the engine behaiviors
+            if (onTickList.Count > 0)
+            {
+                foreach (IBehaviour behaivior in onTickList)
+                {
+                    behaivior.OnTick(gameObjects, delta);
+                }
+            }
+
             //Set the new curser location
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
