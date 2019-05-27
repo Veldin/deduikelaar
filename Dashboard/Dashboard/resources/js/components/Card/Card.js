@@ -78,7 +78,7 @@ const card = (props) => {
                   data={[
                     { value: percentageEmoteOne, description: percentageEmoteOne, color: "#ff0043" },
                     { value: percentageEmoteTwo, description: percentageEmoteTwo, color: "#77c6a0" },
-                    { value: percentageEmoteThree, description: percentageEmoteThree, color: "#d1d33d" }
+                    { value: percentageEmoteThree, description: percentageEmoteThree, color: "#8391a5" }
                   ]}
                 />
               </div>

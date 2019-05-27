@@ -65380,17 +65380,6 @@ module.exports = "/images/binocular2.png?33972d4137747631b235137589e75f2b";
 
 /***/ }),
 
-/***/ "./public/images/candle.png":
-/*!**********************************!*\
-  !*** ./public/images/candle.png ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/candle.png?e502baaf55b1c0560614734657f4b302";
-
-/***/ }),
-
 /***/ "./public/images/candle2.png":
 /*!***********************************!*\
   !*** ./public/images/candle2.png ***!
@@ -65410,6 +65399,28 @@ module.exports = "/images/candle2.png?04dd80e4251b1d6ab4a455de000632f0";
 /***/ (function(module, exports) {
 
 module.exports = "/images/envelope2.png?a66fb5573f96d6d5e75e69ae7e9fbd2d";
+
+/***/ }),
+
+/***/ "./public/images/kroontjesPen2.png":
+/*!*****************************************!*\
+  !*** ./public/images/kroontjesPen2.png ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/kroontjesPen2.png?7fa88e8e6989d099ed0734f7996eeba4";
+
+/***/ }),
+
+/***/ "./public/images/rat2.png":
+/*!********************************!*\
+  !*** ./public/images/rat2.png ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/rat2.png?84e2173b0f1ac95186b05824513dd40f";
 
 /***/ }),
 
@@ -65565,7 +65576,7 @@ var card = function card(props) {
     }, {
       value: percentageEmoteThree,
       description: percentageEmoteThree,
-      color: "#d1d33d"
+      color: "#8391a5"
     }]
   })))))));
 };
@@ -65714,6 +65725,19 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
+        id: "item4",
+        name: "items",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/rat2.png */ "./public/images/rat2.png")
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "item2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
         id: "item1",
         name: "items",
         type: "radio",
@@ -65723,7 +65747,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/envelope2.png */ "./public/images/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "item2"
+        htmlFor: "item3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -65736,7 +65760,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/candle2.png */ "./public/images/candle2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "item3"
+        htmlFor: "item4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -65749,18 +65773,18 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/binocular2.png */ "./public/images/binocular2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "item4"
+        htmlFor: "item5"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item4",
+        id: "item3",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ../../../public/images/candle.png */ "./public/images/candle.png")
+        src: __webpack_require__(/*! ../../../public/images/kroontjesPen2.png */ "./public/images/kroontjesPen2.png")
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66136,8 +66160,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

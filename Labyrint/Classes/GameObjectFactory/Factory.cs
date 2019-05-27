@@ -17,10 +17,10 @@ namespace GameObjectFactory
             builder = new Builder();
         }
 
-        public GameObject GetGameObject(string wantToGet, float fromLeft, float fromTop)
+        public GameObject GetGameObject(string wantToGet, float fromLeft, float fromTop, object value = null)
         {
             GameObject target = pool.GetGameObject();
-            builder.TransformGameObject(target, wantToGet, fromLeft, fromTop);
+            builder.TransformGameObject(target, wantToGet, fromLeft, fromTop, value);
 
             return target;
         }

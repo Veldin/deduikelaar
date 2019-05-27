@@ -46,6 +46,7 @@ class LabyrintApiController extends Controller
             $questions = [];
             foreach ($feedbacks as $feedback){
                 $answers = [];
+                // add each feedbackitem to a story.
                 foreach ($feedback->feedbackItems as $feedbackItem){
                     $answers[$feedbackItem->id] = [
                         'feedbackId' => $feedbackItem->id,
@@ -53,6 +54,7 @@ class LabyrintApiController extends Controller
                         'count' => 0,
                     ];
                 }
+                // Count the amount of feedback given
                 foreach ($story->feedback as $feedbackItem){
                     if($feedbackItem->question->id != $feedback->id) continue;
                     if( isset($answers[$feedbackItem->id]) &&
@@ -60,11 +62,13 @@ class LabyrintApiController extends Controller
                         $answers[$feedbackItem->id]['count'] += 1;
                     }
                 }
+                // Sort answers
                 $answers = array_values($answers);
                 usort($answers, function($a, $b) {
                     return $a['count'] - $b['count'];
                 });
 
+                // Add feedback to the questions which will be added to the story
                 $questions[] = [
                     'question' => $feedback->question,
                     'extraInfo' => $feedback->extraInfo,
@@ -73,6 +77,7 @@ class LabyrintApiController extends Controller
                 ];
             }
 
+            // add story to data
             $data[] = [
                 'storyId' => $story->id,
                 'title' => $story->title,
@@ -88,6 +93,7 @@ class LabyrintApiController extends Controller
     }
 
     public function getOrder(){
+<<<<<<< HEAD
         // TODO: Implement API getting te order
 
         return  response()->json([
@@ -108,6 +114,152 @@ class LabyrintApiController extends Controller
                     'feedbackId' => 1
                 ],
         ]);
+=======
+
+        // Get the stories and feedback
+        $stories = Story::with('feedback')->where('active', 1)->get();
+        $feedbacks = Feedback::with('feedbackItems')->get();
+
+        // Create a default array for the feedback for each story
+        $fs = [];
+        foreach ($feedbacks as $feedback){
+            $fis = [];
+            foreach ($feedback->feedbackItems as $fi){
+                $fis[$fi->id] = [
+                    'id' => $fi->id,
+                    'count' => 0
+                ];
+            }
+            $fs[$feedback->id] = [
+                'id' => $feedback->id,
+                'total' => 0,
+                'items' => $fis
+            ];
+        }
+
+        // Create a list of stories
+        $a = [];
+        foreach ($stories as $story){
+
+            // Set default array in a temp variable
+            $sfs = $fs;
+            $total = 0;
+            foreach ($story->feedback as $fi){
+                // Calculate the amount of feedback given
+                $sfs[$fi->question->id]['total']++;
+                $sfs[$fi->question->id]['items'][$fi->id]['count']++;
+            }
+
+            foreach ($sfs as $k => $v){
+                // Count totals
+                $total += $sfs[$k]['total'];
+            }
+
+            // Set feedback
+            $a[$story->id] = [
+                'id' => $story->id,
+                'total' => $total,
+                'feedback' => $sfs
+            ];
+        }
+
+
+
+        $order = [];
+        $fbOrder = [];
+        foreach ($fs as $f){
+            $fbOrder[$f['id']] = [
+                'id' => $f['id'],
+                'count' => 0
+            ];
+        }
+
+        // Return minimal 1000 stories
+        for($i=0;$i<1000;){
+
+            foreach ($a as $j => $story){
+
+
+                $sfs = $story['feedback'];
+                foreach ($sfs as $k => $v){
+                    // Sort feedbackitems, lowest first
+                    usort($v['items'], function ($a, $b) {
+                        if($a['count'] == $b['count']) return 0;
+                        return ($a['count'] < $b['count']) ? -1 : 1;
+                    });
+                    $sfs[$k]['items'] = $v['items'];
+                }
+                // Sort feedback, lowest first
+                usort($sfs, function ($a, $b) {
+                    if($a['total'] == $b['total']) return 0;
+                    return ($a['total'] < $b['total']) ? -1 : 1;
+                });
+                // Set the sorted feedback
+                $a[$j]['feedback'] = $sfs;
+            }
+
+
+
+            // Sort stories
+            usort($a, function ($a, $b) {
+                if($a['total'] == $b['total']) return 0;
+                return ($a['total'] < $b['total']) ? -1 : 1;
+            });
+
+
+            foreach ($a as $k => $b){
+                $i++;
+
+                // Set the id of the less used feedback of this story
+                $fid = $b['feedback'][0]['id'];
+
+                // Set the used feedback
+                $fbTempOrder = $fbOrder;
+
+                // Order the most/less used feedback, lowest first
+                usort($fbTempOrder, function($a, $b){
+                    if($a['count'] == $b['count']) return 0;
+                    return ($a['count'] < $b['count']) ? -1 : 1;
+                });
+
+                // Check so you don't have more than 3 times the same feedback
+                if($fbTempOrder[0]['id'] != $fid){
+                    if($fbTempOrder[0]['count']+2 < $fbOrder[$fid]['count']){
+                        $fid = $fbTempOrder[0]['id'];
+                    }
+                }
+                // Add a count to the used feedback
+                $fbOrder[$fid]['count']++;
+
+                // Add a count to the story total
+                $a[$k]['total']++;
+
+                $fbnum = -1; // feebackNum
+                $fbinum = -1; // feedbackItemNum
+                foreach ($b['feedback'] as $n => $f){
+                    $fbnum = $n;
+                    foreach ($f['items'] as $m => $fi){
+                        if($fi['id'] == $fid){
+                            $fbinum = $m;
+                            break;
+                        }
+                    }
+                    if($fbinum >= 0) break;
+                }
+                // Add count to the used feedbackItem for this story
+                $a[$k]['feedback'][$fbnum]['items'][$fbinum]['count']++;
+
+                // Put in order
+                $order[] = [
+                    'storyId' => $b['id'],
+                    'feedbackId' => $fid
+                ];
+            }
+        }
+
+        return response()->json($order);
+
+>>>>>>> 49354c09f8e288b0aa01542b9c8051d264b92d86
     }
 
 
