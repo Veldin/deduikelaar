@@ -219,7 +219,5 @@ namespace Labyrint
                 commandResponse.Text = text + "\n" + commandResponse.Text;
             });
         }
-
-
     }
 }

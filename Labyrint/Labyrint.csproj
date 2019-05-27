@@ -69,11 +69,8 @@
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PlayerSpriteBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Classes\BrowserUIControl\BrowserUIControlFacade.cs" />
     <Compile Include="Classes\Command.cs" />
->>>>>>> 49354c09f8e288b0aa01542b9c8051d264b92d86
     <Compile Include="Classes\GameObjectFactory\Builder.cs" />
     <Compile Include="Classes\GameObjectFactory\Factory.cs" />
     <Compile Include="Classes\GameObject.cs" />
@@ -166,6 +163,9 @@
     <Resource Include="Assets\Sprites\back1_145_200_32.gif" />
     <Resource Include="Assets\Sprites\back2_145_200_32.gif" />
     <Resource Include="Assets\Sprites\back3_145_200_32.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\EngineBehaviours\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

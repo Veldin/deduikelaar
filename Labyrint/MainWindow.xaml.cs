@@ -63,6 +63,9 @@ namespace Labyrint
         private List<GameObject> gameObjects;
         private List<GameObject> backgroundObjects;
 
+        //Strategies
+        public List<IBehaviour> onTickList;
+
         string assemblyName;
 
         private int renderDistance;
@@ -579,9 +582,6 @@ namespace Labyrint
 
             gameObjects.Add(newPickup);
         }
-<<<<<<< HEAD
-=======
-
 
         public void SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -598,6 +598,6 @@ namespace Labyrint
             System.Windows.Application.Current.Shutdown();
             //this.Close();
         }
->>>>>>> 49354c09f8e288b0aa01542b9c8051d264b92d86
+
     }
 }
