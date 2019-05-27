@@ -85,6 +85,36 @@ div.itemCollection {
     background: $super-light; 
 }
 
+.question:first-child{
+    margin-top: 20px;
+}
+
+.question:last-child{
+    margin-top: 40px;
+}
+
+.question{
+    color: $secondary-light;
+}
+
+.popup{
+    position: absolute;
+    background-color: $primary-light;
+    z-index: 1;
+    min-height: 100px;
+    width: 300px;
+    border-radius: 4px;
+    box-shadow: 5px;
+}
+
+.popup_inner{
+    padding-left: 15px;
+    color: $secondary-dark;
+}
+
+.cross{
+    color: $secondary-dark;
+}
 
 // example 
 

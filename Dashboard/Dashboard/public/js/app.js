@@ -65615,8 +65615,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _example_Example__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./example/Example */ "./resources/js/components/example/Example.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65642,6 +65643,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var CreateItem =
 /*#__PURE__*/
 function (_Component) {
@@ -65656,7 +65659,8 @@ function (_Component) {
     _this.state = {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
-      isChecked: true
+      isChecked: true,
+      showPopup: false
     };
     return _this;
   }
@@ -65677,26 +65681,17 @@ function (_Component) {
     }
   }, {
     key: "changeStateSwitch",
-    value: function changeStateSwitch(event) {
+    value: function changeStateSwitch() {
       this.setState({
         isChecked: !this.state.isChecked
       });
     }
   }, {
-    key: "changeStateTextArea",
-    value: function changeStateTextArea(event) {
+    key: "togglePopup",
+    value: function togglePopup() {
       this.setState({
-        textArea: event.target.value
+        showPopup: !this.state.showPopup
       });
-    }
-  }, {
-    key: "changeStateSwitch",
-    value: function changeStateSwitch(event) {
-      console.log("doei");
-      this.setState({
-        isChecked: !this.state.isChecked
-      });
-      console.log(this.state.isChecked);
     }
   }, {
     key: "render",
@@ -65716,42 +65711,59 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s12"
+        className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "title",
         className: "inputField",
         type: "text",
+        required: true,
         onChange: this.changeState.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
-      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, "Titel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question col s1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
+        onClick: this.togglePopup.bind(this)
+      }))), this.state.showPopup ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        text: "Click \"Close Button\" to hide popup",
+        closePopup: this.togglePopup.bind(this)
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "switch existingFile"
+        className: "switch existingFile col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         onChange: this.changeStateSwitch.bind(this),
         checked: this.state.isChecked
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lever"
-      }), "Ja"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), "Ja")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question col s1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row",
         style: hidden
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s12"
+        className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "textarea1",
         className: "inputField materialize-textarea",
         onChange: this.changeStateTextArea.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "textarea1"
-      }, "Eigen tekst"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Eigen tekst")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question col s1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row",
         style: isChecked
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s12"
+        className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-field input-field"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65764,25 +65776,16 @@ function (_Component) {
         className: "file-path validate",
         type: "text",
         placeholder: "Upload hier het gewenste bestand"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question col s1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
       }, "Kies een item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "with-gap",
-        id: "item4",
-        name: "items",
-        type: "radio"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "itemImage"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ../../../public/images/rat2.png */ "./public/images/rat2.png")
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "item2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -65794,6 +65797,19 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/rat2.png */ "./public/images/rat2.png")
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "item2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        id: "item2",
+        name: "items",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/envelope2.png */ "./public/images/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item3"
@@ -65801,7 +65817,7 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item2",
+        id: "item3",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65814,7 +65830,7 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item3",
+        id: "item4",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65827,7 +65843,7 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item3",
+        id: "item5",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65872,20 +65888,20 @@ function (_Component) {
         className: "emoOne"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s2 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSmile"]
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faSmile"]
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emoTwo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s2 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSadTear"]
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faSadTear"]
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emoThree"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s2 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faAngry"]
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faAngry"]
       })))))))))));
     }
   }]);
@@ -66174,6 +66190,72 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/example/Example.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/example/Example.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Popup =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Popup, _React$Component);
+
+  function Popup() {
+    _classCallCheck(this, Popup);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Popup).apply(this, arguments));
+  }
+
+  _createClass(Popup, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "popup"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "popup_inner row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s11"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Hier kan de titel ingevoerd worden die terug te vinden is boven dit item.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cross col s1"
+      })));
+    }
+  }]);
+
+  return Popup;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Popup);
+
+/***/ }),
+
 /***/ "./resources/js/materialize.js":
 /*!*************************************!*\
   !*** ./resources/js/materialize.js ***!
@@ -66203,8 +66285,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

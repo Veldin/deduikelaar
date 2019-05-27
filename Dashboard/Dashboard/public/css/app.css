@@ -196,6 +196,37 @@ div.item {
   background: #b1bfd3;
 }
 
+.question:first-child {
+  margin-top: 20px;
+}
+
+.question:last-child {
+  margin-top: 40px;
+}
+
+.question {
+  color: #8391a5;
+}
+
+.popup {
+  position: absolute;
+  background-color: #304964;
+  z-index: 1;
+  min-height: 100px;
+  width: 300px;
+  border-radius: 4px;
+  box-shadow: 5px;
+}
+
+.popup_inner {
+  padding: 10px;
+  color: #e7edf2;
+}
+
+.cross {
+  color: #e7edf2;
+}
+
 .background {
   background-color: rgba(84, 110, 122, 0.6);
   height: 670px;
@@ -3719,7 +3750,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
