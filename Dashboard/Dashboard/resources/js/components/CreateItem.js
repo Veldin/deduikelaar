@@ -30,11 +30,9 @@ class CreateItem extends Component {
   }
 
   changeStateSwitch(event) {
-      console.log("doei");
-      this.setState({
-        isChecked: !this.state.isChecked
-      });
-      console.log(this.state.isChecked);
+    this.setState({
+      isChecked: !this.state.isChecked
+    });
   }
 
 
@@ -58,13 +56,13 @@ class CreateItem extends Component {
                 <input id="title" className="inputField" type="text" onChange={this.changeState.bind(this)}></input>
                 <label htmlFor="last_name">Titel</label>
               </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s11">
+                <input id="last_name" className="inputField" type="text"></input>
+                <label htmlFor="last_name">Beschrijving</label>
               </div>
-              <div className="row">
-                <div className="input-field col s11">
-                  <input id="last_name" className="inputField" type="text"></input>
-                  <label htmlFor="last_name">Beschrijving</label>
-                </div>
-              </div>
+            </div>
 
               <label htmlFor="last_name">Bestaand document</label>
               <div className="row">
@@ -79,12 +77,10 @@ class CreateItem extends Component {
               </div>
 
               <div className="row" style={ hidden }>
-                  <div className="row">
-                    <div className="input-field col s11">
-                      <textarea id="textarea1" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
-                      <label htmlFor="textarea1">Eigen tekst</label>
-                    </div>
-                  </div>
+                <div className="input-field col s11">
+                  <textarea id="textarea1" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
+                  <label htmlFor="textarea1">Eigen tekst</label>
+                </div>
               </div>
 
               <div className="row" style={ isChecked }>

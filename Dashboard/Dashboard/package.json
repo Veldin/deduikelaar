@@ -33,7 +33,7 @@
         "@fortawesome/react-fontawesome": "^0.1.4",
         "materialize-css": "^1.0.0",
         "react-horizontal-stacked-bar-chart": "^8.13.1",
-        "react-router": "^3.2.0",
+        "react-router": "^3.2.1",
         "react-router-dom": "^5.0.0",
         "toastr": "^2.1.4"
     }
