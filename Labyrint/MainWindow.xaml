@@ -14,8 +14,8 @@
             <Canvas Margin="0" Width="1280" Height="720" Name="gameCanvas" />
         </Viewbox>
 
-        <Viewbox Visibility="Hidden" Name="browserViewBox" Margin="10,10,10,10" RenderOptions.BitmapScalingMode="NearestNeighbor">
-            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200"/>
+        <Viewbox Name="browserViewBox" Margin="10,10,10,10" RenderOptions.BitmapScalingMode="NearestNeighbor">
+            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200" Visibility="Hidden" />
         </Viewbox>
 
         <StackPanel Orientation="Vertical">

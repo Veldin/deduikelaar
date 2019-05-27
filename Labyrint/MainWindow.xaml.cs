@@ -74,6 +74,8 @@ namespace Labyrint
         private GameObject controllerAnchor;
         private GameObject controllerCursor;
 
+        private Command command;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -91,13 +93,18 @@ namespace Labyrint
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
             FileReaderWriterFacade.Init();
+            ApiParserFacade.Init();
             //Log.Debug(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt");
             //FileReaderWriterFacade.WriteText(new string[] { "bla" }, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt", false);
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
 
+            command = new Command(CommandBar, CommandResponse);
+
             random = new Random();
+
+            browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath()));      //Inits a new navigate call
 
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -450,6 +457,31 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
+            command.KeyPressed(args.Key.ToString());
+
+            //Log.Debug(viewBox.ActualHeight);
+            //Log.Debug("------------------------------------------------------------");
+            //Log.Debug(cursor.FromLeft);
+            //Log.Debug(cursor.FromTop);
+            //Log.Debug("---");
+            //Log.Debug(mainWindow.ActualWidth);
+            //Log.Debug(viewBox.ActualWidth);
+            //Log.Debug(gameCanvas.Width);
+            //Log.Debug("---");
+            //Log.Debug(mainWindow.ActualHeight);
+            //Log.Debug(viewBox.ActualHeight);
+            //Log.Debug(gameCanvas.ActualHeight);
+            //Log.Debug("---");
+            //Log.Debug(viewBox.ActualWidth/gameCanvas.ActualWidth);
+            //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
+            //Log.Debug("---");
+            
+            //ApiParserFacade.AddStory();
+            //ApiParserFacade.SaveStories();
+            //ApiParserFacade.AddQuestion();
+            //ApiParserFacade.SaveQuestions();
+            //ApiParserFacade.AddItemOrder();
+            //ApiParserFacade.SaveItemOrders();
         }
 
 
@@ -566,7 +598,8 @@ namespace Labyrint
                 newPickup = GameObjectFactoryFacade.GetGameObject(
                     "pickup", 
                     randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
-                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2
+                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
+                    browser
                 );
             } while (newPickup.distanceBetween(player) < 0); //if its to close to the player pick a new location
 
@@ -585,8 +618,8 @@ namespace Labyrint
 
         public void CloseApp()
         {
-            System.Windows.Application.Current.Shutdown();
-            //this.Close();
+            //System.Windows.Application.Current.Shutdown();
+            this.Close();
         }
 
     }

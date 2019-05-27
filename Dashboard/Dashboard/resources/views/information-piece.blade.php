@@ -10,21 +10,32 @@
                 margin: 0;
                 padding: 0;
             }
+
             html, body{
                 width: 100%;
                 height: 100%;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+                font-size: 1rem;
             }
-            h1{
-                font-size: 70px;
+
+            .title{
+                font-weight: 400;
+                font-size: 1.8rem;
+                margin-bottom: 60px;
+                background-color: #aa9479;
+                width: 70%;
             }
+
             .description{
-                font-size: 30px;
+                font-weight: normal;
+                font-size: 1.3rem;
+                background-color: #aa9479;
             }
         </style>
     </head>
     <body>
         <header>
-            <h1>{{ $story->title }}</h1>
+            <h1 class="title">{{ $story->title }}</h1>
         </header>
         <div class="description">
             {{ $story->description }}
