@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HSBar from 'react-horizontal-stacked-bar-chart';
+import toastr from 'toastr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { faSmile } from '@fortawesome/free-solid-svg-icons'
@@ -25,14 +26,19 @@ const card = (props) => {
     width: percentageEmoteThree
   };
 
-  function deleteItem(e) {
-    e.preventDefault();
-    fetch('/api/v1/overview/1',{
+  function deleteItem() {
+    fetch('/api/v1/overview/'+props.storyID,{
       method: 'DELETE',
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response);
+      console.log(response['response']);
+
+      if(response['response'] == "success"){
+        toastr.success('Het item is verwijderd!')
+      }else{
+        toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+      }
     })
   }
   
@@ -59,7 +65,7 @@ const card = (props) => {
           </div>
           <div className="row">
             <div className="col s12">
-               <span className="card-title">{props.title}</span>
+               <span className="card-title">{props.title}{props.storyID}</span>
             </div>
           </div>
           <div className="row feedback">
