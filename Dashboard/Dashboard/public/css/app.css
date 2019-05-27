@@ -139,7 +139,7 @@ div.itemCollection {
   white-space: nowrap;
 }
 
-div.item {
+div.items {
   display: inline-block;
 }
 
@@ -219,7 +219,7 @@ div.item {
 }
 
 .popup_inner {
-  padding: 10px;
+  padding-left: 15px;
   color: #e7edf2;
 }
 
