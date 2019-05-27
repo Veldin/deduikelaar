@@ -104,7 +104,9 @@ div.itemCollection {
     min-height: 100px;
     width: 300px;
     border-radius: 4px;
-    box-shadow: 5px;
+    box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.28);
+    right: 350px;
+    top: 175px;
 }
 
 .popup_inner{
@@ -119,7 +121,6 @@ div.itemCollection {
 // example 
 
 .background{
-    background-color: rgba(84,110,122,0.6);  //needs to be rgba because of opacity
     height: 670px;
 }
 
