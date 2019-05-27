@@ -65511,7 +65511,7 @@ var card = function card(props) {
   };
 
   function deleteItem() {
-    fetch('/api/v1/overview/' + props.storyID, {
+    fetch('/api/v1/story/' + props.storyID, {
       method: 'DELETE'
     }).then(function (response) {
       return response.json();
@@ -65600,8 +65600,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -65701,15 +65699,14 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s12"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _defineProperty({
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "title",
         className: "inputField",
         type: "text",
         name: "title",
-        onChange: this.props.handleChange,
-        value: this.props.title,
-        required: true
-      }, "onChange", this.changeState.bind(this))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        required: true,
+        onChange: this.changeState.bind(this)
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
       }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
@@ -66039,7 +66036,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/api/v1/overview').then(function (response) {
+      fetch('/api/v1/stories').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
         _this2.setState({
