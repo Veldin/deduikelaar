@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using FileReaderWriterSystem;
 using LogSystem;
 
 namespace Labyrint
@@ -47,7 +48,7 @@ namespace Labyrint
         {
             switch (key)
             {
-                case "Tab":
+                case "Oem3":
                     SetActive();
                     break;
                 case "Return":
@@ -61,6 +62,8 @@ namespace Labyrint
                         ExecuteMethod(commandBar.Text);
                     }
 
+                    WriteInput(commandBar.Text);
+                    ReadInput();
                     commandBar.Text = "";
                     break;
 
@@ -94,10 +97,7 @@ namespace Labyrint
                     Log.Debug("logFilter cleared");
                     break;
                 case "logFilter.AddClass":
-                    ExecuteMethod("Labyrint.Labyrint.Command.AddLogClass");
-                    break;
-                case "item":
-                    ExecuteMethod("Labyrint.Labyrint.MainWindow.DropNewPickup");
+                    ExecuteMethod("Labyrint.Labyrint.Command.AddLogClass");                 
                     break;
             }
         }
@@ -180,18 +180,54 @@ namespace Labyrint
 
         private void ExecuteMethodWithParameters(string text)
         {
+            // Get the parametersInfo from the methodInfo
             ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 
+            // Check if it is one or multiple parameters
             if (parameterInfos.Length == 1)
             {
+                // Convert the input to the necessary parameterTypes
                 object parameter = Convert.ChangeType(text, parameterInfos[0].ParameterType);
-                if (parameter != null)
+
+                // Try to execute the method
+                try
                 {
                     methodInfo.Invoke(this, new object[] { parameter });
                 }
+                catch
+                {
+                    Log.Debug("Failed to execute " + methodInfo.Name);
+                }
+                    
+            } else
+            {
+                // Split the input by the comma's
+                string[] parametersStrings = text.Split(',');
+
+                // Create the parameters array
+                object[] parameters = new object[parametersStrings.Length];
+
+                // Loop through all parametersStrings to convert them to the necessary type and add them to the object array
+                for (int i = 0; i < parametersStrings.Length; i++)
+                {
+                    object parameter = Convert.ChangeType(parametersStrings[i], parameterInfos[0].ParameterType);
+
+                    parameters[i] = (parameter);
+
+                }
+
+                // Try to execute the method
+                try
+                {
+                    methodInfo.Invoke(this, new object[] { parameters });
+                }
+                catch
+                {
+                    Log.Debug("Failed to execute " + methodInfo.Name);
+                }
             }
 
-
+            // Set the methodInfo to null
             methodInfo = null;
         }
 
@@ -220,6 +256,18 @@ namespace Labyrint
             });
         }
 
+        private void WriteInput(string text)
+        {
+            // If stringg is not empty write it in a textFile
+            if (text != "")
+            {
+                FileReaderWriterFacade.WriteText(new string[] { text }, FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt", true);
+            }
+        }
 
+        private void ReadInput()
+        {
+            Log.Debug(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt"));
+        }
     }
 }

@@ -13,8 +13,8 @@ namespace ApiParser
         [JsonProperty ("storyId")]
         public int storyId { get; set; }
 
-        [JsonProperty("type")]
-        public string type { get; set; }
+        [JsonProperty("icon")]
+        public string icon { get; set; }
 
         [JsonProperty("html")]
         public string html { get; set; }
