@@ -16,7 +16,7 @@ namespace Labyrint
             loopList = new List<GameObject>();
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
  
             loopList.Clear();

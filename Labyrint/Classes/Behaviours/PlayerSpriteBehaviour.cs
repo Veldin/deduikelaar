@@ -28,7 +28,7 @@ namespace Labyrint
             position = "right";
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
             bool moved = false;
             if (Math.Abs(lastPositionFromLeft - gameobject.FromLeft) > 0.01f)
@@ -85,7 +85,6 @@ namespace Labyrint
                     {
                         frame = 1;
                     }
-                    Log.Debug(frame);
 
                     animationDelta = animationDeltaMax;
                     //'assets/sprites/left2_145_200_32.gif'.'

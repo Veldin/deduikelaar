@@ -4,19 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameObjectFactory;
+using LogSystem;
 
 namespace Labyrint
 {
     class SpaceButtonsHorisontallyBehaviour : IBehaviour
     {
-        public List<GameObject> loopList;
+        private List<GameObject> loopList;
+        private List<GameObject> buttonList;
+
+        private int spaceBetween;
+        private int countButtons;
 
         public SpaceButtonsHorisontallyBehaviour()
         {
             loopList = new List<GameObject>();
+            buttonList = new List<GameObject>();
+
+            //Space between the buttons
+            spaceBetween = 100;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
             throw new NotImplementedException();
         }
@@ -24,15 +33,45 @@ namespace Labyrint
         public bool OnTick(List<GameObject> gameObjects, float delta)
         {
             loopList.Clear();
+            buttonList.Clear();
+
 
             lock (gameObjects)
             {
                 loopList.AddRange(gameObjects);
             }
 
+            int i = 0;
             foreach (GameObject needle in loopList)
             {
-                
+                if (needle.BuilderType == "button")
+                {
+                    buttonList.Add(needle);
+                    i++;
+                }
+            }
+
+            if (i == countButtons)
+            {
+                return false; //The amount of buttons didn't change.
+            }
+
+            countButtons = i;
+
+            //The offset fromleft where to start
+            float fromLeftOffsetStart = (buttonList.Count() * -0.5f + 0.5f) * spaceBetween;
+
+            int count = 0;
+            foreach (GameObject needle in buttonList)
+            {
+                needle.AddFromLeft(fromLeftOffsetStart);
+
+                if(count > 0)
+                    needle.AddFromLeft(count * spaceBetween);
+
+                needle.AddFromLeft((needle.Width / 2 )* -1);
+
+                count++;
             }
 
             return true;

@@ -10,7 +10,7 @@ namespace Labyrint
 {
     class MoveToTargetBehaviour : IBehaviour
     {
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
             // Check if target if null, if so return false
             if (gameobject.Target is null)

@@ -28,7 +28,7 @@ namespace Labyrint
             this.destinationFromTop = destinationFromTop;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
             //If the anchor is null search an anchor.
             if (anchor == null)

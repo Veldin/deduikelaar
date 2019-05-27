@@ -46,7 +46,6 @@ namespace Labyrint
 
         //Arraylist with all the gameObjects in the current game
         private HashSet<String> pressedKeys;
-        private bool IsMouseDown;
 
         //Camera
         private  Camera camera;
@@ -104,8 +103,6 @@ namespace Labyrint
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 rectangle = new Rectangle();
-
-                rectangle = new Rectangle();
                 rectangle.Stroke = new SolidColorBrush(Color.FromRgb(0, 111, 111));
             }));
 
@@ -137,6 +134,8 @@ namespace Labyrint
             gameObjects = new List<GameObject>();
 
             gameObjects.Add(player);
+            gameObjects.Add(cursor);
+
 
             //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
 
@@ -164,7 +163,9 @@ namespace Labyrint
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
 
+
             onTickList = new List<IBehaviour>();
+            //onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
@@ -226,7 +227,6 @@ namespace Labyrint
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(gameObjects);
-                    loopList.Add(cursor);
                 }
                 catch
                 {
@@ -251,6 +251,12 @@ namespace Labyrint
                 {
                     gameObject.OnTick(gameObjects, pressedKeys, delta);
                 }
+
+                //If the key is down 
+                if (IsKeyPressed("LeftMouse"))
+                {
+
+                }
             }
 
             //OnTick all the engine behaiviors
@@ -265,7 +271,8 @@ namespace Labyrint
             //Set the new curser location
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                try{
+                try
+                {
                     Point p = Mouse.GetPosition(gameCanvas);
                     cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
                     cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
@@ -275,6 +282,7 @@ namespace Labyrint
                     Log.Warning("Could not find pointer location");
                 }
             });
+
 
             //Destory old objects
             foreach (GameObject gameObject in loopList)
@@ -297,6 +305,7 @@ namespace Labyrint
             }
 
             MovePlayer();
+
         }
 
 
@@ -341,7 +350,6 @@ namespace Labyrint
 
                 foreach (GameObject gameObject in loopList)
                 {
-
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
                         gameCanvas.Children.Remove(gameObject.rectangle);
@@ -382,7 +390,7 @@ namespace Labyrint
         private void MovePlayer()
         {
             // Only move the player if the mouse is down
-            if (IsMouseDown)
+            if (IsKeyPressed("LeftMouse"))
             {
                 Target startTarget = new Target(controllerAnchor.FromLeft, controllerAnchor.FromTop);
                 Target newTarget = new Target(cursor.FromLeft, cursor.FromTop);
@@ -436,39 +444,12 @@ namespace Labyrint
 
         /* KeyDown */
         /* 
-            * Add the given key in the pressedKeys collection.
-            * The argument is the given key represented as a string.
-            */
+        * Add the given key in the pressedKeys collection.
+        * The argument is the given key represented as a string.
+        */
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
-
-            //Log.Debug(viewBox.ActualHeight);
-            //Log.Debug("------------------------------------------------------------");
-            //Log.Debug(cursor.FromLeft);
-            //Log.Debug(cursor.FromTop);
-            //Log.Debug("---");
-            //Log.Debug(mainWindow.ActualWidth);
-            //Log.Debug(viewBox.ActualWidth);
-            //Log.Debug(gameCanvas.Width);
-            //Log.Debug("---");
-            //Log.Debug(mainWindow.ActualHeight);
-            //Log.Debug(viewBox.ActualHeight);
-            //Log.Debug(gameCanvas.ActualHeight);
-            //Log.Debug("---");
-            //Log.Debug(viewBox.ActualWidth/gameCanvas.ActualWidth);
-            //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
-            //Log.Debug("---");
-            
-            ApiParserFacade.AddStory();
-            ApiParserFacade.SaveStories();
-            ApiParserFacade.AddQuestion();
-            ApiParserFacade.SaveQuestions();
-            ApiParserFacade.AddItemOrder();
-            ApiParserFacade.SaveItemOrders();
-
-
-            camera.GenerateHeightAndWidth();
         }
 
 
@@ -500,7 +481,7 @@ namespace Labyrint
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
             // Set IsMouseDown on true
-            IsMouseDown = true;
+            pressedKeys.Add("LeftMouse");
 
             // Create the controller GameObjects
             controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
@@ -520,7 +501,7 @@ namespace Labyrint
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
             // Set IsMouseDown on false
-            IsMouseDown = false;
+            pressedKeys.Remove("LeftMouse");
 
             // Set the target of the player to the current position to stop it from moving
             player.Target.SetFromLeft(player.FromLeft);
@@ -558,7 +539,7 @@ namespace Labyrint
             {
                 gameObjects.Add(GameObjectFactoryFacade.GetGameObject(
                     "button",
-                    i,
+                    i * 100,
                     i,
                     camera
                 ));
