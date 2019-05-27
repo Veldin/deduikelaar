@@ -16,15 +16,19 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Api\LabyrintApiController@documentation');
-Route::get('overview', 'Api\LabyrintApiController@getOverview');
 Route::get('order', 'Api\LabyrintApiController@getOrder');
-Route::get('stories', 'Api\LabyrintApiController@getStories');
-Route::get('test_story', 'Api\LabyrintApiController@testStory');
-Route::get('test', function(){
-    return view('test_story_view');
-});
 Route::get('feedback', 'Api\LabyrintApiController@getFeedback');
 Route::get('statistics', 'Api\LabyrintApiController@getStatistics');
 
 
-Route::delete('overview/{storyId}', 'Api\LabyrintApiController@deleteStory');
+Route::get('overview', 'Api\StoryController@getOverview');
+Route::get('stories', 'Api\StoryController@getStories');
+Route::get('test_story', 'Api\StoryController@testStory');
+Route::get('test', function(){
+    return view('test_story_view');
+});
+Route::put('story', 'Api\StoryController@newStory');
+Route::patch('story/{storyId}', 'Api\StoryController@changeStory');
+Route::delete('story/{storyId}', 'Api\StoryController@deleteStory');
+
+
