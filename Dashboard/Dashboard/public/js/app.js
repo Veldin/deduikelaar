@@ -65669,26 +65669,32 @@ function (_Component) {
       });
     }
   }, {
-<<<<<<< HEAD
     key: "togglePopup",
     value: function togglePopup() {
       this.setState({
         showPopup: !this.state.showPopup
-=======
-    key: "createItem",
-    value: function createItem(e) {
+      });
+    }
+  }, {
+    key: "insertItem",
+    value: function insertItem(e) {
       e.preventDefault();
-      fetch('/api/v1/story/', {
-        method: 'PUT'
+      var formData = new FormData(); // formData.append('title', createItemForm.title);
+      // formData.append('uploadFile', createItemForm.uploadFile);
+      // formData.append('ownText', createItemForm.ownText);
+      // formData.append('selectedIcon', createItemForm.items);
+
+      fetch('/api/v1/story', {
+        method: 'PUT',
+        body: formData
       }).then(function (response) {
         return response.json();
       }).then(function (response) {
-        console.log('hi: ' + response['response']); // if(response['response'] == "success"){
+        console.log(response['response']); // if(response['response'] == "success"){
         //   toastr.success('Het item is verwijderd!')
         // }else{
         //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         // }
->>>>>>> 41d7b76f8af9343a240e43d679862a3a28cbe963
       });
     }
   }, {
@@ -65706,22 +65712,21 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s5 inputFields"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        name: "createItemForm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "title",
+        name: "title",
         className: "inputField",
         type: "text",
-<<<<<<< HEAD
-=======
-        name: "title",
->>>>>>> 41d7b76f8af9343a240e43d679862a3a28cbe963
         required: true,
         onChange: this.changeState.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
+        htmlFor: "title"
       }, "Titel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
@@ -65731,13 +65736,14 @@ function (_Component) {
         text: "Click \"Close Button\" to hide popup",
         closePopup: this.togglePopup.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
+        htmlFor: "existingFile"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch existingFile col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
+        name: "existingFile",
         onChange: this.changeStateSwitch.bind(this),
         checked: this.state.isChecked
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65753,10 +65759,11 @@ function (_Component) {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "textarea1",
+        name: "ownText",
         className: "inputField materialize-textarea",
         onChange: this.changeStateTextArea.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "textarea1"
+        htmlFor: "ownText"
       }, "Eigen tekst")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
@@ -65771,11 +65778,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Bestand"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "uploadFileButton",
         type: "file"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-path-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "file-path validate",
+        name: "uploadFile",
         type: "text",
         placeholder: "Upload hier het gewenste bestand"
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65783,8 +65792,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
-      }, "Kies een item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        htmlFor: "chooseIcon"
+      }, "Kies een icoon"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item1"
@@ -65793,7 +65802,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item1",
-        name: "items",
+        name: "item1",
         type: "radio",
         defaultChecked: true
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65807,7 +65816,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item2",
-        name: "items",
+        name: "item2",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65820,7 +65829,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item3",
-        name: "items",
+        name: "item3",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65833,7 +65842,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item4",
-        name: "items",
+        name: "item4",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65846,7 +65855,20 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item5",
-        name: "items",
+        name: "item5",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/kroontjesPen2.png */ "./public/images/kroontjesPen2.png")
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "item6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        id: "item5",
+        name: "item6",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65859,7 +65881,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn waves-effect waves-light saveButton",
         type: "submit",
-        onClick: this.createItem.bind(this),
+        onClick: this.insertItem.bind(this),
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s7 example"
@@ -66288,8 +66310,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
