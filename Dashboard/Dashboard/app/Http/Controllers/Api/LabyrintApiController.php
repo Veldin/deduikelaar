@@ -93,28 +93,6 @@ class LabyrintApiController extends Controller
     }
 
     public function getOrder(){
-<<<<<<< HEAD
-        // TODO: Implement API getting te order
-
-        return  response()->json([
-                [
-                    'storyId' => 1,
-                    'feedbackId' => 1
-                ],
-                [
-                    'storyId' => 2,
-                    'feedbackId' => 3
-                ],
-                [
-                    'storyId' => 8,
-                    'feedbackId' => 2
-                ],
-                [
-                    'storyId' => 3,
-                    'feedbackId' => 1
-                ],
-        ]);
-=======
 
         // Get the stories and feedback
         $stories = Story::with('feedback')->where('active', 1)->get();
@@ -258,8 +236,6 @@ class LabyrintApiController extends Controller
         }
 
         return response()->json($order);
-
->>>>>>> 49354c09f8e288b0aa01542b9c8051d264b92d86
     }
 
 
