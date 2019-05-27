@@ -65700,7 +65700,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
+        className: "input-field col s12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "title",
         className: "inputField",
@@ -65708,17 +65708,7 @@ function (_Component) {
         onChange: this.changeState.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
-      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        id: "last_name",
-        className: "inputField",
-        type: "text"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
-      }, "Beschrijving"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
@@ -65734,7 +65724,7 @@ function (_Component) {
         className: "row",
         style: hidden
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
+        className: "input-field col s12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "textarea1",
         className: "inputField materialize-textarea",
@@ -65745,7 +65735,7 @@ function (_Component) {
         className: "row",
         style: isChecked
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
+        className: "input-field col s12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-field input-field"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65759,16 +65749,6 @@ function (_Component) {
         type: "text",
         placeholder: "Upload hier het gewenste bestand"
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
-      }, "Quiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "switch quiz"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "lever"
-      }), "Ja"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
       }, "Kies een item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
@@ -65843,12 +65823,6 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn waves-effect waves-light cancelButton",
-        type: "submit",
-        name: "action"
-      }, "Annuleren")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn waves-effect waves-light saveButton",
         type: "submit",
         name: "action"
@@ -65876,7 +65850,7 @@ function (_Component) {
         className: "quizQuestion3"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quizQuestion4"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "feedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emoOne"

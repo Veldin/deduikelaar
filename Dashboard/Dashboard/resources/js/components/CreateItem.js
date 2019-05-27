@@ -52,17 +52,17 @@ class CreateItem extends Component {
           <div className="col s5 inputFields">
             <form>
             <div className="row">
-              <div className="input-field col s11">
+              <div className="input-field col s12">
                 <input id="title" className="inputField" type="text" onChange={this.changeState.bind(this)}></input>
                 <label htmlFor="last_name">Titel</label>
               </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
               <div className="input-field col s11">
                 <input id="last_name" className="inputField" type="text"></input>
                 <label htmlFor="last_name">Beschrijving</label>
               </div>
-            </div>
+            </div> */}
 
               <label htmlFor="last_name">Bestaand document</label>
               <div className="row">
@@ -77,14 +77,14 @@ class CreateItem extends Component {
               </div>
 
               <div className="row" style={ hidden }>
-                <div className="input-field col s11">
+                <div className="input-field col s12">
                   <textarea id="textarea1" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
                   <label htmlFor="textarea1">Eigen tekst</label>
                 </div>
               </div>
 
               <div className="row" style={ isChecked }>
-                <div className="input-field col s11">
+                <div className="input-field col s12">
                   <div className="file-field input-field">
                     <div className="btn">
                       <span>Bestand</span>
@@ -97,7 +97,7 @@ class CreateItem extends Component {
                 </div>
               </div>
 
-              <label htmlFor="last_name">Quiz</label>
+              {/* <label htmlFor="last_name">Quiz</label>
               <div className="row">
                 <div className="switch quiz">
                   <label>
@@ -107,7 +107,7 @@ class CreateItem extends Component {
                     Ja
                   </label>
                 </div>
-              </div>
+              </div> */}
 
               <label htmlFor="last_name">Kies een item</label>
               <div className="row col s12 itemCollection">
@@ -150,9 +150,9 @@ class CreateItem extends Component {
               </div>
 
               <div className="row">
-                <div className="input-field col s4">
+                {/* <div className="input-field col s4">
                   <button className="btn waves-effect waves-light cancelButton" type="submit" name="action">Annuleren</button>
-                </div>
+                </div> */}
                 <div className="input-field col s4">
                   <button className="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
                 </div>
@@ -188,6 +188,7 @@ class CreateItem extends Component {
                       </div>
                   </div>
 
+                  <p>Welke emotie wekte dit verhaal bij jou op?</p>
                   <div className="feedback">
                   <div className="emoOne">
                       <div className="col s2 emoteIconExample">
