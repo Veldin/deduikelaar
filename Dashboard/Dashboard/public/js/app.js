@@ -12362,27 +12362,26 @@ exports.default = useQueries;
 
 /***/ }),
 
-/***/ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/hoist-non-react-statics/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/hoist-non-react-statics/index.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
 /**
  * Copyright 2015, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
+
+
 var REACT_STATICS = {
     childContextTypes: true,
     contextTypes: true,
     defaultProps: true,
     displayName: true,
     getDefaultProps: true,
-    getDerivedStateFromProps: true,
     mixins: true,
     propTypes: true,
     type: true
@@ -12393,51 +12392,34 @@ var KNOWN_STATICS = {
     length: true,
     prototype: true,
     caller: true,
-    callee: true,
     arguments: true,
     arity: true
 };
 
-var defineProperty = Object.defineProperty;
-var getOwnPropertyNames = Object.getOwnPropertyNames;
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-var getPrototypeOf = Object.getPrototypeOf;
-var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
 
-function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
     if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+        var keys = Object.getOwnPropertyNames(sourceComponent);
 
-        if (objectPrototype) {
-            var inheritedComponent = getPrototypeOf(sourceComponent);
-            if (inheritedComponent && inheritedComponent !== objectPrototype) {
-                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
-            }
-        }
-
-        var keys = getOwnPropertyNames(sourceComponent);
-
-        if (getOwnPropertySymbols) {
-            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+        /* istanbul ignore else */
+        if (isGetOwnPropertySymbolsAvailable) {
+            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
         }
 
         for (var i = 0; i < keys.length; ++i) {
-            var key = keys[i];
-            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
-                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-                try { // Avoid failures from read-only properties
-                    defineProperty(targetComponent, key, descriptor);
-                } catch (e) {}
+            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+                try {
+                    targetComponent[keys[i]] = sourceComponent[keys[i]];
+                } catch (error) {
+
+                }
             }
         }
-
-        return targetComponent;
     }
 
     return targetComponent;
-}
-
-module.exports = hoistNonReactStatics;
+};
 
 
 /***/ }),
@@ -61321,7 +61303,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var create_react_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! create-react-class */ "./node_modules/create-react-class/index.js");
 /* harmony import */ var create_react_class__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(create_react_class__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/index.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _ContextUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ContextUtils */ "./node_modules/react-router/es/ContextUtils.js");
 /* harmony import */ var _PropTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PropTypes */ "./node_modules/react-router/es/PropTypes.js");
@@ -65529,7 +65511,7 @@ var card = function card(props) {
   };
 
   function deleteItem() {
-    fetch('/api/v1/overview/' + props.storyID, {
+    fetch('/api/v1/story/' + props.storyID, {
       method: 'DELETE'
     }).then(function (response) {
       return response.json();
@@ -65677,9 +65659,25 @@ function (_Component) {
     }
   }, {
     key: "changeStateSwitch",
-    value: function changeStateSwitch(event) {
+    value: function changeStateSwitch() {
       this.setState({
         isChecked: !this.state.isChecked
+      });
+    }
+  }, {
+    key: "createItem",
+    value: function createItem(e) {
+      e.preventDefault();
+      fetch('/api/v1/story/', {
+        method: 'PUT'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        console.log('hi: ' + response['response']); // if(response['response'] == "success"){
+        //   toastr.success('Het item is verwijderd!')
+        // }else{
+        //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+        // }
       });
     }
   }, {
@@ -65700,25 +65698,17 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
+        className: "input-field col s12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "title",
         className: "inputField",
         type: "text",
+        name: "title",
+        required: true,
         onChange: this.changeState.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
-      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        id: "last_name",
-        className: "inputField",
-        type: "text"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
-      }, "Beschrijving"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, "Titel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
@@ -65734,7 +65724,7 @@ function (_Component) {
         className: "row",
         style: hidden
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
+        className: "input-field col s12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "textarea1",
         className: "inputField materialize-textarea",
@@ -65745,7 +65735,7 @@ function (_Component) {
         className: "row",
         style: isChecked
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s11"
+        className: "input-field col s12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-field input-field"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65760,33 +65750,10 @@ function (_Component) {
         placeholder: "Upload hier het gewenste bestand"
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "last_name"
-      }, "Quiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "switch quiz"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "lever"
-      }), "Ja"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
       }, "Kies een item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "with-gap",
-        id: "item4",
-        name: "items",
-        type: "radio"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "itemImage"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ../../../public/images/rat2.png */ "./public/images/rat2.png")
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "item2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -65798,6 +65765,19 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/rat2.png */ "./public/images/rat2.png")
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "item2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        id: "item2",
+        name: "items",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/envelope2.png */ "./public/images/envelope2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item3"
@@ -65805,7 +65785,7 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item2",
+        id: "item3",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65818,7 +65798,7 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item3",
+        id: "item4",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65831,7 +65811,7 @@ function (_Component) {
         className: "item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
-        id: "item3",
+        id: "item5",
         name: "items",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65843,14 +65823,9 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn waves-effect waves-light cancelButton",
-        type: "submit",
-        name: "action"
-      }, "Annuleren")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "input-field col s4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn waves-effect waves-light saveButton",
         type: "submit",
+        onClick: this.createItem.bind(this),
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s7 example"
@@ -65876,7 +65851,7 @@ function (_Component) {
         className: "quizQuestion3"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quizQuestion4"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "feedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emoOne"
@@ -66061,7 +66036,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/api/v1/overview').then(function (response) {
+      fetch('/api/v1/stories').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
         _this2.setState({
@@ -66213,8 +66188,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

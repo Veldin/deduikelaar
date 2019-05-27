@@ -62,6 +62,15 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        'testing' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('TEST_DB_HOST', env('DB_HOST', '127.0.0.1')),
+            'port' => env('TEST_DB_PORT', env('DB_PORT', '3306')),
+            'database' => env('TEST_DB_DATABASE', env('DB_DATABASE', 'forge')),
+            'username' => env('TEST_DB_USERNAME', env('DB_USERNAME', 'forge')),
+            'password' => env('TEST_DB_PASSWORD', env('DB_PASSWORD', '')),
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -90,7 +99,6 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-
     ],
 
     /*
