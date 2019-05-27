@@ -35,6 +35,23 @@ class CreateItem extends Component {
     });
   }
 
+  createItem(e) {
+    e.preventDefault();
+    fetch('/api/v1/story/',{
+      method: 'PUT',
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log('hi: '+response['response']);
+
+      // if(response['response'] == "success"){
+      //   toastr.success('Het item is verwijderd!')
+      // }else{
+      //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+      // }
+    })
+  }
+
     render() {
       const isChecked = {
         display: this.state.isChecked ? "block" : "none"
@@ -53,7 +70,7 @@ class CreateItem extends Component {
 
             <div className="row">
               <div className="input-field col s12">
-                <input id="title" className="inputField" type="text" required onChange={this.changeState.bind(this)}></input>
+                <input id="title" className="inputField" type="text" name="title" required onChange={this.changeState.bind(this)}></input>
                 <label htmlFor="last_name">Titel</label>
               </div>
             </div>
@@ -133,7 +150,7 @@ class CreateItem extends Component {
 
               <div className="row">
                 <div className="input-field col s4">
-                  <button className="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
+                  <button className="btn waves-effect waves-light saveButton" type="submit" onClick={this.createItem.bind(this)} name="action">Opslaan</button>
                 </div>
               </div>
 
