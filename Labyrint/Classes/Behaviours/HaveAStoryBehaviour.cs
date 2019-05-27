@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApiParser;
 using GameObjectFactory;
+using LogSystem;
 
 namespace Labyrint
 {
@@ -17,8 +18,10 @@ namespace Labyrint
             // Get the next itemOrder from the ApiParserFacade
             itemOrder = ApiParserFacade.NextItemOrder();
             
+            Log.Debug(ApiParserFacade.GetStory(itemOrder.storyId).icon);
+
             // Set the sprite of the pickup
-            gameObject.setActiveBitmap("Assets/Sprites/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
+            gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
         }
 
         /// <summary>
@@ -37,6 +40,11 @@ namespace Labyrint
         public int GetFeedbackId()
         {
             return itemOrder.feedbackId;
+        }
+
+        public string GetHtml()
+        {
+            return ApiParserFacade.GetStory(itemOrder.storyId).html;
         }
 
         /// <summary>

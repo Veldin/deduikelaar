@@ -24,7 +24,7 @@ class Story extends Model
 
     public function feedback()
     {
-        return $this->hasManyThrough(FeedbackItem::class, StoryFeedback::class, 'storyId', 'id', 'id', 'feedbackId');
+        return $this->hasManyThrough(FeedbaphpckItem::class, StoryFeedback::class, 'storyId', 'id', 'id', 'feedbackId');
     }
 
 }

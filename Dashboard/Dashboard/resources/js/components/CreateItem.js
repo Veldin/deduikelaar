@@ -38,10 +38,28 @@ class CreateItem extends Component {
     });
   }
 
+<<<<<<< HEAD
   togglePopup() {
     this.setState({
       showPopup: !this.state.showPopup
     });
+=======
+  createItem(e) {
+    e.preventDefault();
+    fetch('/api/v1/story/',{
+      method: 'PUT',
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log('hi: '+response['response']);
+
+      // if(response['response'] == "success"){
+      //   toastr.success('Het item is verwijderd!')
+      // }else{
+      //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+      // }
+    })
+>>>>>>> 41d7b76f8af9343a240e43d679862a3a28cbe963
   }
 
     render() {
@@ -169,7 +187,7 @@ class CreateItem extends Component {
 
               <div className="row">
                 <div className="input-field col s4">
-                  <button className="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
+                  <button className="btn waves-effect waves-light saveButton" type="submit" onClick={this.createItem.bind(this)} name="action">Opslaan</button>
                 </div>
               </div>
 

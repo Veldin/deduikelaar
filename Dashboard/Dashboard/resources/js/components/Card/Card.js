@@ -27,7 +27,7 @@ const card = (props) => {
   };
 
   function deleteItem() {
-    fetch('/api/v1/overview/'+props.storyID,{
+    fetch('/api/v1/story/'+props.storyID,{
       method: 'DELETE',
     })
     .then(response => response.json())
