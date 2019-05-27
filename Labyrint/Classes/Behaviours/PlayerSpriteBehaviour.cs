@@ -96,5 +96,10 @@ namespace Labyrint
 
             return false;
         }
+
+        public bool OnTick(List<GameObject> gameObjects, float delta)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

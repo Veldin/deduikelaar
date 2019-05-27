@@ -164,5 +164,8 @@
     <Resource Include="Assets\Sprites\back2_145_200_32.gif" />
     <Resource Include="Assets\Sprites\back3_145_200_32.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\EngineBehaviours\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

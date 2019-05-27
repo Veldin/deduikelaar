@@ -63,6 +63,9 @@ namespace Labyrint
         private List<GameObject> gameObjects;
         private List<GameObject> backgroundObjects;
 
+        //Strategies
+        public List<IBehaviour> onTickList;
+
         string assemblyName;
 
         private int renderDistance;
