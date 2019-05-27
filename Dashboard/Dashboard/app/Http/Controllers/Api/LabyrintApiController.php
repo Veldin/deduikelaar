@@ -36,61 +36,6 @@ class LabyrintApiController extends Controller
 
     }
 
-    public function getOverview(){
-
-        $data = [];
-        $stories = \App\Story::with('feedback')->get();
-        $feedbacks = \App\Feedback::with('feedbackItems')->get();
-
-        foreach ($stories as $story){
-            $questions = [];
-            foreach ($feedbacks as $feedback){
-                $answers = [];
-                // add each feedbackitem to a story.
-                foreach ($feedback->feedbackItems as $feedbackItem){
-                    $answers[$feedbackItem->id] = [
-                        'feedbackId' => $feedbackItem->id,
-                        'answer' => $feedbackItem->feedback,
-                        'count' => 0,
-                    ];
-                }
-                // Count the amount of feedback given
-                foreach ($story->feedback as $feedbackItem){
-                    if($feedbackItem->question->id != $feedback->id) continue;
-                    if( isset($answers[$feedbackItem->id]) &&
-                        isset($answers[$feedbackItem->id]['count']) ){
-                        $answers[$feedbackItem->id]['count'] += 1;
-                    }
-                }
-                // Sort answers
-                $answers = array_values($answers);
-                usort($answers, function($a, $b) {
-                    return $a['count'] - $b['count'];
-                });
-
-                // Add feedback to the questions which will be added to the story
-                $questions[] = [
-                    'question' => $feedback->question,
-                    'extraInfo' => $feedback->extraInfo,
-                    'feedbackType' => $feedback->feedbackType,
-                    'answers' => array_values($answers)
-                ];
-            }
-
-            // add story to data
-            $data[] = [
-                'storyId' => $story->id,
-                'title' => $story->title,
-                'description' => $story->description,
-                'icon' => $story->icon,
-                'active' => $story->active,
-                'feedback' => $questions
-            ];
-
-        }
-
-        return  response()->json($data);
-    }
 
     public function getOrder(){
 
@@ -239,29 +184,6 @@ class LabyrintApiController extends Controller
     }
 
 
-
-    public function getStories(){
-
-        $data = [];
-        $stories = Story::with('storyItems')->where('active', 1)->get();
-
-        foreach ($stories as $story){
-            $data[] = [
-                'storyId' => $story->id,
-                'icon' => $story->icon,
-                'html' => view('information-piece', compact('story'))->render()
-            ];
-        }
-        return $data;
-    }
-
-    public function testStory(){
-
-        $story = Story::with('storyItems')->where('active', 1)->find(1);
-        return view('information-piece', compact('story'));
-    }
-
-
     public function getFeedback(){
 
         $feedbacks = Feedback::with('feedbackItems')->get();
@@ -322,18 +244,5 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
-
-    public function deleteStory($storyId){
-        $story = Story::find($storyId);
-        if($story){
-            $story->delete();
-            return response()->json([
-                'response' => 'success'
-            ]);
-        }
-        return response()->json([
-            'response' => 'failed'
-        ]);
-    }
 
 }
