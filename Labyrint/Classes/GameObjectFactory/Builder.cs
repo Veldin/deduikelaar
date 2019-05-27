@@ -58,7 +58,7 @@ namespace GameObjectFactory
 
                 gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
-                gameObject.onTickList.Add(new PickupCollisionBehavior());
+                gameObject.onTickList.Add(new PickupCollisionBehavior(value));
                 gameObject.onTickList.Add(new HaveAStoryBehaviour(gameObject));
 
                 gameObject.MovementSpeed = 1200;
@@ -66,8 +66,7 @@ namespace GameObjectFactory
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
                 gameObject.Collition = false;
-
-                gameObject.setActiveBitmap("Assets/tile2.gif");
+              
             }
 
             if (wantToGet == "tile")

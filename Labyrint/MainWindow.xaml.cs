@@ -75,6 +75,8 @@ namespace Labyrint
         private GameObject controllerAnchor;
         private GameObject controllerCursor;
 
+        private Command command;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -99,7 +101,11 @@ namespace Labyrint
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
 
+            command = new Command(CommandBar, CommandResponse);
+
             random = new Random();
+
+            browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath()));      //Inits a new navigate call
 
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -443,6 +449,7 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
+            command.KeyPressed(args.Key.ToString());
 
             //Log.Debug(viewBox.ActualHeight);
             //Log.Debug("------------------------------------------------------------");
@@ -467,9 +474,6 @@ namespace Labyrint
             //ApiParserFacade.SaveQuestions();
             //ApiParserFacade.AddItemOrder();
             //ApiParserFacade.SaveItemOrders();
-
-
-            camera.GenerateHeightAndWidth();
         }
 
 
@@ -586,7 +590,8 @@ namespace Labyrint
                 newPickup = GameObjectFactoryFacade.GetGameObject(
                     "pickup", 
                     randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
-                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2
+                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
+                    browser
                 );
             } while (newPickup.distanceBetween(player) < 0); //if its to close to the player pick a new location
 
