@@ -75,9 +75,6 @@ namespace Labyrint
         private GameObject controllerAnchor;
         private GameObject controllerCursor;
 
-        //Test
-        private Command command;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -100,8 +97,6 @@ namespace Labyrint
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
-
-            command = new Command(CommandBar, CommandResponse);
 
             random = new Random();
 
@@ -438,7 +433,6 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
-            command.KeyPressed(args.Key.ToString());
 
             //Log.Debug(viewBox.ActualHeight);
             //Log.Debug("------------------------------------------------------------");
@@ -457,15 +451,15 @@ namespace Labyrint
             //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
             //Log.Debug("---");
             
-            //ApiParserFacade.AddStory();
-            //ApiParserFacade.SaveStories();
-            //ApiParserFacade.AddQuestion();
-            //ApiParserFacade.SaveQuestions();
-            //ApiParserFacade.AddItemOrder();
-            //ApiParserFacade.SaveItemOrders();
+            ApiParserFacade.AddStory();
+            ApiParserFacade.SaveStories();
+            ApiParserFacade.AddQuestion();
+            ApiParserFacade.SaveQuestions();
+            ApiParserFacade.AddItemOrder();
+            ApiParserFacade.SaveItemOrders();
 
 
-            //camera.GenerateHeightAndWidth();
+            camera.GenerateHeightAndWidth();
         }
 
 
@@ -505,8 +499,8 @@ namespace Labyrint
             controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
             gameObjects.Add(controllerCursor);
 
-            //Log.Debug(controllerAnchor.FromLeft);
-            //Log.Debug(controllerAnchor.FromTop);
+            Log.Debug(controllerAnchor.FromLeft);
+            Log.Debug(controllerAnchor.FromTop);
         }
 
         /// <summary>
@@ -565,7 +559,7 @@ namespace Labyrint
         /// <summary>
         /// Creates a new pickup somewere in the maze.
         /// </summary>
-        public void DropNewPickup()
+        private void DropNewPickup()
         {
             GameObject newPickup; //holds the new pickup
             do
@@ -588,6 +582,8 @@ namespace Labyrint
 
             gameObjects.Add(newPickup);
         }
+<<<<<<< HEAD
+=======
 
 
         public void SizeChanged(object sender, SizeChangedEventArgs e)
@@ -605,5 +601,6 @@ namespace Labyrint
             System.Windows.Application.Current.Shutdown();
             //this.Close();
         }
+>>>>>>> 49354c09f8e288b0aa01542b9c8051d264b92d86
     }
 }

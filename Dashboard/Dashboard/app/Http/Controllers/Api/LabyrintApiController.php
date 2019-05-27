@@ -12,62 +12,30 @@ class LabyrintApiController extends Controller
 {
 
 
-    /**
-     * Get the documentation
-     * @return string
-     */
     public function documentation(){
 
         return file_get_contents("https://alwinkroesen.docs.apiary.io/")."
         <script>
-        function whenReady(){
-            var header = document.querySelector('#applicationHeader');
-            if(!header){
-                
-                setTimeout(function(){
-                    whenReady()
-                },500);
-            }else{
+            setTimeout(function(){
                 if (window.history.replaceState) {
                    //prevents browser from storing history with each change:
                    window.history.replaceState(null, 'documentation', '/api/v1/');
                 }
-//                var app = document.querySelector('#application');
-//                    app.style.zIndex = '1';
-//                    app.style.marginTop = '-15px';
-//                    app.style.height = '40px';
-//                    app.style.overflow = 'hidden';
-                    
-//                var headerContainer = document.querySelector('#applicationHeader');
-////                    headerContainer
-//                
-//                var header = document.querySelector('#applicationHeader');
-                var elements = document.querySelectorAll('#applicationHeader *');
-                
-                for(var i=0; i<elements.length;i++){
-                    elements[i].style.display = 'none';
-                }
-                
-//                    header.style.display = 'none';
+                var header = document.querySelector('#applicationHeader');
+                    header.style.display = 'none';
                 var h1 = document.createElement('h1');
-                    h1.innerHTML = 'Api Documentation <br /><span style=\"font-style: italic;font-size: 14px;padding-top: 10px;display: inline-block;\">De Duikelaar</span>';
+                    h1.innerHTML = 'Documentation';
                     h1.style.color = '#FFF';
-                    h1.style.paddingTop = '0px';
+                    h1.style.paddingTop = '15px';
                     h1.style.paddingLeft = '20px';
                     
-                    header.appendChild(h1);
-            }
-        }
-        whenReady();
+                    header.parentNode.appendChild(h1);
+            },500);
         </script>
         ";
 
     }
 
-    /**
-     * Get list of stories for the overview
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getOverview(){
 
         $data = [];
@@ -78,6 +46,7 @@ class LabyrintApiController extends Controller
             $questions = [];
             foreach ($feedbacks as $feedback){
                 $answers = [];
+                // add each feedbackitem to a story.
                 foreach ($feedback->feedbackItems as $feedbackItem){
                     $answers[$feedbackItem->id] = [
                         'feedbackId' => $feedbackItem->id,
@@ -85,6 +54,7 @@ class LabyrintApiController extends Controller
                         'count' => 0,
                     ];
                 }
+                // Count the amount of feedback given
                 foreach ($story->feedback as $feedbackItem){
                     if($feedbackItem->question->id != $feedback->id) continue;
                     if( isset($answers[$feedbackItem->id]) &&
@@ -92,11 +62,13 @@ class LabyrintApiController extends Controller
                         $answers[$feedbackItem->id]['count'] += 1;
                     }
                 }
+                // Sort answers
                 $answers = array_values($answers);
                 usort($answers, function($a, $b) {
                     return $a['count'] - $b['count'];
                 });
 
+                // Add feedback to the questions which will be added to the story
                 $questions[] = [
                     'question' => $feedback->question,
                     'extraInfo' => $feedback->extraInfo,
@@ -105,6 +77,7 @@ class LabyrintApiController extends Controller
                 ];
             }
 
+            // add story to data
             $data[] = [
                 'storyId' => $story->id,
                 'title' => $story->title,
@@ -119,10 +92,6 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
-    /**
-     * Get the order of stories with feedback
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getOrder(){
 
         // Get the stories and feedback
@@ -160,21 +129,9 @@ class LabyrintApiController extends Controller
             }
 
             foreach ($sfs as $k => $v){
-                // Sort feedbackitems, lowest first
-                usort($v['items'], function ($a, $b) {
-//                    var_dump($a['count']);
-                    if($a['count'] == $b['count']) return 0;
-                    return ($a['count'] < $b['count']) ? -1 : 1;
-                });
-                $sfs[$k]['items'] = $v['items'];
+                // Count totals
                 $total += $sfs[$k]['total'];
             }
-
-            // Sort feedback, lowest first
-            usort($sfs, function ($a, $b) {
-                if($a['total'] == $b['total']) return 0;
-                return ($a['total'] < $b['total']) ? -1 : 1;
-            });
 
             // Set feedback
             $a[$story->id] = [
@@ -198,28 +155,27 @@ class LabyrintApiController extends Controller
         // Return minimal 1000 stories
         for($i=0;$i<1000;){
 
-            if($i>0){ // Skip sorting the first time (already sorted)
+            foreach ($a as $j => $story){
 
-                foreach ($a as $j => $story){
 
-                    $sfs = $story['feedback'];
-                    foreach ($sfs as $k => $v){
-                        // Sort feedbackitems, lowest first
-                        usort($v['items'], function ($a, $b) {
-                            if($a['count'] == $b['count']) return 0;
-                            return ($a['count'] < $b['count']) ? -1 : 1;
-                        });
-                        $sfs[$k]['items'] = $v['items'];
-                        $total += $sfs[$k]['total'];
-                    }
-                    // Sort feedback, lowest first
-                    usort($sfs, function ($a, $b) {
-                        if($a['total'] == $b['total']) return 0;
-                        return ($a['total'] < $b['total']) ? -1 : 1;
+                $sfs = $story['feedback'];
+                foreach ($sfs as $k => $v){
+                    // Sort feedbackitems, lowest first
+                    usort($v['items'], function ($a, $b) {
+                        if($a['count'] == $b['count']) return 0;
+                        return ($a['count'] < $b['count']) ? -1 : 1;
                     });
-                    $a[$j]['feedback'] = $sfs;
+                    $sfs[$k]['items'] = $v['items'];
                 }
+                // Sort feedback, lowest first
+                usort($sfs, function ($a, $b) {
+                    if($a['total'] == $b['total']) return 0;
+                    return ($a['total'] < $b['total']) ? -1 : 1;
+                });
+                // Set the sorted feedback
+                $a[$j]['feedback'] = $sfs;
             }
+
 
 
             // Sort stories
@@ -228,22 +184,34 @@ class LabyrintApiController extends Controller
                 return ($a['total'] < $b['total']) ? -1 : 1;
             });
 
+
             foreach ($a as $k => $b){
                 $i++;
+
+                // Set the id of the less used feedback of this story
                 $fid = $b['feedback'][0]['id'];
+
+                // Set the used feedback
                 $fbTempOrder = $fbOrder;
+
+                // Order the most/less used feedback, lowest first
                 usort($fbTempOrder, function($a, $b){
                     if($a['count'] == $b['count']) return 0;
                     return ($a['count'] < $b['count']) ? -1 : 1;
                 });
+
+                // Check so you don't have more than 3 times the same feedback
                 if($fbTempOrder[0]['id'] != $fid){
-                    // NOT EVERY TIME THE SAME FEEDBACK
                     if($fbTempOrder[0]['count']+2 < $fbOrder[$fid]['count']){
                         $fid = $fbTempOrder[0]['id'];
                     }
                 }
+                // Add a count to the used feedback
                 $fbOrder[$fid]['count']++;
+
+                // Add a count to the story total
                 $a[$k]['total']++;
+
                 $fbnum = -1; // feebackNum
                 $fbinum = -1; // feedbackItemNum
                 foreach ($b['feedback'] as $n => $f){
@@ -256,23 +224,22 @@ class LabyrintApiController extends Controller
                     }
                     if($fbinum >= 0) break;
                 }
-
+                // Add count to the used feedbackItem for this story
                 $a[$k]['feedback'][$fbnum]['items'][$fbinum]['count']++;
+
+                // Put in order
                 $order[] = [
                     'storyId' => $b['id'],
                     'feedbackId' => $fid
                 ];
             }
         }
-        return response()->json($order);
 
+        return response()->json($order);
     }
 
 
-    /**
-     * Get all stories
-     * @return array
-     */
+
     public function getStories(){
 
         $data = [];
@@ -288,10 +255,6 @@ class LabyrintApiController extends Controller
         return $data;
     }
 
-    /**
-     * TODO: REMOVE TEST STORY
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function testStory(){
 
         $story = Story::with('storyItems')->where('active', 1)->find(1);
@@ -299,10 +262,6 @@ class LabyrintApiController extends Controller
     }
 
 
-    /**
-     * Get all the feedback
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getFeedback(){
 
         $feedbacks = Feedback::with('feedbackItems')->get();
@@ -331,10 +290,6 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
-    /**
-     * Get the statistics
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getStatistics(){
         if(isset($_GET['onlyActive'])){
             $stories = \App\Story::with('feedback')->where('active', 1)->get();
@@ -368,11 +323,6 @@ class LabyrintApiController extends Controller
     }
 
 
-    /**
-     * Delete a story
-     * @param $storyId
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function deleteStory($storyId){
         $story = Story::find($storyId);
         if($story){
