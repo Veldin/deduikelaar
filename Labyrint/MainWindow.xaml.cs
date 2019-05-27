@@ -92,6 +92,7 @@ namespace Labyrint
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
             FileReaderWriterFacade.Init();
+            ApiParserFacade.Init();
             //Log.Debug(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt");
             //FileReaderWriterFacade.WriteText(new string[] { "bla" }, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt", false);
 
@@ -164,7 +165,7 @@ namespace Labyrint
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
 
-            
+            onTickList = new List<IBehaviour>();
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
@@ -250,6 +251,15 @@ namespace Labyrint
                 else
                 {
                     gameObject.OnTick(gameObjects, pressedKeys, delta);
+                }
+            }
+
+            //OnTick all the engine behaiviors
+            if (onTickList.Count > 0)
+            {
+                foreach (IBehaviour behaivior in onTickList)
+                {
+                    behaivior.OnTick(gameObjects, delta);
                 }
             }
 
@@ -451,12 +461,12 @@ namespace Labyrint
             //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
             //Log.Debug("---");
             
-            ApiParserFacade.AddStory();
-            ApiParserFacade.SaveStories();
-            ApiParserFacade.AddQuestion();
-            ApiParserFacade.SaveQuestions();
-            ApiParserFacade.AddItemOrder();
-            ApiParserFacade.SaveItemOrders();
+            //ApiParserFacade.AddStory();
+            //ApiParserFacade.SaveStories();
+            //ApiParserFacade.AddQuestion();
+            //ApiParserFacade.SaveQuestions();
+            //ApiParserFacade.AddItemOrder();
+            //ApiParserFacade.SaveItemOrders();
 
 
             camera.GenerateHeightAndWidth();
@@ -595,8 +605,8 @@ namespace Labyrint
 
         public void CloseApp()
         {
-            System.Windows.Application.Current.Shutdown();
-            //this.Close();
+            //System.Windows.Application.Current.Shutdown();
+            this.Close();
         }
 
     }
