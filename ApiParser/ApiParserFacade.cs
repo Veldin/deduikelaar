@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using FileReaderWriterSystem;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ApiParser
 {
@@ -14,13 +16,44 @@ namespace ApiParser
 
         public static void Init()
         {
+            // Try to get the data from the api
+            SaveItemOrdersAsync();
+            SaveStoriesAsync();
+            SaveQuestionsAsync();
+
+
             // Fill all the static collections from the json files
             AddStatistics();
             AddItemOrder();
             AddQuestion();
             AddStory();
         }
+        private async static Task<string> CallApi(string url)
+        {
+            // Create a New HttpClient object and dispose it when done, so the app doesn't leak resources
+            using (HttpClient client = new HttpClient())
+            {
+                // Call asynchronous network methods in a try/catch block to handle exceptions
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    // Above three lines can be replaced with new helper method below
+                    // string responseBody = await client.GetStringAsync(uri);
 
+                    Log.Debug("Data from api call recieved");
+                    return responseBody;
+
+                    //Log.Debug(responseBody);
+                }
+                catch (HttpRequestException e)
+                {
+                    Log.Warning("Message :{0} ", e.Message);
+                    return null;
+                }
+            }
+        }
         /// <summary>
         /// Get the next ItemOrder
         /// </summary>
@@ -28,8 +61,9 @@ namespace ApiParser
         /// <returns>A ItemOrder which hold an storyId and a feedbackId</returns>
         public static ItemOrder NextItemOrder(int count = 0)
         {
+            Log.Debug("Try " + count.ToString());
             // Return null if this method has executed itself 10 times to prevent an infinite loop
-            if (count > 9)
+            if (count > 2)
             {
                 Log.Warning("The ItemOrder is missing.");
                 return null;
@@ -50,7 +84,7 @@ namespace ApiParser
                 AddItemOrder();
 
                 // Try again to pick the first item of the queue
-                return NextItemOrder(count++);
+                return NextItemOrder(++count);
             }
         }
 
@@ -105,7 +139,7 @@ namespace ApiParser
             stories.Clear();
 
             // Read the file with stories
-            string json = FileReaderWriterFacade.ReadFile("Items\\Stories.json");
+            string json = FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Stories.json");
             
             // IsEmpty check
             if (json == null || json.Length < 5)
@@ -133,7 +167,7 @@ namespace ApiParser
             questions.Clear();
 
             // Read the file with questions
-            string json = FileReaderWriterFacade.ReadFile("Items\\Feedback.json");
+            string json = FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Feedback.json");
 
             // IsEmpty check
             if (json == null || json.Length < 5)
@@ -159,9 +193,9 @@ namespace ApiParser
         {
             // Clear the list to make sure it is empty
             itemOrders.Clear();
-
+           
             // Read the json file with the itemorder
-            string json = FileReaderWriterFacade.ReadFile("Items\\ItemOrder.json");
+            string json = FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\ItemOrder.json");
 
             // IsEmpty check
             if (json == null || json.Length < 5)
@@ -214,10 +248,19 @@ namespace ApiParser
         /// <summary>
         /// Save the stories list in a json file
         /// </summary>
-        public static void SaveStories()
+        public static async void SaveStoriesAsync()
         {
-            // Convert the stories list to json
-            string json = JsonConvert.SerializeObject(stories);
+            // Call the json text from the api
+            string json = await CallApi("http://localhost:8000/api/v1/stories");
+
+            // Null check
+            if (json == null)
+            {
+                return;
+            }
+
+            //// Convert the stories list to json
+            //json = JsonConvert.SerializeObject(stories);
 
             SaveStories(json);
         }
@@ -229,7 +272,7 @@ namespace ApiParser
         public static void SaveStories(string json)
         {
             // Write the json in a json file
-            FileReaderWriterFacade.WriteText(new string[] { json }, "Items\\Stories.json", false);
+            FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\Stories.json", false);
 
             // Give the programmer feedback
             Log.Debug("Stories saved");
@@ -238,10 +281,19 @@ namespace ApiParser
         /// <summary>
         /// Save the questions list in a json file
         /// </summary>
-        public static void SaveQuestions()
+        public static async void SaveQuestionsAsync()
         {
-            // Convert the questions list to json
-            string json = JsonConvert.SerializeObject(questions);
+            // Call the json text from the api
+            string json = await CallApi("http://localhost:8000/api/v1/feedback");
+
+            // Null check
+            if (json == null)
+            {
+                return;
+            }
+
+            //// Convert the questions list to json
+            //json = JsonConvert.SerializeObject(questions);
 
             SaveQuestions(json);
         }
@@ -253,7 +305,7 @@ namespace ApiParser
         public static void SaveQuestions(string json)
         {
             // Write the json in a json file
-            FileReaderWriterFacade.WriteText(new string[] { json }, "Items\\Feedback.json", false);
+            FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\Feedback.json", false);
 
             // Give the programmer feedback
             Log.Debug("Questions saved");
@@ -262,10 +314,19 @@ namespace ApiParser
         /// <summary>
         /// Save the itemorders queue in a json file
         /// </summary>
-        public static void SaveItemOrders()
+        public static async void SaveItemOrdersAsync()
         {
-            // Convert the itemOrders list to json
-            string json = JsonConvert.SerializeObject(itemOrders);
+            // Call the json text from the api
+            string json = await CallApi("http://localhost:8000/api/v1/order");
+
+            // Null check
+            if (json == null)
+            {
+                return;
+            }
+
+            //// Convert the itemOrders list to json
+            //json = JsonConvert.SerializeObject(itemOrders);
 
             SaveItemOrders(json);
         }
@@ -277,7 +338,7 @@ namespace ApiParser
         public static void SaveItemOrders(string json)
         {
             // Write the json in a json file
-            FileReaderWriterFacade.WriteText(new string[] { json }, "Items\\ItemOrder.json", false);
+            FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\ItemOrder.json", false);
 
             // Give the programmer feedback
             Log.Debug("itemOrders saved");

@@ -63,17 +63,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Behaviours\HaveAStoryBehaviour.cs" />
     <Compile Include="Classes\Behaviours\FollowCameraBehaviour.cs" />
     <Compile Include="Classes\Behaviours\MoveToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PickupCollisionBehavior.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PlayerSpriteBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
-<<<<<<< HEAD
-=======
+    <Compile Include="Classes\Behaviours\SpaceButtonsHorisontallyBehaviour.cs" />
     <Compile Include="Classes\BrowserUIControl\BrowserUIControlFacade.cs" />
     <Compile Include="Classes\Command.cs" />
->>>>>>> 49354c09f8e288b0aa01542b9c8051d264b92d86
     <Compile Include="Classes\GameObjectFactory\Builder.cs" />
     <Compile Include="Classes\GameObjectFactory\Factory.cs" />
     <Compile Include="Classes\GameObject.cs" />
@@ -149,23 +148,40 @@
     <Resource Include="Assets\wall_600_600_16.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Sprites\front1_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\front2_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\front3_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\left1_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\left2_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\left3_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\right1_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\right1_289_400_32.gif" />
-    <Resource Include="Assets\Sprites\right2_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\right2_289_400_32.gif" />
-    <Resource Include="Assets\Sprites\right3_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\right3_289_400_32.gif" />
+    <Resource Include="Assets\Sprites\Player\front1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\front2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\front3_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\left1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\left2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\left3_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\right1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\right1_289_400_32.gif" />
+    <Resource Include="Assets\Sprites\Player\right2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\right2_289_400_32.gif" />
+    <Resource Include="Assets\Sprites\Player\right3_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\right3_289_400_32.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Sprites\back1_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\back2_145_200_32.gif" />
-    <Resource Include="Assets\Sprites\back3_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\back1_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\back2_145_200_32.gif" />
+    <Resource Include="Assets\Sprites\Player\back3_145_200_32.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\EngineBehaviours\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\binocular2.png" />
+    <Resource Include="Assets\candle2.png" />
+    <Resource Include="Assets\envelope2.png" />
+    <Resource Include="Assets\kroontjesPen2.png" />
+    <Resource Include="Assets\rat2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Items\binocular.gif" />
+    <Resource Include="Assets\Sprites\Items\candle.gif" />
+    <Resource Include="Assets\Sprites\Items\crownsPen.gif" />
+    <Resource Include="Assets\Sprites\Items\envelope.gif" />
+    <Resource Include="Assets\Sprites\Items\rat.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
