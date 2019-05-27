@@ -89,6 +89,7 @@ namespace Labyrint
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
             FileReaderWriterFacade.Init();
+            ApiParserFacade.Init();
             //Log.Debug(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt");
             //FileReaderWriterFacade.WriteText(new string[] { "bla" }, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt", false);
 
@@ -517,7 +518,7 @@ namespace Labyrint
         /// <summary>
         /// Creates a new pickup somewere in the maze.
         /// </summary>
-        public void DropNewPickup()
+        private void DropNewPickup()
         {
             GameObject newPickup; //holds the new pickup
             do
@@ -543,8 +544,8 @@ namespace Labyrint
 
         public void CloseApp()
         {
-            System.Windows.Application.Current.Shutdown();
-            //this.Close();
+            //System.Windows.Application.Current.Shutdown();
+            this.Close();
         }
     }
 }

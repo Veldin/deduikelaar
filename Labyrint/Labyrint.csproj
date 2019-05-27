@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Behaviours\HaveAStoryBehaviour.cs" />
     <Compile Include="Classes\Behaviours\MoveToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PickupCollisionBehavior.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />

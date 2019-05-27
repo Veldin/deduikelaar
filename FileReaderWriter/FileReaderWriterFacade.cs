@@ -22,9 +22,9 @@ namespace FileReaderWriterSystem
             fileWriter.CreateFolder(appDataPath + "Items");
 
             // If there is a log file, delete it
-            if (CheckFolder("Log").Contains("Log.txt"))
+            if (CheckFolder(appDataPath + "Log").Contains("Log.txt"))
             {
-                DeleteFile(new string[] { "Log\\Log.txt" });
+                DeleteFile(new string[] { appDataPath + "Log\\Log.txt" });
             }
 
             Log.Debug("FileReaderWriterSystem is initiated");
@@ -37,7 +37,7 @@ namespace FileReaderWriterSystem
         /// <returns>Returns all text from the file</returns>
         public static string ReadFile(string filePath, string readFormat = null, object value = null)
         {
-            return fileReader.ReadFile(appDataPath + filePath, readFormat, value);
+            return fileReader.ReadFile(filePath, readFormat, value);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace FileReaderWriterSystem
         /// <returns>All the names of the files in the folder</returns>
         public static string[] CheckFolder(string filePath)
         {
-            return fileReader.CheckFolder(appDataPath + filePath);
+            return fileReader.CheckFolder(filePath);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace FileReaderWriterSystem
         /// <param name="append">If true the text will be added to the file. If false the new text will overwrite all already existing text.</param>
         public static void WriteText(string[] text, string filePath, bool append, string writeFormat = null)
         {
-            fileWriter.WriteText(text, appDataPath + filePath, append, writeFormat);
+            fileWriter.WriteText(text, filePath, append, writeFormat);
         }
 
         /// <summary>
@@ -71,16 +71,16 @@ namespace FileReaderWriterSystem
             foreach (string filePath in filePaths)
             {
                 // Check if the file exist
-                if (File.Exists(appDataPath + filePath))
+                if (File.Exists(filePath))
                 {
                     // Delete the file
-                    File.Delete(appDataPath + filePath);
-                    Log.Debug(appDataPath + filePath + " is deleted");
+                    File.Delete(filePath);
+                    Log.Debug(filePath + " is deleted");
                 }
                 else
                 {
                     // Throw a warning
-                    Log.Warning("Could not delete '" + appDataPath + filePath + "' because the file path is invalid");
+                    Log.Warning("Could not delete '" + filePath + "' because the file path is invalid");
                 }
 
             }
