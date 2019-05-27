@@ -7,18 +7,19 @@ class Overview extends Component {
     super();
 
     this.state = {
-      totalCards: 0
-    };
+      card: []
+    }
   }
 
   componentDidMount() {
     fetch('/api/v1/overview')
-      .then(response => response.json())
-      .then(
-        data => this.setState({
-          totalCards: Object.keys(data).length
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ 
+          card: responseJson 
         })
-      )
+        console.log(this.state.card);
+      })
   }
 
   render(){
@@ -39,11 +40,9 @@ class Overview extends Component {
         </div>
         <div className="row overviewCards">
           <div className="cards-container">
-            <p>{this.state.totalCards}</p>
-            <Card title="De brief van Karel" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
-            <Card title="De brief van Karel" active="1" emoteOne="2" emoteTwo="888" emoteThree="5" />
-            <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
-            <Card title="De brief van Karel" active="1" emoteOne="5" emoteTwo="1" emoteThree="7" />
+            {this.state.card.map(item => (
+              <Card storyID={item.storyId} title="De brief van Karel" active="1" emoteOne="4" emoteTwo="2" emoteThree="10" />
+            ))}
           </div>
         </div>
       </div>

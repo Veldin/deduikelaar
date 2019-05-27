@@ -1,4 +1,5 @@
-﻿using Labyrint;
+﻿using CameraSystem; //For items that follow the camera
+using Labyrint;
 using Maze;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace GameObjectFactory
 
         }
 
-        public void TransformGameObject(GameObject gameObject, string wantToGet, float fromLeft, float fromTop)
+        public void TransformGameObject(GameObject gameObject, string wantToGet, float fromLeft, float fromTop, object value = null)
         {
             gameObject.BuilderType = wantToGet;
 
@@ -60,7 +61,6 @@ namespace GameObjectFactory
                 gameObject.onTickList.Add(new PickupCollisionBehavior());
                 gameObject.onTickList.Add(new HaveAStoryBehaviour(gameObject));
 
-
                 gameObject.MovementSpeed = 1200;
 
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
@@ -79,6 +79,22 @@ namespace GameObjectFactory
 
                 gameObject.setActiveBitmap("Assets/wall_600_600_16.gif");
 
+            }
+
+            if (wantToGet == "button")
+            {
+                gameObject.Width = 70;
+                gameObject.Height = 70;
+
+                gameObject.highVisibility = true;
+
+                gameObject.MovementSpeed = 1200;
+                gameObject.Collition = false;
+
+                gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
+                gameObject.onTickList.Add(new SetToTargetBehaviour());
+
+                gameObject.setActiveBitmap("Assets/tile.gif");
             }
 
             if (wantToGet == "ControllerAncher")

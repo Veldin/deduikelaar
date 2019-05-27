@@ -4,21 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameObjectFactory;
-using LogSystem;
 
 namespace Labyrint
 {
-    class PickupCollisionBehavior : IBehaviour
+    class SpaceButtonsHorisontallyBehaviour : IBehaviour
     {
         public List<GameObject> loopList;
 
-        public PickupCollisionBehavior(){
+        public SpaceButtonsHorisontallyBehaviour()
+        {
             loopList = new List<GameObject>();
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
         {
- 
+            throw new NotImplementedException();
+        }
+
+        public bool OnTick(List<GameObject> gameObjects, float delta)
+        {
             loopList.Clear();
 
             lock (gameObjects)
@@ -28,18 +32,10 @@ namespace Labyrint
 
             foreach (GameObject needle in loopList)
             {
-                if (needle != null && needle.BuilderType == "player" && gameobject.IsColliding(needle))
-                {
-                    gameobject.destroyed = true;
-                }
+                
             }
 
             return true;
-        }
-
-        public bool OnTick(List<GameObject> gameObjects, float delta)
-        {
-            throw new NotImplementedException();
         }
     }
 }

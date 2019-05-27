@@ -22,6 +22,7 @@ using Maze;
 using CameraSystem;
 using FileReaderWriterSystem;
 using ApiParser;
+using BrowserUIControl;
 
 namespace Labyrint
 {
@@ -62,6 +63,9 @@ namespace Labyrint
         private List<GameObject> gameObjects;
         private List<GameObject> backgroundObjects;
 
+        //Strategies
+        public List<IBehaviour> onTickList;
+
         string assemblyName;
 
         private int renderDistance;
@@ -70,9 +74,6 @@ namespace Labyrint
 
         private GameObject controllerAnchor;
         private GameObject controllerCursor;
-
-        //Test
-        private Command command;
 
         public MainWindow()
         {
@@ -85,6 +86,8 @@ namespace Labyrint
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
+            //Window.GetWindow(this).SizeChanged += SizeChanged;
+
 
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
@@ -95,8 +98,6 @@ namespace Labyrint
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
-
-            command = new Command(CommandBar, CommandResponse);
 
             random = new Random();
 
@@ -156,19 +157,43 @@ namespace Labyrint
             {
                 DropNewPickup();
             }
-            
+
+            TestBrowser();
+
+            PopulateButtonObject();
+
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
+
+            onTickList = new List<IBehaviour>();
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
 
             renderDistance = 1200;
 
+            TestBrowser();
+
             fps = 999999999; //Desired max fps.
             interval = 1000 / fps;
             then = Stopwatch.GetTimestamp();
             Run();
+        }
+
+
+        private void TestBrowser()
+        {
+            //browser.Refresh();
+            var str = "<html><head></head><body>sdf</body></html>";
+            //browser.NavigateToString(str);
+
+            //browser = new System.Windows.Controls.WebBrowser();
+            //browser.Visibility = Visibility.Visible;
+            browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath())); //Inits a new navigate call
+
+            browser.NavigateToString("<HTML><H2><B>This page comes using String</B><P></P></H2>");
+
+            //browser.NavigateToString(str);
         }
 
         public void Run()
@@ -229,6 +254,15 @@ namespace Labyrint
                 }
             }
 
+            //OnTick all the engine behaiviors
+            if (onTickList.Count > 0)
+            {
+                foreach (IBehaviour behaivior in onTickList)
+                {
+                    behaivior.OnTick(gameObjects, delta);
+                }
+            }
+
             //Set the new curser location
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -273,13 +307,14 @@ namespace Labyrint
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
             lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
-            {
+                    {
                 try
                 {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(backgroundObjects);
                     loopList.AddRange(gameObjects);
-                    loopList.Add(cursor);
+
+                    loopList.Add(cursor); 
                 }
                 catch
                 {
@@ -408,7 +443,6 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
-            command.KeyPressed(args.Key.ToString());
 
             //Log.Debug(viewBox.ActualHeight);
             //Log.Debug("------------------------------------------------------------");
@@ -435,7 +469,7 @@ namespace Labyrint
             //ApiParserFacade.SaveItemOrders();
 
 
-            //camera.GenerateHeightAndWidth();
+            camera.GenerateHeightAndWidth();
         }
 
 
@@ -475,8 +509,8 @@ namespace Labyrint
             controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
             gameObjects.Add(controllerCursor);
 
-            //Log.Debug(controllerAnchor.FromLeft);
-            //Log.Debug(controllerAnchor.FromTop);
+            Log.Debug(controllerAnchor.FromLeft);
+            Log.Debug(controllerAnchor.FromTop);
         }
 
         /// <summary>
@@ -516,6 +550,23 @@ namespace Labyrint
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        private void PopulateButtonObject()
+        {
+
+            for (int i = 0; i < 4; i++)
+            {
+                gameObjects.Add(GameObjectFactoryFacade.GetGameObject(
+                    "button",
+                    i,
+                    i,
+                    camera
+                ));
+            }
+        }
+
+        /// <summary>
         /// Creates a new pickup somewere in the maze.
         /// </summary>
         private void DropNewPickup()
@@ -542,10 +593,21 @@ namespace Labyrint
             gameObjects.Add(newPickup);
         }
 
+        public void SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //camera.
+            if (e.WidthChanged || e.HeightChanged)
+            {
+                camera.GenerateHeightAndWidth();
+            }
+            Log.Debug("changed" + camera.GetWidth());
+        }
+
         public void CloseApp()
         {
             //System.Windows.Application.Current.Shutdown();
             this.Close();
         }
+
     }
 }
