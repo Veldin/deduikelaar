@@ -138,11 +138,10 @@ class StoryController extends Controller
                 $f = $files[$num];
                 $extension = $f->getClientOriginalExtension();
                 $fn = $f->getClientOriginalName();
+                // TODO: change filename with date
                 $filename = rand(11111111, 99999999) . '.' . $extension;
-//                while(file_exists($filename))
                 $files[$num]->storeAs("/uploads/story/", $filename, "local");
-
-//                var_dump($num);
+                //TODO: convert wordt files
                 File::create([
                     'fileName' => $filename,
                     'realName' => $fn,
