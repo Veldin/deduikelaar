@@ -164,7 +164,7 @@ namespace Labyrint
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
 
-            
+            onTickList = new List<IBehaviour>();
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
