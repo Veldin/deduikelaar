@@ -38,12 +38,11 @@ class CreateItem extends Component {
     });
   }
 
-<<<<<<< HEAD
   togglePopup() {
     this.setState({
       showPopup: !this.state.showPopup
     });
-=======
+
   createItem(e) {
     e.preventDefault();
     fetch('/api/v1/story/',{
@@ -59,7 +58,6 @@ class CreateItem extends Component {
       //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
       // }
     })
->>>>>>> 41d7b76f8af9343a240e43d679862a3a28cbe963
   }
 
     render() {
