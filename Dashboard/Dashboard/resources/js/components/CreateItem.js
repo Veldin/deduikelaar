@@ -29,12 +29,11 @@ class CreateItem extends Component {
     })
   }
 
-  changeStateSwitch(event) {
+  changeStateSwitch() {
     this.setState({
       isChecked: !this.state.isChecked
     });
   }
-
 
     render() {
       const isChecked = {
@@ -51,18 +50,13 @@ class CreateItem extends Component {
 
           <div className="col s5 inputFields">
             <form>
+
             <div className="row">
               <div className="input-field col s12">
-                <input id="title" className="inputField" type="text" onChange={this.changeState.bind(this)}></input>
+                <input id="title" className="inputField" type="text" required onChange={this.changeState.bind(this)}></input>
                 <label htmlFor="last_name">Titel</label>
               </div>
             </div>
-            {/* <div className="row">
-              <div className="input-field col s11">
-                <input id="last_name" className="inputField" type="text"></input>
-                <label htmlFor="last_name">Beschrijving</label>
-              </div>
-            </div> */}
 
               <label htmlFor="last_name">Bestaand document</label>
               <div className="row">
@@ -97,52 +91,40 @@ class CreateItem extends Component {
                 </div>
               </div>
 
-              {/* <label htmlFor="last_name">Quiz</label>
-              <div className="row">
-                <div className="switch quiz">
-                  <label>
-                    Nee
-                    <input type="checkbox"></input>
-                    <span className="lever"></span>
-                    Ja
-                  </label>
-                </div>
-              </div> */}
-
               <label htmlFor="last_name">Kies een item</label>
               <div className="row col s12 itemCollection">
 
               <label htmlFor="item1">
                 <div className="item">
-                  <input className="with-gap" id="item4" name="items" type="radio"></input>
+                  <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
                   <span className="itemImage"><img src={ require('../../../public/images/rat2.png') } /></span>
                 </div>
               </label>
 
               <label htmlFor="item2">
                 <div className="item">
-                  <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
+                  <input className="with-gap" id="item2" name="items" type="radio"></input>
                   <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
                 </div>
               </label>
 
                 <label htmlFor="item3">
                   <div className="item">
-                    <input className="with-gap" id="item2" name="items" type="radio"></input>
+                    <input className="with-gap" id="item3" name="items" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/candle2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item4">
                   <div className="item">
-                    <input className="with-gap" id="item3" name="items" type="radio"></input>
+                    <input className="with-gap" id="item4" name="items" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/binocular2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item5">
                   <div className="item">
-                    <input className="with-gap" id="item3" name="items" type="radio"></input>
+                    <input className="with-gap" id="item5" name="items" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
                   </div>
                 </label>
@@ -150,13 +132,9 @@ class CreateItem extends Component {
               </div>
 
               <div className="row">
-                {/* <div className="input-field col s4">
-                  <button className="btn waves-effect waves-light cancelButton" type="submit" name="action">Annuleren</button>
-                </div> */}
                 <div className="input-field col s4">
                   <button className="btn waves-effect waves-light saveButton" type="submit" name="action">Opslaan</button>
                 </div>
-
               </div>
 
             </form>
@@ -165,55 +143,54 @@ class CreateItem extends Component {
 
 
           <div className="col s7 example">
-
             <div className="col s12 background">
-            
               <div className="col s12">
-              <div className=" exampleCard">
-              <div className="all">
-                  <div className="title">
-                    <p> {this.state.title} </p>
-                  </div>
-                  <div className="content">
-                    <p> {this.state.textArea} </p>
-                  </div>
-                  <div className="quiz">
-                      <div className="quizQuestion1">
+                <div className=" exampleCard">
+
+                  <div className="all">
+                      <div className="title">
+                        <p> {this.state.title} </p>
                       </div>
-                      <div className="quizQuestion2">
+                      <div className="content">
+                        <p> {this.state.textArea} </p>
                       </div>
-                      <div className="quizQuestion3">
+                      <div className="quiz">
+                          <div className="quizQuestion1">
+                          </div>
+                          <div className="quizQuestion2">
+                          </div>
+                          <div className="quizQuestion3">
+                          </div>
+                          <div className="quizQuestion4">
+                          </div>
                       </div>
-                      <div className="quizQuestion4">
+
+                      <p>Welke emotie wekte dit verhaal bij jou op?</p>
+                      <div className="feedback">
+                        <div className="emoOne">
+                            <div className="col s2 emoteIconExample">
+                              <FontAwesomeIcon icon={faSmile} />
+                            </div>
+                        </div>
+                        <div className="emoTwo">
+                            <div className="col s2 emoteIconExample">
+                              <FontAwesomeIcon icon={faSadTear} />
+                            </div>
+                        </div>
+                        <div className="emoThree">
+                            <div className="col s2 emoteIconExample">
+                              <FontAwesomeIcon icon={faAngry} />
+                            </div>
+                        </div>
                       </div>
+
                   </div>
 
-                  <p>Welke emotie wekte dit verhaal bij jou op?</p>
-                  <div className="feedback">
-                  <div className="emoOne">
-                      <div className="col s2 emoteIconExample">
-                          <FontAwesomeIcon icon={faSmile} />
-                      </div>
-                  </div>
-                  <div className="emoTwo">
-                      <div className="col s2 emoteIconExample">
-                          <FontAwesomeIcon icon={faSadTear} />
-                      </div>
-                  </div>
-                  <div className="emoThree">
-                      <div className="col s2 emoteIconExample">
-                          <FontAwesomeIcon icon={faAngry} />
-                      </div>
-                  </div>
-
-                  </div>
-                  </div>
-
+                </div>
               </div>
-              </div>
+            </div>
           </div>
-          </div>
-
+          
         </div>
       </div>
       )
