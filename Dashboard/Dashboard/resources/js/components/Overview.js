@@ -12,7 +12,7 @@ class Overview extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/v1/overview')
+    fetch('/api/v1/stories')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ 
