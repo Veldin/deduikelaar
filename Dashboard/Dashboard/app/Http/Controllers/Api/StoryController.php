@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class StoryController extends Controller
 {
@@ -129,35 +130,41 @@ class StoryController extends Controller
 
         $story = Story::create($storyData);
 
-        foreach ($texts as $num => $text){
-            $storyItem = StoryItem::create([
-                'text' => $text,
-                'storyId' => $story->id
-            ]);
-
-            if(isset($files[$num])){
-                $f = $files[$num];
-                $extension = $f->getClientOriginalExtension();
-                $fn = $f->getClientOriginalName();
-
-                $filename = Carbon::now()->format('Ymdhis').rand(11111111, 99999999) . '.' . $extension;
-                $files[$num]->storeAs("/uploads/story/", $filename, 'local');
-
-                //TODO: convert wordt files
-                File::create([
-                    'fileName' => $filename,
-                    'realName' => $fn,
-                    'fileType' => $f->getMimeType(),
-                    'extension' => $extension,
-                    'path' => 'app/uploads/story/',
-                    'storyItemId' => $storyItem->id
-                ]);
+        if($texts) {
+            if(!is_array($texts)){
+                $texts = [$texts];
             }
+            foreach ($texts as $num => $text) {
+                $storyItem = StoryItem::create([
+                    'text' => $text,
+                    'storyId' => $story->id
+                ]);
 
+                if (isset($files[$num])) {
+                    $f = $files[$num];
+                    $extension = $f->getClientOriginalExtension();
+                    $fn = $f->getClientOriginalName();
+
+                    $filename = Carbon::now()->format('Ymdhis') . rand(11111111, 99999999) . '.' . $extension;
+                    $files[$num]->storeAs("/uploads/story/", $filename, 'local');
+
+                    $file = File::create([
+                        'fileName' => $filename,
+                        'realName' => $fn,
+                        'fileType' => $f->getMimeType(),
+                        'extension' => $extension,
+                        'path' => 'app/uploads/story/',
+                        'storyItemId' => $storyItem->id
+                    ]);
+                    $this->convertDocxFile($file);
+                }
+
+            }
         }
 
         return response()->json([
-            'response' => 'success'
+            'response' => 'success',
+            'storyId' => $story->id
         ]);
 
     }
@@ -183,7 +190,47 @@ class StoryController extends Controller
     }
 
 
-    public function convertWordFile(\Illuminate\Support\Facades\File $file){
+    public function convertDocxFile(File $file){
+
+        if($file->extension != 'docx') return null;
+        //TODO: convert wordt files
+//        var_dump( $file->extension );
+//
+//
+        $striped_content = '';
+        $content = '';
+
+        $zip = zip_open(storage_path($file->path.$file->fileName));
+
+        if (!$zip || is_numeric($zip)) return false;
+
+        while ($zip_entry = zip_read($zip)) {
+
+            if (zip_entry_open($zip, $zip_entry) == FALSE) continue;
+
+            if (zip_entry_name($zip_entry) != "word/document.xml") continue;
+
+            $content .= zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+
+            zip_entry_close($zip_entry);
+        }// end while
+
+        zip_close($zip);
+
+//        $content = str_replace('</w:r></w:p></w:tc><w:tc>', "", $content);
+//        $content = str_replace('</w:r></w:p>', "\r\n", $content);
+//        $striped_content = strip_tags($content);
+//        $body = preg_replace("/\<w\:body\>(.?*)\<\/w\:body\>/i", "$1", $content);
+//        $c = simplexml_load_string($content);
+//        var_dump($body);
+        var_dump($content);
+        $striped_content = $content;
+//        var_dump($striped_content);
+
+        return $striped_content;
 
     }
+
+
+
 }
