@@ -16,20 +16,19 @@
                 height: 100%;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
                 font-size: 1rem;
+                background-color: #aa9479;
             }
 
             .title{
                 font-weight: 400;
                 font-size: 1.8rem;
                 margin-bottom: 60px;
-                background-color: #aa9479;
                 width: 70%;
             }
 
             .description{
                 font-weight: normal;
                 font-size: 1.3rem;
-                background-color: #aa9479;
             }
         </style>
     </head>

@@ -13,7 +13,7 @@ namespace GameObjectFactory
     {
         public Builder()
         {
-
+            
         }
 
         public void TransformGameObject(GameObject gameObject, string wantToGet, float fromLeft, float fromTop, object value = null)
@@ -26,7 +26,6 @@ namespace GameObjectFactory
 
             if (wantToGet == "player")
             {
-
                 gameObject.Width = 40f;
                 gameObject.Height = 40f;
 
@@ -40,7 +39,7 @@ namespace GameObjectFactory
 
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
-                gameObject.setActiveBitmap("Assets/Sprites/right1_145_200_32.gif");
+                gameObject.setActiveBitmap("Assets/Sprites/Player/right1_145_200_32.gif");
             }
 
             if (wantToGet == "cursor")
@@ -79,7 +78,7 @@ namespace GameObjectFactory
                 gameObject.setActiveBitmap("Assets/wall_600_600_16.gif");
 
             }
-
+                
             if (wantToGet == "button")
             {
                 gameObject.Width = 70;
@@ -92,6 +91,9 @@ namespace GameObjectFactory
 
                 gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
                 gameObject.onTickList.Add(new SetToTargetBehaviour());
+
+                gameObject.onTickList.Add(new ButtonCursorClickBehaviour());
+
 
                 gameObject.setActiveBitmap("Assets/tile.gif");
             }

@@ -65699,6 +65699,7 @@ function (_Component) {
       });
     }
   }, {
+<<<<<<< HEAD
     key: "togglePopup1",
     value: function togglePopup1() {
       this.setState({
@@ -65729,13 +65730,30 @@ function (_Component) {
   }, {
     key: "createItem",
     value: function createItem(e) {
+=======
+    key: "togglePopup",
+    value: function togglePopup() {
+      this.setState({
+        showPopup: !this.state.showPopup
+      });
+    }
+  }, {
+    key: "insertItem",
+    value: function insertItem(e) {
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
       e.preventDefault();
-      fetch('/api/v1/story/', {
-        method: 'PUT'
+      var formData = new FormData(); // formData.append('title', createItemForm.title);
+      // formData.append('uploadFile', createItemForm.uploadFile);
+      // formData.append('ownText', createItemForm.ownText);
+      // formData.append('selectedIcon', createItemForm.items);
+
+      fetch('/api/v1/story', {
+        method: 'PUT',
+        body: formData
       }).then(function (response) {
         return response.json();
       }).then(function (response) {
-        console.log('hi: ' + response['response']); // if(response['response'] == "success"){
+        console.log(response['response']); // if(response['response'] == "success"){
         //   toastr.success('Het item is verwijderd!')
         // }else{
         //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
@@ -65843,12 +65861,17 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question questionExFile col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+<<<<<<< HEAD
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
         onClick: this.togglePopup4.bind(this)
       }))), this.state.showPopup4 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: this.state.text[3].title,
         closePopup: this.togglePopup4.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+=======
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         htmlFor: "chooseIcon"
       }, "Kies een icoon"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
@@ -65859,7 +65882,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item1",
+<<<<<<< HEAD
         name: "item",
+=======
+        name: "item1",
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         type: "radio",
         defaultChecked: true
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65873,7 +65900,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item2",
+<<<<<<< HEAD
         name: "item",
+=======
+        name: "item2",
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65886,7 +65917,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item3",
+<<<<<<< HEAD
         name: "item",
+=======
+        name: "item3",
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65899,7 +65934,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item4",
+<<<<<<< HEAD
         name: "item",
+=======
+        name: "item4",
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65912,7 +65951,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item5",
+<<<<<<< HEAD
         name: "item",
+=======
+        name: "item5",
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65921,11 +65964,19 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+<<<<<<< HEAD
         className: "items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item6",
         name: "item",
+=======
+        className: "item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        id: "item5",
+        name: "item6",
+>>>>>>> 8e1aedd1191065197c3aeca7f2e53ce2f88b675f
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65938,7 +65989,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn waves-effect waves-light saveButton",
         type: "submit",
-        onClick: this.createItem.bind(this),
+        onClick: this.insertItem.bind(this),
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s7 example"
@@ -66332,8 +66383,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

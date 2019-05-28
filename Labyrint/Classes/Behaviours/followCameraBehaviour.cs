@@ -16,20 +16,32 @@ namespace Labyrint
         public float fromLeftOffest;
         public float fromTopOffest;
 
+        public float originalFromLeft;
+        public float originalFromTop;
+
+        public float addedFromLeft;
+        public float addedFromTop;
+
         public FollowCameraBehaviour(Camera camera)
         {
             this.camera = camera;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
             if (gameobject.Target == null)
             {
                 gameobject.Target = new Target(0,0);
+                originalFromLeft = gameobject.FromLeft;
+                originalFromTop = gameobject.FromTop;
+
+                addedFromLeft = 0;
+                addedFromTop = 0;
             }
 
+
             fromLeftOffest = camera.GetFromLeft() + camera.GetWidth() / 2;
-            fromTopOffest = camera.GetFromTop() + camera.GetHeight() / 2;
+            fromTopOffest = camera.GetFromTop() + (camera.GetHeight() / 2) + (camera.GetHeight() / 3) ;
 
             if (float.IsNaN(fromLeftOffest))
             {
@@ -40,8 +52,12 @@ namespace Labyrint
                 fromTopOffest = 0;
             }
 
-            gameobject.Target.SetFromLeft(fromLeftOffest);
-            gameobject.Target.SetFromTop(fromTopOffest);
+            //Remember how much is added due to camera effect.
+            addedFromLeft = fromLeftOffest;
+            addedFromTop = fromTopOffest;
+
+            gameobject.Target.SetFromLeft(fromLeftOffest + originalFromLeft);
+            gameobject.Target.SetFromTop(fromTopOffest + originalFromTop);
 
             return true;
         }

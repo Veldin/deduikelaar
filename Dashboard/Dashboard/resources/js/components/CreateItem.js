@@ -71,20 +71,26 @@ class CreateItem extends Component {
     });
   }
 
-  createItem(e) {
+  insertItem(e) {
     e.preventDefault();
-    fetch('/api/v1/story/',{
-      method: 'PUT',
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log('hi: '+response['response']);
+    const formData = new FormData();
+    // formData.append('title', createItemForm.title);
+    // formData.append('uploadFile', createItemForm.uploadFile);
+    // formData.append('ownText', createItemForm.ownText);
+    // formData.append('selectedIcon', createItemForm.items);
 
-      // if(response['response'] == "success"){
-      //   toastr.success('Het item is verwijderd!')
-      // }else{
-      //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
-      // }
+    fetch('/api/v1/story', {
+        method: 'PUT',
+        body: formData
+    }).then(response => response.json())
+      .then(response => {
+        console.log(response['response']);
+
+        // if(response['response'] == "success"){
+        //   toastr.success('Het item is verwijderd!')
+        // }else{
+        //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+        // }
     })
   }
 
@@ -225,7 +231,7 @@ class CreateItem extends Component {
 
               <div className="row">
                 <div className="input-field col s4">
-                  <button className="btn waves-effect waves-light saveButton" type="submit" onClick={this.createItem.bind(this)} name="action">Opslaan</button>
+                  <button className="btn waves-effect waves-light saveButton" type="submit" onClick={this.insertItem.bind(this)} name="action">Opslaan</button>
                 </div>
               </div>
 

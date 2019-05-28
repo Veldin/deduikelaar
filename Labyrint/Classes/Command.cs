@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using FileReaderWriterSystem;
 using LogSystem;
 
@@ -13,11 +14,13 @@ namespace Labyrint
 {
     public class Command : ILogObserver
     {
-        private bool active;                // If this bool is true commands can be typed
-        private TextBox commandBar;         // The upper textbox where the commands are filled in
-        private TextBox commandResponse;    // The lower textbox where the feedback is given
-        private List<string> logClass;      // If filled only messages from those classes will be shown
-        private MethodInfo methodInfo;      
+        private bool active;                    // If this bool is true commands can be typed
+        private TextBox commandBar;             // The upper textbox where the commands are filled in
+        private TextBox commandResponse;        // The lower textbox where the feedback is given
+        private List<string> logClass;          // If filled only messages from those classes will be shown
+        private MethodInfo methodInfo;          // This is the method info of a method whereby the parameters still needs to be given
+        private List<string> commandHistory;    // In this list are all the commands saved that are made
+        private int historyIndex = -1;          // This index shows the command that is displayed in the commandHistory. If no command in the commandHistory is displayed the value is -1
 
         public Command(TextBox commandBar, TextBox commandResponse)
         {
@@ -27,6 +30,16 @@ namespace Labyrint
             this.commandResponse = commandResponse;
             logClass = new List<string>();
             methodInfo = null;
+            
+            // Get the commandHistory and reverse it
+            commandHistory = FileReaderWriterFacade.ReadLines(FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt");
+            if (commandHistory != null)
+            {
+                commandHistory.Reverse();
+            } else
+            {
+                commandHistory = new List<string>();
+            }
 
             // Subscribe to the log
             Log.Subscribe(this);
@@ -44,14 +57,22 @@ namespace Labyrint
             }
         }
 
-        public void KeyPressed(string key)
+        public void KeyPressed(KeyEventArgs input)
         {
+            string key = input.Key.ToString();
+
+            if (key == "DeadCharProcessed")
+            {
+                key = input.DeadCharProcessedKey.ToString();
+            }
+
             switch (key)
             {
-                case "Oem3":
+                case "Oem3":                // ` key. Activate and deactivated the commandBar
                     SetActive();
                     break;
-                case "Return":
+                case "Return":              // Execute a command or enter a parameters
+                    if (!active) { return; }
                     if (methodInfo != null)
                     {
                         ExecuteMethodWithParameters(commandBar.Text);
@@ -63,10 +84,26 @@ namespace Labyrint
                     }
 
                     WriteInput(commandBar.Text);
-                    ReadInput();
                     commandBar.Text = "";
                     break;
-
+                case "Up":                  // Go through the command history
+                    if (active && historyIndex +1 < commandHistory.Count)
+                    {
+                        historyIndex++;
+                        commandBar.Text = commandHistory[historyIndex];
+                    }
+                    break;
+                case "Down":                // Go through the command history
+                    if (active && historyIndex -1 > -1)
+                    {
+                        historyIndex--;
+                        commandBar.Text = commandHistory[historyIndex];
+                    }
+                    if (historyIndex -1 == -1)
+                    {
+                        commandBar.Text = "";
+                    }
+                    break;
             }
         }
 
@@ -78,6 +115,7 @@ namespace Labyrint
 
         private void ExecuteQuickCommand(string text)
         {
+            
             switch (text)
             {
                 case "clear": 
@@ -261,13 +299,19 @@ namespace Labyrint
             // If stringg is not empty write it in a textFile
             if (text != "")
             {
+
+                commandHistory.Add(text);
+                //// Add it to the commandHistory
+                //commandHistory.Insert(0, text);
+
+                //// If the index is not -1 increase the index by one
+                //if (historyIndex != -1)
+                //{
+                //    historyIndex++;
+                //}
+
                 FileReaderWriterFacade.WriteText(new string[] { text }, FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt", true);
             }
-        }
-
-        private void ReadInput()
-        {
-            Log.Debug(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt"));
         }
     }
 }
