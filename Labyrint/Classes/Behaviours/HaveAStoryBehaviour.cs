@@ -28,6 +28,10 @@ namespace Labyrint
             }
         }
 
+        /// <summary>
+        /// Checks if there is indeed a story
+        /// </summary>
+        /// <returns> Returns a bool whether the gameObject holds a story</returns>
         public bool HasStory()
         {
             if (itemOrder == null)
