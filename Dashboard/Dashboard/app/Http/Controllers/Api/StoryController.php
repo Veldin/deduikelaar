@@ -9,6 +9,7 @@ use App\File;
 use App\Http\Controllers\Controller;
 use App\Story;
 use App\StoryItem;
+use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -138,16 +139,17 @@ class StoryController extends Controller
                 $f = $files[$num];
                 $extension = $f->getClientOriginalExtension();
                 $fn = $f->getClientOriginalName();
-                // TODO: change filename with date
-                $filename = rand(11111111, 99999999) . '.' . $extension;
-                $files[$num]->storeAs("/uploads/story/", $filename, "local");
+
+                $filename = Carbon::now()->format('Ymdhis').rand(11111111, 99999999) . '.' . $extension;
+                $files[$num]->storeAs("/uploads/story/", $filename, 'local');
+
                 //TODO: convert wordt files
                 File::create([
                     'fileName' => $filename,
                     'realName' => $fn,
                     'fileType' => $f->getMimeType(),
                     'extension' => $extension,
-                    'path' => 'uploads/story/',
+                    'path' => 'app/uploads/story/',
                     'storyItemId' => $storyItem->id
                 ]);
             }
@@ -180,4 +182,8 @@ class StoryController extends Controller
         ]);
     }
 
+
+    public function convertWordFile(\Illuminate\Support\Facades\File $file){
+
+    }
 }
