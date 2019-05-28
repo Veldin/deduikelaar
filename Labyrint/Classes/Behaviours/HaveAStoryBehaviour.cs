@@ -22,12 +22,17 @@ namespace Labyrint
             if (itemOrder != null)
             {
                 gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
-            } else
+            }
+            else
             {
                 gameObject.setActiveBitmap("Assets/redrand.png");
             }
         }
 
+        /// <summary>
+        /// Checks if there is indeed a story
+        /// </summary>
+        /// <returns> Returns a bool whether the gameObject holds a story</returns>
         public bool HasStory()
         {
             if (itemOrder == null)
