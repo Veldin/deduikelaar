@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
 import Popup from './example/Example';
+import toastr from 'toastr';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmile } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +9,8 @@ import { faSadTear } from '@fortawesome/free-solid-svg-icons';
 import { faAngry } from '@fortawesome/free-solid-svg-icons';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
-
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 class CreateItem extends Component {
   constructor() {
@@ -17,7 +19,9 @@ class CreateItem extends Component {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
       isChecked: true,
-      showPopup: false
+      showPopup: false,
+      file: null,
+      editorContent: ''
     }
   }
 
@@ -26,6 +30,7 @@ class CreateItem extends Component {
       title: event.target.value
     })
   }
+
   changeStateTextArea(event) {
     this.setState({
       textArea: event.target.value
@@ -38,32 +43,42 @@ class CreateItem extends Component {
     });
   }
 
+  setFile(e) {
+    this.setState({
+      file: e.target.files[0]
+    });
+  }
+
   togglePopup() {
     this.setState({
       showPopup: !this.state.showPopup
     });
   }
 
+  editorHandler(data){
+    this.setState({
+      editorContent: data
+    });
+  }
+
   insertItem(e) {
     e.preventDefault();
-    const formData = new FormData();
-    // formData.append('title', createItemForm.title);
-    // formData.append('uploadFile', createItemForm.uploadFile);
-    // formData.append('ownText', createItemForm.ownText);
-    // formData.append('selectedIcon', createItemForm.items);
-
+    console.log(this.state.file);
     fetch('/api/v1/story', {
         method: 'PUT',
-        body: formData
+        body: 'title='+createItemForm.title.value+'&icon='+createItemForm.item.value+'&texts='+this.state.editorContent+'&files='+this.state.file,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
     }).then(response => response.json())
       .then(response => {
-        console.log(response['response']);
+        console.log(response);
 
-        // if(response['response'] == "success"){
-        //   toastr.success('Het item is verwijderd!')
-        // }else{
-        //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
-        // }
+        if(response['response'] == "success"){
+          toastr.success('Het item is toegevoegd!')
+        }else{
+          toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+        }
     })
   }
 
@@ -78,10 +93,11 @@ class CreateItem extends Component {
 
       return (
       <div className="container-fluid containerAddItem">
+
         <div className="row">
 
           <div className="col s5 inputFields">
-            <form name="createItemForm">
+            <form name="createItemForm" encType="multipart/form-data">
 
             <div className="row">
               <div className="input-field col s11">
@@ -118,8 +134,17 @@ class CreateItem extends Component {
 
               <div className="row" style={ hidden }>
                 <div className="input-field col s11">
-                  <textarea id="textarea1" name="ownText" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
-                  <label htmlFor="ownText">Eigen tekst</label>
+                  <CKEditor
+                      editor={ ClassicEditor }
+                      data="Typ hier een verhaal."
+                      config={ {
+                          toolbar: [ [ 'Heading' ], [ 'Bold' ], [ 'Italic' ], ['imageUpload'] ]
+                      } }
+                      onChange={ ( event, editor ) => {
+                          const data = editor.getData();
+                          this.editorHandler(data)
+                      } }
+                  />
                 </div>
                 <div className="question col s1">
                   <FontAwesomeIcon icon={ faQuestionCircle } />
@@ -131,7 +156,7 @@ class CreateItem extends Component {
                   <div className="file-field input-field">
                     <div className="btn">
                       <span>Bestand</span>
-                      <input name="uploadFileButton" type="file"></input>
+                      <input name="uploadFileButton" onChange={this.setFile.bind(this)} type="file"></input>
                     </div>
                     <div className="file-path-wrapper">
                       <input className="file-path validate" name="uploadFile" type="text" placeholder="Upload hier het gewenste bestand"></input>
@@ -148,42 +173,42 @@ class CreateItem extends Component {
 
               <label htmlFor="item1">
                 <div className="items">
-                  <input className="with-gap" id="item1" name="item" type="radio" defaultChecked></input>
+                  <input className="with-gap" id="item1" name="item" value="rat" type="radio" defaultChecked></input>
                   <span className="itemImage"><img src={ require('../../../public/images/rat2.png') } /></span>
                 </div>
               </label>
 
               <label htmlFor="item2">
                 <div className="items">
-                  <input className="with-gap" id="item2" name="item" type="radio"></input>
+                  <input className="with-gap" id="item2" name="item" value="envelope" type="radio"></input>
                   <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
                 </div>
               </label>
 
                 <label htmlFor="item3">
                   <div className="items">
-                    <input className="with-gap" id="item3" name="item" type="radio"></input>
+                    <input className="with-gap" id="item3" name="item" value="candle" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/candle2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item4">
                   <div className="items">
-                    <input className="with-gap" id="item4" name="item" type="radio"></input>
+                    <input className="with-gap" id="item4" name="item" value="binoculars" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/binocular2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item5">
                   <div className="items">
-                    <input className="with-gap" id="item5" name="item" type="radio"></input>
+                    <input className="with-gap" id="item5" name="item" value="kroontjespen" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item6">
                   <div className="items">
-                    <input className="with-gap" id="item6" name="item" type="radio"></input>
+                    <input className="with-gap" id="item6" name="item" value="kroontjespen" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
                   </div>
                 </label>
