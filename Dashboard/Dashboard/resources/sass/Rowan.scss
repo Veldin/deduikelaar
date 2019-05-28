@@ -85,11 +85,15 @@ div.itemCollection {
     background: $super-light; 
 }
 
-.question:first-child{
+.questionTitle{
     margin-top: 20px;
 }
 
-.question:last-child{
+.questionOwnText{
+    margin-top: 20px;
+}
+
+.questionExFile{
     margin-top: 40px;
 }
 
@@ -102,7 +106,7 @@ div.itemCollection {
     background-color: $primary-light;
     z-index: 1;
     min-height: 100px;
-    width: 300px;
+    width: 350px;
     border-radius: 4px;
     box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.28);
     right: 350px;
