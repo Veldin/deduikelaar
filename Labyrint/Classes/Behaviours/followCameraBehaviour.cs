@@ -56,9 +56,6 @@ namespace Labyrint
             addedFromLeft = fromLeftOffest;
             addedFromTop = fromTopOffest;
 
-            Log.Debug(addedFromLeft);
-            Log.Debug(addedFromTop);
-
             gameobject.Target.SetFromLeft(fromLeftOffest + originalFromLeft);
             gameobject.Target.SetFromTop(fromTopOffest + originalFromTop);
 
