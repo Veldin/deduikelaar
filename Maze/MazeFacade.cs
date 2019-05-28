@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,8 @@ namespace Maze
         public static bool Init()
         {
             mazeFactory = new MazeFactory();
-            maze = mazeFactory.GetConcatNewMaze();
+            int mazeSize = SettingsFacade.Get("mazeSize", 12);
+            maze = mazeFactory.GetConcatNewMaze(mazeSize, mazeSize);
 
             return true;
         }

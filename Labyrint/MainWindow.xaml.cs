@@ -23,6 +23,7 @@ using CameraSystem;
 using FileReaderWriterSystem;
 using ApiParser;
 using BrowserUIControl;
+using Settings;
 
 namespace Labyrint
 {
@@ -89,11 +90,12 @@ namespace Labyrint
             Window.GetWindow(this).KeyDown += KeyDown;
             //Window.GetWindow(this).SizeChanged += SizeChanged;
 
-
+            FileReaderWriterFacade.Init();
+            SettingsFacade.Init();
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
-            FileReaderWriterFacade.Init();
             ApiParserFacade.Init();
+
             //Log.Debug(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt");
             //FileReaderWriterFacade.WriteText(new string[] { "bla" }, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt", false);
 
@@ -113,9 +115,30 @@ namespace Labyrint
                 rectangle.Stroke = new SolidColorBrush(Color.FromRgb(0, 111, 111));
             }));
 
-            //WindowStyle = WindowStyle.None;
-            //Topmost = true;
-            //WindowState = WindowState.Maximized;
+            //Set the windowsstyle (,the bar above the application).
+            switch (SettingsFacade.Get("WindowsStyle", "ToolWindow"))
+            {
+                case "None":
+                    WindowStyle = WindowStyle.None;
+                    break;
+                default:
+                    WindowStyle = WindowStyle.ToolWindow;
+                    break;
+            }
+
+            //Set the windowState.
+            switch (SettingsFacade.Get("WindowState", "Normal"))
+            {
+                case "Maximized":
+                    WindowState = WindowState.Maximized;
+                    break;
+                case "Minimized":
+                    WindowState = WindowState.Minimized;
+                    break;
+                default:
+                    WindowState = WindowState.Normal;
+                    break;
+            }
 
             width = 1280;
             height = 720;
@@ -180,6 +203,8 @@ namespace Labyrint
             renderDistance = 1200;
 
             TestBrowser();
+
+            SettingsFacade.Save();
 
             fps = 999999999; //Desired max fps.
             interval = 1000 / fps;
@@ -289,7 +314,6 @@ namespace Labyrint
                     Log.Warning("Could not find pointer location");
                 }
             });
-
 
             //Destory old objects
             foreach (GameObject gameObject in loopList)
@@ -600,7 +624,7 @@ namespace Labyrint
                     randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
                     browser
                 );
-            } while (newPickup.distanceBetween(player) < 0); //if its to close to the player pick a new location
+            } while (newPickup.distanceBetween(player) < 300); //if its to close to the player pick a new location
 
             gameObjects.Add(newPickup);
         }

@@ -39,7 +39,6 @@ namespace Labyrint
                 addedFromTop = 0;
             }
 
-
             fromLeftOffest = camera.GetFromLeft() + camera.GetWidth() / 2;
             fromTopOffest = camera.GetFromTop() + (camera.GetHeight() / 2) + (camera.GetHeight() / 3) ;
 
