@@ -36,6 +36,9 @@ namespace Labyrint
             if (commandHistory != null)
             {
                 commandHistory.Reverse();
+            } else
+            {
+                commandHistory = new List<string>();
             }
 
             // Subscribe to the log

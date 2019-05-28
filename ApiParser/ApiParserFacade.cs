@@ -28,6 +28,8 @@ namespace ApiParser
             AddQuestion();
             AddStory();
         }
+
+
         private async static Task<string> CallApi(string url)
         {
             // Create a New HttpClient object and dispose it when done, so the app doesn't leak resources
@@ -43,13 +45,12 @@ namespace ApiParser
                     // string responseBody = await client.GetStringAsync(uri);
 
                     Log.Debug("Data from api call recieved");
-                    return responseBody;
 
-                    //Log.Debug(responseBody);
+                    return responseBody;
                 }
                 catch (HttpRequestException e)
                 {
-                    Log.Warning("Message :{0} ", e.Message);
+                    Log.Warning("Api call failed. " + url + " can not be found.");
                     return null;
                 }
             }
@@ -322,6 +323,7 @@ namespace ApiParser
             // Null check
             if (json == null)
             {
+                Log.Warning("The results of the api call were null");
                 return;
             }
 
