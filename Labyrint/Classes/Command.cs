@@ -33,7 +33,10 @@ namespace Labyrint
             
             // Get the commandHistory and reverse it
             commandHistory = FileReaderWriterFacade.ReadLines(FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt");
-            commandHistory.Reverse();
+            if (commandHistory != null)
+            {
+                commandHistory.Reverse();
+            }
 
             // Subscribe to the log
             Log.Subscribe(this);

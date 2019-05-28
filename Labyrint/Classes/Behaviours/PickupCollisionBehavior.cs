@@ -38,14 +38,17 @@ namespace Labyrint
                     foreach (IBehaviour behaviour in gameobject.onTickList)
                     {
                         if (behaviour.GetType().ToString() == "Labyrint.HaveAStoryBehaviour")
-                        {
+                        {                  
                             HaveAStoryBehaviour storyBehaviour = behaviour as HaveAStoryBehaviour;
 
-                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            if (storyBehaviour.HasStory())
                             {
-                                browser.NavigateToString(storyBehaviour.GetHtml());
-                                browser.Visibility = Visibility.Visible;
-                            }));
+                                Application.Current.Dispatcher.Invoke(new Action(() =>
+                                {
+                                    browser.NavigateToString(storyBehaviour.GetHtml());
+                                    browser.Visibility = Visibility.Visible;
+                                }));
+                            }
                         }                        
                     }
 

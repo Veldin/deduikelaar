@@ -18,10 +18,24 @@ namespace Labyrint
             // Get the next itemOrder from the ApiParserFacade
             itemOrder = ApiParserFacade.NextItemOrder();
             
-            Log.Debug(ApiParserFacade.GetStory(itemOrder.storyId).icon);
 
             // Set the sprite of the pickup
-            gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
+            if (itemOrder != null)
+            {
+                gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
+            }
+            {
+                gameObject.setActiveBitmap("Assets/redrand.png");
+            }
+        }
+
+        public bool HasStory()
+        {
+            if (itemOrder == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
