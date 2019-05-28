@@ -18,10 +18,23 @@ namespace Labyrint
             // Get the next itemOrder from the ApiParserFacade
             itemOrder = ApiParserFacade.NextItemOrder();
             
-            Log.Debug(ApiParserFacade.GetStory(itemOrder.storyId).icon);
-
             // Set the sprite of the pickup
-            gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
+            if (itemOrder != null)
+            {
+                gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
+            } else
+            {
+                gameObject.setActiveBitmap("Assets/redrand.png");
+            }
+        }
+
+        public bool HasStory()
+        {
+            if (itemOrder == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -42,6 +55,10 @@ namespace Labyrint
             return itemOrder.feedbackId;
         }
 
+        /// <summary>
+        /// Get the html of the story
+        /// </summary>
+        /// <returns>Returns a string with the html</returns>
         public string GetHtml()
         {
             return ApiParserFacade.GetStory(itemOrder.storyId).html;
@@ -54,7 +71,7 @@ namespace Labyrint
         /// <param name="gameObjects"></param>
         /// <param name="delta"></param>
         /// <returns></returns>
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<string> pressedKeys, float delta)
         {
             return true;
         }

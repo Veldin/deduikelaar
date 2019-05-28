@@ -139,7 +139,7 @@ div.itemCollection {
   white-space: nowrap;
 }
 
-div.item {
+div.items {
   display: inline-block;
 }
 
@@ -194,6 +194,39 @@ div.item {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b1bfd3;
+}
+
+.question:first-child {
+  margin-top: 20px;
+}
+
+.question:last-child {
+  margin-top: 40px;
+}
+
+.question {
+  color: #8391a5;
+}
+
+.popup {
+  position: absolute;
+  background-color: #304964;
+  z-index: 1;
+  min-height: 100px;
+  width: 300px;
+  border-radius: 4px;
+  box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.28);
+  right: 350px;
+  top: 175px;
+}
+
+.popup_inner {
+  padding-left: 15px;
+  color: #e7edf2;
+}
+
+.cross {
+  color: #e7edf2;
 }
 
 .background {

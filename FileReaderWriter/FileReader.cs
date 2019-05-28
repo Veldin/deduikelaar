@@ -77,6 +77,42 @@ namespace FileReaderWriterSystem
         }
 
         /// <summary>
+        /// This fuction reads the files line by line in an list
+        /// </summary>
+        /// <param name="filePath">Give the file path of the file </param>
+        /// <returns>Returns all the lines in an file in an list</returns>
+        public List<string> ReadAllLines(string filePath)
+        {
+            try
+            {  
+                // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    // Create new variables
+                    List<string> lines = new List<string>();
+                    string line = String.Empty;
+
+                    // Loop through each line and add them to the lines list
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                        Log.Debug(line);
+                    }
+
+                    // Return the list with all the lines
+                    return lines;
+                }
+            }
+            catch (IOException e)
+            {
+                // Throw a warning
+                Log.Warning("File '" + filePath + "' could not be read");
+                Log.Warning(e.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// This method returns an array with the names of all files and folders in the folder
         /// </summary>
         /// <param name="filePath">The file path of the folder</param>
