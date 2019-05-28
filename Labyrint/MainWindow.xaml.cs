@@ -172,7 +172,7 @@ namespace Labyrint
 
 
             onTickList = new List<IBehaviour>();
-            //onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
+            onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
@@ -565,12 +565,12 @@ namespace Labyrint
         /// </summary>
         private void PopulateButtonObject()
         {
-
-            for (int i = 0; i < 4; i++)
+            int max = 4;
+            for (int i = 0; i < max; i++)
             {
                 gameObjects.Add(GameObjectFactoryFacade.GetGameObject(
                     "button",
-                    i * 100,
+                    i * 100 - (100),
                     i,
                     camera
                 ));

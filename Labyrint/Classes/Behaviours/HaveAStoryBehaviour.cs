@@ -22,7 +22,8 @@ namespace Labyrint
             if (itemOrder != null)
             {
                 gameObject.setActiveBitmap("Assets/Sprites/Items/" + ApiParserFacade.GetStory(itemOrder.storyId).icon + ".gif");
-            } else
+            }
+            else
             {
                 gameObject.setActiveBitmap("Assets/redrand.png");
             }
