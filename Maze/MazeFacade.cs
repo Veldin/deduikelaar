@@ -21,7 +21,7 @@ namespace Maze
         public static bool Init()
         {
             mazeFactory = new MazeFactory();
-            int mazeSize = SettingsFacade.Get("mazeSize", 12);
+            int mazeSize = SettingsFacade.Get("MazeSize", 12);
             maze = mazeFactory.GetConcatNewMaze(mazeSize, mazeSize);
 
             return true;

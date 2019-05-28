@@ -88,7 +88,7 @@ namespace Labyrint
             //Bind the KeyUp and KeyDown methods.
             Window.GetWindow(this).KeyUp += KeyUp;
             Window.GetWindow(this).KeyDown += KeyDown;
-            //Window.GetWindow(this).SizeChanged += SizeChanged;
+            Window.GetWindow(this).SizeChanged += SizeChanged;
 
             FileReaderWriterFacade.Init();
             SettingsFacade.Init();
@@ -148,7 +148,7 @@ namespace Labyrint
             pressedKeys = new HashSet<String>();
 
             //player = new GameObject(24 * 2.5f, 42 * 2.5f, 300, 300);
-            player = GameObjectFactoryFacade.GetGameObject("player", 300, 300);
+            player = GameObjectFactoryFacade.GetGameObject("player", MazeFacade.tileSize, MazeFacade.tileSize);
 
             this.Cursor = Cursors.None;
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
@@ -200,14 +200,20 @@ namespace Labyrint
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
 
-            renderDistance = 1200;
+            renderDistance = SettingsFacade.Get("RenderDistance", 1200);//Desired max fps.
 
             TestBrowser();
 
+            Debug.WriteLine(SettingsFacade.Get("fps", 999));
+            Debug.WriteLine(SettingsFacade.Get("fps", 999));
+            Debug.WriteLine(SettingsFacade.Get("fps", 999));
+            Debug.WriteLine(SettingsFacade.Get("fps", 999));
+
+            fps = SettingsFacade.Get("fps", 999);//Desired max fps.
+            interval = 1000 / fps;
+
             SettingsFacade.Save();
 
-            fps = 999999999; //Desired max fps.
-            interval = 1000 / fps;
             then = Stopwatch.GetTimestamp();
             Run();
         }
@@ -543,9 +549,6 @@ namespace Labyrint
             gameObjects.Add(controllerAnchor);
             controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
             gameObjects.Add(controllerCursor);
-
-            Log.Debug(controllerAnchor.FromLeft);
-            Log.Debug(controllerAnchor.FromTop);
         }
 
         /// <summary>
@@ -639,11 +642,21 @@ namespace Labyrint
             Log.Debug("changed" + camera.GetWidth());
         }
 
+        /// <summary>
+        /// CloseApp gets called from the mainWindow_Closing event.
+        /// </summary>
         public void CloseApp()
         {
-            //System.Windows.Application.Current.Shutdown();
+            SettingsFacade.Save();
             this.Close();
         }
 
+        /// <summary>
+        /// MainWindow_Closing Event from the XAML
+        /// </summary>
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            CloseApp();
+        }
     }
 }
