@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
+import Popup from './example/Example';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmile } from '@fortawesome/free-solid-svg-icons';
 import { faSadTear } from '@fortawesome/free-solid-svg-icons';
 import { faAngry } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -14,7 +16,8 @@ class CreateItem extends Component {
     this.state = {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
-      isChecked: true
+      isChecked: true,
+      showPopup: false
     }
   }
 
@@ -35,20 +38,32 @@ class CreateItem extends Component {
     });
   }
 
-  createItem(e) {
-    e.preventDefault();
-    fetch('/api/v1/story/',{
-      method: 'PUT',
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log('hi: '+response['response']);
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
 
-      // if(response['response'] == "success"){
-      //   toastr.success('Het item is verwijderd!')
-      // }else{
-      //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
-      // }
+  insertItem(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    // formData.append('title', createItemForm.title);
+    // formData.append('uploadFile', createItemForm.uploadFile);
+    // formData.append('ownText', createItemForm.ownText);
+    // formData.append('selectedIcon', createItemForm.items);
+
+    fetch('/api/v1/story', {
+        method: 'PUT',
+        body: formData
+    }).then(response => response.json())
+      .then(response => {
+        console.log(response['response']);
+
+        // if(response['response'] == "success"){
+        //   toastr.success('Het item is verwijderd!')
+        // }else{
+        //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
+        // }
     })
   }
 
@@ -66,82 +81,109 @@ class CreateItem extends Component {
         <div className="row">
 
           <div className="col s5 inputFields">
-            <form>
+            <form name="createItemForm">
 
             <div className="row">
-              <div className="input-field col s12">
-                <input id="title" className="inputField" type="text" name="title" required onChange={this.changeState.bind(this)}></input>
-                <label htmlFor="last_name">Titel</label>
+              <div className="input-field col s11">
+                <input id="title" name="title" className="inputField" type="text" required onChange={this.changeState.bind(this)}></input>
+                <label htmlFor="title">Titel</label>
+              </div>
+              <div className="question col s1">
+                <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup.bind(this)} />
               </div>
             </div>
 
-              <label htmlFor="last_name">Bestaand document</label>
+            {this.state.showPopup ?  
+                  <Popup  
+                    text='Click "Close Button" to hide popup'  
+                    closePopup={this.togglePopup.bind(this)}  
+                  />  
+                  : null  
+                  }  
+
+              <label htmlFor="existingFile">Bestaand document</label>
               <div className="row">
-                <div className="switch existingFile">
+                <div className="switch existingFile col s11">
                   <label>
                     Nee
-                    <input type="checkbox" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
+                    <input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
                     <span className="lever"></span>
                     Ja
                   </label>
                 </div>
+                <div className="question col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } />
+                </div>
               </div>
 
               <div className="row" style={ hidden }>
-                <div className="input-field col s12">
-                  <textarea id="textarea1" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
-                  <label htmlFor="textarea1">Eigen tekst</label>
+                <div className="input-field col s11">
+                  <textarea id="textarea1" name="ownText" className="inputField materialize-textarea" onChange={this.changeStateTextArea.bind(this)}></textarea>
+                  <label htmlFor="ownText">Eigen tekst</label>
+                </div>
+                <div className="question col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } />
                 </div>
               </div>
 
               <div className="row" style={ isChecked }>
-                <div className="input-field col s12">
+                <div className="input-field col s11">
                   <div className="file-field input-field">
                     <div className="btn">
                       <span>Bestand</span>
-                      <input type="file"></input>
+                      <input name="uploadFileButton" type="file"></input>
                     </div>
                     <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text" placeholder="Upload hier het gewenste bestand"></input>
+                      <input className="file-path validate" name="uploadFile" type="text" placeholder="Upload hier het gewenste bestand"></input>
                     </div>
                   </div>
                 </div>
+                <div className="question col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } />
+                </div>
               </div>
 
-              <label htmlFor="last_name">Kies een item</label>
+              <label htmlFor="chooseIcon">Kies een icoon</label>
               <div className="row col s12 itemCollection">
 
               <label htmlFor="item1">
-                <div className="item">
-                  <input className="with-gap" id="item1" name="items" type="radio" defaultChecked></input>
+                <div className="items">
+                  <input className="with-gap" id="item1" name="item" type="radio" defaultChecked></input>
                   <span className="itemImage"><img src={ require('../../../public/images/rat2.png') } /></span>
                 </div>
               </label>
 
               <label htmlFor="item2">
-                <div className="item">
-                  <input className="with-gap" id="item2" name="items" type="radio"></input>
+                <div className="items">
+                  <input className="with-gap" id="item2" name="item" type="radio"></input>
                   <span className="itemImage"><img src={ require('../../../public/images/envelope2.png') } /></span>
                 </div>
               </label>
 
                 <label htmlFor="item3">
-                  <div className="item">
-                    <input className="with-gap" id="item3" name="items" type="radio"></input>
+                  <div className="items">
+                    <input className="with-gap" id="item3" name="item" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/candle2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item4">
-                  <div className="item">
-                    <input className="with-gap" id="item4" name="items" type="radio"></input>
+                  <div className="items">
+                    <input className="with-gap" id="item4" name="item" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/binocular2.png') } /></span>
                   </div>
                 </label>
 
                 <label htmlFor="item5">
-                  <div className="item">
-                    <input className="with-gap" id="item5" name="items" type="radio"></input>
+                  <div className="items">
+                    <input className="with-gap" id="item5" name="item" type="radio"></input>
+                    <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
+                  </div>
+                </label>
+
+                <label htmlFor="item6">
+                  <div className="items">
+                    <input className="with-gap" id="item6" name="item" type="radio"></input>
                     <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
                   </div>
                 </label>
@@ -150,7 +192,7 @@ class CreateItem extends Component {
 
               <div className="row">
                 <div className="input-field col s4">
-                  <button className="btn waves-effect waves-light saveButton" type="submit" onClick={this.createItem.bind(this)} name="action">Opslaan</button>
+                  <button className="btn waves-effect waves-light saveButton" type="submit" onClick={this.insertItem.bind(this)} name="action">Opslaan</button>
                 </div>
               </div>
 

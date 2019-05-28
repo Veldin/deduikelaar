@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Feedback;
+use App\File;
 use App\Http\Controllers\Controller;
 use App\Story;
 use App\StoryItem;
@@ -133,9 +134,23 @@ class StoryController extends Controller
                 'storyId' => $story->id
             ]);
 
-//            if(isset($files[$num])){
-//
-//            }
+            if(isset($files[$num])){
+                $f = $files[$num];
+                $extension = $f->getClientOriginalExtension();
+                $fn = $f->getClientOriginalName();
+                // TODO: change filename with date
+                $filename = rand(11111111, 99999999) . '.' . $extension;
+                $files[$num]->storeAs("/uploads/story/", $filename, "local");
+                //TODO: convert wordt files
+                File::create([
+                    'fileName' => $filename,
+                    'realName' => $fn,
+                    'fileType' => $f->getMimeType(),
+                    'extension' => $extension,
+                    'path' => 'uploads/story/',
+                    'storyItemId' => $storyItem->id
+                ]);
+            }
 
         }
 

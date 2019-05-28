@@ -547,7 +547,7 @@ namespace GameObjectFactory
             {
                 foreach (IBehaviour behaivior in onTickList)
                 {
-                    behaivior.OnTick(this, gameObjects, delta);
+                    behaivior.OnTick(this, gameObjects, pressedKeys, delta);
                 }
             }
 
@@ -581,7 +581,8 @@ namespace GameObjectFactory
         }
 
 
-        //reset
+
+        //reset the gameObject.
         public void Reset()
         {
             //bitmaps = new Dictionary<string, BitmapImage>();

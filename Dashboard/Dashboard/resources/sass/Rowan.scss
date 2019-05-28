@@ -26,7 +26,7 @@ div.itemCollection {
     white-space: nowrap;
   }
   
-  div.item {
+  div.items {
     display: inline-block;
   }
 
@@ -85,11 +85,42 @@ div.itemCollection {
     background: $super-light; 
 }
 
+.question:first-child{
+    margin-top: 20px;
+}
+
+.question:last-child{
+    margin-top: 40px;
+}
+
+.question{
+    color: $secondary-light;
+}
+
+.popup{
+    position: absolute;
+    background-color: $primary-light;
+    z-index: 1;
+    min-height: 100px;
+    width: 300px;
+    border-radius: 4px;
+    box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.28);
+    right: 350px;
+    top: 175px;
+}
+
+.popup_inner{
+    padding-left: 15px;
+    color: $secondary-dark;
+}
+
+.cross{
+    color: $secondary-dark;
+}
 
 // example 
 
 .background{
-    background-color: rgba(84,110,122,0.6);  //needs to be rgba because of opacity
     height: 670px;
 }
 

@@ -54,7 +54,7 @@ namespace Labyrint
         /// <param name="gameObjects"></param>
         /// <param name="delta"></param>
         /// <returns></returns>
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<string> pressedKeys, float delta)
         {
             return true;
         }

@@ -21,7 +21,7 @@ namespace Labyrint
             this.browser = browser as WebBrowser;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, float delta)
+        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
  
             loopList.Clear();
