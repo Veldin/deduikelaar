@@ -12362,26 +12362,27 @@ exports.default = useQueries;
 
 /***/ }),
 
-/***/ "./node_modules/hoist-non-react-statics/index.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/hoist-non-react-statics/index.js ***!
-  \*******************************************************/
+/***/ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
 /**
  * Copyright 2015, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-
-
 var REACT_STATICS = {
     childContextTypes: true,
     contextTypes: true,
     defaultProps: true,
     displayName: true,
     getDefaultProps: true,
+    getDerivedStateFromProps: true,
     mixins: true,
     propTypes: true,
     type: true
@@ -12392,34 +12393,51 @@ var KNOWN_STATICS = {
     length: true,
     prototype: true,
     caller: true,
+    callee: true,
     arguments: true,
     arity: true
 };
 
-var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
+var defineProperty = Object.defineProperty;
+var getOwnPropertyNames = Object.getOwnPropertyNames;
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var getPrototypeOf = Object.getPrototypeOf;
+var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
 
-module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
+function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
     if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-        var keys = Object.getOwnPropertyNames(sourceComponent);
 
-        /* istanbul ignore else */
-        if (isGetOwnPropertySymbolsAvailable) {
-            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
+        if (objectPrototype) {
+            var inheritedComponent = getPrototypeOf(sourceComponent);
+            if (inheritedComponent && inheritedComponent !== objectPrototype) {
+                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+            }
+        }
+
+        var keys = getOwnPropertyNames(sourceComponent);
+
+        if (getOwnPropertySymbols) {
+            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
         }
 
         for (var i = 0; i < keys.length; ++i) {
-            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
-                try {
-                    targetComponent[keys[i]] = sourceComponent[keys[i]];
-                } catch (error) {
-
-                }
+            var key = keys[i];
+            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+                try { // Avoid failures from read-only properties
+                    defineProperty(targetComponent, key, descriptor);
+                } catch (e) {}
             }
         }
+
+        return targetComponent;
     }
 
     return targetComponent;
-};
+}
+
+module.exports = hoistNonReactStatics;
 
 
 /***/ }),
@@ -61303,7 +61321,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var create_react_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! create-react-class */ "./node_modules/create-react-class/index.js");
 /* harmony import */ var create_react_class__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(create_react_class__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/index.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _ContextUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ContextUtils */ "./node_modules/react-router/es/ContextUtils.js");
 /* harmony import */ var _PropTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PropTypes */ "./node_modules/react-router/es/PropTypes.js");
@@ -65642,7 +65660,19 @@ function (_Component) {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
       isChecked: true,
-      showPopup: false
+      showPopup1: false,
+      showPopup2: false,
+      showPopup3: false,
+      showPopup4: false,
+      text: [{
+        title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke verhaal over gaat.'
+      }, {
+        title: 'Hier kan gekozen worden voo een bestaand bestand of om zelf een stuk te schrijven.'
+      }, {
+        title: 'Maak hier een eigen verhaal en voeg afbeeldingen toe indien gewenst.'
+      }, {
+        title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'
+      }]
     };
     return _this;
   }
@@ -65669,12 +65699,34 @@ function (_Component) {
       });
     }
   }, {
-<<<<<<< HEAD
-    key: "togglePopup",
-    value: function togglePopup() {
+    key: "togglePopup1",
+    value: function togglePopup1() {
       this.setState({
-        showPopup: !this.state.showPopup
-=======
+        showPopup1: !this.state.showPopup1
+      });
+    }
+  }, {
+    key: "togglePopup2",
+    value: function togglePopup2() {
+      this.setState({
+        showPopup2: !this.state.showPopup2
+      });
+    }
+  }, {
+    key: "togglePopup3",
+    value: function togglePopup3() {
+      this.setState({
+        showPopup3: !this.state.showPopup3
+      });
+    }
+  }, {
+    key: "togglePopup4",
+    value: function togglePopup4() {
+      this.setState({
+        showPopup4: !this.state.showPopup4
+      });
+    }
+  }, {
     key: "createItem",
     value: function createItem(e) {
       e.preventDefault();
@@ -65688,7 +65740,6 @@ function (_Component) {
         // }else{
         //   toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         // }
->>>>>>> 41d7b76f8af9343a240e43d679862a3a28cbe963
       });
     }
   }, {
@@ -65706,38 +65757,38 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s5 inputFields"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        name: "createItemForm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "title",
+        name: "title",
         className: "inputField",
         type: "text",
-<<<<<<< HEAD
-=======
-        name: "title",
->>>>>>> 41d7b76f8af9343a240e43d679862a3a28cbe963
         required: true,
         onChange: this.changeState.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
+        htmlFor: "title"
       }, "Titel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "question col s1"
+        className: "question questionTitle col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
-        onClick: this.togglePopup.bind(this)
-      }))), this.state.showPopup ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        text: "Click \"Close Button\" to hide popup",
-        closePopup: this.togglePopup.bind(this)
+        onClick: this.togglePopup1.bind(this)
+      }))), this.state.showPopup1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: this.state.text[0].title,
+        closePopup: this.togglePopup1.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
+        htmlFor: "existingFile"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch existingFile col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
+        name: "existingFile",
         onChange: this.changeStateSwitch.bind(this),
         checked: this.state.isChecked
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65745,23 +65796,32 @@ function (_Component) {
       }), "Ja")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
+        onClick: this.togglePopup2.bind(this)
+      }))), this.state.showPopup2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: this.state.text[1].title,
+        closePopup: this.togglePopup2.bind(this)
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row",
         style: hidden
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "textarea1",
+        name: "ownText",
         className: "inputField materialize-textarea",
         onChange: this.changeStateTextArea.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "textarea1"
+        htmlFor: "ownText"
       }, "Eigen tekst")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "question col s1"
+        className: "question questionOwnText col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
+        onClick: this.togglePopup3.bind(this)
+      }))), this.state.showPopup3 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: this.state.text[2].title,
+        closePopup: this.togglePopup3.bind(this)
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row",
         style: isChecked
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65771,29 +65831,35 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Bestand"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "uploadFileButton",
         type: "file"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-path-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "file-path validate",
+        name: "uploadFile",
         type: "text",
         placeholder: "Upload hier het gewenste bestand"
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "question col s1"
+        className: "question questionExFile col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"]
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "last_name"
-      }, "Kies een item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
+        onClick: this.togglePopup4.bind(this)
+      }))), this.state.showPopup4 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: this.state.text[3].title,
+        closePopup: this.togglePopup4.bind(this)
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "chooseIcon"
+      }, "Kies een icoon"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
+        className: "items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item1",
-        name: "items",
+        name: "item",
         type: "radio",
         defaultChecked: true
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65803,11 +65869,11 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
+        className: "items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item2",
-        name: "items",
+        name: "item",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65816,11 +65882,11 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
+        className: "items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item3",
-        name: "items",
+        name: "item",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65829,11 +65895,11 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
+        className: "items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item4",
-        name: "items",
+        name: "item",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -65842,11 +65908,24 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "item5"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "item"
+        className: "items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "with-gap",
         id: "item5",
-        name: "items",
+        name: "item",
+        type: "radio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "itemImage"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/kroontjesPen2.png */ "./public/images/kroontjesPen2.png")
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "item6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "items"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "with-gap",
+        id: "item6",
+        name: "item",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -66205,55 +66284,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
-
-var Popup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Popup, _React$Component);
-
-  function Popup() {
-    _classCallCheck(this, Popup);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Popup).apply(this, arguments));
-  }
-
-  _createClass(Popup, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "popup"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "popup_inner row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s11"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Hier kan de titel ingevoerd worden die terug te vinden is boven dit item.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "cross col s1"
-      })));
-    }
-  }]);
-
-  return Popup;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+var Popup = function Popup(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "popup"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "popup_inner row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s11"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "cross col s1"
+  })));
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Popup);
 
