@@ -42,6 +42,10 @@ namespace Labyrint
             return itemOrder.feedbackId;
         }
 
+        /// <summary>
+        /// Get the html of the story
+        /// </summary>
+        /// <returns>Returns a string with the html</returns>
         public string GetHtml()
         {
             return ApiParserFacade.GetStory(itemOrder.storyId).html;
