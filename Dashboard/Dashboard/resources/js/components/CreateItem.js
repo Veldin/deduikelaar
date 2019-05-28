@@ -19,7 +19,7 @@ class CreateItem extends Component {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
       isChecked: true,
-      editorContent: ''
+      editorContent: '',
       file: null,
       showPopup1: false,
       showPopup2: false,
