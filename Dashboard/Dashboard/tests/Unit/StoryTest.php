@@ -67,10 +67,10 @@ class StoryTest extends TestCase
             if($response->json()['response'] == "failed") var_dump($response->json()['errors']);
             $this->assertEquals('success', $response->json()['response']);
 
-            if(isset($response->json()['storyId'])){
-                // Delete story
-                $this->json('DELETE', '/api/v1/story/'.$response->json()['storyId']);
-            }
+//            if(isset($response->json()['storyId'])){
+//                // Delete story
+//                $this->json('DELETE', '/api/v1/story/'.$response->json()['storyId']);
+//            }
         } else {
             var_dump($response->json());
         }

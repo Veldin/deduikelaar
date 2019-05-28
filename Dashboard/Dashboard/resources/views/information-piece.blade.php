@@ -6,17 +6,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{$story->title}}</title>
         <style>
-            *{
-                margin: 0;
-                padding: 0;
-            }
+            /**{*/
+                /*margin: 0;*/
+                /*padding: 0;*/
+            /*}*/
 
+            *{
+                max-width: 100%;
+            }
             html, body{
                 width: 100%;
                 height: 100%;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
                 font-size: 1rem;
                 background-color: #aa9479;
+                margin: 0;
+                padding: 0;
             }
 
             .title{
@@ -41,7 +46,7 @@
             <br /><br />
 
             @foreach($story->storyItems as $storyItem)
-                {{ $storyItem->text }}<br />
+                {!! $storyItem->text !!}<br />
             @endforeach
         </div>
     </body>
