@@ -220,10 +220,10 @@ class StoryController extends Controller
 //        $content = str_replace('</w:r></w:p></w:tc><w:tc>', "", $content);
 //        $content = str_replace('</w:r></w:p>', "\r\n", $content);
 //        $striped_content = strip_tags($content);
-//        $body = preg_replace("/\<w\:body\>(.?*)\<\/w\:body\>/i", "$1", $content);
+        $body = preg_replace("/\<w\:body\>(.*?)\<\/w\:body\>/im", "test", $content);
 //        $c = simplexml_load_string($content);
-//        var_dump($body);
-        var_dump($content);
+        var_dump($body);
+//        var_dump($content);
         $striped_content = $content;
 //        var_dump($striped_content);
 

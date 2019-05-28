@@ -19,9 +19,18 @@ class CreateItem extends Component {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
       isChecked: true,
-      showPopup: false,
-      file: null,
       editorContent: ''
+      file: null,
+      showPopup1: false,
+      showPopup2: false,
+      showPopup3: false,
+      showPopup4: false,
+      text: [
+        {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke verhaal over gaat.'},
+        {title: 'Hier kan gekozen worden voor een bestaand bestand of om zelf een stuk te schrijven.'},
+        {title: 'Maak hier een eigen verhaal en voeg afbeeldingen toe indien gewenst.'},
+        {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'}
+      ]      
     }
   }
 
@@ -49,9 +58,27 @@ class CreateItem extends Component {
     });
   }
 
-  togglePopup() {
+  togglePopup1() {
     this.setState({
-      showPopup: !this.state.showPopup
+      showPopup1: !this.state.showPopup1
+    });
+  }
+
+  togglePopup2() {
+    this.setState({
+      showPopup2: !this.state.showPopup2
+    });
+  }
+
+  togglePopup3() {
+    this.setState({
+      showPopup3: !this.state.showPopup3
+    });
+  }
+
+  togglePopup4() {
+    this.setState({
+      showPopup4: !this.state.showPopup4
     });
   }
 
@@ -104,18 +131,15 @@ class CreateItem extends Component {
                 <input id="title" name="title" className="inputField" type="text" required onChange={this.changeState.bind(this)}></input>
                 <label htmlFor="title">Titel</label>
               </div>
-              <div className="question col s1">
-                <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup.bind(this)} />
+              <div className="question questionTitle col s1">
+                <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup1.bind(this)} />
               </div>
             </div>
 
-            {this.state.showPopup ?  
-                  <Popup  
-                    text='Click "Close Button" to hide popup'  
-                    closePopup={this.togglePopup.bind(this)}  
-                  />  
-                  : null  
-                  }  
+            {this.state.showPopup1 ?  
+              <Popup  title={this.state.text[0].title} closePopup={this.togglePopup1.bind(this)}/>  
+              : null  
+            }  
 
               <label htmlFor="existingFile">Bestaand document</label>
               <div className="row">
@@ -128,9 +152,14 @@ class CreateItem extends Component {
                   </label>
                 </div>
                 <div className="question col s1">
-                  <FontAwesomeIcon icon={ faQuestionCircle } />
+                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>
                 </div>
               </div>
+
+              {this.state.showPopup2 ?  
+              <Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>  
+              : null  
+              }  
 
               <div className="row" style={ hidden }>
                 <div className="input-field col s11">
@@ -146,10 +175,15 @@ class CreateItem extends Component {
                       } }
                   />
                 </div>
-                <div className="question col s1">
-                  <FontAwesomeIcon icon={ faQuestionCircle } />
+                <div className="question questionOwnText col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup3.bind(this)} />
                 </div>
               </div>
+
+              {this.state.showPopup3 ?  
+              <Popup  title={this.state.text[2].title} closePopup={this.togglePopup3.bind(this)}/>  
+              : null  
+              }  
 
               <div className="row" style={ isChecked }>
                 <div className="input-field col s11">
@@ -163,10 +197,15 @@ class CreateItem extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="question col s1">
-                  <FontAwesomeIcon icon={ faQuestionCircle } />
+                <div className="question questionExFile col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup4.bind(this)} />
                 </div>
               </div>
+
+              {this.state.showPopup4 ?  
+              <Popup  title={this.state.text[3].title} closePopup={this.togglePopup4.bind(this)}/>  
+              : null  
+              }  
 
               <label htmlFor="chooseIcon">Kies een icoon</label>
               <div className="row col s12 itemCollection">

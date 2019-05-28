@@ -1,6 +1,7 @@
 ﻿using CameraSystem; //For items that follow the camera
 using Labyrint;
 using Maze;
+using Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,10 +45,20 @@ namespace GameObjectFactory
 
             if (wantToGet == "cursor")
             {
-                gameObject.Width = 9 * 2.5f;
-                gameObject.Height = 13 * 2.5f;
-
-                gameObject.setActiveBitmap("Assets/Cursor1.gif");
+                //Set the windowState.
+                switch (SettingsFacade.Get("CursorState", "Normal"))
+                {
+                    case "None":
+                        gameObject.Width = 2;
+                        gameObject.Height = 2;
+                        gameObject.setActiveBitmap("Assets/Sprites/Empty.gif");
+                        break;
+                    default:
+                        gameObject.Width = 9 * 2.5f;
+                        gameObject.Height = 13 * 2.5f;
+                        gameObject.setActiveBitmap("Assets/Sprites/Cursor1.gif");
+                        break;
+                }
             }
 
             if (wantToGet == "pickup")

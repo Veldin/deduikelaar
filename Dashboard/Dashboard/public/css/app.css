@@ -196,11 +196,15 @@ div.items {
   background: #b1bfd3;
 }
 
-.question:first-child {
+.questionTitle {
   margin-top: 20px;
 }
 
-.question:last-child {
+.questionOwnText {
+  margin-top: 20px;
+}
+
+.questionExFile {
   margin-top: 40px;
 }
 

@@ -133,9 +133,13 @@
       <Project>{058bd082-4470-4593-b4b0-d5003cc96de4}</Project>
       <Name>Maze</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Settings\Settings.csproj">
+      <Project>{f3250d28-2b7f-42dd-b49f-c0937a624c65}</Project>
+      <Name>Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Cursor1.gif" />
+    <Resource Include="Assets\Sprites\Cursor1.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\redrand.png" />
@@ -167,7 +171,9 @@
     <Resource Include="Assets\Sprites\Player\back2_145_200_32.gif" />
     <Resource Include="Assets\Sprites\Player\back3_145_200_32.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Empty.gif" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\binocular2.png" />
     <Resource Include="Assets\candle2.png" />

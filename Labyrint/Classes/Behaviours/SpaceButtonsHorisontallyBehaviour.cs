@@ -35,7 +35,6 @@ namespace Labyrint
             loopList.Clear();
             buttonList.Clear();
 
-
             lock (gameObjects)
             {
                 loopList.AddRange(gameObjects);
@@ -57,7 +56,8 @@ namespace Labyrint
             }
             countButtons = i;
 
-            
+            //The amount of buttons changed, so try to reposition the rest of the buttons.
+
 
             float fromLeftOffsetStart = (buttonList.Count() * -0.5f + 0.5f) * spaceBetween;
 
