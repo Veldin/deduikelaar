@@ -449,8 +449,7 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
-            command.KeyPressed(args.Key.ToString());
-
+            command.KeyPressed(args);
             //Log.Debug(viewBox.ActualHeight);
             //Log.Debug("------------------------------------------------------------");
             //Log.Debug(cursor.FromLeft);

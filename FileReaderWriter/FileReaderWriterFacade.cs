@@ -41,6 +41,16 @@ namespace FileReaderWriterSystem
         }
 
         /// <summary>
+        /// This method reads the text in a text file and returns the whole text
+        /// </summary>
+        /// <param name="filePath">Give the file path of the file</param>
+        /// <returns>Returns all text from the file</returns>
+        public static List<string> ReadLines(string filePath)
+        {
+            return fileReader.ReadAllLines(filePath);
+        }
+
+        /// <summary>
         /// This method returns an array with the names of all files and folders in the folder
         /// </summary>
         /// <param name="filePath">The file path of the folder</param>
