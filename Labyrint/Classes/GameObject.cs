@@ -645,6 +645,39 @@ namespace GameObjectFactory
             setActiveBitmap(location);
         }
 
+        public float GetOpacity()
+        {
+            float opacity = 1;
+            try
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    opacity = (float)rectangle.Opacity;
+                }));
+            }
+            catch
+            {
+
+            }
+
+            return opacity;
+        }
+
+        public void SetOpacity(float opacity)
+        {
+            try
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    rectangle.Opacity = opacity;
+                }));
+            }
+            catch
+            {
+                Log.Warning("Can't invoke Application.Current.Dispatcher.");
+                return;
+            }
+        }
 
         public void SetText(string text)
         {
@@ -664,8 +697,11 @@ namespace GameObjectFactory
                 }
             }
 
-            textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
-            textBlock.Text = text;
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                textBlock.Text = text;
+            }));
         }
 
         /* CollitionEffect */

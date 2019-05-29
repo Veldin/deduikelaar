@@ -330,6 +330,8 @@ namespace Labyrint
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         gameCanvas.Children.Remove(gameObject.rectangle);
+                        gameCanvas.Children.Remove(gameObject.textBlock);
+
                     });
 
                     GameObjectFactoryFacade.ReturnGameObject(gameObject);
