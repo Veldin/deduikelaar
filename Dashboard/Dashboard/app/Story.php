@@ -27,4 +27,11 @@ class Story extends Model
         return $this->hasManyThrough(FeedbackItem::class, StoryFeedback::class, 'storyId', 'id', 'id', 'feedbackId');
     }
 
+    public function feedbackCount($answerId){
+        $c = 0;
+        foreach ($this->feedback as $feedback){
+            if($feedback->id == $answerId) $c++;
+        }
+        return $c;
+    }
 }

@@ -22,6 +22,6 @@ class StoryItem extends Model
         return $this->belongsToMany(Story::class,'storyId','id');
     }
     public function file(){
-        return $this->hasOne(File::class);
+        return $this->hasOne(File::class, 'storyItemId', 'id');
     }
 }
