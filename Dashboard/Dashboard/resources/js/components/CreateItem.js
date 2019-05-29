@@ -249,7 +249,7 @@ class CreateItem extends Component {
                 <label htmlFor="item6">
                   <div className="items">
                     <input className="with-gap" id="item6" name="item" value="kroontjespen" type="radio"></input>
-                    <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
+                    <span className="itemImage"><img src={ require('../../../public/images/yatvasum2.png') } /></span>
                   </div>
                 </label>
 
