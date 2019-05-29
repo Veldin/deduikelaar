@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GameObjectFactory
 {
@@ -50,11 +51,12 @@ namespace GameObjectFactory
                 gameObject.setActiveBitmap("Assets/Cursor1.gif");
             }
 
-            if (wantToGet == "pickup")
+            if (wantToGet == "pickup")      // value = new object[2] { browser, camera }
             {
                 gameObject.Width = 30f;
                 gameObject.Height = 30f;
 
+                
                 gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
                 gameObject.onTickList.Add(new MoveToTargetBehaviour());
                 gameObject.onTickList.Add(new PickupCollisionBehavior(value));
@@ -65,7 +67,7 @@ namespace GameObjectFactory
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
                 gameObject.Collition = false;
-              
+                gameObject.setActiveBitmap("Assets/tile.gif");
             }
 
             if (wantToGet == "tile")
@@ -79,8 +81,10 @@ namespace GameObjectFactory
 
             }
                 
-            if (wantToGet == "button")
+            if (wantToGet == "button")       // value = new object[] { camera, storyId, anwserId, browser }
             {
+                object[] val = value as object[];
+
                 gameObject.Width = 70;
                 gameObject.Height = 70;
 
@@ -89,10 +93,10 @@ namespace GameObjectFactory
                 gameObject.MovementSpeed = 1200;
                 gameObject.Collition = false;
 
-                gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
+                gameObject.onTickList.Add(new FollowCameraBehaviour(val[0] as Camera));
                 gameObject.onTickList.Add(new SetToTargetBehaviour());
-
-                gameObject.onTickList.Add(new ButtonCursorClickBehaviour());
+                gameObject.onTickList.Add(new AddTextBlockBehaviour());
+                gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val[1]), Convert.ToInt32(val[2]), val[3] as WebBrowser));
 
 
                 gameObject.setActiveBitmap("Assets/tile.gif");

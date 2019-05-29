@@ -360,7 +360,7 @@ namespace ApiParser
             string json = JsonConvert.SerializeObject(statistics);
 
             // Write the json in a json file
-            FileReaderWriterFacade.WriteText(new string[] { json }, "Items\\Statistics.json", false);
+            FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json", false);
 
             // Give the programmer feedback
             Log.Debug("statistics saved");
