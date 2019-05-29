@@ -115,8 +115,6 @@ namespace GameObjectFactory
             setActiveBitmap("Assets/redrand.png");
             location = "Assets/redrand.png";
             setActiveBitmap(location);
-
-            drawables = new List<FrameworkElement>();
         }
 
         public List<FrameworkElement> Drawables
@@ -616,12 +614,16 @@ namespace GameObjectFactory
             fromLeft = 0;
             fromTop = 0;
 
+            onTickList.Clear();
             onTickList = new List<IBehaviour>();
 
             destroyed = false;
 
             movementSpeed = 0;
             group = 0;
+
+            textBlock = null;
+            rectangle = null;
 
             try
             {

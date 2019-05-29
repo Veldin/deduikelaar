@@ -181,7 +181,7 @@ namespace Labyrint
                 }
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 50; i++)
             {
                 DropNewPickup();
             }
@@ -666,6 +666,11 @@ namespace Labyrint
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             CloseApp();
+        }
+
+        private void Browser_MouseEnter(object sender, MouseEventArgs e)
+        {
+            pressedKeys.Clear();
         }
     }
 }
