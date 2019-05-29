@@ -26,9 +26,9 @@ class CreateItem extends Component {
       showPopup3: false,
       showPopup4: false,
       text: [
-        {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke verhaal over gaat.'},
-        {title: 'Hier kan gekozen worden voor een bestaand bestand of om zelf een stuk te schrijven.'},
-        {title: 'Maak hier een eigen verhaal en voeg afbeeldingen toe indien gewenst.'},
+        {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke item over gaat.'},
+        {title: 'Hier kan gekozen worden voor een bestaand bestand toe te voegen of om zelf een stuk te schrijven.'},
+        {title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'},
         {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'}
       ]      
     }
