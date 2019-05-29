@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -50,6 +51,8 @@ namespace GameObjectFactory
         protected float bottomDrawOffset;
 
         public Rectangle rectangle;
+        public TextBlock textBlock;
+
         public string assemblyName;
 
         public Random random;
@@ -621,6 +624,29 @@ namespace GameObjectFactory
             setActiveBitmap("Assets/redrand.png");
             location = "Assets/redrand.png";
             setActiveBitmap(location);
+        }
+
+
+        public void SetText(string text)
+        {
+            if (textBlock is null)
+            {
+                try
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                    {
+                        textBlock = new TextBlock();
+                    }));
+                }
+                catch
+                {
+                    Log.Warning("Can't invoke Application.Current.Dispatcher.");
+                    return;
+                }
+            }
+
+            textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+            textBlock.Text = text;
         }
 
         /* CollitionEffect */

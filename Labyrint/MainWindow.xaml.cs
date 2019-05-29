@@ -203,12 +203,7 @@ namespace Labyrint
             renderDistance = SettingsFacade.Get("RenderDistance", 1200);//Desired max fps.
 
             TestBrowser();
-
-            Debug.WriteLine(SettingsFacade.Get("fps", 999));
-            Debug.WriteLine(SettingsFacade.Get("fps", 999));
-            Debug.WriteLine(SettingsFacade.Get("fps", 999));
-            Debug.WriteLine(SettingsFacade.Get("fps", 999));
-
+            
             fps = SettingsFacade.Get("fps", 999);//Desired max fps.
             interval = 1000 / fps;
 
@@ -390,6 +385,10 @@ namespace Labyrint
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
                         gameCanvas.Children.Remove(gameObject.rectangle);
+                        if (!(gameObject.textBlock is null))
+                        {
+                            gameCanvas.Children.Remove(gameObject.textBlock);
+                        }
                     }
                     else
                     {
@@ -398,7 +397,7 @@ namespace Labyrint
                         rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
                         rect.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
 
-                        // Set up the position in the window, at mouse coordonate
+                        // Set up the position in the window.
                         Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
                         Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
 
@@ -414,7 +413,29 @@ namespace Labyrint
                                 gameCanvas.Children.Insert(0,rect);
                             }
                         }
-                            
+
+                        //Draw the textblock assosiated with the GameObject
+                        if (!(gameObject.textBlock is null))
+                        {
+                            TextBlock textBlock = gameObject.textBlock;
+
+                            Canvas.SetLeft(textBlock, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
+                            Canvas.SetTop(textBlock, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
+
+                            if (!gameCanvas.Children.Contains(textBlock))
+                            {
+                                //If the gameobject is important to be seen add it to the end of the array
+                                if (gameObject.highVisibility)
+                                {
+                                    gameCanvas.Children.Add(textBlock);
+                                }
+                                else
+                                {
+                                    gameCanvas.Children.Insert(0, textBlock);
+                                }
+                            }
+                        }
+
                     }
                 }
             });
@@ -566,8 +587,14 @@ namespace Labyrint
             player.Target.SetFromTop(player.FromTop);
 
             // Remove the anchor for the controller
-            controllerAnchor.destroyed = true;
-            controllerCursor.destroyed = true;
+            if (!(controllerAnchor is null))
+            {
+                controllerAnchor.destroyed = true;
+            }
+            if (!(controllerCursor is null))
+            {
+                controllerCursor.destroyed = true;
+            }
         }
 
         /// <summary>

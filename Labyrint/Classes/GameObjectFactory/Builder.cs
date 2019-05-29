@@ -105,6 +105,7 @@ namespace GameObjectFactory
 
                 gameObject.onTickList.Add(new ButtonCursorClickBehaviour());
 
+                gameObject.SetText("Button Text");
 
                 gameObject.setActiveBitmap("Assets/tile.gif");
             }
