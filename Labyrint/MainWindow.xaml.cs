@@ -518,29 +518,7 @@ namespace Labyrint
         {
             pressedKeys.Add(args.Key.ToString());
             command.KeyPressed(args);
-            //Log.Debug(viewBox.ActualHeight);
-            //Log.Debug("------------------------------------------------------------");
-            //Log.Debug(cursor.FromLeft);
-            //Log.Debug(cursor.FromTop);
-            //Log.Debug("---");
-            //Log.Debug(mainWindow.ActualWidth);
-            //Log.Debug(viewBox.ActualWidth);
-            //Log.Debug(gameCanvas.Width);
-            //Log.Debug("---");
-            //Log.Debug(mainWindow.ActualHeight);
-            //Log.Debug(viewBox.ActualHeight);
-            //Log.Debug(gameCanvas.ActualHeight);
-            //Log.Debug("---");
-            //Log.Debug(viewBox.ActualWidth/gameCanvas.ActualWidth);
-            //Log.Debug(viewBox.ActualHeight/gameCanvas.ActualHeight);
-            //Log.Debug("---");
-            
-            //ApiParserFacade.AddStory();
-            //ApiParserFacade.SaveStories();
-            //ApiParserFacade.AddQuestion();
-            //ApiParserFacade.SaveQuestions();
-            //ApiParserFacade.AddItemOrder();
-            //ApiParserFacade.SaveItemOrders();
+
         }
 
 
@@ -675,8 +653,9 @@ namespace Labyrint
         /// <summary>
         /// CloseApp gets called from the mainWindow_Closing event.
         /// </summary>
-        public void CloseApp()
+        public async void CloseApp()
         {
+            await ApiParserFacade.InformApiAsync();
             SettingsFacade.Save();
             this.Close();
         }
