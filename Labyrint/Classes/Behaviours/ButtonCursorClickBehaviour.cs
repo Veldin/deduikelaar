@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using ApiParser;
 using GameObjectFactory;
 using LogSystem;
 
@@ -11,10 +14,17 @@ namespace Labyrint
     class ButtonCursorClickBehaviour : IBehaviour
     {
         GameObject cursor;
+        private int storyId;
+        private int answerId;
+        private bool isClicked;
+        WebBrowser browser;
 
-        public ButtonCursorClickBehaviour()
+        public ButtonCursorClickBehaviour(int storyId, int answerId, WebBrowser browser)
         {
-
+            this.storyId = storyId;
+            this.answerId = answerId;
+            this.browser = browser;
+            isClicked = false;
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
@@ -31,17 +41,31 @@ namespace Labyrint
                         break;
                     }
                 }
-            }
 
-            if (cursor is null)
-            {
-                return false;
+                if (cursor is null)
+                {
+                    return false;
+                }
             }
-
 
             if (gameobject.IsColliding(cursor) && pressedKeys.Contains("LeftMouse"))
             { 
-                gameobject.destroyed = true;
+                // Give the feedback to the ApiParserFacade
+                ApiParserFacade.SaveFeedbackStatistic(storyId, answerId);
+
+                // Invoke the Ui thread
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    browser.Visibility = Visibility.Hidden;
+                }));
+
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    if (gameObject.BuilderType == "button")
+                    {
+                        gameObject.destroyed = true;
+                    }
+                }
             }
 
             return true;
