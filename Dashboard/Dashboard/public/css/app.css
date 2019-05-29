@@ -1,5 +1,51 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+body #toast-container {
+  top: 75% !important;
+}
+
+body #toast-container .toast-success {
+  background-image: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+  color: #fff !important;
+  background-color: #26a69a !important;
+  text-align: center !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+  border-radius: 2px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  padding: 0 16px !important;
+  text-transform: uppercase !important;
+}
+
+body #toast-container .toast-success:hover {
+  box-shadow: none !important;
+}
+
+body #toast-container .toast-warning {
+  background-image: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+  color: #fff !important;
+  background-color: #ff0043 !important;
+  text-align: center !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+  border-radius: 2px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  padding: 0 16px !important;
+  text-transform: uppercase !important;
+}
+
+body #toast-container .toast-warning:hover {
+  box-shadow: none !important;
+}
+
 #superContainer {
   background-image: url(/images/backgroundAccent.png?cadb7d511e8c978610b29031ea3b9544);
   background-color: #1e344c;
@@ -217,7 +263,7 @@ div.items {
   background-color: #304964;
   z-index: 1;
   min-height: 100px;
-  width: 300px;
+  width: 350px;
   border-radius: 4px;
   box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.28);
   right: 350px;
@@ -3755,7 +3801,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {

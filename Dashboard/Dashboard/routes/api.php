@@ -27,7 +27,7 @@ Route::get('test_story', 'Api\StoryController@testStory');
 Route::get('test', function(){
     return view('test_story_view');
 });
-Route::put('story', 'Api\StoryController@newStory');
+Route::POST('story', 'Api\StoryController@newStory');
 Route::patch('story/{storyId}', 'Api\StoryController@changeStory');
 Route::delete('story/{storyId}', 'Api\StoryController@deleteStory');
 

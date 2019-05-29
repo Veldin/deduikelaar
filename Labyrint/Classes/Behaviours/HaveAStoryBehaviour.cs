@@ -17,7 +17,7 @@ namespace Labyrint
         {
             // Get the next itemOrder from the ApiParserFacade
             itemOrder = ApiParserFacade.NextItemOrder();
-            
+
             // Set the sprite of the pickup
             if (itemOrder != null)
             {
@@ -25,7 +25,7 @@ namespace Labyrint
             }
             else
             {
-                gameObject.setActiveBitmap("Assets/redrand.png");
+                gameObject.setActiveBitmap("Assets/tile.gif");
             }
         }
 

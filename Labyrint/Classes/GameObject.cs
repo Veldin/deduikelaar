@@ -73,6 +73,8 @@ namespace GameObjectFactory
         //protected CanvasBitmap sprite;
         protected String location;
 
+        private List<FrameworkElement> drawables;
+
 
         public GameObject(float width = 0, float height = 0, float fromLeft = 0, float fromTop = 0)
         {
@@ -113,6 +115,14 @@ namespace GameObjectFactory
             setActiveBitmap("Assets/redrand.png");
             location = "Assets/redrand.png";
             setActiveBitmap(location);
+
+            drawables = new List<FrameworkElement>();
+        }
+
+        public List<FrameworkElement> Drawables
+        {
+            get { return drawables; }
+            set { drawables = value; }
         }
 
         public String Location
@@ -536,6 +546,15 @@ namespace GameObjectFactory
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Add an FrameworkElement to the drawables
+        /// </summary>
+        /// <param name="element"> This is a FrameworkElement that need to be drawn</param>
+        public void AddDrawable(FrameworkElement element)
+        {
+            drawables.Add(element);
         }
 
         //Any object can edit the gameObjects of the game while the logic is running.

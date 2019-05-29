@@ -188,7 +188,7 @@ namespace Labyrint
 
             TestBrowser();
 
-            PopulateButtonObject();
+            //PopulateButtonObject();
 
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
@@ -382,6 +382,7 @@ namespace Labyrint
 
                 foreach (GameObject gameObject in loopList)
                 {
+                    //check if a gameObject is in the render distance.
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
                         gameCanvas.Children.Remove(gameObject.rectangle);
@@ -392,6 +393,7 @@ namespace Labyrint
                     }
                     else
                     {
+                        //It is in range so draw it.
                         Rectangle rect = gameObject.rectangle;
 
                         rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
@@ -435,7 +437,6 @@ namespace Labyrint
                                 }
                             }
                         }
-
                     }
                 }
             });
@@ -652,7 +653,7 @@ namespace Labyrint
                     "pickup", 
                     randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
                     randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
-                    browser
+                    new object[2] { browser, camera }
                 );
             } while (newPickup.distanceBetween(player) < 300); //if its to close to the player pick a new location
 
