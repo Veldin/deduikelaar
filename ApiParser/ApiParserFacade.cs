@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using FileReaderWriterSystem;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace ApiParser
 {
@@ -58,19 +59,18 @@ namespace ApiParser
 
         public static async Task InformApiAsync()
         {
+            Log.Debug("bla");
             // Create a New HttpClient object and dispose it when done, so the app doesn't leak resources
             using (HttpClient client = new HttpClient())
             {
                 // Call asynchronous network methods in a try/catch block to handle exceptions
                 try
                 {
-                    StringContent content = new StringContent(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json"));
+                    StringContent content = new StringContent(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json"), UnicodeEncoding.UTF8, "application/json");
                     
                     HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/v1/feedback", content);
-                    response.EnsureSuccessStatusCode();
-                    // Above three lines can be replaced with new helper method below
 
-                    Log.Debug(response);
+                    Log.Debug( await response.Content.ReadAsStringAsync());
 
                     return;
                 }
@@ -384,6 +384,8 @@ namespace ApiParser
 
             // Convert the statistics list to json
             string json = JsonConvert.SerializeObject(statistics);
+
+
 
             // Write the json in a json file
             FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json", false);
