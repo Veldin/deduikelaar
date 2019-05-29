@@ -165,13 +165,13 @@ class CreateItem extends Component {
                 <div className="input-field col s11">
                   <CKEditor
                       editor={ ClassicEditor }
-                      data="Typ hier een verhaal."
+                      data=" "
                       config={ {
                           toolbar: [ [ 'Heading' ], [ 'Bold' ], [ 'Italic' ], ['imageUpload'] ]
                       } }
                       onChange={ ( event, editor ) => {
-                          const data = editor.getData();
-                          this.editorHandler(data)
+                        const data = editor.getData();
+                        this.editorHandler(data)
                       } }
                   />
                 </div>
@@ -275,7 +275,7 @@ class CreateItem extends Component {
                         <p> {this.state.title} </p>
                       </div>
                       <div className="content">
-                        <p> {this.state.textArea} </p>
+                        <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
                       </div>
                       <div className="quiz">
                           <div className="quizQuestion1">
