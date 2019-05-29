@@ -79,7 +79,11 @@ class StoryApiController extends Controller
 
         $data = [];
 
+        // Get story
         $story = Story::with('storyItems', 'storyItems.file', 'feedback', 'feedback.question')->find($storyId);
+
+
+        // Return failed response when story couldn't be found
         if(!$story){
             return response()->json([
                 'response' => 'failed',
@@ -89,11 +93,14 @@ class StoryApiController extends Controller
             ]);
         }
 
+        // Set data to return
         $data['id'] = $story->id;
         $data['title'] = $story->title;
         $data['icon'] = $story->title;
         $data['description'] = $story->title;
         $data['texts'] = [];
+
+        // Add story items
         foreach ($story->storyItems as $storyItem){
             $file = null;
             if($storyItem->file){
@@ -112,6 +119,8 @@ class StoryApiController extends Controller
                 'file' => $file
             ];
         }
+
+        // Add feedback
         $data['feedbackItems'] = $story->allFeedback();
 
         return response()->json($data);
