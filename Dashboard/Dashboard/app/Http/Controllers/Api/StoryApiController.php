@@ -112,19 +112,31 @@ class StoryApiController extends Controller
         $data['title'] = $story->title;
         $data['icon'] = $story->icon;
         $data['description'] = $story->description;
+        $data['active'] = $story->active ? true : false;
         $data['texts'] = [];
+
+        $host = request()->getHttpHost();
+        if(substr($host, 0, 4) != 'http'){
+            if(substr(url()->current(), 0,5) == 'https'){
+                $host = "https://" . $host;
+            }else{
+                $host = "http://" . $host;
+            }
+        }
 
         // Add story items
         foreach ($story->storyItems as $storyItem){
             $file = null;
             if($storyItem->file){
                 $f = $storyItem->file;
+                // add files
                 $file = [
                     'id' => $f->id,
                     'filename' => $f->fileName,
+                    'realname' => $f->realName,
                     'path' => $f->path,
                     'fileType' => $f->fileType,
-                    'download' => 'api/v1/file/'.$f->id
+                    'download' => $host.'/api/v1/file/'.$f->id // Download file
                 ];
             }
             $data['texts'][] = [
@@ -349,6 +361,38 @@ class StoryApiController extends Controller
         ]);
     }
 
+    /**
+     * Set a story on active or nonactive
+     * @param $storyId
+     * @param $active "activate"|"deactivate"
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storyChangeActive($storyId, $active){
+
+
+        // Get the story
+        $story = Story::find($storyId);
+
+        // Return error when story couldn't be found
+        if(!$story){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'Story not found'
+                ]
+            ]);
+        }
+
+        // Update story
+        $story->update([
+            'active' => $active == 'activate' ? 1 : 0
+        ]);
+
+        // Return success
+        return response()->json([
+            'response' => 'success'
+        ]);
+    }
 
     /**
      * Convert a docx file to text
