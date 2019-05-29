@@ -34,4 +34,42 @@ class Story extends Model
         }
         return $c;
     }
+
+    public function allFeedback(){
+
+        $data = [];
+        foreach ($this->feedback as $feedback){
+            $question = $feedback->question;
+
+             if(!isset($data[$question->id])){
+                 $data[$question->id] = [
+                     'id' => $question->id,
+                     'question' => $question->question,
+                     'feedback' => []
+                 ];
+             }
+             if(!isset($data[$question->id]['feedback'][$feedback->id])){
+                 $data[$question->id]['feedback'][$feedback->id] = [
+                     'answer' => $feedback->feedback,
+                     'count' => 1
+                 ];
+             }else{
+                 $data[$question->id]['feedback'][$feedback->id]['count']++;
+             }
+        }
+
+        foreach ($data as $k => $v){
+            $fb = $v['feedback'];
+            usort($fb, function($a, $b){
+                if($a['count'] == $b['count']) return 0;
+                return ($a['count'] > $b['count']) ? -1 : 1;
+            });
+            $data[$k]['feedback'] = $fb;
+        }
+        usort($data, function(){
+            return 0;
+        });
+
+        return $data;
+    }
 }
