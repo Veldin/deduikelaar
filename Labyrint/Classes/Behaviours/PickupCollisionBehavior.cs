@@ -43,6 +43,26 @@ namespace Labyrint
             {
                 if (needle != null && needle.BuilderType == "player" && gameobject.IsColliding(needle))
                 {
+                    //Destory the UI anchors and pauze the movementbehaviour of other objects
+                    //This makes the game apear to stop.
+                    foreach (GameObject gameObject in gameObjects)
+                    {
+                        if (gameObject.BuilderType == "ControllerAncher" || gameObject.BuilderType == "ControllerCursor")
+                        {
+                            gameObject.destroyed = true;
+                        }
+                        else
+                        {
+                            foreach(IBehaviour behaviour in gameObject.onTickList)
+                            {
+                                if (behaviour is MoveToTargetBehaviour)
+                                {
+                                    MoveToTargetBehaviour moveToTargetBehaviour = behaviour as MoveToTargetBehaviour;
+                                    moveToTargetBehaviour.pauzed = true;
+                                }
+                            }
+                        }
+                    }
                     // Unpress all keys
                     pressedKeys.Clear();
 
@@ -81,11 +101,13 @@ namespace Labyrint
                                     browser.Visibility = Visibility.Visible;
                                 }));
 
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",-800,-600,camera));
+
                                 for (int i = 0; i < question.anwsers.Count; i++)
                                 {
                                     GameObject gameObject = GameObjectFactoryFacade.GetGameObject("button", i * 100 - (100), i, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser});
 
-                                    gameObject.SetText("question.anwsers[i].response");
+                                    gameObject.SetText(question.anwsers[i].response);
 
                                     gameObjects.Add(gameObject);   
                                 }
