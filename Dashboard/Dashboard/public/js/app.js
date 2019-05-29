@@ -65580,9 +65580,15 @@ var card = function card(props) {
       console.log(response['response']);
 
       if (response['response'] == "success") {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('Het item is verwijderd!');
+        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('We do have the Kapua suite available.', 'Turtle Bay Resort<br>', {
+          positionClass: "toast-bottom-right",
+          timeOut: 40000
+        });
       } else {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
+        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er is ietsuw.', 'Turtle Bay Resort<br>', {
+          positionClass: "toast-bottom-right",
+          timeOut: 40000
+        });
       }
     });
   }
@@ -65684,17 +65690,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-
-
-
-
 
 
 var CreateItem =

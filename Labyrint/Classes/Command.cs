@@ -130,6 +130,10 @@ namespace Labyrint
                 case "who is a good boy?":
                     DisplayLine("Robin is good boy!");
                     break;
+                case "SettingsFacade.Save":
+                    ExecuteMethod("Settings.Settings.SettingsFacade.Save");
+                    DisplayLine("Settings saved to the .ini file.");
+                    break;
                 case "logFilter.clear":
                     logClass.Clear();
                     Log.Debug("logFilter cleared");
