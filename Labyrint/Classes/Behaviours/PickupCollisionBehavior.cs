@@ -32,6 +32,7 @@ namespace Labyrint
         {
  
             loopList.Clear();
+            
 
             lock (gameObjects)
             {
@@ -42,6 +43,9 @@ namespace Labyrint
             {
                 if (needle != null && needle.BuilderType == "player" && gameobject.IsColliding(needle))
                 {
+                    // Unpress all keys
+                    pressedKeys.Clear();
+
                     // Loop through the behaviours of the gameObject to find the HaveAStory behaviour
                     foreach (IBehaviour behaviour in gameobject.onTickList)
                     {

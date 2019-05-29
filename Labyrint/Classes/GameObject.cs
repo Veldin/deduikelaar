@@ -664,8 +664,11 @@ namespace GameObjectFactory
                 }
             }
 
-            textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
-            textBlock.Text = text;
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                textBlock.Text = text;
+            }));
         }
 
         /* CollitionEffect */

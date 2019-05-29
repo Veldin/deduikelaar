@@ -53,12 +53,16 @@ namespace Labyrint
                 // Give the feedback to the ApiParserFacade
                 ApiParserFacade.SaveFeedbackStatistic(storyId, answerId);
 
+                // Unpress all keys
+                pressedKeys.Clear();
+
                 // Invoke the Ui thread
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     browser.Visibility = Visibility.Hidden;
                 }));
 
+                // Destroy all existing buttons
                 foreach (GameObject gameObject in gameObjects)
                 {
                     if (gameObject.BuilderType == "button")
