@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class StoryController extends Controller
+class StoryApiController extends Controller
 {
 
 
@@ -178,9 +178,43 @@ class StoryController extends Controller
     }
 
     public function changeStory(Request $request, $storyId){
-        var_dump($storyId);
+
+        $story = Story::with('storyItems', 'storyItems.file')->find($storyId);
+        if(!$story){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'Story not found'
+                ]
+            ]);
+        }
+
+        $newData = [];
+
+        if($request->has('title')){
+            $newData['title'] = $request->get('title');
+        }
+        if($request->has('icon')){
+            $newData['icon'] = $request->get('icon');
+        }
+        if($request->has('description')){
+            $newData['description'] = $request->get('description');
+        }
+        if($request->has('texts')){
+            // TODO change texts and files
+        }
+
+//        $title = $request->get('title');
+//        $icon = $request->get('icon');
+//        $description = $request->get('description');
+//        $texts = $request->get('texts');
+//        $files = $request->file('files');
 
 
+
+        return response()->json([
+            'response' => 'success'
+        ]);
 
 //        var_dump($request);
     }
@@ -188,8 +222,16 @@ class StoryController extends Controller
 
 
     public function deleteStory($storyId){
-        $story = Story::find($storyId);
+        $story = Story::with('storyItems', 'storyItems.file')->find($storyId);
         if($story){
+            foreach ($story->storyItems as $storyItem){
+                if(isset($storyItem->file)){
+                    $file = storage_path($storyItem->file->path.$storyItem->file->fileName);
+                    if(file_exists($file)){
+                        unlink($file);
+                    }
+                }
+            }
             $story->delete();
             return response()->json([
                 'response' => 'success'
@@ -204,11 +246,6 @@ class StoryController extends Controller
     public function convertDocxFile(File $file){
 
         if($file->extension != 'docx') return null;
-        //TODO: convert wordt files
-//        var_dump( $file->extension );
-//
-//
-        $striped_content = '';
         $content = '';
 
         $zip = zip_open(storage_path($file->path.$file->fileName));
@@ -288,19 +325,10 @@ class StoryController extends Controller
                             $mediaIndex++;
                         }
                     }
-
-//                    $this->findPictureId($drawing, array_keys($namespaces));
-//                    var_dump();
-//                    var_dump($drawing->children('wp', true)[0]->children('a', true)[0]->graphicData->children('pic', true)[0]->blipFill->children('a', true)->blip[0]->attributes('r', true)[0]);
-//                    var_dump($drawing->children('x', true));
                 }
             }
             $content .= "</p>";
         }
-//        var_dump($c->);
-//        var_dump($content);
-//        $striped_content = $content;
-//        var_dump($striped_content);
 
         return $content;
 
@@ -319,77 +347,6 @@ class StoryController extends Controller
         }
         return null;
     }
-
-    private function findPictureId($v, $namespaces, $parent = ""){
-//        var_dump($parent);
-//        var_dump($v->blip);
-//        $v->
-//        children('wp', true)[0]->
-//        children('a', true)[0]->graphicData->
-//        children('pic', true)[0]->blipFill->
-//        children('a', true)->blip[0]->
-//        attributes('r', true)[0]
-
-//        if(isset($v->children('a', true)->blip)){
-//            var_dump("got it");
-//            return $v->blip[0]->attributes('r', true)[0];
-//        }
-
-        foreach ($namespaces as $ns){
-            $childs = $v->children($ns, true);
-
-            foreach ($childs as $v){
-                var_dump($v->getName());
-            }
-        }
-
-
-//        foreach ($namespaces as $namespace => $null){
-//
-//
-//            var_dump("drawing".$parent."->children('".$namespace."', true)");
-//            $type = gettype($v->children($namespace, true)[0]);
-//            if($type != 'NULL'){
-//                $child = $v->children($namespace, true)[0];
-//                $n = $child->getName();
-//                foreach ($child as $k => $val){
-//
-//                    $r = $this->findPictureId($val, $namespaces, $parent."->".$n."->".$val->getName());
-//                    if($r != null) return $r;
-//                }
-//                foreach ($namespaces as $ns => $nulll){
-//                    if($ns == $namespace) continue;
-//
-//                    foreach ($child->children($ns, true) as $k => $val){
-//
-//                        $r = $this->findPictureId($val, $namespaces, $parent."->".$n."->".$val->getName());
-//                        if($r != null) return $r;
-//                    }
-//                }
-//            }else{
-//                foreach ($v->children($namespace, true) as $k => $val){
-////                    var_dump($k);
-//                    $r = $this->findPictureId($val, $namespaces, $parent."->".$val->getName());
-//                    if($r != null) return $r;
-//                }
-//            }
-//        }
-//        foreach ($v as $l => $w) {
-//
-//
-//
-//
-//            if(isset($w->drawing)){
-//                return $w->drawing;
-//            }
-//            if(count($w) > 0){
-//                $d = $this->findDrawing($w);
-//                if($d != null) return $d;
-//            }
-//        }
-        return null;
-    }
-
 
 
 }

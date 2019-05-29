@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\File;
-use App\Http\Controllers\Api\StoryController;
+use App\Http\Controllers\Api\StoryApiController;
 use finfo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -28,9 +28,66 @@ class StoryTest extends TestCase
      *
      * @return void
      */
-    public function testNewStory()
-    {
+//    public function testNewStory()
+//    {
+//
+//        $files = [
+////            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
+//            UploadedFile::fake()->image('test1.jpg'),
+//            UploadedFile::fake()->image('test2.jpg'),
+//            UploadedFile::fake()->image('test3.jpg'),
+//        ];
+//
+//        $filename = 'Test document.docx';
+//        $file_path = storage_path($filename);
+//        $finfo = new finfo(16);
+//
+//        if (Storage::disk('storage')->exists($filename)) {
+//
+//            $files[0] = new UploadedFile(
+//                $file_path,
+//                $filename,
+//                $finfo->file($file_path),
+//                filesize($file_path),
+//                0,
+//                false
+//            );
+//        }
+//        $data = $this->storyData;
+//        $data['files'] = $files;
+//
+//        $response = $this->json('POST', '/api/v1/story', $data);
+//
+//        $this->assertEquals('failed', $response->json()['response']);
+//
+//        $data['icon'] = "candle";
+//        $response = $this->json('POST', '/api/v1/story', $data);
+//
+//        if (isset($response->json()['response'])) {
+//            if($response->json()['response'] == "failed") var_dump($response->json()['errors']);
+//            $this->assertEquals('success', $response->json()['response']);
+//
+////            if(isset($response->json()['storyId'])){
+////                // Delete story
+////                $this->json('DELETE', '/api/v1/story/'.$response->json()['storyId']);
+////            }
+//        } else {
+//            var_dump($response->json());
+//        }
+//    }
 
+    public function testChangeStory(){
+
+
+        // Check failed
+        $response = $this->json('POST', '/api/v1/story/-102/change', []);
+
+        $this->assertEquals('failed', $response->json()['response']);
+
+
+
+
+        // Check success
         $files = [
 //            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
             UploadedFile::fake()->image('test1.jpg'),
@@ -53,42 +110,38 @@ class StoryTest extends TestCase
                 false
             );
         }
+
         $data = $this->storyData;
         $data['files'] = $files;
-
-        $response = $this->json('PUT', '/api/v1/story', $data);
-
-        $this->assertEquals('failed', $response->json()['response']);
-
         $data['icon'] = "candle";
-        $response = $this->json('PUT', '/api/v1/story', $data);
+//        $data['files'] = $files;
 
-        if (isset($response->json()['response'])) {
-            if($response->json()['response'] == "failed") var_dump($response->json()['errors']);
+        $response = $this->json('POST', '/api/v1/story', $data);
+        $this->assertEquals('success', $response->json()['response']);
+
+        if(isset($response->json()['storyId'])){
+            $id = $response->json()['storyId'];
+            $data = [
+                'title' => 'Changed title'
+            ];
+            $response = $this->json('POST', '/api/v1/story/'.$id.'/change', $data);
+
             $this->assertEquals('success', $response->json()['response']);
 
-//            if(isset($response->json()['storyId'])){
-//                // Delete story
-//                $this->json('DELETE', '/api/v1/story/'.$response->json()['storyId']);
-//            }
-        } else {
-            var_dump($response->json());
+
+            $this->json('DELETE', '/api/v1/story/'.$id);
+
         }
 
-        //        var_dump($response);
-//        $this->assertTrue();
-    }
 
-//    public function testConvertWordFile(){
-//
 //        $file = \Illuminate\Support\Facades\File::get(storage_path('Test document.docx'));
 //
 //        $sc = new StoryController();
-////        $data = $sc->convertWordFile($file);
-//
-////        assertEquals('','');
-////        assertTrue(true);
-//    }
+//        $data = $sc->convertWordFile($file);
+
+//        assertEquals('','');
+//        assertTrue(true);
+    }
 
 }
 

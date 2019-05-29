@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Api;
 use App\Feedback;
 use App\Http\Controllers\Controller;
 use App\Story;
+use App\StoryFeedback;
+use Illuminate\Http\Request;
 
 class LabyrintApiController extends Controller
 {
@@ -244,5 +246,25 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
+    public function returnFeedback(Request $request){
+        $data = [];
+        if(!$request->isJson()){
+            $data['response'] = 'failed';
+            $data['errors'] = [
+                'Not send as JSON'
+            ];
+            return  response()->json($data);
+        }
+        foreach ($request->json() as $feedback){
 
+            if(isset($feedback['storyId']) && isset($feedback['answerId'])){
+                StoryFeedback::create([
+                    'storyId' => $feedback['storyId'],
+                    'feedbackId' => $feedback['answerId'],
+                ]);
+            }
+        }
+        $data['response'] = 'success';
+        return  response()->json($data);
+    }
 }
