@@ -81,20 +81,7 @@ namespace Labyrint
                                 {
                                     GameObject gameObject = GameObjectFactoryFacade.GetGameObject("button", i * 100 - (100), i, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser});
 
-                                    // Loop through the behaviours of the gameObject to find the HaveAStory behaviour
-                                    foreach (IBehaviour behaviour2 in gameobject.onTickList)
-                                    {
-                                        // Check if the behaviour is the HaveAStoryBehaviour
-                                        if (behaviour2.GetType().ToString() == "Labyrint.AddTextBlockBehaviour")
-                                        {
-                                            // Convert the IBehaviour to a HaveAStoryBehaviour
-                                            AddTextBlockBehaviour textBlockBehaviour = behaviour2 as AddTextBlockBehaviour;
-                                           
-                                            textBlockBehaviour.GetTextBlock().Text = question.anwsers[i].response;
-
-                                            gameObject.AddDrawable(textBlockBehaviour.GetTextBlock() as FrameworkElement);
-                                        }
-                                    }
+                                    gameObject.SetText("question.anwsers[i].response");
 
                                     gameObjects.Add(gameObject);   
                                 }

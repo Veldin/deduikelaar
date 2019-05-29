@@ -98,7 +98,6 @@ class StoryController extends Controller
 
 
     public function newStory(Request $request){
-//        var_dump($request);
 
         $title = $request->get('title');
         $icon = $request->get('icon');
@@ -140,9 +139,10 @@ class StoryController extends Controller
                     'storyId' => $story->id
                 ]);
             }
-            foreach ($request->files->get('files') as $file) {
+        }
+        if($files){
 
-
+            foreach ($files as $file) {
                 $f = $file;
                 $extension = $f->getClientOriginalExtension();
                 $fn = $f->getClientOriginalName();
@@ -179,6 +179,9 @@ class StoryController extends Controller
 
     public function changeStory(Request $request, $storyId){
         var_dump($storyId);
+
+
+
 //        var_dump($request);
     }
 
