@@ -188,7 +188,7 @@ namespace Labyrint
 
             TestBrowser();
 
-            PopulateButtonObject();
+            //PopulateButtonObject();
 
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
@@ -387,12 +387,18 @@ namespace Labyrint
 
                 foreach (GameObject gameObject in loopList)
                 {
+                    //check if a gameObject is in the render distance.
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
-                        gameCanvas.Children.Remove(gameObject.rectangle);
+                        gameCanvas.Children.Remove(gameObject.rectangle); //If not remove the rectangle
+                        foreach (FrameworkElement element in gameObject.Drawables)
+                        {
+                            gameCanvas.Children.Remove(element);
+                        }
                     }
                     else
                     {
+                        //It is in range so draw it.
                         Rectangle rect = gameObject.rectangle;
 
                         rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
@@ -414,7 +420,31 @@ namespace Labyrint
                                 gameCanvas.Children.Insert(0,rect);
                             }
                         }
-                            
+
+                        foreach (FrameworkElement element in gameObject.Drawables)
+                        {
+                            //It is in range so draw it.
+
+                            element.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
+                            element.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
+
+                            // Set up the position in the window, at mouse coordonate
+                            Canvas.SetLeft(element, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
+                            Canvas.SetTop(element, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
+
+                            if (!gameCanvas.Children.Contains(element))
+                            {
+                                //If the gameobject is important to be seen add it to the end of the array
+                                if (gameObject.highVisibility)
+                                {
+                                    gameCanvas.Children.Add(element);
+                                }
+                                else
+                                {
+                                    gameCanvas.Children.Insert(0, element);
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -625,7 +655,7 @@ namespace Labyrint
                     "pickup", 
                     randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
                     randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
-                    browser
+                    new object[2] { browser, camera }
                 );
             } while (newPickup.distanceBetween(player) < 300); //if its to close to the player pick a new location
 
