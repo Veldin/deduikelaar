@@ -92,7 +92,8 @@ class CreateItem extends Component {
     e.preventDefault();
     console.log(this.state.file);
     fetch('/api/v1/story', {
-        method: 'PUT',
+        method: 'POST',
+        cache: "no-cache",
         body: 'title='+createItemForm.title.value+'&icon='+createItemForm.item.value+'&texts='+this.state.editorContent+'&files='+this.state.file,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
