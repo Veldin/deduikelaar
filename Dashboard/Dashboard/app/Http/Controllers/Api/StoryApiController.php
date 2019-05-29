@@ -75,6 +75,48 @@ class StoryApiController extends Controller
         return  response()->json($data);
     }
 
+    public function getStory($storyId){
+
+        $data = [];
+
+        $story = Story::with('storyItems', 'storyItems.file', 'feedback', 'feedback.question')->find($storyId);
+        if(!$story){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'Story not found'
+                ]
+            ]);
+        }
+
+        $data['id'] = $story->id;
+        $data['title'] = $story->title;
+        $data['icon'] = $story->title;
+        $data['description'] = $story->title;
+        $data['texts'] = [];
+        foreach ($story->storyItems as $storyItem){
+            $file = null;
+            if($storyItem->file){
+                $f = $storyItem->file;
+                $file = [
+                    'id' => $f->id,
+                    'filename' => $f->fileName,
+                    'path' => $f->path,
+                    'fileType' => $f->fileType,
+                    'download' => 'api/v1/file/'.$f->id
+                ];
+            }
+            $data['texts'][] = [
+                'id' => $storyItem->id,
+                'text' => $storyItem->text,
+                'file' => $file
+            ];
+        }
+        $data['feedbackItems'] = $story->allFeedback();
+
+        return response()->json($data);
+    }
+
     public function getStories(){
 
         $data = [];
@@ -87,15 +129,8 @@ class StoryApiController extends Controller
                 'html' => view('information-piece', compact('story'))->render()
             ];
         }
-        return $data;
+        return response()->json($data);
     }
-
-    public function testStory(){
-
-        $story = Story::with('storyItems')->where('active', 1)->find(1);
-        return view('information-piece', compact('story'));
-    }
-
 
     public function newStory(Request $request){
 
@@ -200,9 +235,9 @@ class StoryApiController extends Controller
         if($request->has('description')){
             $newData['description'] = $request->get('description');
         }
-        if($request->has('texts')){
-            // TODO change texts and files
-        }
+
+        // TODO change texts and files
+
 
 //        $title = $request->get('title');
 //        $icon = $request->get('icon');
@@ -215,8 +250,6 @@ class StoryApiController extends Controller
         return response()->json([
             'response' => 'success'
         ]);
-
-//        var_dump($request);
     }
 
 
@@ -277,7 +310,7 @@ class StoryApiController extends Controller
         zip_close($zip);
 
         $xmlRel = simplexml_load_string($relations);
-//        var_dump($media[0]['name']);
+
         $relations = [];
         foreach ($xmlRel->Relationship as $relation) {
             $attributes = $relation->attributes();
@@ -287,7 +320,6 @@ class StoryApiController extends Controller
                 unset($media[(string)$attributes->Target]);
             }
         }
-//        var_dump($media);
 
         $xml = simplexml_load_string($content,null, 0, 'w', true);
         preg_match_all('/xmlns:(.*?)="(.*?)"/i', $content, $matches);

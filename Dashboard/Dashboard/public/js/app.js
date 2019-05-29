@@ -65692,6 +65692,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+
+
+
+
+
+
+
+
+
+
+
 var CreateItem =
 /*#__PURE__*/
 function (_Component) {
@@ -65714,11 +65725,11 @@ function (_Component) {
       showPopup3: false,
       showPopup4: false,
       text: [{
-        title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke verhaal over gaat.'
+        title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke item over gaat.'
       }, {
-        title: 'Hier kan gekozen worden voor een bestaand bestand of om zelf een stuk te schrijven.'
+        title: 'Hier kan gekozen worden voor een bestaand bestand toe te voegen of om zelf een stuk te schrijven.'
       }, {
-        title: 'Maak hier een eigen verhaal en voeg afbeeldingen toe indien gewenst.'
+        title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'
       }, {
         title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'
       }]
@@ -65795,7 +65806,8 @@ function (_Component) {
       e.preventDefault();
       console.log(this.state.file);
       fetch('/api/v1/story', {
-        method: 'PUT',
+        method: 'POST',
+        cache: "no-cache",
         body: 'title=' + createItemForm.title.value + '&icon=' + createItemForm.item.value + '&texts=' + this.state.editorContent + '&files=' + this.state.file,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -65881,7 +65893,7 @@ function (_Component) {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6___default.a, {
         editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default.a,
-        data: "Typ hier een verhaal.",
+        data: " ",
         config: {
           toolbar: [['Heading'], ['Bold'], ['Italic'], ['imageUpload']]
         },
@@ -66038,7 +66050,11 @@ function (_Component) {
         className: "title"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", this.state.title, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", this.state.textArea, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        dangerouslySetInnerHTML: {
+          __html: this.state.editorContent
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quiz"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quizQuestion1"

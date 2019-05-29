@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Feedback;
+use App\File;
 use App\Http\Controllers\Controller;
 use App\Story;
 use App\StoryFeedback;
@@ -266,5 +267,29 @@ class LabyrintApiController extends Controller
         }
         $data['response'] = 'success';
         return  response()->json($data);
+    }
+
+    public function downloadFile($fileId){
+        $file = File::find($fileId);
+
+        if(!$file){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'File not found'
+                ]
+            ]);
+        }
+        if(!file_exists(storage_path($file->path.$file->fileName))){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'File not found'
+                ]
+            ]);
+        }
+
+        return response()->download(storage_path($file->path.$file->fileName), $file->realName);
+
     }
 }
