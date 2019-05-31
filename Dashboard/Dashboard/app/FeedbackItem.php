@@ -24,22 +24,28 @@ class FeedbackItem extends Model
 
     public function stories()
     {
-//        return $this->hasMany(StoryFeedback::class, 'feedbackId', 'id');
         return $this->hasManyThrough(Story::class, StoryFeedback::class, 'feedbackId', 'id', 'id', 'storyId');
-
-//        class Country extends Model
-//        {
-//            public function posts()
-//            {
-//                return $this->hasManyThrough(
-//                    'App\Post',
-//                    'App\User',
-//                    'country_id', // Foreign key on users table...
-//                    'user_id', // Foreign key on posts table...
-//                    'id', // Local key on countries table...
-//                    'id' // Local key on users table...
-//                );
-//            }
-//        }
     }
+    public function storyFeedback(){
+        return $this->hasMany(StoryFeedback::class, 'feedbackId', 'id');
+    }
+
+    public function getJson($story = null){
+        $r = [
+            "feedbackId" => $this->id,
+            "answer" => $this->feedback
+        ];
+
+        if($story){
+            $r['count'] = StoryFeedback::where([
+                ['storyId','=',$story->id],
+                ['feedbackId','=',$this->id],
+            ])->count();
+        }
+
+
+        return $r;
+
+    }
+
 }

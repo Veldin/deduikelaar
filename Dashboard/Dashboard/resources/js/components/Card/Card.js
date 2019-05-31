@@ -38,11 +38,10 @@ const card = (props) => {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response['response']);
       if(response['response'] == "success"){
-        toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort<br>', {positionClass: "toast-bottom-right", timeOut: 40000})
+        toastr.success('dit item is verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
       }else{
-        toastr.warning('Er is ietsuw.', 'Turtle Bay Resort<br>', {positionClass: "toast-bottom-right", timeOut: 40000})
+        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
       }
     })
   }

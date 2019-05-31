@@ -17,7 +17,7 @@ namespace Labyrint
 
         public AnimateOpacityBehaviour(float maxOpacity)
         {
-            maxDelta = 20;
+            maxDelta = 10;
             currentDelta = maxDelta;
             this.maxOpacity = maxOpacity;
         }

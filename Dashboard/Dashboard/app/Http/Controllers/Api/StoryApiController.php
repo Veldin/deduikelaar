@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class StoryApiController extends Controller
@@ -35,39 +36,41 @@ class StoryApiController extends Controller
 
         // Loop through all stories
         foreach ($stories as $story){
-            $questions = [];
-            foreach ($feedbacks as $feedback){
-                $answers = [];
-                // add each feedbackitem to a story.
-                foreach ($feedback->feedbackItems as $feedbackItem){
-                    $answers[$feedbackItem->id] = [
-                        'feedbackId' => $feedbackItem->id,
-                        'answer' => $feedbackItem->feedback,
-                        'count' => 0,
-                    ];
-                }
-                // Count the amount of feedback given
-                foreach ($story->feedback as $feedbackItem){
-                    if($feedbackItem->question->id != $feedback->id) continue;
-                    if( isset($answers[$feedbackItem->id]) &&
-                        isset($answers[$feedbackItem->id]['count']) ){
-                        $answers[$feedbackItem->id]['count'] += 1;
-                    }
-                }
-                // Sort answers
-                $answers = array_values($answers);
-                usort($answers, function($a, $b) {
-                    return $a['count'] - $b['count'];
-                });
+//            $questions = [];
+//            foreach ($feedbacks as $feedback){
+//                $answers = [];
+//                // add each feedbackitem to a story.
+//                foreach ($feedback->feedbackItems as $feedbackItem){
+//                    $answers[$feedbackItem->id] = [
+//                        'feedbackId' => $feedbackItem->id,
+//                        'answer' => $feedbackItem->feedback,
+//                        'count' => 0,
+//                    ];
+//                }
+//                // Count the amount of feedback given
+//                foreach ($story->feedback as $feedbackItem){
+//                    if($feedbackItem->question->id != $feedback->id) continue;
+//                    if( isset($answers[$feedbackItem->id]) &&
+//                        isset($answers[$feedbackItem->id]['count']) ){
+//                        $answers[$feedbackItem->id]['count'] += 1;
+//                    }
+//                }
+//                // Sort answers
+//                $answers = array_values($answers);
+//                usort($answers, function($a, $b) {
+//                    return $a['count'] - $b['count'];
+//                });
+//
+//                // Add feedback to the questions which will be added to the story
+//                $questions[] = [
+//                    'question' => $feedback->question,
+//                    'extraInfo' => $feedback->extraInfo,
+//                    'feedbackType' => $feedback->feedbackType,
+//                    'answers' => array_values($answers)
+//                ];
+//            }
+//            $questions =
 
-                // Add feedback to the questions which will be added to the story
-                $questions[] = [
-                    'question' => $feedback->question,
-                    'extraInfo' => $feedback->extraInfo,
-                    'feedbackType' => $feedback->feedbackType,
-                    'answers' => array_values($answers)
-                ];
-            }
 
             // add story to data
             $data[] = [
@@ -76,7 +79,7 @@ class StoryApiController extends Controller
                 'description' => $story->description,
                 'icon' => $story->icon,
                 'active' => $story->active,
-                'feedback' => $questions
+                'feedback' => $story->allFeedback()
             ];
 
         }
@@ -306,12 +309,68 @@ class StoryApiController extends Controller
         // TODO change texts and files
 
 
-//        $title = $request->get('title');
-//        $icon = $request->get('icon');
-//        $description = $request->get('description');
-//        $texts = $request->get('texts');
-//        $files = $request->file('files');
+        if($request->has('texts')){
+            $texts = $request->get('texts');
+            foreach ($story->storyItems as $storyItem){
+                if(isset($texts[$storyItem->id])){
+                    $storyItem->text = $texts[$storyItem->id];
+                    $storyItem->update();
+                }
+            }
+        }
+        if($request->has('newTexts')){
+            foreach ($request->get('newTexts') as $text){
+                if(strlen($texts) == 0) continue;
+                StoryItem::create([
+                    'storyId' => $story->id,
+                    'text' => $text
+                ]);
+            }
+        }
 
+        // Add files
+        if($request->has('files')){
+            $files = $request->file('files');
+            if($files){
+
+                foreach ($files as $file) {
+
+                    // Get file data
+                    $f = $file;
+                    $extension = $f->getClientOriginalExtension();
+                    $fn = $f->getClientOriginalName();
+
+                    // Create a new filename
+                    $filename = Carbon::now()->format('Ymdhis') . rand(11111111, 99999999) . '.' . $extension;
+
+                    // Save file
+                    $file->storeAs("/uploads/story/", $filename, 'local');
+
+                    // Create storyItem for this file
+                    $storyItem = StoryItem::create([
+                        'text' => null,
+                        'storyId' => $story->id
+                    ]);
+
+                    // Create file
+                    $file = File::create([
+                        'fileName' => $filename,
+                        'realName' => $fn,
+                        'fileType' => $f->getMimeType(),
+                        'extension' => $extension,
+                        'path' => 'app/uploads/story/',
+                        'storyItemId' => $storyItem->id
+                    ]);
+
+                    // Set story item text if the file is an docx file
+                    $text = $this->convertDocxFile($file);
+                    if($text != null){
+                        $storyItem->update(['text' => $text]);
+                    }
+                }
+            }
+        }
+        $story->update();
 
 
         return response()->json([
@@ -344,12 +403,8 @@ class StoryApiController extends Controller
 
         // Remove files of the story
         foreach ($story->storyItems as $storyItem){
-            if(isset($storyItem->file)){
-                $file = storage_path($storyItem->file->path.$storyItem->file->fileName);
-                if(file_exists($file)){
-                    unlink($file);
-                }
-            }
+
+            $this->deleteStoryItem($storyItem->id);
         }
 
         // Delete story
@@ -357,7 +412,46 @@ class StoryApiController extends Controller
 
 
         return response()->json([
-            'response' => 'success'
+            'response' => 'success',
+            'storyId' => $storyId
+        ]);
+    }
+
+    /**
+     * Delete a story item with file
+     * @param $storyItemId
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function deleteStoryItem($storyItemId){
+
+        // Get StoryItem
+        $storyItem = StoryItem::with('file')->find($storyItemId);
+
+        if(!$storyItem){
+
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'StoryItem not found'
+                ]
+            ]);
+        }
+
+        // Remove file
+        if(isset($storyItem->file)){
+            $file = storage_path($storyItem->file->path.$storyItem->file->fileName);
+            if(file_exists($file)){
+                unlink($file);
+            }
+        }
+
+        // Remove item
+        $storyItem->delete();
+
+        return response()->json([
+            'response' => 'success',
+            'storyItemId' => $storyItemId
         ]);
     }
 

@@ -65584,15 +65584,13 @@ var card = function card(props) {
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
-      console.log(response['response']);
-
       if (response['response'] == "success") {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('We do have the Kapua suite available.', 'Turtle Bay Resort<br>', {
+        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('dit item is verwijderd', '', {
           positionClass: "toast-bottom-right",
           timeOut: 40000
         });
       } else {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er is ietsuw.', 'Turtle Bay Resort<br>', {
+        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('dit item is al verwijderd', '', {
           positionClass: "toast-bottom-right",
           timeOut: 40000
         });
@@ -66450,8 +66448,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
