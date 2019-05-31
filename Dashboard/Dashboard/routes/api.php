@@ -28,7 +28,19 @@ Route::get('stories', 'Api\StoryApiController@getStories');
 Route::get('story/{storyId}', 'Api\StoryApiController@getStory');
 Route::post('story', 'Api\StoryApiController@newStory');
 Route::post('story/{storyId}/change', 'Api\StoryApiController@changeStory');
+Route::get('testStory/new', function(){
+    return view('test.story_insert');
+});
+Route::get('testStory', function(){
+    $stories = \App\Story::get();
+    return view('test.story_list', compact('stories'));
+});
+Route::get('testStory/change/{id}', function($id){
+    $story = \App\Story::find($id);
+    return view('test.story_change', compact('story'));
+});
 Route::delete('story/{storyId}', 'Api\StoryApiController@deleteStory');
+Route::delete('storyItem/{storyItemId}', 'Api\StoryApiController@deleteStoryItem');
 Route::get('story/{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
     'active' => '(deactivate|activate)'
 ]);

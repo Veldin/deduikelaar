@@ -18,42 +18,57 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $feedbackItems = [];
-        // $this->call(UsersTableSeeder::class);
-        $feedback = Feedback::create([
-            'question' => 'Wat was je gevoel hierbij?',
-            'extraInfo' => '',
-            'feedbackType' => 'emoticon',
-        ]);
-        $feedbackItems[] = FeedbackItem::create([
-            'feedback' => '\u1F603',
-            'feedbackId' => $feedback->id
-        ]);
 
-        $feedbackItems[] = FeedbackItem::create([
-            'feedback' => '\u1F634',
-            'feedbackId' => $feedback->id
-        ]);
+        if(Feedback::where('question', 'Wat was je gevoel hierbij?')->count()){
 
-        $feedbackItems[] = FeedbackItem::create([
-            'feedback' => '\u1F92F',
-            'feedbackId' => $feedback->id
-        ]);
+            $feedbackItems = FeedbackItem::get();
 
-        $feedback = Feedback::create([
-            'question' => 'Was het duidelijk voor jou?',
-            'extraInfo' => '',
-            'feedbackType' => 'ja/nee',
-        ]);
 
-        $feedbackItems[] = FeedbackItem::create([
-            'feedback' => 'Ja',
-            'feedbackId' => $feedback->id
-        ]);
+            foreach ($feedbackItems as $feedbackItem){
+                $feedbackItems[] = $feedbackItem;
+            }
 
-        $feedbackItems[] = FeedbackItem::create([
-            'feedback' => 'Nee',
-            'feedbackId' => $feedback->id
-        ]);
+        }else{
+
+            $feedback = Feedback::create([
+                'question' => 'Wat was je gevoel hierbij?',
+                'extraInfo' => '',
+                'feedbackType' => 'emoticon',
+                'oneWord' => 'Gevoel'
+            ]);
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => '\u1F603',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => '\u1F634',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => '\u1F92F',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedback = Feedback::create([
+                'question' => 'Was het duidelijk voor jou?',
+                'extraInfo' => '',
+                'feedbackType' => 'ja/nee',
+                'oneWord' => 'Duidelijkheid'
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Ja',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Nee',
+                'feedbackId' => $feedback->id
+            ]);
+        }
+
 
 
 
