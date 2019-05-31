@@ -65557,19 +65557,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var card = function card(props) {
-  var total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
-  var percentageEmoteOne = Math.round(props.emoteOne / total * 100);
-  var percentageEmoteTwo = Math.round(props.emoteTwo / total * 100);
-  var percentageEmoteThree = Math.round(props.emoteThree / total * 100);
-  var percentageEmoteOneDOM = {
-    width: percentageEmoteOne
-  };
-  var percentageEmoteTwoDOM = {
-    width: percentageEmoteTwo
-  };
-  var percentageEmoteThreeDOM = {
-    width: percentageEmoteThree
-  };
+  // const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
+  // const percentageEmoteOne = Math.round((props.emoteOne / total) * 100);
+  // const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100);
+  // const percentageEmoteThree = Math.round((props.emoteThree / total) * 100);
+  // const percentageEmoteOneDOM = {
+  //   width: percentageEmoteOne
+  // };
+  // const percentageEmoteTwoDOM = {
+  //   width: percentageEmoteTwo
+  // };
+  // const percentageEmoteThreeDOM = {
+  //   width: percentageEmoteThree
+  // };
+  var string1 = "";
+
+  for (var property1 in props.cardInfo) {
+    string1 += props.cardInfo[property1];
+  }
+
+  console.log(JSON.parse(string1));
 
   function deleteItem() {
     fetch('/api/v1/story/' + props.storyID, {
@@ -65577,20 +65584,44 @@ var card = function card(props) {
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
-      console.log(response['response']);
-
       if (response['response'] == "success") {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('We do have the Kapua suite available.', 'Turtle Bay Resort<br>', {
+        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('dit item is verwijderd', '', {
           positionClass: "toast-bottom-right",
           timeOut: 40000
         });
       } else {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er is ietsuw.', 'Turtle Bay Resort<br>', {
+        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('dit item is al verwijderd', '', {
           positionClass: "toast-bottom-right",
           timeOut: 40000
         });
       }
     });
+  }
+
+  var feedback = [];
+
+  for (var i = 0; i < props.feedbackTypesCount; i++) {
+    feedback.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col s3"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gevoel:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col s9"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "bar"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
+      data: [{
+        value: 10,
+        description: 'oke',
+        color: "#ff0043"
+      }, {
+        value: 4,
+        description: 'oke',
+        color: "#77c6a0"
+      }, {
+        value: 8,
+        description: 'oke',
+        color: "#8391a5"
+      }]
+    })))));
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65625,27 +65656,7 @@ var card = function card(props) {
     className: "card-title"
   }, props.title, props.storyID))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row feedback"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gevoel:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s9"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "bar"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    data: [{
-      value: percentageEmoteOne,
-      description: percentageEmoteOne,
-      color: "#ff0043"
-    }, {
-      value: percentageEmoteTwo,
-      description: percentageEmoteTwo,
-      color: "#77c6a0"
-    }, {
-      value: percentageEmoteThree,
-      description: percentageEmoteThree,
-      color: "#8391a5"
-    }]
-  })))))));
+  }, feedback))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (card);
@@ -65808,8 +65819,7 @@ function (_Component) {
       fetch('/api/v1/story', {
         method: 'POST',
         cache: "no-cache",
-        body: 'title=' + createItemForm.title.value + '&icon=' + createItemForm.item.value + '&texts=' + this.state.editorContent + '&files=' + this.state.file,
-
+        body: '&title=' + createItemForm.title.value + '&icon=' + createItemForm.item.value + '&texts=' + this.state.editorContent + '&files=' + this.state.file,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -66240,7 +66250,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
-      card: []
+      card: [],
+      feedbackTypesCount: null
     };
     return _this;
   }
@@ -66250,11 +66261,13 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/api/v1/stories').then(function (response) {
+      fetch('/api/v1/overview').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
+        //set every prop ever needed...(sucks)
         _this2.setState({
-          card: responseJson
+          card: responseJson,
+          feedbackTypesCount: responseJson[0]['feedback'].length
         });
 
         console.log(_this2.state.card);
@@ -66263,6 +66276,8 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "overviewContentContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66282,14 +66297,14 @@ function (_Component) {
         className: "row overviewCards"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cards-container"
-      }, this.state.card.map(function (item) {
+      }, this.state.card.map(function (item, key) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: key,
           storyID: item.storyId,
-          title: "De brief van Karel",
-          active: "1",
-          emoteOne: "4",
-          emoteTwo: "2",
-          emoteThree: "10"
+          title: item.storyId,
+          active: item.active,
+          feedbackTypesCount: _this3.state.feedbackTypesCount,
+          cardInfo: [_this3.state.card]
         });
       }))));
     }
@@ -66433,8 +66448,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
