@@ -8,24 +8,30 @@ import { faSadTear } from '@fortawesome/free-solid-svg-icons'
 import { faAngry } from '@fortawesome/free-solid-svg-icons'
 
 const card = (props) => {
-  const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
+  // const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
 
-  const percentageEmoteOne = Math.round((props.emoteOne / total) * 100);
-  const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100);
-  const percentageEmoteThree = Math.round((props.emoteThree / total) * 100);
+  // const percentageEmoteOne = Math.round((props.emoteOne / total) * 100);
+  // const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100);
+  // const percentageEmoteThree = Math.round((props.emoteThree / total) * 100);
 
-  const percentageEmoteOneDOM = {
-    width: percentageEmoteOne
-  };
+  // const percentageEmoteOneDOM = {
+  //   width: percentageEmoteOne
+  // };
 
-  const percentageEmoteTwoDOM = {
-    width: percentageEmoteTwo
-  };
+  // const percentageEmoteTwoDOM = {
+  //   width: percentageEmoteTwo
+  // };
 
-  const percentageEmoteThreeDOM = {
-    width: percentageEmoteThree
-  };
+  // const percentageEmoteThreeDOM = {
+  //   width: percentageEmoteThree
+  // };
 
+  var string1 = "";
+  for (var property1 in props.cardInfo) {
+    string1 += props.cardInfo[property1];
+  }
+
+  console.log(props.cardInfo);
   function deleteItem() {
     fetch('/api/v1/story/'+props.storyID,{
       method: 'DELETE',
@@ -41,6 +47,28 @@ const card = (props) => {
     })
   }
   
+  var feedback = [];
+  for (var i = 0; i < props.feedbackTypesCount; i++) {
+    feedback.push(
+      <div>
+        <div className="col s3">
+          <p>Gevoel:</p>
+        </div>
+        <div className="col s9">
+          <div className="bar">
+           <HSBar
+            data={[
+              { value: 10, description: 'oke', color: "#ff0043" },
+              { value: 4, description: 'oke', color: "#77c6a0" },
+              { value: 8, description: 'oke', color: "#8391a5" }
+            ]}
+          />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (        
     <div className="col s12 m4">
       <div className="card">
@@ -68,20 +96,7 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
-            <div className="col s3">
-              <p>Gevoel:</p>
-            </div>
-            <div className="col s9">
-              <div className="bar">
-                <HSBar
-                  data={[
-                    { value: percentageEmoteOne, description: percentageEmoteOne, color: "#ff0043" },
-                    { value: percentageEmoteTwo, description: percentageEmoteTwo, color: "#77c6a0" },
-                    { value: percentageEmoteThree, description: percentageEmoteThree, color: "#8391a5" }
-                  ]}
-                />
-              </div>
-            </div>
+            {feedback}
           </div>
          </div>
       </div>
