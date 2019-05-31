@@ -14,20 +14,22 @@ namespace Labyrint
 {
     public class Command : ILogObserver
     {
-        private bool active;                    // If this bool is true commands can be typed
+        private MainWindow engine;              // The engine class that creates this class
         private TextBox commandBar;             // The upper textbox where the commands are filled in
         private TextBox commandResponse;        // The lower textbox where the feedback is given
+        private bool active;                    // If this bool is true commands can be typed
         private List<string> logClass;          // If filled only messages from those classes will be shown
         private MethodInfo methodInfo;          // This is the method info of a method whereby the parameters still needs to be given
         private List<string> commandHistory;    // In this list are all the commands saved that are made
         private int historyIndex = -1;          // This index shows the command that is displayed in the commandHistory. If no command in the commandHistory is displayed the value is -1
 
-        public Command(TextBox commandBar, TextBox commandResponse)
+        public Command(MainWindow engine, TextBox commandBar, TextBox commandResponse)
         {
             // Initiate attributes
-            active = false;
+            this.engine = engine;
             this.commandBar = commandBar;
             this.commandResponse = commandResponse;
+            active = false;
             logClass = new List<string>();
             methodInfo = null;
             
@@ -132,7 +134,10 @@ namespace Labyrint
                     commandResponse.Text = "";
                     break;
                 case "qqq":
-                    ExecuteMethod("Labyrint MainWindow.CloseApp");
+                    engine.CloseApp();
+                    break;
+                case "resetControls":
+                    engine.ResetControls();
                     break;
                 case "who is a good boy?":
                     DisplayLine("Robin is good boy!");
