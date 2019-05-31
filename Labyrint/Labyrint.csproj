@@ -71,6 +71,7 @@
     <Compile Include="Classes\Behaviours\PickupCollisionBehavior.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PlayerSpriteBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\ScaleItemBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpaceButtonsHorisontallyBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpawnNewItemsBehaviour.cs" />
@@ -194,6 +195,9 @@
     <Resource Include="Assets\Sprites\Black.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Sprites\answers\angry.gif" />
+    <Resource Include="Assets\Sprites\answers\happy.gif" />
+    <Resource Include="Assets\Sprites\answers\sad.gif" />
     <Resource Include="Assets\Sprites\missingTexture.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

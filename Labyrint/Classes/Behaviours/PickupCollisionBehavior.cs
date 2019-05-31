@@ -106,15 +106,41 @@ namespace Labyrint
                                 lock (gameObjects)
                                 {
                                     GameObject toAdd = null;
+
+
+                                    //i * 10 - (10) + 50
                                     for (int i = 0; i < question.anwsers.Count; i++)
                                     {
+
+                                        //int a = (i * 10 + 50) * question.anwsers.Count / 2;
+                 
+                                        int fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+
                                         toAdd = null;
-                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", i * 100 - (100), i, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
+                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, 83.5f, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
 
-                                        toAdd.SetText(question.anwsers[i].response);
-
-                                        gameObjects.Add(toAdd);
-                                        
+                                    Log.Debug(toAdd);
+                                    switch (question.anwsers[i].response)
+                                    {
+                                        case "\\u1F603": // smile head
+                                            toAdd.setActiveBitmap("Assets/Sprites/Answers/happy.gif");
+                                            break;
+                                        case "\\u1F92F": // expl head
+                                            toAdd.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
+                                            break;
+                                        case "\\u1F634": // sleepy head
+                                            toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
+                                            break;
+                                        default:
+                                            toAdd.SetText(question.anwsers[i].response);
+                                            break;
+                                    }
+                                        lock (gameObjects)
+                                        {
+                                            Log.Debug("added");
+                                            gameObjects.Add(toAdd);
+                                        }
+                                       
                                     }
                                 }
                             }

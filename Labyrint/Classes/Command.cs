@@ -328,6 +328,9 @@ namespace Labyrint
             // Split the text on the space
             string[] splittedText = commandBar.Text.Split(' ');
 
+            // It may not be smaller than 2
+            if (splittedText.Length < 2) { return; }
+
             string[] splittedText2 = splittedText[1].Split('.');
 
             if (!ContainsType(splittedText[0], splittedText2[0]))
@@ -335,6 +338,9 @@ namespace Labyrint
                 FillType(splittedText[0], splittedText2[0]);
                 return;
             }
+
+            // It may not be smaller than 2
+            if (splittedText2.Length < 2) { return; }
 
             FillMethod(splittedText[0], splittedText2[0], splittedText2[1]);
         }

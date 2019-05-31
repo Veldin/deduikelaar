@@ -81,6 +81,7 @@
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 0px;
+  min-height: 64px;
 }
 
 #superContainer .contentContainer .overviewCards .card .deleteItem {

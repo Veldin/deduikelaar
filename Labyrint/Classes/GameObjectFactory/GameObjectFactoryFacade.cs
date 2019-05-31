@@ -25,7 +25,6 @@ namespace GameObjectFactory
 
         public static void ReturnGameObject(GameObject target)
         {
-            Log.Debug(target);
             factory.ReturnGameObject(target);
         }
 
