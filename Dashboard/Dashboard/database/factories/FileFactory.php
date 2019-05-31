@@ -11,7 +11,7 @@ $factory->define(File::class, function (Faker $faker) {
     $ext = $faker->fileExtension;
     $filename = $file."_".rand(11111111,99999999).".".$ext;
 
-    Storage::put("uploads/".$filename, $faker->realText());
+    Storage::put("uploads/story/".$filename, $faker->realText());
 
     return [
         'fileName' => $filename,

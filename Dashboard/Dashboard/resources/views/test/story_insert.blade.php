@@ -10,10 +10,12 @@
 
     </head>
     <body>
-
-        <input type="text" name="title" id="title" /><br />
-        <input type="icon" name="icon" id="icon" /><br />
-        <input type="file" name="file" id="file" multiple /><br />
+        <br />
+        <br />
+        <h2> Test insert</h2>
+        Title <input type="text" name="title" id="title" /><br />
+        Icon <input type="icon" name="icon" id="icon" /><br />
+        File(s)<input type="file" name="file" id="file" multiple /><br />
         <input type="button" id="save" value="Save">
 
         <script>
@@ -28,7 +30,6 @@
                     formData.append("files[]", filesInput[i]);
                 }
 
-                console.log(formData);
                 $.ajax({
                     url: '/api/v1/story',
                     type: 'POST',
@@ -38,6 +39,9 @@
                     contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                     success: function(data, textStatus, jqXHR)
                     {
+                        if(data['storyId']){
+                            window.location.href = "{{url('api/v1/testStory/change')}}/" + data['storyId'];
+                        }
                         // do something
                     },
                     error: function(jqXHR, textStatus, errorThrown)

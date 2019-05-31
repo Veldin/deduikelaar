@@ -19,8 +19,8 @@
             <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200" Visibility="Hidden" MouseEnter="Browser_MouseEnter" />
         </Viewbox>
 
-        <StackPanel Orientation="Vertical">
-            <TextBox Margin="10" VerticalAlignment="Center" Text="" x:Name="CommandBar" Visibility="Hidden" Background="LightGray" Opacity="0.5"/>
+        <StackPanel Orientation="Vertical" >
+            <TextBox Margin="10" VerticalAlignment="Center" Text="" x:Name="CommandBar" Visibility="Hidden" Background="LightGray" Opacity="0.5" />
             <TextBox Margin="10" MaxHeight="100" VerticalAlignment="Center" Text="" Name="CommandResponse" Visibility="Hidden" IsReadOnly="True" Background="LightGray" Opacity="0.5" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
         </StackPanel>
 

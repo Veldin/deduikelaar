@@ -14,20 +14,22 @@ namespace Labyrint
 {
     public class Command : ILogObserver
     {
-        private bool active;                    // If this bool is true commands can be typed
+        private MainWindow engine;              // The engine class that creates this class
         private TextBox commandBar;             // The upper textbox where the commands are filled in
         private TextBox commandResponse;        // The lower textbox where the feedback is given
+        private bool active;                    // If this bool is true commands can be typed
         private List<string> logClass;          // If filled only messages from those classes will be shown
         private MethodInfo methodInfo;          // This is the method info of a method whereby the parameters still needs to be given
         private List<string> commandHistory;    // In this list are all the commands saved that are made
         private int historyIndex = -1;          // This index shows the command that is displayed in the commandHistory. If no command in the commandHistory is displayed the value is -1
 
-        public Command(TextBox commandBar, TextBox commandResponse)
+        public Command(MainWindow engine, TextBox commandBar, TextBox commandResponse)
         {
             // Initiate attributes
-            active = false;
+            this.engine = engine;
             this.commandBar = commandBar;
             this.commandResponse = commandResponse;
+            active = false;
             logClass = new List<string>();
             methodInfo = null;
             
@@ -79,8 +81,10 @@ namespace Labyrint
                     }
                     else
                     {
-                        ExecuteQuickCommand(commandBar.Text);
-                        ExecuteMethod(commandBar.Text);
+                        if (!ExecuteQuickCommand(commandBar.Text))
+                        {
+                            ExecuteMethod(commandBar.Text);
+                        }
                     }
 
                     WriteInput(commandBar.Text);
@@ -104,7 +108,15 @@ namespace Labyrint
                         commandBar.Text = "";
                     }
                     break;
+                case "Tab":
+                    AutoFill();
+                    break;
             }
+
+            // Keep the focus in the commandBar
+            commandBar.SelectionStart = commandBar.Text.Length;
+            commandBar.SelectionLength = 0;
+            commandBar.Focus();
         }
 
         public void AddLogClass(string className)
@@ -113,7 +125,7 @@ namespace Labyrint
             Log.Debug(className + " added to the logFilter");
         }
 
-        private void ExecuteQuickCommand(string text)
+        private bool ExecuteQuickCommand(string text)
         {
             
             switch (text)
@@ -121,17 +133,17 @@ namespace Labyrint
                 case "clear": 
                     commandResponse.Text = "";
                     break;
-                case "quit":
-                    ExecuteMethod("Labyrint.Labyrint.MainWindow.CloseApp");
-                    //Type t = Type.GetType("Labyrint.MainWindow, Labyrint", true, true);
-                    //MethodInfo method = t.GetMethod("CloseApp");
-                    //method.Invoke(this, null);
+                case "qqq":
+                    engine.CloseApp();
+                    break;
+                case "resetControls":
+                    engine.ResetControls();
                     break;
                 case "who is a good boy?":
                     DisplayLine("Robin is good boy!");
                     break;
                 case "SettingsFacade.Save":
-                    ExecuteMethod("Settings.Settings.SettingsFacade.Save");
+                    ExecuteMethod("Settings SettingsFacade.Save");
                     DisplayLine("Settings saved to the .ini file.");
                     break;
                 case "logFilter.clear":
@@ -139,64 +151,57 @@ namespace Labyrint
                     Log.Debug("logFilter cleared");
                     break;
                 case "logFilter.AddClass":
-                    ExecuteMethod("Labyrint.Labyrint.Command.AddLogClass");                 
+                    ExecuteMethod("Labyrint Command.AddLogClass");                 
                     break;
+                default:
+                    return false;
             }
+
+            return true;
         }
 
         private void ExecuteMethod(string text)
         {
-            // Split the entered text on .
-            string[] wholeText = text.Split('.');
-
-            // If the whole text consist of less than 4 parts it cannot execute a method
-            if (wholeText.Length < 4)
+            // Check the assembly
+            if (!ContainsAssembly(text))
             {
+                DisplayLine("Assembly not found");
                 return;
             }
 
-            // Filter the class out of the text (everything except for the first and the last element)
-            string classString = "";
-            for (int i = 1; i < wholeText.Length - 1; i++)
+            // Split the text on the space (seperating the assembly and the type/Class)
+            string[] splittedText = text.Split(' ');
+
+            // Split the text on on dot (seperating the type/class and the method
+            string[] splittedText2 = splittedText[1].Split('.');
+
+            // Check the type/class
+            if (!ContainsType(splittedText[0], splittedText2[0]))
             {
-                if (i == wholeText.Length - 2)
-                {
-                    classString += wholeText[i] + ", ";
-                }
-                else
-                {
-                    classString += wholeText[i] + ".";
-                }        
-            }
-
-            // Combine the class string with the assambly string
-            string typeString = classString + wholeText[0];
-
-            // Get the type of the class
-            Type t = Type.GetType(typeString, false, true);
-
-            // If t is null the type could not be found
-            if (t == null)
-            {
-                DisplayLine("U fucked up");
+                DisplayLine("Class not found");
                 return;
             }
-            
-            // Get the method info
-            string methodString = wholeText[wholeText.Length - 1];
-            MethodInfo method = t.GetMethod(methodString);
-            Log.Debug(methodString);
-            Log.Debug(method);
+
+            // Get the Method
+            MethodInfo method = GetMethod(splittedText[0], splittedText2[0], splittedText2[1]);
 
             // Get the parameters of the method
             ParameterInfo[] parameters = method.GetParameters();
 
             // If there are no parameters exectute the method
             if (parameters.Length == 0)
-            {               
-                method.Invoke(this, null);
-                Log.Debug("Method succesfully executed!");
-                return;
+            {
+                try
+                {
+                    method.Invoke(this, null);
+                    Log.Debug("Method succesfully executed!");
+                    return;
+                }
+                catch
+                {
+                    Log.Warning("Failed to execute method: " + method.Name);
+                    return;
+                }
             }
 
             // Save the methodInfo to execute the method later
@@ -206,7 +211,7 @@ namespace Labyrint
             string parametersString = "";
             for (int i = 0; i < parameters.Length ; i++)
             {
-                if (i == wholeText.Length - 1)
+                if (i == parameters.Length - 1)
                 {
                     parametersString += parameters[i].ParameterType.ToString() + " " + parameters[i].Name;
                 }
@@ -285,7 +290,7 @@ namespace Labyrint
             else
             {
                 commandBar.Visibility = Visibility.Visible;
-                commandBar.Focus();
+                //commandBar.Focus();
                 commandResponse.Visibility = Visibility.Visible;
             }
         }
@@ -308,6 +313,291 @@ namespace Labyrint
                 commandHistory.Add(text);
 
                 FileReaderWriterFacade.WriteText(new string[] { text }, FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt", true);
+            }
+        }
+
+        private void AutoFill()
+        {
+            // Fix the assembly
+            if (!ContainsAssembly(commandBar.Text))         // Check if the assembly name is already typed
+            {
+                FillAssembly(commandBar.Text);              // Try to fill the assembly name
+                return;
+            }
+
+            // Split the text on the space
+            string[] splittedText = commandBar.Text.Split(' ');
+
+            string[] splittedText2 = splittedText[1].Split('.');
+
+            if (!ContainsType(splittedText[0], splittedText2[0]))
+            {
+                FillType(splittedText[0], splittedText2[0]);
+                return;
+            }
+
+            FillMethod(splittedText[0], splittedText2[0], splittedText2[1]);
+        }
+
+        private void FillAssembly(string text)
+        {
+            // Get all assemblies in this solution
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            
+            // Create a new empty list
+            List<string> fillable = new List<string>();
+
+            // Check which assemlbly names can be filled
+            foreach (Assembly assembly in assemblies)
+            {
+                // Get the name of the assembly name
+                string name = assembly.GetName().Name;
+
+                // Check if the assembly name is long enhough to fill the text
+                if (name.Length < text.Length)
+                {
+                    break;
+                }
+
+                // Check if the already typed text is equal to the beginning of the assembly name
+                if (name.Substring(0, text.Length).Equals(text, StringComparison.OrdinalIgnoreCase))
+                {
+                    fillable.Add(name);
+                }
+            }    
+
+            if (fillable.Count == 1)        // If there is only one fillable assembly name, fill it in de commandBar
+            {
+                commandBar.Text = commandBar.Text.Substring(0, commandBar.Text.Length - text.Length) + fillable[0] + " ";
+            }
+            else if (fillable.Count > 1)    // If there are multiple fillable assembly names, display the in the CommandResponse
+            {
+                foreach (string assembly in fillable)
+                {
+                    DisplayLine(assembly);
+                }
+            }
+        }
+
+        private bool IsAssembly(string assemlbyName)
+        {
+            // Get all assemblies in this solution
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            // Loop through all assemblies
+            foreach (Assembly assembly in assemblies)
+            {
+                // Get the name of the assembly name
+                string name = assembly.GetName().Name;
+
+                // Check if the already typed text is equal to the beginning of the assembly name
+                if (name.Equals(assemlbyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool ContainsAssembly(string text)
+        {
+            // Get all assemblies in this solution
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            // Loop through all assemblies
+            foreach (Assembly assembly in assemblies)
+            {
+                // Get the name of the assembly name
+                string name = assembly.GetName().Name;
+
+                // Check if the already typed text is equal to the beginning of the assembly name
+                if (text.Contains(name))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void FillType(string assemblyName, string typeName)
+        {
+            // Load the typed assembly
+            Assembly assembly = Assembly.Load(assemblyName);
+
+            // Get all types of the assembly
+            Type[] types = assembly.GetTypes();
+
+            // Create a new empty list
+            List<string> fillable = new List<string>();
+
+            // Check which assemlbly names can be filled
+            foreach (Type type in types)
+            {
+                // Get the name of the assembly name
+                string name = type.Name;
+
+                // Check if the assembly name is long enhough to fill the text
+                if (name.Length < typeName.Length)
+                {
+                    break;
+                }
+
+                // Check if the already typed text is equal to the beginning of the assembly name
+                if (name.Substring(0, typeName.Length).Equals(typeName, StringComparison.OrdinalIgnoreCase))
+                {
+                    fillable.Add(name);
+                }
+            }
+
+            if (fillable.Count == 1)        // If there is only one fillable assembly name, fill it in de commandBar
+            {
+                commandBar.Text = commandBar.Text.Substring(0, commandBar.Text.Length - typeName.Length) + fillable[0] + ".";
+            }
+            else if (fillable.Count > 1)    // If there are multiple fillable assembly names, display the in the CommandResponse
+            {
+                foreach (string type in fillable)
+                {
+                    DisplayLine(type);
+                }
+            }
+        }
+
+        private bool ContainsType(string assemblyName, string typeName)
+        {
+            // Load the typed assembly
+            Assembly assembly = Assembly.Load(assemblyName);
+
+            Type[] types = assembly.GetTypes();
+
+            // Loop through all assemblies
+            foreach (Type type in types)
+            {
+                // Get the name of the assembly name
+                string name = type.Name;
+
+                // Check if the already typed text is equal to the beginning of the assembly name
+                if (typeName.Contains(name))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void FillMethod(string assemblyName, string typeName, string methodName)
+        {
+            // Difine a type
+            Type type = null;
+
+            // Try to load the type
+            try
+            {
+                // Load the assembly
+                Assembly assembly = Assembly.Load(assemblyName);
+
+                // Loop through all the Types in the assembly
+                foreach(Type tempType in assembly.GetTypes())
+                {
+                    // Check if it is the correct type
+                    if (tempType.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)){
+                        type = tempType;
+                    }
+                }
+
+                if(type == null)
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                DisplayLine("assembly or type is not valid");
+                return;
+            }
+
+            // Get the methods
+            MethodInfo[] methods = type.GetMethods();
+
+            // Create a new empty list
+            List<string> fillable = new List<string>();
+
+            // Check which assemlbly names can be filled
+            foreach (MethodInfo method in methods)
+            {
+                // Get the name of the assembly name
+                string name = method.Name;
+
+                // Check if the assembly name is long enhough to fill the text
+                if (name.Length < methodName.Length)
+                {
+                    break;
+                }
+
+                // Check if the already typed text is equal to the beginning of the assembly name
+                if (name.Substring(0, methodName.Length).Equals(methodName, StringComparison.OrdinalIgnoreCase))
+                {
+                    fillable.Add(name);
+                }
+            }
+
+            if (fillable.Count == 1)        // If there is only one fillable assembly name, fill it in de commandBar
+            {
+                commandBar.Text = commandBar.Text.Substring(0, commandBar.Text.Length - methodName.Length) + fillable[0];
+            }
+            else if (fillable.Count > 1)    // If there are multiple fillable assembly names, display the in the CommandResponse
+            {
+                foreach (string method in fillable)
+                {
+                    DisplayLine(method);
+                }
+            }
+        }
+
+        private MethodInfo GetMethod(string assemblyName, string typeName, string methodName)
+        {
+            try
+            {
+                // Difine a type
+                Type type = null;
+
+                // Load the assembly
+                Assembly assembly = Assembly.Load(assemblyName);
+
+                // Loop through all the Types in the assembly
+                foreach (Type tempType in assembly.GetTypes())
+                {
+                    // Check if it is the correct type
+                    if (tempType.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        type = tempType;
+                    }
+                }
+
+                if (type == null)
+                {
+                    throw new Exception();
+                }
+
+                // Loop through all the methods in the type
+                foreach (MethodInfo method in type.GetMethods())
+                {
+                    // Check if it is the correct type
+                    if (method.Name.Equals(methodName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return method;
+                    }
+                }
+
+                // The method is not found, so throw an exception
+                throw new Exception();
+            }
+            catch
+            {
+                DisplayLine("assembly, type or method is not valid");
+                return null;
             }
         }
     }

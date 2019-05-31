@@ -57,13 +57,12 @@ namespace Labyrint
             countButtons = i;
 
             //The amount of buttons changed, so try to reposition the rest of the buttons.
-
-
             float fromLeftOffsetStart = (buttonList.Count() * -0.5f + 0.5f) * spaceBetween;
 
             int count = 0;
             foreach (GameObject needle in buttonList)
             {
+                
                 needle.AddFromLeft(fromLeftOffsetStart);
 
                 if(count > 0)
@@ -75,12 +74,13 @@ namespace Labyrint
                     if (behaviour is FollowCameraBehaviour)
                     {
                         FollowCameraBehaviour followCameraBehaviour = behaviour as FollowCameraBehaviour;
-                        followCameraBehaviour.originalFromLeft -= (needle.Width / 2) * -1;
+                        followCameraBehaviour.originalFromLeft -= ((needle.Width / 2) * -1) + count * 100;
                     }
                 }
 
                 count++;
             }
+            
 
             return true;
         }
