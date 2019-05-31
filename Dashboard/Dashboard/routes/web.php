@@ -18,6 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/add-item', function () {
+    return view('welcome');
+    });
+
+Route::get('/overview', function () {
+    return view('welcome');
+    });
+
+Route::get('/see-example', function () {
+    return view('welcome');
+    });
 
 Route::get('/test', function(){
     $story = \App\Story::create([

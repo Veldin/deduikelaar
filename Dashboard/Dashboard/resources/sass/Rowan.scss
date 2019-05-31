@@ -12,11 +12,12 @@ body{
 		    text-align: center!important;
 		    letter-spacing: 0.5px!important;
 		    border: none!important;
-		    border-radius: 2px!important;
+		    border-radius: 5px!important;
 		    height: 36px!important;
 		    line-height: 36px!important;
 		    padding: 0 16px!important;
-		    text-transform: uppercase!important;
+            text-transform: uppercase!important;
+            
 
 		    &:hover{
 		    	box-shadow: none!important;
@@ -33,9 +34,9 @@ body{
 		    text-align: center!important;
 		    letter-spacing: 0.5px!important;
 		    border: none!important;
-		    border-radius: 2px!important;
+		    border-radius: 5px!important;
 		    height: 36px!important;
-		    line-height: 36px!important;
+		    line-height: 20px!important;
 		    padding: 0 16px!important;
 		    text-transform: uppercase!important;
 
@@ -99,7 +100,7 @@ div.itemCollection {
 }
 
 .emoteIconExample{
-    color: $secondary-dark;
+    color: #685643;
     font-size: 3rem;
 }
 
@@ -187,3 +188,5 @@ div.itemCollection {
 .inputField{
     color: $secondary-dark !important;
 }
+
+
