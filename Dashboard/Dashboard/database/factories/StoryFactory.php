@@ -6,7 +6,8 @@ use App\Story;
 use Faker\Generator as Faker;
 
 $factory->define(Story::class, function (Faker $faker) {
-    $icons = ['candle', 'letter', 'paper', 'speaker', 'envaloppe', 'playButton'];
+    $icons = ['rat', 'envelope', 'binoculars', 'crownsPen', 'candle', 'yat'];
+
     return [
         'title' => $faker->realText(40),
         'description' => $faker->realText(),
