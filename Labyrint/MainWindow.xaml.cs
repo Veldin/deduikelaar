@@ -102,7 +102,7 @@ namespace Labyrint
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
 
-            command = new Command(CommandBar, CommandResponse);
+            command = new Command(this, CommandBar, CommandResponse);
 
             random = new Random();
 
@@ -215,7 +215,7 @@ namespace Labyrint
         }
 
 
-        private void TestBrowser()
+        public void TestBrowser()
         {
             //browser.Refresh();
             var str = "<html><head></head><body>sdf</body></html>";
@@ -340,7 +340,6 @@ namespace Labyrint
             MovePlayer();
 
         }
-
 
         private void Draw()
         {
@@ -654,9 +653,40 @@ namespace Labyrint
         /// </summary>
         public async void CloseApp()
         {
+            // Give the user feedback
+            Log.Info("Shutting down...");
+
+            // Sending the api the statsistics
             await ApiParserFacade.InformApiAsync();
+
+            // Save the settings
             SettingsFacade.Save();
-            this.Close();
+
+            // Close the application
+            System.Windows.Application.Current.Shutdown();
+            //this.Close();
+        }
+
+        /// <summary>
+        /// This method reset the controls by unpressing all keys and destroying all gameObjects that are needed for the controls
+        /// </summary>
+        public void ResetControls()
+        {
+            // Unpress all keys
+            pressedKeys.Clear();
+
+            // Loop through all the gameObjects
+            foreach (GameObject gameObject in gameObjects)
+            {
+                // Destroy it if its a controllerAnchor or an ControllerCursor
+                if (gameObject.BuilderType == "ControllerAncher" || gameObject.BuilderType == "ControllerCursor")
+                {
+                    gameObject.destroyed = true;
+                }
+            }
+
+            // Give programmer feedback
+            Log.Debug("Keys resetted");
         }
 
         /// <summary>

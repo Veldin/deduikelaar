@@ -10,7 +10,9 @@
 
     </head>
     <body>
-
+        <br />
+        <br />
+        <h2> Test insert</h2>
         <input type="text" name="title" id="title" /><br />
         <input type="icon" name="icon" id="icon" /><br />
         <input type="file" name="file" id="file" multiple /><br />
