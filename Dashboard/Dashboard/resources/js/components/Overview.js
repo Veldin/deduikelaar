@@ -7,8 +7,7 @@ class Overview extends Component {
     super();
 
     this.state = {
-      card: [],
-      feedbackTypesCount: null
+      card: []
     }
   }
 
@@ -19,8 +18,7 @@ class Overview extends Component {
         //set every prop ever needed...(sucks)
 
         this.setState({ 
-          card: responseJson,
-          feedbackTypesCount: responseJson[0]['feedback'].length
+          card: responseJson
         })
         console.log(this.state.card);
       })
@@ -48,9 +46,8 @@ class Overview extends Component {
               <Card 
                 key={key} 
                 storyID={item.storyId} 
-                title={item.storyId} 
-                active={item.active} 
-                feedbackTypesCount={this.state.feedbackTypesCount}
+                title={item.title} 
+                active={item.active}
                 cardInfo={[this.state.card]}
               />
             )}
