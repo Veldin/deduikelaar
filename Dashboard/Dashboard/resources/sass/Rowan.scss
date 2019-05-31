@@ -1,5 +1,49 @@
-.inputFields{
+body{
+	#toast-container{
+		top: 75%!important;
 
+		.toast-success{
+			background-image: none!important;
+			box-shadow: none!important;
+			opacity: 1!important;
+			text-decoration: none!important;
+		    color: #fff!important;
+		    background-color: #26a69a!important;
+		    text-align: center!important;
+		    letter-spacing: 0.5px!important;
+		    border: none!important;
+		    border-radius: 2px!important;
+		    height: 36px!important;
+		    line-height: 36px!important;
+		    padding: 0 16px!important;
+		    text-transform: uppercase!important;
+
+		    &:hover{
+		    	box-shadow: none!important;
+		    }
+		}
+
+		.toast-warning{
+			background-image: none!important;
+			box-shadow: none!important;
+			opacity: 1!important;
+			text-decoration: none!important;
+		    color: #fff!important;
+		    background-color: $accent-red!important;
+		    text-align: center!important;
+		    letter-spacing: 0.5px!important;
+		    border: none!important;
+		    border-radius: 2px!important;
+		    height: 36px!important;
+		    line-height: 36px!important;
+		    padding: 0 16px!important;
+		    text-transform: uppercase!important;
+
+		    &:hover{
+		    	box-shadow: none!important;
+		    }
+		}
+	}
 }
 
 .containerAddItem{
