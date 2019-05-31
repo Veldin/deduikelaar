@@ -106,11 +106,33 @@ namespace GameObjectFactory
 
                 gameObject.onTickList.Add(new FollowCameraBehaviour(val[0] as Camera));
                 gameObject.onTickList.Add(new SetToTargetBehaviour());
-                gameObject.onTickList.Add(new AddTextBlockBehaviour());
                 gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val[1]), Convert.ToInt32(val[2]), val[3] as WebBrowser));
 
+                gameObject.SetText("Button Text");
 
                 gameObject.setActiveBitmap("Assets/tile.gif");
+            }
+
+            if (wantToGet == "cover")       // value = new object[] { camera, storyId, anwserId, browser }
+            {
+                gameObject.Width = 1600;
+                gameObject.Height = 1600;
+
+                gameObject.highVisibility = true;
+
+                gameObject.MovementSpeed = 1200;
+                gameObject.Collition = false;
+
+                gameObject.SetOpacity(0);
+
+                gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
+                gameObject.onTickList.Add(new SetToTargetBehaviour());
+                gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
+
+
+                gameObject.SetText("Button Text");
+
+                gameObject.setActiveBitmap("Assets/Sprites/Black.gif");
             }
 
             if (wantToGet == "ControllerAncher")

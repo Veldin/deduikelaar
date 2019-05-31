@@ -10,9 +10,22 @@ namespace Labyrint
 {
     class MoveToTargetBehaviour : IBehaviour
     {
+        public Boolean pauzed;
+
+        public MoveToTargetBehaviour()
+        {
+            pauzed = false;
+        }
+
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
-            // Check if target if null, if so return false
+            //This behaviour can be pauzed by the pauzed boolean.
+            if (pauzed)
+            {
+                return false;
+            }
+
+            // Check if target if null, if so return false.
             if (gameobject.Target is null)
             {
                 return false;

@@ -18,17 +18,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Api\LabyrintApiController@documentation');
 Route::get('order', 'Api\LabyrintApiController@getOrder');
 Route::get('feedback', 'Api\LabyrintApiController@getFeedback');
+Route::post('feedback', 'Api\LabyrintApiController@returnFeedback');
 Route::get('statistics', 'Api\LabyrintApiController@getStatistics');
 
 
-Route::get('overview', 'Api\StoryController@getOverview');
-Route::get('stories', 'Api\StoryController@getStories');
-Route::get('test_story', 'Api\StoryController@testStory');
-Route::get('test', function(){
-    return view('test_story_view');
-});
-Route::POST('story', 'Api\StoryController@newStory');
-Route::patch('story/{storyId}', 'Api\StoryController@changeStory');
-Route::delete('story/{storyId}', 'Api\StoryController@deleteStory');
+Route::get('overview', 'Api\StoryApiController@getOverview');
+Route::get('stories', 'Api\StoryApiController@getStories');
+
+Route::get('story/{storyId}', 'Api\StoryApiController@getStory');
+Route::post('story', 'Api\StoryApiController@newStory');
+Route::post('story/{storyId}/change', 'Api\StoryApiController@changeStory');
+Route::delete('story/{storyId}', 'Api\StoryApiController@deleteStory');
+Route::get('story/{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
+    'active' => '(deactivate|activate)'
+]);
+
+Route::get('file/{fileId}', 'Api\LabyrintApiController@downloadFile');
 
 

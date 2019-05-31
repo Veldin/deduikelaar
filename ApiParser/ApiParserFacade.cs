@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using FileReaderWriterSystem;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace ApiParser
 {
@@ -55,6 +56,32 @@ namespace ApiParser
                 }
             }
         }
+
+        public static async Task InformApiAsync()
+        {
+            Log.Debug("bla");
+            // Create a New HttpClient object and dispose it when done, so the app doesn't leak resources
+            using (HttpClient client = new HttpClient())
+            {
+                // Call asynchronous network methods in a try/catch block to handle exceptions
+                try
+                {
+                    StringContent content = new StringContent(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json"), UnicodeEncoding.UTF8, "application/json");
+                    
+                    HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/v1/feedback", content);
+
+                    Log.Debug( await response.Content.ReadAsStringAsync());
+
+                    return;
+                }
+                catch (HttpRequestException e)
+                {
+                    Log.Warning("Api call failed. http://localhost:8000/api/v1/feedback can not be found.");
+                    return;
+                }
+            }
+        }
+
         /// <summary>
         /// Get the next ItemOrder
         /// </summary>
@@ -62,7 +89,6 @@ namespace ApiParser
         /// <returns>A ItemOrder which hold an storyId and a feedbackId</returns>
         public static ItemOrder NextItemOrder(int count = 0)
         {
-            Log.Debug("Try " + count.ToString());
             // Return null if this method has executed itself 10 times to prevent an infinite loop
             if (count > 2)
             {
@@ -358,6 +384,8 @@ namespace ApiParser
 
             // Convert the statistics list to json
             string json = JsonConvert.SerializeObject(statistics);
+
+
 
             // Write the json in a json file
             FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json", false);

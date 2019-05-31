@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Feedback;
+use App\File;
 use App\Http\Controllers\Controller;
 use App\Story;
+use App\StoryFeedback;
+use Illuminate\Http\Request;
 
 class LabyrintApiController extends Controller
 {
@@ -37,6 +40,10 @@ class LabyrintApiController extends Controller
     }
 
 
+    /**
+     * Get the order of the storyItems with the feedback
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOrder(){
 
         // Get the stories and feedback
@@ -184,6 +191,10 @@ class LabyrintApiController extends Controller
     }
 
 
+    /**
+     * Get feedback
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getFeedback(){
 
         $feedbacks = Feedback::with('feedbackItems')->get();
@@ -212,6 +223,10 @@ class LabyrintApiController extends Controller
         return  response()->json($data);
     }
 
+    /**
+     * Get statistics
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getStatistics(){
         if(isset($_GET['onlyActive'])){
             $stories = \App\Story::with('feedback')->where('active', 1)->get();
@@ -245,4 +260,73 @@ class LabyrintApiController extends Controller
     }
 
 
+    /**
+     * Save feedback
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function returnFeedback(Request $request){
+        $data = [];
+
+        // Check if the data can be read as JSON, return error when can't
+        if(!$request->isJson()){
+            $data['response'] = 'failed';
+            $data['errors'] = [
+                'Not send as JSON'
+            ];
+            return  response()->json($data);
+        }
+        // Loop through all given feedback
+        foreach ($request->json() as $feedback){
+
+            // Check if each has an storyId and an answerId
+            if(isset($feedback['storyId']) && isset($feedback['answerId'])){
+
+                // Save feedback
+                StoryFeedback::create([
+                    'storyId' => $feedback['storyId'],
+                    'feedbackId' => $feedback['answerId'],
+                ]);
+            }
+        }
+
+        // Return success
+        $data['response'] = 'success';
+        return  response()->json($data);
+    }
+
+    /**
+     * Download a file
+     * @param $fileId
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadFile($fileId){
+
+        // Get the file from the database
+        $file = File::find($fileId);
+
+        // Check if file is in the database
+        if(!$file){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'File not found'
+                ]
+            ]);
+        }
+
+        // Check if file exists
+        if(!file_exists(storage_path($file->path.$file->fileName))){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'File not found'
+                ]
+            ]);
+        }
+
+        // Return file to download
+        return response()->download(storage_path($file->path.$file->fileName), $file->realName);
+
+    }
 }

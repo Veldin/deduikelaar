@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -50,6 +51,8 @@ namespace GameObjectFactory
         protected float bottomDrawOffset;
 
         public Rectangle rectangle;
+        public TextBlock textBlock;
+
         public string assemblyName;
 
         public Random random;
@@ -112,8 +115,6 @@ namespace GameObjectFactory
             setActiveBitmap("Assets/redrand.png");
             location = "Assets/redrand.png";
             setActiveBitmap(location);
-
-            drawables = new List<FrameworkElement>();
         }
 
         public List<FrameworkElement> Drawables
@@ -613,12 +614,16 @@ namespace GameObjectFactory
             fromLeft = 0;
             fromTop = 0;
 
+            onTickList.Clear();
             onTickList = new List<IBehaviour>();
 
             destroyed = false;
 
             movementSpeed = 0;
             group = 0;
+
+            textBlock = null;
+            rectangle = null;
 
             try
             {
@@ -640,6 +645,65 @@ namespace GameObjectFactory
             setActiveBitmap("Assets/redrand.png");
             location = "Assets/redrand.png";
             setActiveBitmap(location);
+        }
+
+        public float GetOpacity()
+        {
+            float opacity = 1;
+            try
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    opacity = (float)rectangle.Opacity;
+                }));
+            }
+            catch
+            {
+
+            }
+
+            return opacity;
+        }
+
+        public void SetOpacity(float opacity)
+        {
+            try
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    rectangle.Opacity = opacity;
+                }));
+            }
+            catch
+            {
+                Log.Warning("Can't invoke Application.Current.Dispatcher.");
+                return;
+            }
+        }
+
+        public void SetText(string text)
+        {
+            if (textBlock is null)
+            {
+                try
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                    {
+                        textBlock = new TextBlock();
+                    }));
+                }
+                catch
+                {
+                    Log.Warning("Can't invoke Application.Current.Dispatcher.");
+                    return;
+                }
+            }
+
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                textBlock.Text = text;
+            }));
         }
 
         /* CollitionEffect */

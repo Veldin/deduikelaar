@@ -8,14 +8,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Name="mainWindow" Closing="MainWindow_Closing" 
 >
-    
+
     <Grid x:Name="LayoutRoot">
+
         <Viewbox Name="viewBox" KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" SizeChanged="SizeChanged" >
             <Canvas Margin="0" Width="1280" Height="720" Name="gameCanvas" />
         </Viewbox>
 
         <Viewbox Name="browserViewBox" Margin="10,10,10,10" RenderOptions.BitmapScalingMode="NearestNeighbor">
-            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200" Visibility="Hidden" />
+            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200" Visibility="Hidden" MouseEnter="Browser_MouseEnter" />
         </Viewbox>
 
         <StackPanel Orientation="Vertical">

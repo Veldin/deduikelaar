@@ -53,17 +53,32 @@ namespace Labyrint
                 // Give the feedback to the ApiParserFacade
                 ApiParserFacade.SaveFeedbackStatistic(storyId, answerId);
 
+                // Unpress all keys
+                pressedKeys.Clear();
+
                 // Invoke the Ui thread
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     browser.Visibility = Visibility.Hidden;
                 }));
 
+                // Destroy all existing buttons
                 foreach (GameObject gameObject in gameObjects)
                 {
-                    if (gameObject.BuilderType == "button")
+                    if (gameObject.BuilderType == "button" || gameObject.BuilderType == "cover" || gameObject.BuilderType == "ControllerAncher" || gameObject.BuilderType == "ControllerCursor")
                     {
                         gameObject.destroyed = true;
+                    }
+                    else
+                    {
+                        foreach (IBehaviour behaviour in gameObject.onTickList)
+                        {
+                            if (behaviour is MoveToTargetBehaviour)
+                            {
+                                MoveToTargetBehaviour moveToTargetBehaviour = behaviour as MoveToTargetBehaviour;
+                                moveToTargetBehaviour.pauzed = false;
+                            }
+                        }
                     }
                 }
             }

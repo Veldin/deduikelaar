@@ -63,7 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Behaviours\AddTextBlockBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\AnimateOpacityBehaviour.cs" />
     <Compile Include="Classes\Behaviours\ButtonCursorClickBehaviour.cs" />
     <Compile Include="Classes\Behaviours\HaveAStoryBehaviour.cs" />
     <Compile Include="Classes\Behaviours\FollowCameraBehaviour.cs" />
@@ -188,6 +188,9 @@
     <Resource Include="Assets\Sprites\Items\crownsPen.gif" />
     <Resource Include="Assets\Sprites\Items\envelope.gif" />
     <Resource Include="Assets\Sprites\Items\rat.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Black.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

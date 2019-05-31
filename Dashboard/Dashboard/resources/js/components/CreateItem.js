@@ -26,9 +26,9 @@ class CreateItem extends Component {
       showPopup3: false,
       showPopup4: false,
       text: [
-        {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke verhaal over gaat.'},
-        {title: 'Hier kan gekozen worden voor een bestaand bestand of om zelf een stuk te schrijven.'},
-        {title: 'Maak hier een eigen verhaal en voeg afbeeldingen toe indien gewenst.'},
+        {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke item over gaat.'},
+        {title: 'Hier kan gekozen worden voor een bestaand bestand toe te voegen of om zelf een stuk te schrijven.'},
+        {title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'},
         {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'}
       ]      
     }
@@ -166,13 +166,13 @@ class CreateItem extends Component {
                 <div className="input-field col s11">
                   <CKEditor
                       editor={ ClassicEditor }
-                      data="Typ hier een verhaal."
+                      data=" "
                       config={ {
                           toolbar: [ [ 'Heading' ], [ 'Bold' ], [ 'Italic' ], ['imageUpload'] ]
                       } }
                       onChange={ ( event, editor ) => {
-                          const data = editor.getData();
-                          this.editorHandler(data)
+                        const data = editor.getData();
+                        this.editorHandler(data)
                       } }
                   />
                 </div>
@@ -276,7 +276,7 @@ class CreateItem extends Component {
                         <p> {this.state.title} </p>
                       </div>
                       <div className="content">
-                        <p> {this.state.textArea} </p>
+                        <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
                       </div>
                       <div className="quiz">
                           <div className="quizQuestion1">

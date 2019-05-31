@@ -130,6 +130,10 @@ namespace Labyrint
                 case "who is a good boy?":
                     DisplayLine("Robin is good boy!");
                     break;
+                case "SettingsFacade.Save":
+                    ExecuteMethod("Settings.Settings.SettingsFacade.Save");
+                    DisplayLine("Settings saved to the .ini file.");
+                    break;
                 case "logFilter.clear":
                     logClass.Clear();
                     Log.Debug("logFilter cleared");
@@ -281,6 +285,7 @@ namespace Labyrint
             else
             {
                 commandBar.Visibility = Visibility.Visible;
+                commandBar.Focus();
                 commandResponse.Visibility = Visibility.Visible;
             }
         }
@@ -299,16 +304,8 @@ namespace Labyrint
             // If stringg is not empty write it in a textFile
             if (text != "")
             {
-
+                // Add it to the commandHistory
                 commandHistory.Add(text);
-                //// Add it to the commandHistory
-                //commandHistory.Insert(0, text);
-
-                //// If the index is not -1 increase the index by one
-                //if (historyIndex != -1)
-                //{
-                //    historyIndex++;
-                //}
 
                 FileReaderWriterFacade.WriteText(new string[] { text }, FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt", true);
             }
