@@ -13,7 +13,7 @@
     <br />
     <br />
     <h2>List of stories</h2>
-    <h3><a href="{{ url('') }}" >New Story</a></h3>
+    <h3><a href="{{ url('api/v1/testStory/new') }}" >New Story</a></h3>
     <table style="width: 90%;">
         <tr>
             <th style="text-align: left;">#</th>

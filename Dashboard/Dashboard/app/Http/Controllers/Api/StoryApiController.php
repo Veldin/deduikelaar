@@ -309,24 +309,68 @@ class StoryApiController extends Controller
         // TODO change texts and files
 
 
-        if($request->has("texts")){
-
+        if($request->has('texts')){
+            $texts = $request->get('texts');
+            foreach ($story->storyItems as $storyItem){
+                if(isset($texts[$storyItem->id])){
+                    $storyItem->text = $texts[$storyItem->id];
+                    $storyItem->update();
+                }
+            }
         }
-
-        if($request->has("remove")){
-            $remove = $request->get("remove");
-            foreach ($remove as $item){
-
+        if($request->has('newTexts')){
+            foreach ($request->get('newTexts') as $text){
+                if(strlen($texts) == 0) continue;
+                StoryItem::create([
+                    'storyId' => $story->id,
+                    'text' => $text
+                ]);
             }
         }
 
+        // Add files
+        if($request->has('files')){
+            $files = $request->file('files');
+            if($files){
 
-//        $title = $request->get('title');
-//        $icon = $request->get('icon');
-//        $description = $request->get('description');
-//        $texts = $request->get('texts');
-//        $files = $request->file('files');
+                foreach ($files as $file) {
 
+                    // Get file data
+                    $f = $file;
+                    $extension = $f->getClientOriginalExtension();
+                    $fn = $f->getClientOriginalName();
+
+                    // Create a new filename
+                    $filename = Carbon::now()->format('Ymdhis') . rand(11111111, 99999999) . '.' . $extension;
+
+                    // Save file
+                    $file->storeAs("/uploads/story/", $filename, 'local');
+
+                    // Create storyItem for this file
+                    $storyItem = StoryItem::create([
+                        'text' => null,
+                        'storyId' => $story->id
+                    ]);
+
+                    // Create file
+                    $file = File::create([
+                        'fileName' => $filename,
+                        'realName' => $fn,
+                        'fileType' => $f->getMimeType(),
+                        'extension' => $extension,
+                        'path' => 'app/uploads/story/',
+                        'storyItemId' => $storyItem->id
+                    ]);
+
+                    // Set story item text if the file is an docx file
+                    $text = $this->convertDocxFile($file);
+                    if($text != null){
+                        $storyItem->update(['text' => $text]);
+                    }
+                }
+            }
+        }
+        $story->update();
 
 
         return response()->json([

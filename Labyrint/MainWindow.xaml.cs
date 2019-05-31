@@ -196,6 +196,7 @@ namespace Labyrint
 
             onTickList = new List<IBehaviour>();
             onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
+            onTickList.Add(new SpawnNewItemsBehaviour(browser, camera, player));
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
@@ -329,8 +330,6 @@ namespace Labyrint
             {
                 if (gameObject.destroyed)
                 {
-                    //Do the deathrattle effect
-                    //gameObject.OnDeath(GameObjects, pressedKeys);
 
                     //If a gameObject is marked to be destroyed remove it from the list and remove them from the canvas
                     gameObjects.Remove(gameObject);

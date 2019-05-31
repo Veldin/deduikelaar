@@ -12,12 +12,23 @@
             table{
 
             }
+            table tr:hover td{
+                background: #EEEEEE;
+            }
             table tr td{
                 vertical-align: top;
+                padding: 5px 20px;
             }
             textarea{
-                width: 99%;
+                width: 400px;
                 height: 200px;
+                display: block;
+            }
+            img{
+                max-width: 200px;
+            }
+            input[type=file]{
+                display: block;
             }
         </style>
     </head>
@@ -50,22 +61,41 @@
             </tr>
             @foreach($story->storyItems as $storyItem)
             <tr id="storyItem{{ $storyItem->id }}">
-                <td></td>
+                <td>Story item #{{ $storyItem->id }}</td>
                 <td>
 
-                    @if(!$storyItem->file || ($storyItem->file && strlen($storyItem->text) > 0))
-                        <textarea name="texts[{{ $storyItem->id }}]" id="texts">{{ $storyItem->text }}</textarea>
-                    @endif
-                    @if($storyItem->file)
-                        <br />
-                        <a href="{{ url('api/v1/file/'.$storyItem->file->id) }}">Download</a>
-                        <br />
-                        <input type="file" name="files[{{ $storyItem->id }}]" />
+                    @if(!$storyItem->file)
+                        <textarea name="texts[{{ $storyItem->id }}]" class="text">{{ $storyItem->text }}</textarea>
+                    @else
+                        <a href="{{ url('api/v1/file/'.$storyItem->file->id) }}">
+                            @if(strpos($storyItem->file->fileType, 'image') !== false)
+                                <img src="{{ url('api/v1/file/'.$storyItem->file->id) }}" alt="{{ $storyItem->file->realName }}"/>
+                            @else
+                                {{ $storyItem->file->realName }}
+                            @endif
+
+                        </a>
                     @endif
                 </td>
-                <td><a href="#" id="delete" data-id="{{ $storyItem->id }}">Verwijder</a></td>
+                <td><button class="delete" data-id="{{ $storyItem->id }}">Verwijder</button></td>
             </tr>
             @endforeach
+            <tr>
+
+                <td>Texts</td>
+                <td id="texts">
+                    <textarea name="newTexts[]" class="text"></textarea>
+                </td>
+                <td><button id="addText">+</button></td>
+            </tr>
+            <tr>
+
+                <td>Upload</td>
+                <td id="files">
+                    <input type="file" name="files[]" class="file" />
+                </td>
+                <td><button id="addFile">+</button></td>
+            </tr>
             <tr>
                 <td></td>
                 <td><input type="button" id="save" value="Save"></td>
@@ -100,27 +130,41 @@
                     }
                 });
             });
+            $("#addFile").click(function(){
+                var f = document.createElement("input");
+                    f.setAttribute('type', 'file');
+                    f.setAttribute('class', 'file');
+                    f.setAttribute('name', 'files[]');
+                $("#files").append(f);
+            });
+            $("#addText").click(function(){
+                var f = document.createElement("textarea");
+                    f.setAttribute('class', 'text');
+                    f.setAttribute('name', 'newTexts[]');
+                $("#texts").append(f);
+            });
+            $('.delete').click(function(){
+                if(confirm("Weet u zeker dat u dit wilt verwijderen?")){
 
-            $('#delete').click(function(){
-
-                $.ajax({
-                    url: '/api/v1/storyItem/'+$(this).data("id"),
-                    type: 'DELETE',
-                    success: function(data)
-                    {
-                        // Remove from table
-                        if(data['storyItemId']){
-                            $("#storyItem"+data['storyItemId']).remove();
+                    $.ajax({
+                        url: '/api/v1/storyItem/'+$(this).data("id"),
+                        type: 'DELETE',
+                        success: function(data)
+                        {
+                            // Remove from table
+                            if(data['storyItemId']){
+                                $("#storyItem"+data['storyItemId']).remove();
+                            }
+                            console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            // Handle errors here
+                            console.log('ERRORS: ' + textStatus);
+                            // STOP LOADING SPINNER
                         }
-                        console.log(data);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown)
-                    {
-                        // Handle errors here
-                        console.log('ERRORS: ' + textStatus);
-                        // STOP LOADING SPINNER
-                    }
-                });
+                    });
+                }
             });
 
             $('#save').click(function(){
@@ -128,14 +172,33 @@
                 var formData = new FormData();
                 formData.append("title", $('#title').val());
                 formData.append("icon", $('#icon').val());
-                var filesInput = document.getElementById('file').files;
+                formData.append("description", $('#description').val());
+
+                $(".text").each(function(){
+                    formData.append(this.name, $(this).val());
+                });
+
+                // alleen javascript gebruikt als voorbeeld
+                var filesInput = document.querySelectorAll('.file');
                 for(var i=0;i<filesInput.length;i++){
-                    formData.append("files[]", filesInput[i]);
+                    var files = filesInput[i].files;
+                    var name = filesInput[i].name;
+                    for(var j=0;j<files.length;j++){
+                        formData.append(name, files[j]);
+                    }
                 }
 
-                console.log(formData);
+                // formData.forEach(function(val, key){
+                //     console.log(key + ": " + val);
+                // });
+                // Used javascript for test
+                // var filesInput = document.getElementById('file').files;
+                // for(var i=0;i<filesInput.length;i++){
+                //     formData.append("files[]", filesInput[i]);
+                // }
+
                 $.ajax({
-                    url: '/api/v1/story',
+                    url: '/api/v1/story/{{ $story->id }}/change',
                     type: 'POST',
                     data: formData,
                     cache: false,
@@ -143,6 +206,7 @@
                     contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                     success: function(data, textStatus, jqXHR)
                     {
+                        console.log(data);
                         // do something
                     },
                     error: function(jqXHR, textStatus, errorThrown)
