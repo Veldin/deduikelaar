@@ -25,7 +25,6 @@ namespace Labyrint
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<string> pressedKeys, float delta)
         {
             float Opacity = gameobject.GetOpacity();
-            Log.Debug(Opacity);
             if (Opacity < 0.5)
             {
                 currentDelta -= delta;

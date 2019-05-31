@@ -71,6 +71,7 @@
     <Compile Include="Classes\Behaviours\PickupCollisionBehavior.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PlayerSpriteBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\ScaleItemBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpaceButtonsHorisontallyBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpawnNewItemsBehaviour.cs" />

@@ -104,10 +104,9 @@ namespace GameObjectFactory
                 gameObject.MovementSpeed = 1200;
                 gameObject.Collition = false;
 
-                gameObject.FromLeft = 0;
-                gameObject.FromTop = 0;
+                gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop,val[0] as Camera));
 
-                gameObject.onTickList.Add(new FollowCameraBehaviour(val[0] as Camera));
+                //gameObject.onTickList.Add(new FollowCameraBehaviour(val[0] as Camera));
                 gameObject.onTickList.Add(new SetToTargetBehaviour());
                 gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val[1]), Convert.ToInt32(val[2]), val[3] as WebBrowser));
 
@@ -130,11 +129,13 @@ namespace GameObjectFactory
 
                 gameObject.SetOpacity(0);
 
-                gameObject.FromLeft = (value as Camera).GetFromLeft();
-                gameObject.FromTop = (value as Camera).GetFromTop();
+                //gameObject.FromLeft = (value as Camera).GetFromLeft();
+                //gameObject.FromTop = (value as Camera).GetFromTop();
 
                 //gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
-                //gameObject.onTickList.Add(new SetToTargetBehaviour());
+                gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, value as Camera));
+
+                gameObject.onTickList.Add(new SetToTargetBehaviour());
                 gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
 
                 gameObject.setActiveBitmap("Assets/Sprites/Black.gif");
