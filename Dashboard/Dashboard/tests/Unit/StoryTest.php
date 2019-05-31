@@ -33,9 +33,9 @@ class StoryTest extends TestCase
 
         $files = [
 //            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
-            UploadedFile::fake()->image('test1.jpg'),
-            UploadedFile::fake()->image('test2.jpg'),
-            UploadedFile::fake()->image('test3.jpg'),
+            UploadedFile::fake()->image('test1.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test2.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test3.jpg', 1920, 1080),
         ];
 
         $filename = 'Test document.docx';
