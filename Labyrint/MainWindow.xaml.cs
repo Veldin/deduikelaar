@@ -340,7 +340,6 @@ namespace Labyrint
 
         }
 
-
         private void Draw()
         {
             //Create a new arraylist used to hold the gameobjects for this loop.
@@ -655,7 +654,8 @@ namespace Labyrint
         {
             await ApiParserFacade.InformApiAsync();
             SettingsFacade.Save();
-            this.Close();
+            System.Windows.Application.Current.Shutdown();
+            //this.Close();
         }
 
         /// <summary>
@@ -665,5 +665,6 @@ namespace Labyrint
         {
             CloseApp();
         }
+
     }
 }
