@@ -509,8 +509,16 @@ namespace GameObjectFactory
 
             if (!bitmaps.ContainsKey(Location))
             {
-                Log.Debug("pack://application:,,,/" + assemblyName + ";component/" + Location);
-                BitmapImage newBitmap = new BitmapImage(new Uri("pack://application:,,,/" + assemblyName + ";component/" + Location, UriKind.Absolute));
+                Log.Debug("Loading: pack://application:,,,/" + assemblyName + ";component/" + Location);
+                BitmapImage newBitmap;
+                try {
+                    newBitmap = new BitmapImage(new Uri("pack://application:,,,/" + assemblyName + ";component/" + Location, UriKind.Absolute));
+                }
+                catch
+                {
+                    newBitmap = new BitmapImage(new Uri("pack://application:,,,/" + assemblyName + ";component/Assets/Sprites/missingTexture.gif", UriKind.Absolute));
+                    Log.Warning("Bitmap " + Location + " was not found.");
+                }
                 bitmaps.Add(Location, newBitmap);
 
                 return newBitmap;
@@ -637,7 +645,7 @@ namespace GameObjectFactory
                 Log.Warning("Can't invoke Application.Current.Dispatcher.");
             }
 
-            this.health = 0;
+            health = 0;
 
             assemblyName = "Labyrint";
             //Default location of the sprite.

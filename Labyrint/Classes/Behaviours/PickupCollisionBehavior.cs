@@ -101,15 +101,21 @@ namespace Labyrint
                                     browser.Visibility = Visibility.Visible;
                                 }));
 
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",-800,-600,camera));
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0,camera));
 
-                                for (int i = 0; i < question.anwsers.Count; i++)
+                                lock (gameObjects)
                                 {
-                                    GameObject gameObject = GameObjectFactoryFacade.GetGameObject("button", i * 100 - (100), i, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser});
+                                    GameObject toAdd = null;
+                                    for (int i = 0; i < question.anwsers.Count; i++)
+                                    {
+                                        toAdd = null;
+                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", i * 100 - (100), i, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
 
-                                    gameObject.SetText(question.anwsers[i].response);
+                                        toAdd.SetText(question.anwsers[i].response);
 
-                                    gameObjects.Add(gameObject);   
+                                        gameObjects.Add(toAdd);
+                                        
+                                    }
                                 }
                             }
                         }                        
