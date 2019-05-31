@@ -14,8 +14,12 @@ namespace Labyrint
         private readonly float destinationFromLeft;
         private readonly float destinationFromTop;
 
+        //The movementspeed the gameobjects gets if they are anchord to the target.
+        private readonly int moveSpeedModifier;
+
         //The pickup floats around an anchor.
         private GameObject anchor;
+        private bool moveSpeedModifierApplied;
 
         /// <summary>
         /// Initializes a new instance of the pickupTargetBehaviour.
@@ -26,6 +30,9 @@ namespace Labyrint
         {
             this.destinationFromLeft = destinationFromLeft;
             this.destinationFromTop = destinationFromTop;
+
+            moveSpeedModifier = 200;
+            moveSpeedModifierApplied = false;
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
@@ -67,30 +74,41 @@ namespace Labyrint
             //If the absolute difference is high (when its out of the screen) place the object closer.
             if (diffFromTopAbs > 300 || diffFromLeftAbs > 550)
             {
+                if (!moveSpeedModifierApplied)
+                {
+                    gameobject.MovementSpeed += moveSpeedModifier;
+                    moveSpeedModifierApplied = true;
+                }
+
                 gameobject.Target.SetFromLeft(destinationFromLeft + (diffFromLeft));
                 //Place it to the left or right of the player depending on what side the item is.
                 if (diffFromLeft > 0)
                 {
-                    gameobject.Target.AddFromLeft((percentageFromTop * -1) * 2);
+                    gameobject.Target.AddFromLeft((percentageFromTop * -1) * 3);
                 }
                 else
                 {
-                    gameobject.Target.AddFromLeft(percentageFromTop * 2);
+                    gameobject.Target.AddFromLeft(percentageFromTop * 3);
                 }
 
                 gameobject.Target.SetFromTop(destinationFromTop + (diffFromTop));
                 //Place it to the left or right of the player depending on what side the item is.
                 if (diffFromTop > 0)
                 {
-                    gameobject.Target.AddFromTop(percentageFromLeft * -1);
+                    gameobject.Target.AddFromTop((percentageFromLeft * -1) * 3);
                 }
                 else
                 {
-                    gameobject.Target.AddFromTop(percentageFromLeft);
+                    gameobject.Target.AddFromTop(percentageFromLeft * 3);
                 }
             }
             else
             {
+                if (moveSpeedModifierApplied)
+                {
+                    gameobject.MovementSpeed -= moveSpeedModifier;
+                    moveSpeedModifierApplied = false;
+                }
                 //If the object is close anough set its target to its destination
                 gameobject.Target.SetFromLeft(destinationFromLeft);
                 gameobject.Target.SetFromTop(destinationFromTop);
