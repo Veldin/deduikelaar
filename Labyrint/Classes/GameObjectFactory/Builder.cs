@@ -111,7 +111,7 @@ namespace GameObjectFactory
                 gameObject.onTickList.Add(new SetToTargetBehaviour());
                 gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val[1]), Convert.ToInt32(val[2]), val[3] as WebBrowser));
 
-                gameObject.SetText("Button Text");
+                //gameObject.SetText("Button Text");
 
                 //gameObject.setActiveBitmap("Assets/tile.gif");
             }

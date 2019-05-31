@@ -116,15 +116,15 @@ namespace Labyrint
                                     {
                                         case "\\u1F603": // smile head
                                             Log.Debug("smiliy");
-                                            gameobject.setActiveBitmap("Assets/Sprites/Answers/smile.gif");
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/happy.gif");
                                             break;
                                         case "\\u1F92F": // expl head
                                             Log.Debug("smiliy");
-                                            gameobject.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
                                             break;
                                         case "\\u1F634": // sleepy head
                                             Log.Debug("smiliy");
-                                            gameobject.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
                                             break;
                                         default:
                                             Log.Debug("text");
