@@ -192,5 +192,10 @@
   <ItemGroup>
     <Resource Include="Assets\Sprites\Black.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\answers\angry.gif" />
+    <Resource Include="Assets\Sprites\answers\happy.gif" />
+    <Resource Include="Assets\Sprites\answers\sad.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

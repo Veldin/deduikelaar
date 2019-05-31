@@ -78,7 +78,6 @@ namespace GameObjectFactory
                 gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
                 gameObject.Collition = false;
-                gameObject.setActiveBitmap("Assets/tile.gif");
             }
 
             if (wantToGet == "tile")
@@ -110,7 +109,7 @@ namespace GameObjectFactory
 
                 gameObject.SetText("Button Text");
 
-                gameObject.setActiveBitmap("Assets/tile.gif");
+                //gameObject.setActiveBitmap("Assets/tile.gif");
             }
 
             if (wantToGet == "cover")       // value = new object[] { camera, storyId, anwserId, browser }

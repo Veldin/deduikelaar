@@ -107,7 +107,27 @@ namespace Labyrint
                                 {
                                     GameObject gameObject = GameObjectFactoryFacade.GetGameObject("button", i * 100 - (100), i, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser});
 
-                                    gameObject.SetText(question.anwsers[i].response);
+                                    Log.Debug(question.anwsers[i].response);
+                                    switch (question.anwsers[i].response)
+                                    {
+                                        case "\\u1F603": // smile head
+                                            Log.Debug("smiliy");
+                                            gameobject.setActiveBitmap("Assets/Sprites/Answers/smile.gif");
+                                            break;
+                                        case "\\u1F92F": // expl head
+                                            Log.Debug("smiliy");
+                                            gameobject.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
+                                            break;
+                                        case "\\u1F634": // sleepy head
+                                            Log.Debug("smiliy");
+                                            gameobject.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
+                                            break;
+                                        default:
+                                            Log.Debug("text");
+                                            gameObject.SetText(question.anwsers[i].response);
+                                            break;
+                                    }
+                                    
 
                                     gameObjects.Add(gameObject);   
                                 }

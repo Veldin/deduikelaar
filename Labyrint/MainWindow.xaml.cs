@@ -301,20 +301,28 @@ namespace Labyrint
                 }
             }
 
-            //Set the new curser location
-            Application.Current.Dispatcher.Invoke((Action)delegate
+            try
             {
-                try
+                //Set the new curser location
+                Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    Point p = Mouse.GetPosition(gameCanvas);
-                    cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
-                    cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
-                }
-                catch
-                {
-                    Log.Warning("Could not find pointer location");
-                }
-            });
+                    try
+                    {
+                        Point p = Mouse.GetPosition(gameCanvas);
+                        cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
+                        cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
+                    }
+                    catch
+                    {
+                        Log.Warning("Could not find pointer location");
+                    }
+                });
+            }
+            catch
+            {
+                Log.Warning("Could not invoke thread");
+            }
+            
 
             //Destory old objects
             foreach (GameObject gameObject in loopList)
