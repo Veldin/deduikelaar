@@ -19,7 +19,7 @@ class CreateItem extends Component {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
       isChecked: true,
-      editorContent: '',
+      editorContent: 'kgjh',
       file: null,
       showPopup1: false,
       showPopup2: false,
@@ -94,7 +94,7 @@ class CreateItem extends Component {
     fetch('/api/v1/story', {
         method: 'POST',
         cache: "no-cache",
-        body: 'title='+createItemForm.title.value+'&icon='+createItemForm.item.value+'&texts='+this.state.editorContent+'&files='+this.state.file,
+        body: '&title='+createItemForm.title.value+'&icon='+createItemForm.item.value+'&texts='+this.state.editorContent+'&files='+this.state.file,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },

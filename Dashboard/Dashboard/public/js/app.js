@@ -65718,7 +65718,7 @@ function (_Component) {
       title: 'Vul hier de titel in',
       textArea: 'Vul hier de tekst in',
       isChecked: true,
-      editorContent: '',
+      editorContent: 'kgjh',
       file: null,
       showPopup1: false,
       showPopup2: false,
@@ -65809,6 +65809,7 @@ function (_Component) {
         method: 'POST',
         cache: "no-cache",
         body: 'title=' + createItemForm.title.value + '&icon=' + createItemForm.item.value + '&texts=' + this.state.editorContent + '&files=' + this.state.file,
+
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -66432,8 +66433,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

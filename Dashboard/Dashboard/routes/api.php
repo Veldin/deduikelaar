@@ -29,6 +29,9 @@ Route::get('story/{storyId}', 'Api\StoryApiController@getStory');
 Route::post('story', 'Api\StoryApiController@newStory');
 Route::post('story/{storyId}/change', 'Api\StoryApiController@changeStory');
 Route::delete('story/{storyId}', 'Api\StoryApiController@deleteStory');
+Route::get('story/{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
+    'active' => '(deactivate|activate)'
+]);
 
 Route::get('file/{fileId}', 'Api\LabyrintApiController@downloadFile');
 

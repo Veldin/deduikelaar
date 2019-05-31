@@ -45,6 +45,8 @@ class Story extends Model
                  $data[$question->id] = [
                      'id' => $question->id,
                      'question' => $question->question,
+                     'extraInfo' => $question->extraInfo,
+                     'feedbackType' => $question->feedbackType,
                      'feedback' => []
                  ];
              }
