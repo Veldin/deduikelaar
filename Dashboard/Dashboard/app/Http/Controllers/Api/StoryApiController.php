@@ -320,7 +320,7 @@ class StoryApiController extends Controller
         }
         if($request->has('newTexts')){
             foreach ($request->get('newTexts') as $text){
-                if(strlen($texts) == 0) continue;
+                if(strlen($text) == 0) continue;
                 StoryItem::create([
                     'storyId' => $story->id,
                     'text' => $text

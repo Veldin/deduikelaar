@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
 
         }else{
 
+            // Wat was je gevoel hierbij?
             $feedback = Feedback::create([
                 'question' => 'Wat was je gevoel hierbij?',
                 'extraInfo' => '',
@@ -51,11 +52,12 @@ class DatabaseSeeder extends Seeder
                 'feedbackId' => $feedback->id
             ]);
 
+            // Was het goed leesbaar?
             $feedback = Feedback::create([
-                'question' => 'Was het duidelijk voor jou?',
+                'question' => 'Was het goed leesbaar?',
                 'extraInfo' => '',
                 'feedbackType' => 'ja/nee',
-                'oneWord' => 'Duidelijkheid'
+                'oneWord' => 'Leesbaar'
             ]);
 
             $feedbackItems[] = FeedbackItem::create([
@@ -67,9 +69,53 @@ class DatabaseSeeder extends Seeder
                 'feedback' => 'Nee',
                 'feedbackId' => $feedback->id
             ]);
+
+            // Hoe interessant vond je het?
+            $feedback = Feedback::create([
+                'question' => 'Hoe interessant vond je het?',
+                'extraInfo' => '',
+                'feedbackType' => 'tekst',
+                'oneWord' => 'Interessant'
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Eg interessant',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Interessant',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Minder interessant',
+                'feedbackId' => $feedback->id
+            ]);
+
+            // Hoe goed heb jij het begrepen?
+            $feedback = Feedback::create([
+                'question' => 'Hoe goed heb jij het begrepen?',
+                'extraInfo' => '',
+                'feedbackType' => 'tekst',
+                'oneWord' => 'Duidelijkheid'
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Grotendeels begrepen',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Begrepen',
+                'feedbackId' => $feedback->id
+            ]);
+
+            $feedbackItems[] = FeedbackItem::create([
+                'feedback' => 'Niet begrepen',
+                'feedbackId' => $feedback->id
+            ]);
         }
-
-
 
 
         factory(Story::class, 20)->create()->each(function (Story $story) use ($feedbackItems) {
