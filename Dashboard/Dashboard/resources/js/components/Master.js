@@ -4,7 +4,9 @@ import { Router, Route, Link } from 'react-router';
 class Master extends Component {
 
   componentDidMount() {
-    document.getElementById("overview").click();
+    if(window.location.pathname == '/'){
+      document.getElementById("overview").click();
+    }
   }
 
   render(){

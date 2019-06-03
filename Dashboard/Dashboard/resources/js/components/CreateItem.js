@@ -90,28 +90,16 @@ class CreateItem extends Component {
 
   insertItem(e) {
     e.preventDefault();
-    // var formData =
+
     var formData = new FormData();
     formData.append("title", createItemForm.title.value);
     formData.append("icon", createItemForm.item.value);
     formData.append("texts[]", this.state.editorContent);
     var filesInput = this.state.files;
-    // formData.append("files[]", filesInput);
+
     for(var i=0;i<filesInput.length;i++){
       formData.append("files[]", filesInput[i]);
     }
-    // var url = '/api/v1/story';
-    // var p = post(url, formData,{
-    //   headers: {
-    //     'content-type': 'multipart/form-data'
-    //   }
-    // });
-    // console.log(p);
-
-    //var request = new XMLHttpRequest();
-    // request.open('POST', '/my/url', true);
-    // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    // request.send(data);
 
     fetch('/api/v1/story', {
         method: 'POST',
