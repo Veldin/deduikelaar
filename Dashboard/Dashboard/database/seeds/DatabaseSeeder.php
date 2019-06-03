@@ -3,10 +3,15 @@
 use App\Feedback;
 use App\FeedbackItem;
 use App\File;
+use App\Http\Controllers\Api\StoryApiController;
 use App\Story;
 use App\StoryFeedback;
 use App\StoryItem;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -117,8 +122,18 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $filename = 'Test document.docx';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
 
-        factory(Story::class, 20)->create()->each(function (Story $story) use ($feedbackItems) {
+        $file = [
+            'path' => $file_path,
+            'name' => $filename,
+            'extension' => 'docx',
+            'type' => $finfo->file($file_path)
+        ];
+
+        factory(Story::class, 20)->create()->each(function (Story $story) use ($file, $feedbackItems) {
 
             for($i=0; $i<rand(0,1000);$i++){
                 //
@@ -133,9 +148,32 @@ class DatabaseSeeder extends Seeder
                     'storyId' => $story->id
                 ]);
                 if(rand(0,5) < 2){
-                    factory(File::class)->create([
-                        'storyItemId' => $storyItem->id
-                    ]);
+
+//                    var_dump($file);
+                    if($file){
+
+                        // Create a new filename
+                        $newFilename = Carbon::now()->format('Ymdhis') . rand(11111111, 99999999) . '.' . $file['extension'];
+
+                        Illuminate\Support\Facades\File::copy($file['path'],storage_path("app/uploads/story/".$newFilename));
+
+                        // Create file
+                        $f = File::create([
+                            'fileName' => $newFilename,
+                            'realName' => $file['name'],
+                            'fileType' => $file['type'],
+                            'extension' => $file['extension'],
+                            'path' => 'app/uploads/story/',
+                            'storyItemId' => $storyItem->id
+                        ]);
+
+                        // Set story item text if the file is an docx file
+                        $text = StoryApiController::convertDocxFile($f);
+                        if($text != null){
+                            $storyItem->update(['text' => $text]);
+                        }
+                    }
+
                 }
 
             }
