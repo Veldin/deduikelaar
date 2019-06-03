@@ -43,12 +43,12 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $feedbackItems[] = FeedbackItem::create([
-                'feedback' => '\u1F634',
+                'feedback' => '\u1F620',
                 'feedbackId' => $feedback->id
             ]);
 
             $feedbackItems[] = FeedbackItem::create([
-                'feedback' => '\u1F92F',
+                'feedback' => '\u1F622',
                 'feedbackId' => $feedback->id
             ]);
 
