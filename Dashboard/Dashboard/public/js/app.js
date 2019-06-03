@@ -65722,7 +65722,7 @@ function (_Component) {
       textArea: 'Vul hier de tekst in',
       isChecked: true,
       editorContent: 'kgjh',
-      file: null,
+      files: null,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -65765,7 +65765,7 @@ function (_Component) {
     key: "setFile",
     value: function setFile(e) {
       this.setState({
-        file: e.target.files[0]
+        files: e.target.files
       });
     }
   }, {
@@ -65806,15 +65806,32 @@ function (_Component) {
   }, {
     key: "insertItem",
     value: function insertItem(e) {
-      e.preventDefault();
-      console.log(this.state.file);
+      e.preventDefault(); // var formData =
+
+      var formData = new FormData();
+      formData.append("title", createItemForm.title.value);
+      formData.append("icon", createItemForm.item.value);
+      formData.append("texts[]", this.state.editorContent);
+      var filesInput = this.state.files; // formData.append("files[]", filesInput);
+
+      for (var i = 0; i < filesInput.length; i++) {
+        formData.append("files[]", filesInput[i]);
+      } // var url = '/api/v1/story';
+      // var p = post(url, formData,{
+      //   headers: {
+      //     'content-type': 'multipart/form-data'
+      //   }
+      // });
+      // console.log(p);
+      //var request = new XMLHttpRequest();
+      // request.open('POST', '/my/url', true);
+      // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      // request.send(data);
+
+
       fetch('/api/v1/story', {
         method: 'POST',
-        cache: "no-cache",
-        body: '&title=' + createItemForm.title.value + '&icon=' + createItemForm.item.value + '&texts=' + this.state.editorContent + '&files=' + this.state.file,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        body: formData
       }).then(function (response) {
         return response.json();
       }).then(function (response) {
@@ -65925,7 +65942,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Bestand"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "uploadFileButton",
         onChange: this.setFile.bind(this),
-        type: "file"
+        type: "file",
+        multiple: true
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-path-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -66143,6 +66161,11 @@ function (_Component) {
   }
 
   _createClass(Master, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.getElementById("overview").click();
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66173,7 +66196,8 @@ function (_Component) {
         activeClassName: "col s12 navigationItem active",
         to: "/overview"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "navigationItemText"
+        className: "navigationItemText",
+        id: "overview"
       }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "col s12 navigationItem",
         activeClassName: "col s12 navigationItem active",

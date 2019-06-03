@@ -34,6 +34,7 @@ const card = (props) => {
     .then(response => {
       if(response['response'] == "success"){
         toastr.success('dit item is verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        window.location.href = "/overview";
       }else{
         toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
       }
