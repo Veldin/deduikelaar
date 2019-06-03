@@ -228,31 +228,34 @@ class LabyrintApiController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function getStatistics(){
-        if(isset($_GET['onlyActive'])){
-            $stories = \App\Story::with('feedback')->where('active', 1)->get();
-        }else{
-            $stories = \App\Story::with('feedback')->get();
-        }
-        $data = [];
-        foreach ($stories as $story){
-            $feedback = [];
-            foreach ($story->feedback as $feedbackItem){
-                if(isset($feedback[$feedbackItem->id])){
-                    $feedback[$feedbackItem->id]['count']++;
-                }else{
-                    $feedback[$feedbackItem->id] = [
-                        'feedbackId' => $feedbackItem->id,
-                        'answer' => $feedbackItem->feedback,
-                        'count' => 1
-                    ];
-                }
 
+        // Get all feedbacks
+        $feedbacks = Feedback::with('feedbackItems', 'feedbackItems.storyFeedback')->get();
+
+        $data = [];
+        foreach ($feedbacks as $feedback) {
+            $feedbackItemData = [];
+
+            // Set feedback item data
+            foreach ($feedback->feedbackItems as $feedbackItem){
+
+                // Get json data
+                $feedbackItemJson = $feedbackItem->getJson();
+
+                // Count given feedback
+                $feedbackItemJson['count'] = $feedbackItem->storyFeedback->count();
+
+                $feedbackItemData[] = $feedbackItemJson;
             }
+
+            // Set feedback data
             $data[] = [
-                'storyId' => $story->id,
-                'title' => $story->title,
-                'active' => $story->active,
-                'feedback' => $feedback
+                'id' => $feedback->id,
+                'question' => $feedback->question,
+                'extraInfo' => $feedback->extraInfo,
+                'feedbackType' => $feedback->feedbackType,
+                'oneWord' => $feedback->oneWord,
+                'feedback' => $feedbackItemData
             ];
         }
 

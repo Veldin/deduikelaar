@@ -29,7 +29,11 @@ class StoryApiController extends Controller
         $data = [];
 
         // Get all stories
-        $stories = \App\Story::with('feedback')->get();
+        if(isset($_GET['onlyActive'])){
+            $stories = \App\Story::with('feedback')->where('active', 1)->get();
+        }else{
+            $stories = \App\Story::with('feedback')->get();
+        }
 
         // Get all feedback items
         $feedbacks = \App\Feedback::with('feedbackItems')->get();
