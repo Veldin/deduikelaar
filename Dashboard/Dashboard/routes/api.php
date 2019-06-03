@@ -13,7 +13,10 @@
 */
 
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 Route::get('/', 'Api\LabyrintApiController@documentation');
 Route::get('order', 'Api\LabyrintApiController@getOrder');
@@ -47,4 +50,25 @@ Route::get('story/{storyId}/{active}', 'Api\StoryApiController@storyChangeActive
 
 Route::get('file/{fileId}', 'Api\LabyrintApiController@downloadFile');
 
+Route::get('database/refresh', function(){
 
+    if(Schema::hasTable('migrations')){
+        $migration = DB::table('migrations')->orderBy('batch', 'DESC')->first();
+
+        for($i=0;$i<$migration->batch;$i++){
+            try{
+                Artisan::call('migrate:rollback');
+            }catch (Exception $e){
+
+            }
+        }
+    }
+
+
+    Artisan::call('migrate');
+    Artisan::call('db:seed');
+});
+
+Route::get('database/fill', function(){
+    Artisan::call('db:seed');
+});
