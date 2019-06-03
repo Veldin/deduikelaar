@@ -65591,32 +65591,6 @@ var card = function card(props) {
     });
   }
 
-  var feedback = [];
-
-  for (var i = 0; i < props.cardInfo; i++) {
-    feedback.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s3"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gevoel:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s9"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      data: [{
-        value: 10,
-        description: 'oke',
-        color: "#ff0043"
-      }, {
-        value: 4,
-        description: 'oke',
-        color: "#77c6a0"
-      }, {
-        value: 8,
-        description: 'oke',
-        color: "#8391a5"
-      }]
-    })))));
-  }
-
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12 m4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65649,7 +65623,32 @@ var card = function card(props) {
     className: "card-title"
   }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row feedback"
-  }, feedback))));
+  }, props.cardInfo.map(function (cardValue, cardIndex) //console.log(item[key]['feedback'])
+  {
+    cardValue[cardIndex]['feedback'].map(function (OuterFeedbackValue, OuterFeedbackIndex) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, OuterFeedbackValue['question'])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s9"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        data: [{
+          value: 10,
+          description: 'oke',
+          color: "#ff0043"
+        }, {
+          value: 4,
+          description: 'oke',
+          color: "#77c6a0"
+        }, {
+          value: 8,
+          description: 'oke',
+          color: "#8391a5"
+        }]
+      }))));
+    });
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (card);
@@ -66153,8 +66152,6 @@ function (_Component) {
   _createClass(Master, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(window.location.pathname);
-
       if (window.location.pathname == '/') {
         document.getElementById("overview").click();
       }

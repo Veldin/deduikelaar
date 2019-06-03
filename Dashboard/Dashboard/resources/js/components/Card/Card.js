@@ -40,28 +40,6 @@ const card = (props) => {
       }
     })
   }
-  
-  var feedback = [];
-  for (var i = 0; i < props.cardInfo; i++) {
-    feedback.push(
-      <div>
-        <div className="col s3">
-          <p>Gevoel:</p>
-        </div>
-        <div className="col s9">
-          <div className="bar">
-           <HSBar
-            data={[
-              { value: 10, description: 'oke', color: "#ff0043" },
-              { value: 4, description: 'oke', color: "#77c6a0" },
-              { value: 8, description: 'oke', color: "#8391a5" }
-            ]}
-          />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (        
     <div className="col s12 m4">
@@ -90,7 +68,27 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
-            {feedback}
+            {props.cardInfo.map((cardValue, cardIndex) =>
+              //console.log(item[key]['feedback'])
+              {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
+                <div>
+                  <div className="col s3">
+                    <p>{OuterFeedbackValue['question']}</p>
+                  </div>
+                  <div className="col s9">
+                    <div className="bar">
+                     <HSBar
+                      data={[
+                        { value: 10, description: 'oke', color: "#ff0043" },
+                        { value: 4, description: 'oke', color: "#77c6a0" },
+                        { value: 8, description: 'oke', color: "#8391a5" }
+                      ]}
+                    />
+                    </div>
+                  </div>
+                </div>
+              )}            
+            )}
           </div>
          </div>
       </div>
