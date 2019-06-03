@@ -65581,6 +65581,7 @@ var card = function card(props) {
           positionClass: "toast-bottom-right",
           timeOut: 40000
         });
+        window.location.href = "/overview";
       } else {
         toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('dit item is al verwijderd', '', {
           positionClass: "toast-bottom-right",
@@ -65806,28 +65807,16 @@ function (_Component) {
   }, {
     key: "insertItem",
     value: function insertItem(e) {
-      e.preventDefault(); // var formData =
-
+      e.preventDefault();
       var formData = new FormData();
       formData.append("title", createItemForm.title.value);
       formData.append("icon", createItemForm.item.value);
       formData.append("texts[]", this.state.editorContent);
-      var filesInput = this.state.files; // formData.append("files[]", filesInput);
+      var filesInput = this.state.files;
 
       for (var i = 0; i < filesInput.length; i++) {
         formData.append("files[]", filesInput[i]);
-      } // var url = '/api/v1/story';
-      // var p = post(url, formData,{
-      //   headers: {
-      //     'content-type': 'multipart/form-data'
-      //   }
-      // });
-      // console.log(p);
-      //var request = new XMLHttpRequest();
-      // request.open('POST', '/my/url', true);
-      // request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-      // request.send(data);
-
+      }
 
       fetch('/api/v1/story', {
         method: 'POST',
@@ -65839,6 +65828,7 @@ function (_Component) {
 
         if (response['response'] == "success") {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
+          window.location.href = "/overview";
         } else {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
@@ -66163,7 +66153,11 @@ function (_Component) {
   _createClass(Master, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      document.getElementById("overview").click();
+      console.log(window.location.pathname);
+
+      if (window.location.pathname == '/') {
+        document.getElementById("overview").click();
+      }
     }
   }, {
     key: "render",
@@ -66279,7 +66273,6 @@ function (_Component) {
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
-        //set every prop ever needed...(sucks)
         _this2.setState({
           card: responseJson
         });
