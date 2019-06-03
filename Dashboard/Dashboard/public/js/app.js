@@ -65570,14 +65570,6 @@ var card = function card(props) {
   // const percentageEmoteThreeDOM = {
   //   width: percentageEmoteThree
   // };
-  var string1 = "";
-
-  for (var property1 in props.cardInfo) {
-    string1 += props.cardInfo[property1];
-  }
-
-  console.log(JSON.parse(string1));
-
   function deleteItem() {
     fetch('/api/v1/story/' + props.storyID, {
       method: 'DELETE'
@@ -65600,7 +65592,7 @@ var card = function card(props) {
 
   var feedback = [];
 
-  for (var i = 0; i < props.feedbackTypesCount; i++) {
+  for (var i = 0; i < props.cardInfo; i++) {
     feedback.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col s3"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gevoel:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65654,7 +65646,7 @@ var card = function card(props) {
     className: "col s12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "card-title"
-  }, props.title, props.storyID))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row feedback"
   }, feedback))));
 };
@@ -66250,8 +66242,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
-      card: [],
-      feedbackTypesCount: null
+      card: []
     };
     return _this;
   }
@@ -66266,8 +66257,7 @@ function (_Component) {
       }).then(function (responseJson) {
         //set every prop ever needed...(sucks)
         _this2.setState({
-          card: responseJson,
-          feedbackTypesCount: responseJson[0]['feedback'].length
+          card: responseJson
         });
 
         console.log(_this2.state.card);
@@ -66301,9 +66291,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: key,
           storyID: item.storyId,
-          title: item.storyId,
+          title: item.title,
           active: item.active,
-          feedbackTypesCount: _this3.state.feedbackTypesCount,
           cardInfo: [_this3.state.card]
         });
       }))));
@@ -66448,8 +66437,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

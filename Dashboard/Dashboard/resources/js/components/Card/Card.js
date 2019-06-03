@@ -26,12 +26,6 @@ const card = (props) => {
   //   width: percentageEmoteThree
   // };
 
-  var string1 = "";
-  for (var property1 in props.cardInfo) {
-    string1 += props.cardInfo[property1];
-  }
-
-  console.log(props.cardInfo);
   function deleteItem() {
     fetch('/api/v1/story/'+props.storyID,{
       method: 'DELETE',
@@ -47,7 +41,7 @@ const card = (props) => {
   }
   
   var feedback = [];
-  for (var i = 0; i < props.feedbackTypesCount; i++) {
+  for (var i = 0; i < props.cardInfo; i++) {
     feedback.push(
       <div>
         <div className="col s3">
@@ -91,7 +85,7 @@ const card = (props) => {
           </div>
           <div className="row">
             <div className="col s12">
-               <span className="card-title">{props.title}{props.storyID}</span>
+               <span className="card-title">{props.title}</span>
             </div>
           </div>
           <div className="row feedback">
