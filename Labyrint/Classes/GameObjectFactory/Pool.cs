@@ -10,11 +10,19 @@ namespace GameObjectFactory
     {
         public GameObject[] pool;
 
+        /// <summary>
+        /// Creates a pool.
+        /// </summary>
+        /// <param name="poolsize">The size of the pool created. Default value is 50.</param>
         public Pool(int poolsize = 50)
         {
             Populate(poolsize);
         }
 
+        /// <summary>
+        /// Get a gameObject from the pool. The place the gameObject was wil be emptyd.
+        /// </summary>
+        /// <returns>An gameobject from the pool.</returns>
         public GameObject GetGameObject()
         {
             //Console.WriteLine("getting");
@@ -24,10 +32,6 @@ namespace GameObjectFactory
                 {
                     GameObject needle = pool[i];
                     pool[i] = null;
-
-                    //Console.WriteLine("getting " + needle.id);
-
-                    //needle.Test();
 
                     return needle;
                 }
@@ -60,13 +64,18 @@ namespace GameObjectFactory
             return this.GetGameObject();
         }
 
+        /// <summary>
+        /// Return a gameObject to the pool. The gameObject gets reset here too.
+        /// </summary>
+        /// <param name="target">The GameObject to return.</param>
         public void ReturnGameObject(GameObject target)
         {
-            //Console.WriteLine("return" + target.id);
             for (int i = 0; i < pool.Length; i++)
             {
+                //If the space in te pool is available
                 if (pool[i] == null)
                 {
+                    //reset the item and place it in the pool
                     ResetGameObject(target);
                     pool[i] = target;
                     return;
@@ -74,11 +83,19 @@ namespace GameObjectFactory
             }
         }
 
+        /// <summary>
+        /// Calls a gameObject to reset itself.
+        /// </summary>
+        /// <param name="target">The gameObject reset is called on</param>
         private void ResetGameObject(GameObject target)
         {
             target.Reset();
         }
 
+        /// <summary>
+        /// Populates the pool.
+        /// </summary>
+        /// <param name="poolsize">The desired pool size.</param>
         private void Populate(int poolsize)
         {
             if (pool == null)
