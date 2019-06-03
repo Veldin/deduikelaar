@@ -65570,14 +65570,6 @@ var card = function card(props) {
   // const percentageEmoteThreeDOM = {
   //   width: percentageEmoteThree
   // };
-  var string1 = "";
-
-  for (var property1 in props.cardInfo) {
-    string1 += props.cardInfo[property1];
-  }
-
-  console.log(JSON.parse(string1));
-
   function deleteItem() {
     fetch('/api/v1/story/' + props.storyID, {
       method: 'DELETE'
@@ -65589,6 +65581,7 @@ var card = function card(props) {
           positionClass: "toast-bottom-right",
           timeOut: 40000
         });
+        window.location.href = "/overview";
       } else {
         toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('dit item is al verwijderd', '', {
           positionClass: "toast-bottom-right",
@@ -65596,32 +65589,6 @@ var card = function card(props) {
         });
       }
     });
-  }
-
-  var feedback = [];
-
-  for (var i = 0; i < props.feedbackTypesCount; i++) {
-    feedback.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s3"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gevoel:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s9"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      data: [{
-        value: 10,
-        description: 'oke',
-        color: "#ff0043"
-      }, {
-        value: 4,
-        description: 'oke',
-        color: "#77c6a0"
-      }, {
-        value: 8,
-        description: 'oke',
-        color: "#8391a5"
-      }]
-    })))));
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65654,9 +65621,34 @@ var card = function card(props) {
     className: "col s12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "card-title"
-  }, props.title, props.storyID))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row feedback"
-  }, feedback))));
+  }, props.cardInfo.map(function (cardValue, cardIndex) //console.log(item[key]['feedback'])
+  {
+    cardValue[cardIndex]['feedback'].map(function (OuterFeedbackValue, OuterFeedbackIndex) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, OuterFeedbackValue['question'])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s9"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        data: [{
+          value: 10,
+          description: 'oke',
+          color: "#ff0043"
+        }, {
+          value: 4,
+          description: 'oke',
+          color: "#77c6a0"
+        }, {
+          value: 8,
+          description: 'oke',
+          color: "#8391a5"
+        }]
+      }))));
+    });
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (card);
@@ -65730,7 +65722,7 @@ function (_Component) {
       textArea: 'Vul hier de tekst in',
       isChecked: true,
       editorContent: 'kgjh',
-      file: null,
+      files: null,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -65773,7 +65765,7 @@ function (_Component) {
     key: "setFile",
     value: function setFile(e) {
       this.setState({
-        file: e.target.files[0]
+        files: e.target.files
       });
     }
   }, {
@@ -65815,14 +65807,19 @@ function (_Component) {
     key: "insertItem",
     value: function insertItem(e) {
       e.preventDefault();
-      console.log(this.state.file);
+      var formData = new FormData();
+      formData.append("title", createItemForm.title.value);
+      formData.append("icon", createItemForm.item.value);
+      formData.append("texts[]", this.state.editorContent);
+      var filesInput = this.state.files;
+
+      for (var i = 0; i < filesInput.length; i++) {
+        formData.append("files[]", filesInput[i]);
+      }
+
       fetch('/api/v1/story', {
         method: 'POST',
-        cache: "no-cache",
-        body: '&title=' + createItemForm.title.value + '&icon=' + createItemForm.item.value + '&texts=' + this.state.editorContent + '&files=' + this.state.file,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        body: formData
       }).then(function (response) {
         return response.json();
       }).then(function (response) {
@@ -65830,6 +65827,7 @@ function (_Component) {
 
         if (response['response'] == "success") {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
+          window.location.href = "/overview";
         } else {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
@@ -65933,7 +65931,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Bestand"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "uploadFileButton",
         onChange: this.setFile.bind(this),
-        type: "file"
+        type: "file",
+        multiple: true
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-path-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -66151,6 +66150,13 @@ function (_Component) {
   }
 
   _createClass(Master, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (window.location.pathname == '/') {
+        document.getElementById("overview").click();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66181,7 +66187,8 @@ function (_Component) {
         activeClassName: "col s12 navigationItem active",
         to: "/overview"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "navigationItemText"
+        className: "navigationItemText",
+        id: "overview"
       }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "col s12 navigationItem",
         activeClassName: "col s12 navigationItem active",
@@ -66250,8 +66257,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
-      card: [],
-      feedbackTypesCount: null
+      card: []
     };
     return _this;
   }
@@ -66264,10 +66270,8 @@ function (_Component) {
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
-        //set every prop ever needed...(sucks)
         _this2.setState({
-          card: responseJson,
-          feedbackTypesCount: responseJson[0]['feedback'].length
+          card: responseJson
         });
 
         console.log(_this2.state.card);
@@ -66301,9 +66305,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: key,
           storyID: item.storyId,
-          title: item.storyId,
+          title: item.title,
           active: item.active,
-          feedbackTypesCount: _this3.state.feedbackTypesCount,
           cardInfo: [_this3.state.card]
         });
       }))));
@@ -66448,8 +66451,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
