@@ -296,30 +296,34 @@ class CreateItem extends Component {
                           </div>
                       </div>
 
-                      <p>Welke emotie wekte dit verhaal bij jou op?</p>
-                      <div className="feedback">
-                        <div className="emoOne">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faSmile} />
-                            </div>
-                        </div>
-                        <div className="emoTwo">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faSadTear} />
-                            </div>
-                        </div>
-                        <div className="emoThree">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faAngry} />
-                            </div>
-                        </div>
-                      </div>
+                      
 
-                  </div>
+             
 
                 </div>
               </div>
             </div>
+
+            <p>Welke emotie wekte dit verhaal bij jou op?</p>
+                      <div className="feedback">
+                        <div className="emoOne">
+                            <div className="col s4 emoteIconExample">
+                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                            </div>
+                        </div>
+                        <div className="emoTwo">
+                            <div className="col s4 emoteIconExample">
+                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                            </div>
+                        </div>
+                        <div className="emoThree">
+                            <div className="col s4 emoteIconExample">
+                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                            </div>
+                        </div>
+                      </div>
+
+                      </div>
           </div>
           
         </div>
