@@ -122,6 +122,7 @@ class CreateItem extends Component {
 
         if(response['response'] == "success"){
           toastr.success('Het item is toegevoegd!')
+          window.location.href = "/overview";
         }else{
           toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         }

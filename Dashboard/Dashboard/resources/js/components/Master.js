@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
 
 class Master extends Component {
+
+  componentDidMount() {
+    document.getElementById("overview").click();
+  }
+
   render(){
     return (
       <div>
@@ -21,7 +26,7 @@ class Master extends Component {
           <div className="row content">
             <div className="col s2 navigationContainer">
               <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
-                <span className="navigationItemText">Overzicht</span>
+                <span className="navigationItemText" id="overview">Overzicht</span>
               </Link>
               <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/see-example">
                 <span className="navigationItemText">Statestieken</span>
