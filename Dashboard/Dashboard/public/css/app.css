@@ -116,6 +116,10 @@
   border-radius: 7px;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 body #toast-container {
   top: 75% !important;
 }

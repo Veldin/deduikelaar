@@ -65842,6 +65842,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugins/CustomUploadAdapter.js */ "./resources/js/components/plugins/CustomUploadAdapter.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65859,6 +65860,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -65908,6 +65910,14 @@ function (_Component) {
   }
 
   _createClass(CreateItem, [{
+    key: "customAdapterPlugin",
+    value: function customAdapterPlugin(editor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+        // Configure the URL to the upload script in your back-end here!
+        return new _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_8__["default"](loader);
+      };
+    }
+  }, {
     key: "changeState",
     value: function changeState(event) {
       this.setState({
@@ -65980,8 +65990,10 @@ function (_Component) {
       formData.append("texts[]", this.state.editorContent);
       var filesInput = this.state.files;
 
-      for (var i = 0; i < filesInput.length; i++) {
-        formData.append("files[]", filesInput[i]);
+      if (filesInput) {
+        for (var i = 0; i < filesInput.length; i++) {
+          formData.append("files[]", filesInput[i]);
+        }
       }
 
       fetch('/api/v1/story', {
@@ -65993,10 +66005,8 @@ function (_Component) {
         console.log(response);
 
         if (response['response'] == "success") {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!'); //window.location.href = "/overview";
-          // this.setState({
-          //   removed: !this.state.removed
-          // });
+          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
+          window.location.href = "/overview";
         } else {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
@@ -66073,7 +66083,8 @@ function (_Component) {
         editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default.a,
         data: " ",
         config: {
-          toolbar: [['Heading'], ['Bold'], ['Italic'], ['imageUpload']]
+          toolbar: [['Heading'], ['Bold'], ['Italic'], ['imageUpload']],
+          extraPlugins: [this.customAdapterPlugin]
         },
         onChange: function onChange(event, editor) {
           var data = editor.getData();
@@ -66659,6 +66670,67 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Statistics);
+
+/***/ }),
+
+/***/ "./resources/js/components/plugins/CustomUploadAdapter.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/plugins/CustomUploadAdapter.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+
+var CustomUploadAdapter =
+/*#__PURE__*/
+function () {
+  function CustomUploadAdapter(loader) {
+    _classCallCheck(this, CustomUploadAdapter);
+
+    // The file loader instance to use during the upload. It sounds scary but do not
+    // worry — the loader will be passed into the adapter later on in this guide.
+    this.loader = loader;
+  } // Starts the upload process.
+
+
+  _createClass(CustomUploadAdapter, [{
+    key: "upload",
+    value: function upload() {
+      return this.loader.file.then(function (file) {
+        return new Promise(function (resolve, reject) {
+          var reader = new FileReader();
+
+          reader.onload = function (event) {
+            resolve({
+              "default": event.target.result
+            });
+          };
+
+          reader.readAsDataURL(file);
+        });
+      });
+    }
+  }]);
+
+  return CustomUploadAdapter;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (CustomUploadAdapter);
 
 /***/ }),
 
