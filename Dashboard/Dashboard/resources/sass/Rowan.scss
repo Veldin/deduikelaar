@@ -163,9 +163,15 @@ div.itemCollection {
     color: $secondary-dark;
 }
 
+.itemImage img{
+    height: 180px;
+    width: auto;
+    padding: 15px;
+}
+
 // example 
 
-.itemImage img{
+.buttonsFeedback img{
     width: 170px;
     height: auto;
     padding: 5px !important;

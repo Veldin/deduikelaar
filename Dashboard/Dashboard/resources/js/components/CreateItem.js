@@ -128,7 +128,6 @@ class CreateItem extends Component {
 
       return (
       <div className="container-fluid containerAddItem">
-
         <div className="row">
 
           <div className="col s5 inputFields">
@@ -272,58 +271,46 @@ class CreateItem extends Component {
           </div>
 
 
-
           <div className="col s7 example">
             <div className="col s12 background">
               <div className="col s12">
                 <div className=" exampleCard">
 
                   <div className="all">
-                      <div className="title">
-                        <p> {this.state.title} </p>
+                    <div className="title">
+                      <p> {this.state.title} </p>
+                    </div>
+                    <div className="content">
+                      <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
+                    </div>
+                    <div className="quiz">
+                      <div className="quizQuestion1">
                       </div>
-                      <div className="content">
-                        <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
+                      <div className="quizQuestion2">
                       </div>
-                      <div className="quiz">
-                          <div className="quizQuestion1">
-                          </div>
-                          <div className="quizQuestion2">
-                          </div>
-                          <div className="quizQuestion3">
-                          </div>
-                          <div className="quizQuestion4">
-                          </div>
+                      <div className="quizQuestion3">
                       </div>
-
-                      
-
-             
-
+                      <div className="quizQuestion4">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              <p>Welke emotie wekte dit verhaal bij jou op?</p>
+              <div className="feedback">
+                <div className="col s4">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+                <div className="col s4">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+                <div className="col s4">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+              </div>
+
             </div>
-
-            <p>Welke emotie wekte dit verhaal bij jou op?</p>
-                      <div className="feedback">
-                        <div className="emoOne">
-                            <div className="col s4 emoteIconExample">
-                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
-                            </div>
-                        </div>
-                        <div className="emoTwo">
-                            <div className="col s4 emoteIconExample">
-                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
-                            </div>
-                        </div>
-                        <div className="emoThree">
-                            <div className="col s4 emoteIconExample">
-                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
-                            </div>
-                        </div>
-                      </div>
-
-                      </div>
           </div>
           
         </div>
