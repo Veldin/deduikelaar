@@ -306,6 +306,29 @@ div.items {
   color: #e7edf2 !important;
 }
 
+.statisticsFilter {
+  color: #8391a5;
+  height: 75px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.statisticsLabel {
+  margin-left: 0 !important;
+}
+
+.titleStat {
+  color: #8391a5;
+  display: flex;
+  justify-content: center;
+}
+
+.chart {
+  padding: 0 8% !important;
+}
+
 .materialize-red {
   background-color: #e51c23 !important;
 }

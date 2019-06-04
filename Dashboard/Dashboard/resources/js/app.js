@@ -15,7 +15,7 @@ render(
         <Route path="/" component={Master} >
         	<Route path="/overview" component={Overview} />
             <Route path="/add-item" component={CreateItem} />
-            <Route path="/see-example" component={Statistics} />
+            <Route path="/statistics" component={Statistics} />
         </Route>
     </Router>,
 document.getElementById('superContainer'));
