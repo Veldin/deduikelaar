@@ -200,5 +200,20 @@
     <Resource Include="Assets\Sprites\answers\sad.gif" />
     <Resource Include="Assets\Sprites\missingTexture.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\letterBackground_800.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Letters\LetterNorth_640_586_128.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Letters\LetterSouth_640_586_128.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Letters\LetterEast_800_468_128.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Letters\LetterWest_800_468_128.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -101,13 +101,13 @@ namespace Labyrint
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
+            camera.GenerateHeightAndWidth();
 
             command = new Command(this, CommandBar, CommandResponse);
 
             random = new Random();
 
             browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath()));      //Inits a new navigate call
-
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -153,35 +153,14 @@ namespace Labyrint
             this.Cursor = Cursors.None;
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
-            //player.Target = new Target(500,500);
-            //player.Target = new Target(player);
-            //Debug.WriteLine(player.Target.FromLeft());
-            //player.Target.AddFromLeft(20000);
-            //player.Target.AddFromTop(20000);
-
-            //Debug.WriteLine(player.Target.FromLeft());
-
+            //Innits the GameObject list
             gameObjects = new List<GameObject>();
 
             gameObjects.Add(player);
             gameObjects.Add(cursor);
 
 
-            //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", 300, 300));
-
-
-            for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
-            {
-                for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
-                {
-                    if (!MazeFacade.IsWall(fromLeft, fromTop))
-                    {
-                        //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("pickup", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
-                    }
-                }
-            }
-
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 DropNewPickup();
             }
@@ -193,7 +172,6 @@ namespace Labyrint
             backgroundObjects = new List<GameObject>();
             populateBackgroundObject();
 
-
             onTickList = new List<IBehaviour>();
             onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
             onTickList.Add(new SpawnNewItemsBehaviour(browser, camera, player));
@@ -204,7 +182,9 @@ namespace Labyrint
             renderDistance = SettingsFacade.Get("RenderDistance", 1200);//Desired max fps.
 
             TestBrowser();
-            
+
+            camera.GenerateHeightAndWidth();
+
             fps = SettingsFacade.Get("fps", 999);//Desired max fps.
             interval = 1000 / fps;
 

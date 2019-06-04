@@ -39,6 +39,7 @@ namespace Labyrint
                 loopList.AddRange(gameObjects);
             }
 
+
             foreach (GameObject needle in loopList)
             {
                 if (needle != null && needle.BuilderType == "player" && gameobject.IsColliding(needle))
@@ -101,7 +102,45 @@ namespace Labyrint
                                     browser.Visibility = Visibility.Visible;
                                 }));
 
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0,camera));
+                                object[] arguments = new object[3];
+                                //val[0] should contain a Camera
+                                //val[1] should contain the orientation (True is horizontal, false is vertical)
+                                //val[2] Compas Direction - north / east / south / west
+                                arguments[0] = camera;
+
+
+
+                                //GameObject 
+
+
+                                //Log.Debug( letterTest.Width / camera.GetWidth());
+                                //Log.Debug(camera.GetWidth() - letterTest.Width);
+
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0, camera));
+
+                                /*
+                                //Bottom Centre
+                                arguments[1] = true; //Orientation
+                                arguments[2] = "South"; //Compas Direction
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 37.50f, 50, arguments));
+
+                                //Left
+                                arguments[1] = false; //Orientation
+                                arguments[2] = "West"; //Compas Direction
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 6.25f, 33.33f, arguments));
+
+                                //Top Centre
+                                arguments[1] = true; //Orientation
+                                arguments[2] = "North"; //Compas Direction
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 37.50f, 8.33f, arguments));
+
+                                //Right
+                                arguments[1] = false; //Orientation
+                                arguments[2] = "East"; //Compas Direction
+                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 62.50f, 33.33f, arguments));
+                                */
+
+
 
                                 lock (gameObjects)
                                 {

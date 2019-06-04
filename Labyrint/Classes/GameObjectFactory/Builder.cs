@@ -1,5 +1,6 @@
 ﻿using CameraSystem; //For items that follow the camera
 using Labyrint;
+using LogSystem;
 using Maze;
 using Settings;
 using System;
@@ -117,8 +118,6 @@ namespace GameObjectFactory
 
             if (wantToGet == "cover")       // value = new object[] { camera, storyId, anwserId, browser }
             {
-
-                
                 gameObject.Width = (value as Camera).GetWidth();
                 gameObject.Height = (value as Camera).GetHeight();
 
@@ -139,6 +138,58 @@ namespace GameObjectFactory
                 gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
 
                 gameObject.setActiveBitmap("Assets/Sprites/Black.gif");
+            }
+
+
+            if (wantToGet == "letter")       // value = new object[] { camera, storyId, anwserId, browser }
+            {
+                object[] val = value as object[];
+                //val[0] should contain a Camera
+                //val[1] should contain the orientation (True is horizontal, false is vertical)
+                //val[2] Compas Direction - north / east / south / west
+
+                if (Convert.ToBoolean(val[1]))
+                {
+                    gameObject.Width = (val[0] as Camera).GetWidth() * 0.25f; // The Width is 4 / 16 of the camera
+                    gameObject.Height = (val[0] as Camera).GetHeight() * 0.416666f; // The Height is 5 / 12 of the camera
+                }
+                else
+                {
+                    gameObject.Width = (val[0] as Camera).GetWidth() * 0.3125f; // The Width is 5 / 16 of the camera
+                    gameObject.Height = (val[0] as Camera).GetHeight() * 0.3333333f; // The Height is 4 / 12 of the camera
+                }
+                Log.Debug((4f / 16f));
+
+                Log.Debug(Convert.ToBoolean(val[1]));
+
+                Log.Debug(gameObject.Width);
+
+                //gameObject.Height = gameObject.Width * 1.125f;
+
+                gameObject.highVisibility = true;
+
+                gameObject.MovementSpeed = 1200;
+                gameObject.Collition = false;
+
+
+                //gameObject.FromLeft = (value as Camera).GetFromLeft();
+                //gameObject.FromTop = (value as Camera).GetFromTop();
+
+                //gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
+                gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val[0] as Camera));
+
+                gameObject.onTickList.Add(new SetToTargetBehaviour());
+                //gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
+
+                //val[1] should contain the orientation (True is horizontal, false is vertical)
+                if (!Convert.ToBoolean(val[1]))
+                {
+                    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter"+ val[2] + "_800_468_128.gif");
+                }
+                else
+                {
+                    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val[2] + "_640_586_128.gif");
+                }
             }
 
             if (wantToGet == "ControllerAncher")
