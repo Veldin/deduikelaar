@@ -65723,6 +65723,7 @@ function (_Component) {
       isChecked: true,
       editorContent: 'kgjh',
       files: null,
+      removed: 0,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -65826,8 +65827,10 @@ function (_Component) {
         console.log(response);
 
         if (response['response'] == "success") {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
-          window.location.href = "/overview";
+          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!'); //window.location.href = "/overview";
+          // this.setState({
+          //   removed: !this.state.removed
+          // });
         } else {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }

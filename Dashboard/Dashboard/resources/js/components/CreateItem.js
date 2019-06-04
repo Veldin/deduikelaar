@@ -21,6 +21,7 @@ class CreateItem extends Component {
       isChecked: true,
       editorContent: 'kgjh',
       files: null,
+      removed: 0,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -110,7 +111,10 @@ class CreateItem extends Component {
 
         if(response['response'] == "success"){
           toastr.success('Het item is toegevoegd!')
-          window.location.href = "/overview";
+          //window.location.href = "/overview";
+          // this.setState({
+          //   removed: !this.state.removed
+          // });
         }else{
           toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         }
