@@ -22,7 +22,6 @@ namespace ApiParser
             SaveStoriesAsync();
             SaveQuestionsAsync();
 
-
             // Fill all the static collections from the json files
             AddStatistics();
             AddItemOrder();
@@ -59,7 +58,6 @@ namespace ApiParser
 
         public static async Task InformApiAsync()
         {
-            Log.Debug("bla");
             // Create a New HttpClient object and dispose it when done, so the app doesn't leak resources
             using (HttpClient client = new HttpClient())
             {
@@ -218,30 +216,33 @@ namespace ApiParser
         /// </summary>
         public static void AddItemOrder()
         {
-            // Clear the list to make sure it is empty
-            itemOrders.Clear();
-           
-            // Read the json file with the itemorder
-            string json = FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\ItemOrder.json");
-
-            // IsEmpty check
-            if (json == null || json.Length < 5)
+            lock (itemOrders)
             {
-                Log.Warning("ItemOrder.json is missing or empty");
-                return;
-            }
+                // Clear the list to make sure it is empty
+                itemOrders.Clear();
 
-            // Convert the json to ItemOrder objects
-            Queue<ItemOrder> val = JsonConvert.DeserializeObject<Queue<ItemOrder>>(json);
+                // Read the json file with the itemorder
+                string json = FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\ItemOrder.json");
 
-            // Enqueue all itemOrders in the queue
-            foreach (ItemOrder i in val)
-            {
-                itemOrders.Enqueue(i);
+                // IsEmpty check
+                if (json == null || json.Length < 5)
+                {
+                    Log.Warning("ItemOrder.json is missing or empty");
+                    return;
+                }
+
+                // Convert the json to ItemOrder objects
+                Queue<ItemOrder> val = JsonConvert.DeserializeObject<Queue<ItemOrder>>(json);
+
+                // Enqueue all itemOrders in the queue
+                foreach (ItemOrder i in val)
+                {
+                    itemOrders.Enqueue(i);
+                }
+
+                // Give the programmer feedback
+                Log.Debug(itemOrders.Count + " itemOrder(s) added");
             }
-            
-            // Give the programmer feedback
-            Log.Debug(itemOrders.Count + " itemOrder(s) added");
         }
 
         /// <summary>
@@ -384,14 +385,28 @@ namespace ApiParser
 
             // Convert the statistics list to json
             string json = JsonConvert.SerializeObject(statistics);
-
-
-
+            
             // Write the json in a json file
             FileReaderWriterFacade.WriteText(new string[] { json }, FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json", false);
 
             // Give the programmer feedback
             Log.Debug("statistics saved");
+        }
+
+        /// <summary>
+        /// This method returns whether the itemOrder queue is empty or not 
+        /// </summary>
+        /// <returns>Returns whether the itemOrder queue is empty or not </returns>
+        public static bool IsItemOrdersEmpty()
+        {
+            if (itemOrders.Count == 0)
+            {
+                Log.Debug("ItemOrders is empty");
+                return true;
+            }
+
+            Log.Debug("ItemOrders is not empty");
+            return false;
         }
 
     }

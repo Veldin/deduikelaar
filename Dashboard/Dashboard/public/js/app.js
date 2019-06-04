@@ -65463,6 +65463,17 @@ module.exports = "/images/kroontjesPen2.png?7fa88e8e6989d099ed0734f7996eeba4";
 
 /***/ }),
 
+/***/ "./public/images/poststamp2.png":
+/*!**************************************!*\
+  !*** ./public/images/poststamp2.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/poststamp2.png?77a150ab31ada8b69554b7a3149a3220";
+
+/***/ }),
+
 /***/ "./public/images/rat2.png":
 /*!********************************!*\
   !*** ./public/images/rat2.png ***!
@@ -65591,32 +65602,6 @@ var card = function card(props) {
     });
   }
 
-  var feedback = [];
-
-  for (var i = 0; i < props.cardInfo; i++) {
-    feedback.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s3"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gevoel:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s9"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      data: [{
-        value: 10,
-        description: 'oke',
-        color: "#ff0043"
-      }, {
-        value: 4,
-        description: 'oke',
-        color: "#77c6a0"
-      }, {
-        value: 8,
-        description: 'oke',
-        color: "#8391a5"
-      }]
-    })))));
-  }
-
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12 m4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65649,7 +65634,32 @@ var card = function card(props) {
     className: "card-title"
   }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row feedback"
-  }, feedback))));
+  }, props.cardInfo.map(function (cardValue, cardIndex) //console.log(item[key]['feedback'])
+  {
+    cardValue[cardIndex]['feedback'].map(function (OuterFeedbackValue, OuterFeedbackIndex) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, OuterFeedbackValue['question'])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s9"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        data: [{
+          value: 10,
+          description: 'oke',
+          color: "#ff0043"
+        }, {
+          value: 4,
+          description: 'oke',
+          color: "#77c6a0"
+        }, {
+          value: 8,
+          description: 'oke',
+          color: "#8391a5"
+        }]
+      }))));
+    });
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (card);
@@ -65724,6 +65734,7 @@ function (_Component) {
       isChecked: true,
       editorContent: 'kgjh',
       files: null,
+      removed: 0,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -65827,8 +65838,10 @@ function (_Component) {
         console.log(response);
 
         if (response['response'] == "success") {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
-          window.location.href = "/overview";
+          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!'); //window.location.href = "/overview";
+          // this.setState({
+          //   removed: !this.state.removed
+          // });
         } else {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
@@ -66048,15 +66061,11 @@ function (_Component) {
         onClick: this.insertItem.bind(this),
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s7 example"
+        className: "col s7 exampleSide"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s12 background"
+        className: "row exampleCard"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s12"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " exampleCard"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "all"
+        className: "allContent"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "title"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", this.state.title, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66075,27 +66084,27 @@ function (_Component) {
         className: "quizQuestion3"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quizQuestion4"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "feedback"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoOne"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSmile"]
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row feedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "buttonsFeedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoTwo"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSadTear"]
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "buttonsFeedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoThree"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faAngry"]
-      })))))))))));
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "buttonsFeedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
+      })))))));
     }
   }]);
 
@@ -66153,8 +66162,6 @@ function (_Component) {
   _createClass(Master, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(window.location.pathname);
-
       if (window.location.pathname == '/') {
         document.getElementById("overview").click();
       }
@@ -66454,8 +66461,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

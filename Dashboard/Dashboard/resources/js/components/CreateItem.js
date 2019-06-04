@@ -23,6 +23,7 @@ class CreateItem extends Component {
       isChecked: true,
       editorContent: 'kgjh',
       files: null,
+      removed: 0,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -106,11 +107,9 @@ class CreateItem extends Component {
     formData.append("title", createItemForm.title.value);
     formData.append("icon", createItemForm.item.value);
     formData.append("texts[]", this.state.editorContent);
-
     var filesInput = this.state.files;
 
     if(filesInput){
-
       for(var i=0;i<filesInput.length;i++){
         formData.append("files[]", filesInput[i]);
       }
@@ -124,8 +123,8 @@ class CreateItem extends Component {
         console.log(response);
 
         if(response['response'] == "success"){
-          toastr.success('Het item is toegevoegd!')
-          // window.location.href = "/overview";
+          toastr.success('Het item is toegevoegd!');
+          window.location.href = "/overview";
         }else{
           toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         }
@@ -143,7 +142,6 @@ class CreateItem extends Component {
 
       return (
       <div className="container-fluid containerAddItem">
-
         <div className="row">
 
           <div className="col s5 inputFields">
@@ -197,7 +195,6 @@ class CreateItem extends Component {
                         const data = editor.getData();
                         this.editorHandler(data)
                       } }
-
                   />
                 </div>
                 <div className="question questionOwnText col s1">
@@ -289,55 +286,46 @@ class CreateItem extends Component {
           </div>
 
 
+          <div className="col s7 exampleSide">
 
-          <div className="col s7 example">
-            <div className="col s12 background">
-              <div className="col s12">
-                <div className=" exampleCard">
-
-                  <div className="all">
-                      <div className="title">
-                        <p> {this.state.title} </p>
-                      </div>
-                      <div className="content">
-                        <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
-                      </div>
-                      <div className="quiz">
-                          <div className="quizQuestion1">
-                          </div>
-                          <div className="quizQuestion2">
-                          </div>
-                          <div className="quizQuestion3">
-                          </div>
-                          <div className="quizQuestion4">
-                          </div>
-                      </div>
-
-                      <p>Welke emotie wekte dit verhaal bij jou op?</p>
-                      <div className="feedback">
-                        <div className="emoOne">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faSmile} />
-                            </div>
-                        </div>
-                        <div className="emoTwo">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faSadTear} />
-                            </div>
-                        </div>
-                        <div className="emoThree">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faAngry} />
-                            </div>
-                        </div>
-                      </div>
-
+            <div className="row exampleCard">
+              <div className="allContent">
+                <div className="title">
+                  <p> {this.state.title} </p>
+                </div>
+                <div className="content">
+                  <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
+                </div>
+                <div className="quiz">
+                  <div className="quizQuestion1">
                   </div>
-
+                  <div className="quizQuestion2">
+                  </div>
+                  <div className="quizQuestion3">
+                  </div>
+                  <div className="quizQuestion4">
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div className="row feedback">
+              <p>Welke emotie wekte dit verhaal bij jou op?</p>
+                <div className="col s4">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+                <div className="col s4">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+                <div className="col s4">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+            </div>
+
           </div>
+
+
+
           
         </div>
       </div>
