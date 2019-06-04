@@ -153,6 +153,9 @@ namespace Labyrint
                 case "logFilter.AddClass":
                     ExecuteMethod("Labyrint Command.AddLogClass");                 
                     break;
+                case "collision":
+                    engine.ActivateCollision();
+                    break;
                 default:
                     return false;
             }
@@ -297,11 +300,20 @@ namespace Labyrint
 
         private void DisplayLine(string text)
         {
-            //Run it in the UI thread
-            Application.Current.Dispatcher.Invoke((Action)delegate
+            // Try to invoke the UI thread
+            try
             {
-                commandResponse.Text = text + "\n" + commandResponse.Text;
-            });
+                //Run it in the UI thread
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    commandResponse.Text = text + "\n" + commandResponse.Text;
+                });
+            }
+            catch
+            {
+                Log.Debug("Failed to invoke the Ui thread");
+            }
+           
         }
 
         private void WriteInput(string text)

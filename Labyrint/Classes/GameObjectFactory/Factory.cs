@@ -19,7 +19,8 @@ namespace GameObjectFactory
 
         public GameObject GetGameObject(string wantToGet, float fromLeft, float fromTop, object value = null)
         {
-            GameObject target = pool.GetGameObject();
+            //GameObject target = pool.GetGameObject();
+            GameObject target = new GameObject();
             builder.TransformGameObject(target, wantToGet, fromLeft, fromTop, value);
 
             return target;

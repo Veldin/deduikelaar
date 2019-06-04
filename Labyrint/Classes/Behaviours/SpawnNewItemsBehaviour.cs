@@ -15,7 +15,6 @@ namespace Labyrint
     {
         private List<GameObject> loopList;
         private Random random;
-
         private WebBrowser browser;
         private Camera camera;
         private GameObject player;
@@ -70,25 +69,37 @@ namespace Labyrint
 
         private void DropNewPickup(List<GameObject> gameObjects)
         {
-            GameObject newPickup; //holds the new pickup
+            GameObject testPickup; //holds the new pickup
+
+            int randomFromTop, randomFromLeft;
             do
             {
-                int randomFromTop, randomFromLeft;
+                
                 do
                 {
                     //Get a random wall position
                     randomFromTop = random.Next(MazeFacade.GetMazeHeight());
-                    randomFromLeft = random.Next(MazeFacade.GetMazeWidth());
-                } while (MazeFacade.IsWall(randomFromTop, randomFromLeft)); //If its a wall pick a new location
+                    randomFromLeft = random.Next(MazeFacade.GetMazeWidth() );
+                } while (MazeFacade.IsWall(randomFromLeft, randomFromTop)); //If its a wall pick a new location
 
                 // create the pickup
-                newPickup = GameObjectFactoryFacade.GetGameObject(
-                    "pickup",
-                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
-                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
-                    new object[2] { browser, camera }
+                testPickup = GameObjectFactoryFacade.GetGameObject(
+                    "",
+                    randomFromLeft * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                    randomFromTop * MazeFacade.tileSize + MazeFacade.tileSize / 2
                 );
-            } while (newPickup.distanceBetween(player) < (MazeFacade.GetMazeHeight() + MazeFacade.GetMazeWidth()) * MazeFacade.tileSize); //if its to close to the player pick a new location
+
+            } while (testPickup.distanceBetween(player) < 200); //if its to close to the player pick a new location
+
+            testPickup.destroyed = true;
+
+            // create the pickup
+            GameObject newPickup = GameObjectFactoryFacade.GetGameObject(
+                "pickup",
+                randomFromLeft * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                randomFromTop * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                new object[2] { browser, camera }
+            );
 
             gameObjects.Add(newPickup);
         }
