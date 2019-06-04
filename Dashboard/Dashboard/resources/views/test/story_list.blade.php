@@ -8,20 +8,25 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+        <style>
+            tr:hover td{
+                background: #EEEEEE;
+            }
+        </style>
     </head>
     <body>
     <br />
     <br />
     <h2>List of stories</h2>
     <h3><a href="{{ url('api/v1/testStory/new') }}" >New Story</a></h3>
-    <table style="width: 90%;">
+    <table style="width: 90%;left: 5%;position: relative;">
         <tr>
             <th style="text-align: left;">#</th>
             <th style="text-align: left;">Title</th>
             <th style="text-align: left;">Items</th>
             <th style="text-align: left;">Files</th>
-            <th style="text-align: left;">Change</th>
-            {{--<th>delete</th>--}}
+            <th style="text-align: left; width: 100px;">Change</th>
+            <th style="text-align: left; width: 100px;">Delete</th>
         </tr>
         @foreach($stories as $story)
             <?php
@@ -39,13 +44,33 @@
                 <td>{{ $story->title }}</td>
                 <td>{{ $countItems }}</td>
                 <td>{{ $countFiles }}</td>
-                <td><a href="{{url('api/v1/testStory/change/'.$story->id)}}">change</a></td>
-                {{--<td><a href="{{url('api/v1/testStory/edit/'.$story->id)}}">change</a></td>--}}
-                {{--<td><a href="{{url('api/v1/story/delete/'.$story->id)}}">delete</a></td>--}}
+                <td><a href="{{url('api/v1/testStory/change/'.$story->id)}}">Change</a></td>
+                <td><a href="#" data-id="{{ $story->id }}" class="delete">Delete</a></td>
             </tr>
 
 
         @endforeach
     </table>
+    <script>
+        $(".delete").click(function(e){
+            $.ajax({
+                url: '{{ url('api/v1/story/') }}/'+$(this).data('id'),
+                type: 'DELETE',
+                success: function(data, textStatus, jqXHR)
+                {
+
+                    // do something
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    // Handle errors here
+                    console.log('ERRORS: ' + textStatus);
+                    // STOP LOADING SPINNER
+                }
+            });
+            $(this).parent().parent().remove();
+            e.preventDefault();
+        })
+    </script>
     </body>
 </html>

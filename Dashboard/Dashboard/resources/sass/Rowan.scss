@@ -104,10 +104,6 @@ div.itemCollection {
     font-size: 3rem;
 }
 
-.itemImage img{
-    height: 170px;
-    padding: 15px;
-}
 
 
 // Style for scrollbar
@@ -168,6 +164,12 @@ div.itemCollection {
 }
 
 // example 
+
+.itemImage img{
+    width: 170px;
+    height: auto;
+    padding: 5px !important;
+}
 
 .background{
     height: 670px;

@@ -20,7 +20,8 @@ class CreateItem extends Component {
       textArea: 'Vul hier de tekst in',
       isChecked: true,
       editorContent: 'kgjh',
-      file: null,
+      files: null,
+      removed: 0,
       showPopup1: false,
       showPopup2: false,
       showPopup3: false,
@@ -54,7 +55,7 @@ class CreateItem extends Component {
 
   setFile(e) {
     this.setState({
-      file: e.target.files[0]
+      files: e.target.files
     });
   }
 
@@ -90,24 +91,34 @@ class CreateItem extends Component {
 
   insertItem(e) {
     e.preventDefault();
-    console.log(this.state.file);
+
+    var formData = new FormData();
+    formData.append("title", createItemForm.title.value);
+    formData.append("icon", createItemForm.item.value);
+    formData.append("texts[]", this.state.editorContent);
+    var filesInput = this.state.files;
+
+    for(var i=0;i<filesInput.length;i++){
+      formData.append("files[]", filesInput[i]);
+    }
+
     fetch('/api/v1/story', {
         method: 'POST',
-        cache: "no-cache",
-        body: '&title='+createItemForm.title.value+'&icon='+createItemForm.item.value+'&texts='+this.state.editorContent+'&files='+this.state.file,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        body: formData
     }).then(response => response.json())
       .then(response => {
         console.log(response);
 
         if(response['response'] == "success"){
           toastr.success('Het item is toegevoegd!')
+          //window.location.href = "/overview";
+          // this.setState({
+          //   removed: !this.state.removed
+          // });
         }else{
           toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         }
-    })
+    });
   }
 
     render() {
@@ -191,7 +202,7 @@ class CreateItem extends Component {
                   <div className="file-field input-field">
                     <div className="btn">
                       <span>Bestand</span>
-                      <input name="uploadFileButton" onChange={this.setFile.bind(this)} type="file"></input>
+                      <input name="uploadFileButton" onChange={this.setFile.bind(this)} type="file" multiple></input>
                     </div>
                     <div className="file-path-wrapper">
                       <input className="file-path validate" name="uploadFile" type="text" placeholder="Upload hier het gewenste bestand"></input>
@@ -289,30 +300,34 @@ class CreateItem extends Component {
                           </div>
                       </div>
 
-                      <p>Welke emotie wekte dit verhaal bij jou op?</p>
-                      <div className="feedback">
-                        <div className="emoOne">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faSmile} />
-                            </div>
-                        </div>
-                        <div className="emoTwo">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faSadTear} />
-                            </div>
-                        </div>
-                        <div className="emoThree">
-                            <div className="col s2 emoteIconExample">
-                              <FontAwesomeIcon icon={faAngry} />
-                            </div>
-                        </div>
-                      </div>
+                      
 
-                  </div>
+             
 
                 </div>
               </div>
             </div>
+
+            <p>Welke emotie wekte dit verhaal bij jou op?</p>
+                      <div className="feedback">
+                        <div className="emoOne">
+                            <div className="col s4 emoteIconExample">
+                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                            </div>
+                        </div>
+                        <div className="emoTwo">
+                            <div className="col s4 emoteIconExample">
+                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                            </div>
+                        </div>
+                        <div className="emoThree">
+                            <div className="col s4 emoteIconExample">
+                              <span className="itemImage"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                            </div>
+                        </div>
+                      </div>
+
+                      </div>
           </div>
           
         </div>

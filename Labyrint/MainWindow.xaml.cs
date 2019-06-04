@@ -612,7 +612,7 @@ namespace Labyrint
                     //Get a random wall position
                     randomFromTop = random.Next(MazeFacade.GetMazeHeight());
                     randomFromLeft = random.Next(MazeFacade.GetMazeWidth());
-                }while (MazeFacade.IsWall(randomFromTop, randomFromLeft)); //If its a wall pick a new location
+                }while (MazeFacade.IsWall(randomFromLeft, randomFromTop)); //If its a wall pick a new location
                 
                 // create the pickup
                 newPickup = GameObjectFactoryFacade.GetGameObject(
@@ -675,6 +675,18 @@ namespace Labyrint
 
             // Give programmer feedback
             Log.Debug("Keys resetted");
+        }
+
+        public void ActivateCollision()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                if (gameObject.BuilderType == "player")
+                {
+                    gameObject.Collition = !gameObject.Collition;
+                    Log.Debug("The player collision is now: " + gameObject.Collition);
+                }
+            }
         }
 
         /// <summary>

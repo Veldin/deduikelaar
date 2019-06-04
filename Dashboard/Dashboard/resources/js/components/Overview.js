@@ -15,8 +15,6 @@ class Overview extends Component {
     fetch('/api/v1/overview')
       .then((response) => response.json())
       .then((responseJson) => {
-        //set every prop ever needed...(sucks)
-
         this.setState({ 
           card: responseJson
         })

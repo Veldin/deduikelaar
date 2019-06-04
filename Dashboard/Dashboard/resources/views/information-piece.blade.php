@@ -31,10 +31,16 @@
                 width: 70%;
             }
 
-            .description{
+            .description,
+			.feedback{
                 font-weight: normal;
                 font-size: 1.3rem;
             }
+			.feedback{
+				display: block;
+				width: 100%;
+				text-align: center;
+			}
         </style>
     </head>
     <body>

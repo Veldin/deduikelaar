@@ -29,49 +29,17 @@ class StoryApiController extends Controller
         $data = [];
 
         // Get all stories
-        $stories = \App\Story::with('feedback')->get();
+        if(isset($_GET['onlyActive'])){
+            $stories = \App\Story::with('feedback')->where('active', 1)->get();
+        }else{
+            $stories = \App\Story::with('feedback')->get();
+        }
 
         // Get all feedback items
         $feedbacks = \App\Feedback::with('feedbackItems')->get();
 
         // Loop through all stories
         foreach ($stories as $story){
-//            $questions = [];
-//            foreach ($feedbacks as $feedback){
-//                $answers = [];
-//                // add each feedbackitem to a story.
-//                foreach ($feedback->feedbackItems as $feedbackItem){
-//                    $answers[$feedbackItem->id] = [
-//                        'feedbackId' => $feedbackItem->id,
-//                        'answer' => $feedbackItem->feedback,
-//                        'count' => 0,
-//                    ];
-//                }
-//                // Count the amount of feedback given
-//                foreach ($story->feedback as $feedbackItem){
-//                    if($feedbackItem->question->id != $feedback->id) continue;
-//                    if( isset($answers[$feedbackItem->id]) &&
-//                        isset($answers[$feedbackItem->id]['count']) ){
-//                        $answers[$feedbackItem->id]['count'] += 1;
-//                    }
-//                }
-//                // Sort answers
-//                $answers = array_values($answers);
-//                usort($answers, function($a, $b) {
-//                    return $a['count'] - $b['count'];
-//                });
-//
-//                // Add feedback to the questions which will be added to the story
-//                $questions[] = [
-//                    'question' => $feedback->question,
-//                    'extraInfo' => $feedback->extraInfo,
-//                    'feedbackType' => $feedback->feedbackType,
-//                    'answers' => array_values($answers)
-//                ];
-//            }
-//            $questions =
-
-
             // add story to data
             $data[] = [
                 'storyId' => $story->id,
@@ -267,7 +235,7 @@ class StoryApiController extends Controller
                 ]);
 
                 // Set story item text if the file is an docx file
-                $text = $this->convertDocxFile($file);
+                $text = self::convertDocxFile($file);
                 if($text != null){
                     $storyItem->update(['text' => $text]);
                 }
@@ -320,7 +288,7 @@ class StoryApiController extends Controller
         }
         if($request->has('newTexts')){
             foreach ($request->get('newTexts') as $text){
-                if(strlen($texts) == 0) continue;
+                if(strlen($text) == 0) continue;
                 StoryItem::create([
                     'storyId' => $story->id,
                     'text' => $text
@@ -493,7 +461,7 @@ class StoryApiController extends Controller
      * @param File $file
      * @return bool|string|null
      */
-    public function convertDocxFile(File $file){
+    public static function convertDocxFile(File $file){
 
         // Check if it is a docx file
         if($file->extension != 'docx') return null;
@@ -585,7 +553,7 @@ class StoryApiController extends Controller
                 }
 
                 // Check if there are images
-                $drawing = $this->findDrawing($value);
+                $drawing = self::findDrawing($value);
                 if($drawing){
                     // Find image id
                     $search = $drawing->xpath("//*[local-name()='blip']");
@@ -616,7 +584,7 @@ class StoryApiController extends Controller
      * @param $v \SimpleXMLElement
      * @return \SimpleXMLElement|null
      */
-    private function findDrawing($v){
+    private static function findDrawing($v){
 
         // Find drawing tag
         foreach ($v->r as $l => $w) {
@@ -624,7 +592,7 @@ class StoryApiController extends Controller
                 return $w->drawing;
             }
             if(count($w) > 0){
-                $d = $this->findDrawing($w);
+                $d = self::findDrawing($w);
                 if($d != null) return $d;
             }
         }

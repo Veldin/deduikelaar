@@ -34,32 +34,11 @@ const card = (props) => {
     .then(response => {
       if(response['response'] == "success"){
         toastr.success('dit item is verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        window.location.href = "/overview";
       }else{
         toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
       }
     })
-  }
-  
-  var feedback = [];
-  for (var i = 0; i < props.cardInfo; i++) {
-    feedback.push(
-      <div>
-        <div className="col s3">
-          <p>Gevoel:</p>
-        </div>
-        <div className="col s9">
-          <div className="bar">
-           <HSBar
-            data={[
-              { value: 10, description: 'oke', color: "#ff0043" },
-              { value: 4, description: 'oke', color: "#77c6a0" },
-              { value: 8, description: 'oke', color: "#8391a5" }
-            ]}
-          />
-          </div>
-        </div>
-      </div>
-    );
   }
 
   return (        
@@ -89,7 +68,27 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
-            {feedback}
+            {props.cardInfo.map((cardValue, cardIndex) =>
+              //console.log(item[key]['feedback'])
+              {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
+                <div>
+                  <div className="col s3">
+                    <p>{OuterFeedbackValue['question']}</p>
+                  </div>
+                  <div className="col s9">
+                    <div className="bar">
+                     <HSBar
+                      data={[
+                        { value: 10, description: 'oke', color: "#ff0043" },
+                        { value: 4, description: 'oke', color: "#77c6a0" },
+                        { value: 8, description: 'oke', color: "#8391a5" }
+                      ]}
+                    />
+                    </div>
+                  </div>
+                </div>
+              )}            
+            )}
           </div>
          </div>
       </div>

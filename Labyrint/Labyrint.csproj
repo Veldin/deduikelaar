@@ -185,7 +185,7 @@
     <Resource Include="Assets\rat2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Sprites\Items\binocular.gif" />
+    <Resource Include="Assets\Sprites\Items\binoculars.gif" />
     <Resource Include="Assets\Sprites\Items\candle.gif" />
     <Resource Include="Assets\Sprites\Items\crownsPen.gif" />
     <Resource Include="Assets\Sprites\Items\envelope.gif" />

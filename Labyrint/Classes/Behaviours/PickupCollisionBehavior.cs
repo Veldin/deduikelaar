@@ -89,7 +89,7 @@ namespace Labyrint
                                 string[] htmlArray = ogHtml.Split(new string[] { "</body>" }, StringSplitOptions.None);
                                 
                                 // Create a new html string with the feedback question in it
-                                string addHtml = " <div> <br/> <br/> <br/> <p> " + question.question + " </p> </div> </body>";
+                                string addHtml = " <div class='feedback' > <br/> <p> " + question.question + " </p> </div> </body>";
                                 
                                 // Insert the addhtml string in the og html
                                 string html = htmlArray[0] + addHtml + htmlArray[1];
@@ -164,10 +164,10 @@ namespace Labyrint
                                         case "\\u1F603": // smile head
                                             toAdd.setActiveBitmap("Assets/Sprites/Answers/happy.gif");
                                             break;
-                                        case "\\u1F92F": // expl head
+                                        case "\\u1F620": // angry head
                                             toAdd.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
                                             break;
-                                        case "\\u1F634": // sleepy head
+                                        case "\\u1F622": // sad head
                                             toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
                                             break;
                                         default:
