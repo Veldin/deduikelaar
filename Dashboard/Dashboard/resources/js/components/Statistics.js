@@ -39,8 +39,7 @@ class Statistics extends Component {
     return (
         <div className="statisticsContentContainer">
             <div className="row statisticsFilter">
-                <div className="col s2 statisticsLabel">Statestieken</div>
-                <div className="col s10"></div>
+                <div className="col s2 offset-s10 statisticsLabel">Statestieken</div>
             </div>
             <div className="row allCharts">
                 <div className="col s6 feedbackChartOne chart">
