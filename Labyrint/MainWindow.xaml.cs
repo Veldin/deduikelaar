@@ -79,6 +79,7 @@ namespace Labyrint
 
         public MainWindow()
         {
+            //Initialize the Window
             InitializeComponent();
 
             // Add the OnMouseDown and the OnMouseUp as event handler
@@ -90,18 +91,15 @@ namespace Labyrint
             Window.GetWindow(this).KeyDown += KeyDown;
             Window.GetWindow(this).SizeChanged += SizeChanged;
 
+           //Innitialise all the Facades
             FileReaderWriterFacade.Init();
             SettingsFacade.Init();
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
             ApiParserFacade.Init();
 
-            //Log.Debug(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt");
-            //FileReaderWriterFacade.WriteText(new string[] { "bla" }, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\test.txt", false);
-
-            // Create the camera
+            // Create the camera.
             camera = new Camera(gameCanvas, mainWindow);
-            camera.GenerateHeightAndWidth();
 
             command = new Command(this, CommandBar, CommandResponse);
 
