@@ -41,6 +41,6 @@
         <div class="background">
             <img src="{{ url('/images/letterBackground.png') }}" alt="letter bg"/>
         </div>
-        <iframe src="{{ url('/api/v1/test_story') }}" frameborder="0"></iframe>
+        <iframe src="{{ url('/api/v1/testStory/view/'.$id) }}" frameborder="0"></iframe>
     </body>
 </html>

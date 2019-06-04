@@ -25,6 +25,7 @@
             <th style="text-align: left;">Title</th>
             <th style="text-align: left;">Items</th>
             <th style="text-align: left;">Files</th>
+            <th style="text-align: left; width: 100px;">Example</th>
             <th style="text-align: left; width: 100px;">Change</th>
             <th style="text-align: left; width: 100px;">Delete</th>
         </tr>
@@ -44,6 +45,7 @@
                 <td>{{ $story->title }}</td>
                 <td>{{ $countItems }}</td>
                 <td>{{ $countFiles }}</td>
+                <td><a href="{{url('api/v1/testStory/example/'.$story->id)}}">Example</a></td>
                 <td><a href="{{url('api/v1/testStory/change/'.$story->id)}}">Change</a></td>
                 <td><a href="#" data-id="{{ $story->id }}" class="delete">Delete</a></td>
             </tr>

@@ -12,6 +12,8 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import CustomUploadAdapter from './plugins/CustomUploadAdapter.js'
+
 class CreateItem extends Component {
   constructor() {
     super();
@@ -32,7 +34,16 @@ class CreateItem extends Component {
         {title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'},
         {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'}
       ]      
-    }
+    };
+
+  }
+
+
+  customAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+      // Configure the URL to the upload script in your back-end here!
+      return new CustomUploadAdapter( loader );
+    };
   }
 
   changeState(event) {
@@ -98,8 +109,10 @@ class CreateItem extends Component {
     formData.append("texts[]", this.state.editorContent);
     var filesInput = this.state.files;
 
-    for(var i=0;i<filesInput.length;i++){
-      formData.append("files[]", filesInput[i]);
+    if(filesInput){
+      for(var i=0;i<filesInput.length;i++){
+        formData.append("files[]", filesInput[i]);
+      }
     }
 
     fetch('/api/v1/story', {
@@ -110,11 +123,8 @@ class CreateItem extends Component {
         console.log(response);
 
         if(response['response'] == "success"){
-          toastr.success('Het item is toegevoegd!')
-          //window.location.href = "/overview";
-          // this.setState({
-          //   removed: !this.state.removed
-          // });
+          toastr.success('Het item is toegevoegd!');
+          window.location.href = "/overview";
         }else{
           toastr.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.')
         }
@@ -178,7 +188,8 @@ class CreateItem extends Component {
                       editor={ ClassicEditor }
                       data=" "
                       config={ {
-                          toolbar: [ [ 'Heading' ], [ 'Bold' ], [ 'Italic' ], ['imageUpload'] ]
+                          toolbar: [ [ 'Heading' ], [ 'Bold' ], [ 'Italic' ], ['imageUpload'] ],
+                          extraPlugins: [ this.customAdapterPlugin ]
                       } }
                       onChange={ ( event, editor ) => {
                         const data = editor.getData();
@@ -297,7 +308,7 @@ class CreateItem extends Component {
                 </div>
               </div>
             </div>
-          
+
             <div className="row feedback">
               <p>Welke emotie wekte dit verhaal bij jou op?</p>
                 <div className="col s4">
