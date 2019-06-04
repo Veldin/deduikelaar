@@ -61418,6 +61418,161 @@ function withRouter(WrappedComponent, options) {
 
 /***/ }),
 
+/***/ "./node_modules/react-svg-donut-chart/es/Segment/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-svg-donut-chart/es/Segment/index.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./node_modules/react-svg-donut-chart/es/constants.js");
+
+
+
+
+
+var Segment = function Segment(_ref) {
+  var stroke = _ref.stroke,
+      strokeDasharray = _ref.strokeDasharray,
+      strokeDashoffset = _ref.strokeDashoffset,
+      strokeWidth = _ref.strokeWidth,
+      title = _ref.title;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+    "circle",
+    {
+      cx: _constants__WEBPACK_IMPORTED_MODULE_2__["center"].x,
+      cy: _constants__WEBPACK_IMPORTED_MODULE_2__["center"].y,
+      r: _constants__WEBPACK_IMPORTED_MODULE_2__["radius"],
+      fill: "none",
+      stroke: stroke,
+      strokeWidth: strokeWidth,
+      strokeDasharray: strokeDasharray,
+      strokeDashoffset: strokeDashoffset
+    },
+    title && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      "title",
+      null,
+      title
+    )
+  );
+};
+
+Segment.propTypes =  true ? {
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+  strokeDasharray: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+  strokeDashoffset: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
+  title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired
+} : undefined;
+
+Segment.defaultProps = {
+  strokeWidth: 5
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Segment);
+
+/***/ }),
+
+/***/ "./node_modules/react-svg-donut-chart/es/constants.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-svg-donut-chart/es/constants.js ***!
+  \************************************************************/
+/*! exports provided: radius, width, center */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "radius", function() { return radius; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "width", function() { return width; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "center", function() { return center; });
+var radius = 100 / (2 * Math.PI);
+var width = 42;
+var center = {
+  x: width / 2,
+  y: width / 2
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-svg-donut-chart/es/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-svg-donut-chart/es/index.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Segment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Segment */ "./node_modules/react-svg-donut-chart/es/Segment/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/react-svg-donut-chart/es/constants.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+
+
+
+
+
+
+var ReactSvgDonutChart = function ReactSvgDonutChart(_ref) {
+  var data = _ref.data,
+      spacing = _ref.spacing,
+      rest = _objectWithoutProperties(_ref, ["data", "spacing"]);
+
+  var total = data.reduce(function (prev, current) {
+    return current.value + prev;
+  }, 0);
+  var percentAcc = 0;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+    "svg",
+    _extends({ viewBox: "0 0 " + _constants__WEBPACK_IMPORTED_MODULE_3__["width"] + " " + _constants__WEBPACK_IMPORTED_MODULE_3__["width"] }, rest),
+    data.map(function (d, i) {
+      var percent = Math.round(d.value / Math.ceil(total) * 100);
+      var DashArrayPercent = spacing < 0 || percent - spacing < 0 ? percent : percent - spacing;
+      var DashArraylength = spacing < 0 || percent + spacing > 100 ? 100 - percent : 100 - percent + spacing;
+      var strokeDasharray = DashArrayPercent + " " + DashArraylength;
+      var strokeDashoffset = i === 0 ? 0 : 100 - percentAcc;
+      percentAcc += percent;
+      return percent > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Segment__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({
+        key: i,
+        strokeDasharray: strokeDasharray,
+        strokeDashoffset: strokeDashoffset
+      }, d));
+    })
+  );
+};
+
+ReactSvgDonutChart.propTypes =  true ? {
+  data: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
+    stroke: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+    strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
+    title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+    value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired
+  })),
+  spacing: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number
+} : undefined;
+
+ReactSvgDonutChart.defaultProps = {
+  data: [],
+  spacing: 0
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ReactSvgDonutChart);
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react.development.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
@@ -65535,7 +65690,7 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
   path: "/add-item",
   component: _components_CreateItem__WEBPACK_IMPORTED_MODULE_5__["default"]
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-  path: "/see-example",
+  path: "/statistics",
   component: _components_Statistics__WEBPACK_IMPORTED_MODULE_6__["default"]
 }))), document.getElementById('superContainer'));
 
@@ -65665,7 +65820,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _example_Example__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./example/Example */ "./resources/js/components/example/Example.js");
+/* harmony import */ var _popup_Popup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./popup/Popup */ "./resources/js/components/popup/Popup.js");
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
@@ -65674,6 +65829,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugins/CustomUploadAdapter.js */ "./resources/js/components/plugins/CustomUploadAdapter.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65691,6 +65847,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -65740,6 +65897,14 @@ function (_Component) {
   }
 
   _createClass(CreateItem, [{
+    key: "customAdapterPlugin",
+    value: function customAdapterPlugin(editor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+        // Configure the URL to the upload script in your back-end here!
+        return new _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_8__["default"](loader);
+      };
+    }
+  }, {
     key: "changeState",
     value: function changeState(event) {
       this.setState({
@@ -65812,8 +65977,10 @@ function (_Component) {
       formData.append("texts[]", this.state.editorContent);
       var filesInput = this.state.files;
 
-      for (var i = 0; i < filesInput.length; i++) {
-        formData.append("files[]", filesInput[i]);
+      if (filesInput) {
+        for (var i = 0; i < filesInput.length; i++) {
+          formData.append("files[]", filesInput[i]);
+        }
       }
 
       fetch('/api/v1/story', {
@@ -65825,10 +65992,8 @@ function (_Component) {
         console.log(response);
 
         if (response['response'] == "success") {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!'); //window.location.href = "/overview";
-          // this.setState({
-          //   removed: !this.state.removed
-          // });
+          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
+          window.location.href = "/overview";
         } else {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
@@ -65872,7 +66037,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
         onClick: this.togglePopup1.bind(this)
-      }))), this.state.showPopup1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: this.state.text[0].title,
         closePopup: this.togglePopup1.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -65893,7 +66058,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
         onClick: this.togglePopup2.bind(this)
-      }))), this.state.showPopup2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: this.state.text[1].title,
         closePopup: this.togglePopup2.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65905,7 +66070,8 @@ function (_Component) {
         editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default.a,
         data: " ",
         config: {
-          toolbar: [['Heading'], ['Bold'], ['Italic'], ['imageUpload']]
+          toolbar: [['Heading'], ['Bold'], ['Italic'], ['imageUpload']],
+          extraPlugins: [this.customAdapterPlugin]
         },
         onChange: function onChange(event, editor) {
           var data = editor.getData();
@@ -65917,7 +66083,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
         onClick: this.togglePopup3.bind(this)
-      }))), this.state.showPopup3 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup3 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: this.state.text[2].title,
         closePopup: this.togglePopup3.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65946,7 +66112,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
         onClick: this.togglePopup4.bind(this)
-      }))), this.state.showPopup4 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_example_Example__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup4 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: this.state.text[3].title,
         closePopup: this.togglePopup4.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -66048,15 +66214,11 @@ function (_Component) {
         onClick: this.insertItem.bind(this),
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s7 example"
+        className: "col s7 exampleSide"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s12 background"
+        className: "row exampleCard"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s12"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " exampleCard"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "all"
+        className: "allContent"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "title"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " ", this.state.title, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66075,33 +66237,27 @@ function (_Component) {
         className: "quizQuestion3"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quizQuestion4"
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "feedback"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoOne"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4 emoteIconExample"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "itemImage"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoTwo"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4 emoteIconExample"
+        className: "row feedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "itemImage"
+        className: "buttonsFeedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoThree"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4 emoteIconExample"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "itemImage"
+        className: "buttonsFeedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
-      })))))))));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "buttonsFeedback"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
+      })))))));
     }
   }]);
 
@@ -66199,7 +66355,7 @@ function (_Component) {
       }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "col s12 navigationItem",
         activeClassName: "col s12 navigationItem active",
-        to: "/see-example"
+        to: "/statistics"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "navigationItemText"
       }, "Statestieken"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66332,10 +66488,10 @@ function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Statistics; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+/* harmony import */ var react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-svg-donut-chart */ "./node_modules/react-svg-donut-chart/es/index.js");
+/* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66357,47 +66513,214 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Statistics =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Statistics, _Component);
 
   function Statistics() {
+    var _this;
+
     _classCallCheck(this, Statistics);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Statistics).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Statistics).call(this));
+    _this.state = {
+      card: [],
+      title: 'Gevoel'
+    };
+    return _this;
   }
 
   _createClass(Statistics, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch('/api/v1/overview').then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        _this2.setState({
+          card: responseJson
+        });
+
+        console.log(_this2.state.card);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      {
+        this.state.card.map(function (item) {
+          item['feedback'].map(function (item2) {
+            if (item2['oneWord'] == "Gevoel") {
+              console.log("hoi ");
+            } else {
+              console.log('doet neit');
+            }
+          });
+        });
+      }
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
+        className: "statisticsContentContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
+        className: "row statisticsFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-8 col-md-offset-2"
+        className: "col s2 statisticsLabel"
+      }, "Statestieken"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s10"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row allCharts"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "panel panel-default"
+        className: "col s6 feedbackChartOne chart"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        data: [{
+          stroke: '#ff0043',
+          strokeWidth: 6,
+          value: 33
+        }, {
+          stroke: '#77c6a0',
+          strokeWidth: 6,
+          value: 60
+        }, {
+          stroke: '#304964',
+          strokeWidth: 6,
+          value: 30
+        }]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleStat"
+      }, "Gevoel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s6 feedbackChartTwo chart"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        data: [{
+          stroke: '#ff0043',
+          strokeWidth: 6,
+          value: 10
+        }, {
+          stroke: '#77c6a0',
+          strokeWidth: 6,
+          value: 70
+        }, {
+          stroke: '#304964',
+          strokeWidth: 6,
+          value: 30
+        }]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleStat"
+      }, "Leesbaarheid"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row allCharts"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "panel-heading"
-      }, "Example Component"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "panel-body"
-      }, "I am an example component!")))));
+        className: "col s6 feedbackChartThree chart"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        data: [{
+          stroke: '#ff0043',
+          strokeWidth: 6,
+          value: 100
+        }, {
+          stroke: '#77c6a0',
+          strokeWidth: 6,
+          value: 60
+        }, {
+          stroke: '#304964',
+          strokeWidth: 6,
+          value: 90
+        }]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleStat"
+      }, "Interesse")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s6 feedbackChartThree chart"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        data: [{
+          stroke: '#ff0043',
+          strokeWidth: 6,
+          value: 100
+        }, {
+          stroke: '#77c6a0',
+          strokeWidth: 6,
+          value: 60
+        }, {
+          stroke: '#304964',
+          strokeWidth: 6,
+          value: 90
+        }]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleStat"
+      }, "Duidelijkheid"))));
     }
   }]);
 
   return Statistics;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-
+/* harmony default export */ __webpack_exports__["default"] = (Statistics);
 
 /***/ }),
 
-/***/ "./resources/js/components/example/Example.js":
-/*!****************************************************!*\
-  !*** ./resources/js/components/example/Example.js ***!
-  \****************************************************/
+/***/ "./resources/js/components/plugins/CustomUploadAdapter.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/plugins/CustomUploadAdapter.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+
+var CustomUploadAdapter =
+/*#__PURE__*/
+function () {
+  function CustomUploadAdapter(loader) {
+    _classCallCheck(this, CustomUploadAdapter);
+
+    // The file loader instance to use during the upload. It sounds scary but do not
+    // worry — the loader will be passed into the adapter later on in this guide.
+    this.loader = loader;
+  } // Starts the upload process.
+
+
+  _createClass(CustomUploadAdapter, [{
+    key: "upload",
+    value: function upload() {
+      return this.loader.file.then(function (file) {
+        return new Promise(function (resolve, reject) {
+          var reader = new FileReader();
+
+          reader.onload = function (event) {
+            resolve({
+              "default": event.target.result
+            });
+          };
+
+          reader.readAsDataURL(file);
+        });
+      });
+    }
+  }]);
+
+  return CustomUploadAdapter;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (CustomUploadAdapter);
+
+/***/ }),
+
+/***/ "./resources/js/components/popup/Popup.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/popup/Popup.js ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
