@@ -65719,23 +65719,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 var card = function card(props) {
-  // const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
-  // const percentageEmoteOne = Math.round((props.emoteOne / total) * 100);
-  // const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100);
-  // const percentageEmoteThree = Math.round((props.emoteThree / total) * 100);
-  // const percentageEmoteOneDOM = {
-  //   width: percentageEmoteOne
-  // };
-  // const percentageEmoteTwoDOM = {
-  //   width: percentageEmoteTwo
-  // };
-  // const percentageEmoteThreeDOM = {
-  //   width: percentageEmoteThree
-  // };
   function deleteItem() {
     fetch('/api/v1/story/' + props.storyID, {
       method: 'DELETE'
@@ -65764,7 +65748,7 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-content white-text"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row"
+    className: "row adminPanel"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s10"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65782,38 +65766,41 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faTrashAlt"]
   })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row"
+    className: "row divide"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col s12"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "divider"
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row cardTitle"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "card-title"
   }, props.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row feedback"
-  }, props.cardInfo.map(function (cardValue, cardIndex) //console.log(item[key]['feedback'])
-  {
-    cardValue[cardIndex]['feedback'].map(function (OuterFeedbackValue, OuterFeedbackIndex) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, props.cardInfo.map(function (cardValue, cardIndex) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      key: cardIndex
+    }, cardValue[cardIndex]['feedback'].map(function (OuterFeedbackValue, OuterFeedbackIndex) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: OuterFeedbackIndex
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, OuterFeedbackValue['question'])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, OuterFeedbackValue['oneWord'])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s9"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
-        data: [{
-          value: 10,
-          description: 'oke',
-          color: "#ff0043"
-        }, {
-          value: 4,
-          description: 'oke',
-          color: "#77c6a0"
-        }, {
-          value: 8,
-          description: 'oke',
-          color: "#8391a5"
-        }]
+        data: OuterFeedbackValue['feedback'].map(function (innerFeedbackValue, innerFeedbackIndex) {
+          return [{
+            value: 10,
+            description: '10',
+            color: "#ff0043"
+          }];
+        })
       }))));
-    });
+    }));
   })))));
 };
 
@@ -66397,8 +66384,7 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
+/* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66416,7 +66402,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -66449,8 +66434,6 @@ function (_Component) {
         _this2.setState({
           card: responseJson
         });
-
-        console.log(_this2.state.card);
       });
     }
   }, {
@@ -66478,7 +66461,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cards-container"
       }, this.state.card.map(function (item, key) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: key,
           storyID: item.storyId,
           title: item.title,
@@ -66792,8 +66775,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

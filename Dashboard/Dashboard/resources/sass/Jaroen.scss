@@ -96,7 +96,29 @@
 				    justify-content: flex-start;
 				}
 
+				.adminPanel{
+					margin-bottom: 0px;
+				}
+
+				.divide{
+					margin-bottom: 0px;
+
+					.divider{
+						background-color: $secondary-light;
+					}
+				}
+
+				.cardTitle{
+					margin-bottom: 0px;
+				}
+
 				.feedback{
+					font-size: 0.8rem;
+
+					&.row{
+						margin-bottom: 0px;
+					}
+
 					p{
 						color: $secondary-light;
 					}

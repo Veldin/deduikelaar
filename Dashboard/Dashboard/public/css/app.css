@@ -96,6 +96,30 @@
   justify-content: flex-start;
 }
 
+#superContainer .contentContainer .overviewCards .card .adminPanel {
+  margin-bottom: 0px;
+}
+
+#superContainer .contentContainer .overviewCards .card .divide {
+  margin-bottom: 0px;
+}
+
+#superContainer .contentContainer .overviewCards .card .divide .divider {
+  background-color: #8391a5;
+}
+
+#superContainer .contentContainer .overviewCards .card .cardTitle {
+  margin-bottom: 0px;
+}
+
+#superContainer .contentContainer .overviewCards .card .feedback {
+  font-size: 0.8rem;
+}
+
+#superContainer .contentContainer .overviewCards .card .feedback.row {
+  margin-bottom: 0px;
+}
+
 #superContainer .contentContainer .overviewCards .card .feedback p {
   color: #8391a5;
 }
@@ -3835,7 +3859,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 90%;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {
