@@ -15,9 +15,13 @@
             <Canvas Margin="0" Width="1280" Height="720" Name="gameCanvas" />
         </Viewbox>
 
+        
+
         <Viewbox Name="browserViewBox" Margin="10,10,10,10" RenderOptions.BitmapScalingMode="NearestNeighbor">
             <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200" Visibility="Hidden" MouseEnter="Browser_MouseEnter" />
         </Viewbox>
+
+        <Image Name="letter" Margin="10,10,10,10"  Width="250" Height="250"/>
 
         <StackPanel Orientation="Vertical" >
             <TextBox Margin="10" VerticalAlignment="Center" Text="" x:Name="CommandBar" Visibility="Hidden" Background="LightGray" Opacity="0.5" />
