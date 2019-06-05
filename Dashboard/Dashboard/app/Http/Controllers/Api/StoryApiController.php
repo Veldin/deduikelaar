@@ -36,7 +36,7 @@ class StoryApiController extends Controller
         }
 
         // Get all feedback items
-        $feedbacks = \App\Feedback::with('feedbackItems')->get();
+//        $feedbacks = \App\Feedback::with('feedbackItems')->get();
 
         // Loop through all stories
         foreach ($stories as $story){
