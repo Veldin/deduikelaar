@@ -133,7 +133,7 @@ namespace Settings
             // Check if the key is in the dictionary 
             if (merge.Keys.Contains(key))
             {                
-                return merge[key];
+                return fromFile[key];
             }
 
             return null;
@@ -149,7 +149,7 @@ namespace Settings
             // Check if the key is in the dictionary 
             if (merge.Keys.Contains(key))
             {
-                merge[key] = value;
+                fromFile[key] = value;
             }
         }
     }
