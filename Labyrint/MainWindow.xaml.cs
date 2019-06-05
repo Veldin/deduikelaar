@@ -643,7 +643,11 @@ namespace Labyrint
             Log.Info("Shutting down...");
 
             // Sending the api the statsistics
-            await ApiParserFacade.InformApiAsync();
+            if (await ApiParserFacade.InformApiAsync())
+            {
+                // If the statistics are sent to the api delete the file to prevent double data insertion
+                FileReaderWriterFacade.DeleteFile(new string[] { FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json" });
+            }
 
             // Save the settings
             SettingsFacade.Save();

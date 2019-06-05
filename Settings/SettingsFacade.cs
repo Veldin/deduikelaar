@@ -52,5 +52,26 @@ namespace Settings
         {
             return manager.Get(needle, defaultReturn);
         }
+
+        /// <summary>
+        /// Get the value of a setting
+        /// </summary>
+        /// <param name="needle">The name of the setting</param>
+        /// <returns>Returns the value of a setting</returns>
+        public static string GetSetting(string key)
+        {
+            return manager.GetSetting(key);
+        }
+
+        /// <summary>
+        /// Set a value to an already existing setting
+        /// </summary>
+        /// <param name="key">Setting name</param>
+        /// <param name="value">The new value of the setting</param>
+        public static void SetSetting(string key, string value)
+        {
+            manager.SetSetting(key, value);
+        }
+
     }
 }

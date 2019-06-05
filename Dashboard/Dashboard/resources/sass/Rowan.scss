@@ -1,4 +1,6 @@
 body{
+    overflow-y: scroll;
+    
 	#toast-container{
 		top: 75%!important;
 
@@ -196,3 +198,28 @@ div.itemCollection {
 }
 
 
+// statistics
+
+.statisticsFilter{
+    color: $secondary-light;
+    height: 75px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.statisticsLabel{
+    margin-left: 0 !important;
+}
+
+
+.titleStat{
+    color: $secondary-light;
+    display: flex;
+    justify-content: center;
+}
+
+.chart{
+    padding: 0 8% !important;
+}

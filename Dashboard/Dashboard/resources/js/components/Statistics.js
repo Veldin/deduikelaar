@@ -1,22 +1,142 @@
-import React, { Component } from 'react';
-import { Router, Route, Link } from 'react-router';
+import React, {Component} from 'react';
+import DonutChart from "react-svg-donut-chart";
+import Card from './Card/Card';
 
-export default class Statistics extends Component {
-    render() {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 col-md-offset-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">Example Component</div>
+class Statistics extends Component {
+  constructor() {
+    super();
 
-                            <div className="panel-body">
-                                I am an example component!
-                            </div>
-                        </div>
-                    </div>
+    this.state = {
+      card: [],
+      title: 'Gevoel'
+    }
+  }
+
+  componentDidMount() {
+    fetch('/api/v1/overview')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ 
+          card: responseJson
+        })
+        console.log(this.state.card);
+      })
+  }
+
+  render(){
+ 
+
+    {this.state.card.map((item) =>
+        {item['feedback'].map((item2) =>
+            {if((item2['oneWord']) == "Gevoel"){
+                console.log("hoi ");
+            }else{
+                console.log('doet neit');
+            }}
+        )}
+    )}
+    
+    return (
+        <div className="statisticsContentContainer">
+            <div className="row statisticsFilter">
+                <div className="col s2 offset-s10 statisticsLabel">Statestieken</div>
+            </div>
+            <div className="row allCharts">
+                <div className="col s6 feedbackChartOne chart">
+                    <DonutChart
+                        data={[
+                            {
+                            stroke: '#ff0043',
+                            strokeWidth: 6,
+                            value: 33
+                            },
+                            {
+                            stroke: '#77c6a0',
+                            strokeWidth: 6,
+                            value: 60
+                            },
+                            {
+                            stroke: '#304964',
+                            strokeWidth: 6,
+                            value: 30
+                            }
+                        ]}
+                    />
+                    <div className="titleStat">Gevoel</div>
+                </div>
+                <div className="col s6 feedbackChartTwo chart">
+                    <DonutChart
+                        data={[
+                            {
+                            stroke: '#ff0043',
+                            strokeWidth: 6,
+                            value: 10
+                            },
+                            {
+                            stroke: '#77c6a0',
+                            strokeWidth: 6,
+                            value: 70
+                            },
+                            {
+                            stroke: '#304964',
+                            strokeWidth: 6,
+                            value: 30
+                            }
+                        ]}
+                    />
+                    <div className="titleStat">Leesbaarheid</div>
                 </div>
             </div>
-        );
-    }
+            <div className="row allCharts">
+                <div className="col s6 feedbackChartThree chart">
+                    <DonutChart
+                        data={[
+                            {
+                            stroke: '#ff0043',
+                            strokeWidth: 6,
+                            value: 100
+                            },
+                            {
+                            stroke: '#77c6a0',
+                            strokeWidth: 6,
+                            value: 60
+                            },
+                            {
+                            stroke: '#304964',
+                            strokeWidth: 6,
+                            value: 90
+                            }
+                        ]}
+                    />
+                    <div className="titleStat">Interesse</div>
+                </div>
+                <div className="col s6 feedbackChartThree chart">
+                    <DonutChart
+                        data={[
+                            {
+                            stroke: '#ff0043',
+                            strokeWidth: 6,
+                            value: 100
+                            },
+                            {
+                            stroke: '#77c6a0',
+                            strokeWidth: 6,
+                            value: 60
+                            },
+                            {
+                            stroke: '#304964',
+                            strokeWidth: 6,
+                            value: 90
+                            }
+                        ]}
+                    />
+                    <div className="titleStat">Duidelijkheid</div>
+                </div>
+           
+
+            </div>
+        </div>
+    )
+  }
 }
+export default Statistics;

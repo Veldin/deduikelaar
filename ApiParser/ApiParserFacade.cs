@@ -23,8 +23,8 @@ namespace ApiParser
             SaveQuestionsAsync();
 
             // Fill all the static collections from the json files
-            AddStatistics();
             AddItemOrder();
+            AddStatistics();
             AddQuestion();
             AddStory();
         }
@@ -56,8 +56,27 @@ namespace ApiParser
             }
         }
 
-        public static async Task InformApiAsync()
+        public static async Task<bool> InformApiAsync()
         {
+            // Get all files in the Items folder
+            string[] files = FileReaderWriterFacade.CheckFolder(FileReaderWriterFacade.GetAppDataPath() + "Items\\");
+            
+            // Check if the folder has a Statistics.json file
+            bool hasFile = false;
+            foreach (string file in files)
+            {
+                if (file == "Statistics.json")
+                {
+                    hasFile = true;
+                }
+            }
+
+            // If the file is not found return false
+            if (!hasFile)
+            {
+                return false;
+            }
+
             // Create a New HttpClient object and dispose it when done, so the app doesn't leak resources
             using (HttpClient client = new HttpClient())
             {
@@ -68,14 +87,21 @@ namespace ApiParser
                     
                     HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/v1/feedback", content);
 
-                    Log.Debug( await response.Content.ReadAsStringAsync());
+                    string success = await response.Content.ReadAsStringAsync();
 
-                    return;
+                    Log.Debug(success);
+
+                    if (success.Contains("success"))
+                    {
+                        return true;
+                    }
+
+                    return false;
                 }
                 catch (HttpRequestException e)
                 {
                     Log.Warning("Api call failed. http://localhost:8000/api/v1/feedback can not be found.");
-                    return;
+                    return false;
                 }
             }
         }

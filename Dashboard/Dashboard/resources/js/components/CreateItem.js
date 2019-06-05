@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
-import Popup from './example/Example';
+import Popup from './popup/Popup';
 import toastr from 'toastr';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

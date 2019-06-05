@@ -30,7 +30,7 @@ class Master extends Component {
               <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
                 <span className="navigationItemText" id="overview">Overzicht</span>
               </Link>
-              <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/see-example">
+              <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/statistics">
                 <span className="navigationItemText">Statestieken</span>
               </Link>
             </div>
