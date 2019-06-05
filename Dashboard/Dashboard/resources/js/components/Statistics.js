@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import DonutChart from "react-svg-donut-chart";
-import Card from './Card/Card';
 
 class Statistics extends Component {
   constructor() {
@@ -13,7 +12,7 @@ class Statistics extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/v1/overview')
+    fetch('/api/v1/statistics')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ 
@@ -23,19 +22,83 @@ class Statistics extends Component {
       })
   }
 
+
   render(){
- 
+
+    let arrayGevoel = [];
+    let arrayLeesbaar = [];
+    let arrayInteressant = [];
+    let arrayDuidelijkheid = [];
 
     {this.state.card.map((item) =>
-        {item['feedback'].map((item2) =>
-            {if((item2['oneWord']) == "Gevoel"){
-                console.log("hoi ");
-            }else{
-                console.log('doet neit');
-            }}
-        )}
+        {if((item['oneWord']) == "Gevoel"){
+            {item['feedback'].map((item2) =>
+               arrayGevoel.push(item2['count'])
+            )}
+        }else if((item['oneWord']) == "Leesbaar"){
+            {item['feedback'].map((item2) =>
+                arrayLeesbaar.push(item2['count'])
+            )}
+        }else if((item['oneWord']) == "Interessant"){
+            {item['feedback'].map((item2) =>
+                arrayInteressant.push(item2['count'])
+            )}
+        }else if((item['oneWord']) == "Duidelijkheid"){
+            {item['feedback'].map((item2) =>
+                arrayDuidelijkheid.push(item2['count'])
+            )}
+        }}
     )}
-    
+
+    function generateValues(arrayGevoel){
+
+        var data = [];
+        var colors = ['#ff0043','#77c6a0','#304964'];
+      
+        {arrayGevoel.map((innerFeedbackValue, innerFeedbackIndex) =>
+          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+        )}
+     
+        return data;
+       }
+
+       function generateValues2(arrayLeesbaar){
+
+        var data = [];
+        var colors = ['#ff0043','#77c6a0','#304964'];
+      
+        {arrayLeesbaar.map((innerFeedbackValue, innerFeedbackIndex) =>
+          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+        )}
+     
+        return data;
+       }
+
+       function generateValues2(arrayInteressant){
+
+        var data = [];
+        var colors = ['#ff0043','#77c6a0','#304964'];
+      
+        {arrayInteressant.map((innerFeedbackValue, innerFeedbackIndex) =>
+          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+        )}
+     
+        return data;
+       }
+
+       function generateValues2(arrayDuidelijkheid){
+
+        var data = [];
+        var colors = ['#ff0043','#77c6a0','#304964'];
+      
+        {arrayDuidelijkheid.map((innerFeedbackValue, innerFeedbackIndex) =>
+          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+        )}
+     
+        return data;
+       }
+
+
     return (
         <div className="statisticsContentContainer">
             <div className="row statisticsFilter">
@@ -44,45 +107,13 @@ class Statistics extends Component {
             <div className="row allCharts">
                 <div className="col s6 feedbackChartOne chart">
                     <DonutChart
-                        data={[
-                            {
-                            stroke: '#ff0043',
-                            strokeWidth: 6,
-                            value: 33
-                            },
-                            {
-                            stroke: '#77c6a0',
-                            strokeWidth: 6,
-                            value: 60
-                            },
-                            {
-                            stroke: '#304964',
-                            strokeWidth: 6,
-                            value: 30
-                            }
-                        ]}
+                        data={generateValues((arrayGevoel))}
                     />
                     <div className="titleStat">Gevoel</div>
                 </div>
                 <div className="col s6 feedbackChartTwo chart">
                     <DonutChart
-                        data={[
-                            {
-                            stroke: '#ff0043',
-                            strokeWidth: 6,
-                            value: 10
-                            },
-                            {
-                            stroke: '#77c6a0',
-                            strokeWidth: 6,
-                            value: 70
-                            },
-                            {
-                            stroke: '#304964',
-                            strokeWidth: 6,
-                            value: 30
-                            }
-                        ]}
+                        data={generateValues2((arrayLeesbaar))}
                     />
                     <div className="titleStat">Leesbaarheid</div>
                 </div>
@@ -90,45 +121,13 @@ class Statistics extends Component {
             <div className="row allCharts">
                 <div className="col s6 feedbackChartThree chart">
                     <DonutChart
-                        data={[
-                            {
-                            stroke: '#ff0043',
-                            strokeWidth: 6,
-                            value: 100
-                            },
-                            {
-                            stroke: '#77c6a0',
-                            strokeWidth: 6,
-                            value: 60
-                            },
-                            {
-                            stroke: '#304964',
-                            strokeWidth: 6,
-                            value: 90
-                            }
-                        ]}
+                        data={generateValues2((arrayInteressant))}
                     />
                     <div className="titleStat">Interesse</div>
                 </div>
                 <div className="col s6 feedbackChartThree chart">
                     <DonutChart
-                        data={[
-                            {
-                            stroke: '#ff0043',
-                            strokeWidth: 6,
-                            value: 100
-                            },
-                            {
-                            stroke: '#77c6a0',
-                            strokeWidth: 6,
-                            value: 60
-                            },
-                            {
-                            stroke: '#304964',
-                            strokeWidth: 6,
-                            value: 90
-                            }
-                        ]}
+                        data={generateValues2((arrayDuidelijkheid))}
                     />
                     <div className="titleStat">Duidelijkheid</div>
                 </div>

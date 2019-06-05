@@ -66491,7 +66491,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-svg-donut-chart */ "./node_modules/react-svg-donut-chart/es/index.js");
-/* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66509,7 +66508,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -66537,7 +66535,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/api/v1/overview').then(function (response) {
+      fetch('/api/v1/statistics').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
         _this2.setState({
@@ -66550,17 +66548,100 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var arrayGevoel = [];
+      var arrayLeesbaar = [];
+      var arrayInteressant = [];
+      var arrayDuidelijkheid = [];
       {
         this.state.card.map(function (item) {
-          item['feedback'].map(function (item2) {
-            if (item2['oneWord'] == "Gevoel") {
-              console.log("hoi ");
-            } else {
-              console.log('doet neit');
+          if (item['oneWord'] == "Gevoel") {
+            {
+              item['feedback'].map(function (item2) {
+                return arrayGevoel.push(item2['count']);
+              });
             }
-          });
+          } else if (item['oneWord'] == "Leesbaar") {
+            {
+              item['feedback'].map(function (item2) {
+                return arrayLeesbaar.push(item2['count']);
+              });
+            }
+          } else if (item['oneWord'] == "Interessant") {
+            {
+              item['feedback'].map(function (item2) {
+                return arrayInteressant.push(item2['count']);
+              });
+            }
+          } else if (item['oneWord'] == "Duidelijkheid") {
+            {
+              item['feedback'].map(function (item2) {
+                return arrayDuidelijkheid.push(item2['count']);
+              });
+            }
+          }
         });
       }
+
+      function generateValues(arrayGevoel) {
+        var data = [];
+        var colors = ['#ff0043', '#77c6a0', '#304964'];
+        {
+          arrayGevoel.map(function (innerFeedbackValue, innerFeedbackIndex) {
+            return data.push({
+              stroke: colors[innerFeedbackIndex],
+              strokeWidth: 6,
+              value: innerFeedbackValue
+            });
+          });
+        }
+        return data;
+      }
+
+      function generateValues2(arrayLeesbaar) {
+        var data = [];
+        var colors = ['#ff0043', '#77c6a0', '#304964'];
+        {
+          arrayLeesbaar.map(function (innerFeedbackValue, innerFeedbackIndex) {
+            return data.push({
+              stroke: colors[innerFeedbackIndex],
+              strokeWidth: 6,
+              value: innerFeedbackValue
+            });
+          });
+        }
+        return data;
+      }
+
+      function generateValues2(arrayInteressant) {
+        var data = [];
+        var colors = ['#ff0043', '#77c6a0', '#304964'];
+        {
+          arrayInteressant.map(function (innerFeedbackValue, innerFeedbackIndex) {
+            return data.push({
+              stroke: colors[innerFeedbackIndex],
+              strokeWidth: 6,
+              value: innerFeedbackValue
+            });
+          });
+        }
+        return data;
+      }
+
+      function generateValues2(arrayDuidelijkheid) {
+        var data = [];
+        var colors = ['#ff0043', '#77c6a0', '#304964'];
+        {
+          arrayDuidelijkheid.map(function (innerFeedbackValue, innerFeedbackIndex) {
+            return data.push({
+              stroke: colors[innerFeedbackIndex],
+              strokeWidth: 6,
+              value: innerFeedbackValue
+            });
+          });
+        }
+        return data;
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "statisticsContentContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66572,37 +66653,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s6 feedbackChartOne chart"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        data: [{
-          stroke: '#ff0043',
-          strokeWidth: 6,
-          value: 33
-        }, {
-          stroke: '#77c6a0',
-          strokeWidth: 6,
-          value: 60
-        }, {
-          stroke: '#304964',
-          strokeWidth: 6,
-          value: 30
-        }]
+        data: generateValues(arrayGevoel)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "titleStat"
       }, "Gevoel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s6 feedbackChartTwo chart"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        data: [{
-          stroke: '#ff0043',
-          strokeWidth: 6,
-          value: 10
-        }, {
-          stroke: '#77c6a0',
-          strokeWidth: 6,
-          value: 70
-        }, {
-          stroke: '#304964',
-          strokeWidth: 6,
-          value: 30
-        }]
+        data: generateValues2(arrayLeesbaar)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "titleStat"
       }, "Leesbaarheid"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66610,37 +66667,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s6 feedbackChartThree chart"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        data: [{
-          stroke: '#ff0043',
-          strokeWidth: 6,
-          value: 100
-        }, {
-          stroke: '#77c6a0',
-          strokeWidth: 6,
-          value: 60
-        }, {
-          stroke: '#304964',
-          strokeWidth: 6,
-          value: 90
-        }]
+        data: generateValues2(arrayInteressant)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "titleStat"
       }, "Interesse")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s6 feedbackChartThree chart"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_svg_donut_chart__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        data: [{
-          stroke: '#ff0043',
-          strokeWidth: 6,
-          value: 100
-        }, {
-          stroke: '#77c6a0',
-          strokeWidth: 6,
-          value: 60
-        }, {
-          stroke: '#304964',
-          strokeWidth: 6,
-          value: 90
-        }]
+        data: generateValues2(arrayDuidelijkheid)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "titleStat"
       }, "Duidelijkheid"))));
@@ -66775,8 +66808,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
