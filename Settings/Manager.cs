@@ -118,7 +118,7 @@ namespace Settings
                 return defaultReturn;
             }
 
-            //fromFile.Add(needle, defaultReturn.ToString());
+            fromFile.Add(needle, defaultReturn.ToString());
 
             return defaultReturn;
         }
