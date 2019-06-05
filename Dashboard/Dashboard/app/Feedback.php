@@ -21,12 +21,12 @@ class Feedback extends Model
         return $this->hasMany(FeedbackItem::class, 'feedbackId', '');
     }
 
-    public function getJson($story = null){
+    public function getJson($story = null, $storyFeedback = null){
         $feedbackItems = [];
 
         /** @var FeedbackItem $feedbackItem */
         foreach ($this->feedbackItems as $feedbackItem){
-            $feedbackItems[] = $feedbackItem->getJson($story);
+            $feedbackItems[$feedbackItem->id] = $feedbackItem->getJson($story, $storyFeedback);
         }
 
         $r = [
@@ -35,13 +35,15 @@ class Feedback extends Model
             'extraInfo' => $this->extraInfo,
             'feedbackType' => $this->feedbackType,
             'oneWord' => $this->oneWord,
-            'feedback' => array_values($feedbackItems)
+            'feedback' => $feedbackItems
         ];
 
         if($story){
             $r['count'] = 0;
             foreach ($feedbackItems as $feedbackItem){
-                $r['count'] += $feedbackItem['count'];
+                if(isset($feedbackItem['count'])){
+                    $r['count'] += $feedbackItem['count'];
+                }
             }
         }
 

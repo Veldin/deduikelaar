@@ -38,11 +38,14 @@ class Story extends Model
     public function storyFeedback(){
         return $this->hasMany(StoryFeedback::class, 'storyId', 'id');
     }
-    public function allFeedback(){
+    public function allFeedback($feedbacks = null, $storyFeedback = null){
 
         $feedbackJson = [];
-        foreach (Feedback::get() as $feedback) {
-            $feedbackJson[$feedback->id] = $feedback->getJson($this);
+        if(!$feedbacks) $feedbacks = Feedback::with('feedbackItems')->get();
+
+        /** @var Feedback $feedback */
+        foreach ($feedbacks as $feedback) {
+            $feedbackJson[$feedback->id] = $feedback->getJson($this, $storyFeedback);
         }
         return array_values($feedbackJson);
     }

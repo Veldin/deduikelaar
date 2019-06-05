@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class StoryFeedback extends Model
 {
@@ -25,4 +26,20 @@ class StoryFeedback extends Model
     public function feedbackItems() {
         return $this->belongsTo(FeedbackItem::class,'id','feedbackId');
     }
+
+    public static function getCount($story = null){
+        if($story){
+            return DB::table('storyFeedback')
+                ->select([DB::raw('COUNT(*) as count'), 'feedbackId'])
+                ->where('storyId', $story->id)
+                ->groupBy(['feedbackId'])
+                ->get();
+        }else{
+            return DB::table('storyFeedback')
+                ->select([DB::raw('COUNT(*) as count'), 'storyId', 'feedbackId'])
+                ->groupBy(['storyId','feedbackId'])
+                ->get();
+        }
+    }
+
 }

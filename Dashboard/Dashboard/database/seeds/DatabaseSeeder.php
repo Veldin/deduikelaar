@@ -135,11 +135,12 @@ class DatabaseSeeder extends Seeder
 
         factory(Story::class, 20)->create()->each(function (Story $story) use ($file, $feedbackItems) {
 
-            for($i=0; $i<rand(0,1000);$i++){
-                //
+            for($i=0; $i<rand(200,1000);$i++){
+                $num = mt_rand(0,count($feedbackItems)-1);
+                if(rand(1,3) < 3) $num = intval($num/rand(1,5));
                 StoryFeedback::create([
                     'storyId' => $story->id,
-                    'feedbackId' => $feedbackItems[mt_rand(0,count($feedbackItems)-1)]->id
+                    'feedbackId' => $feedbackItems[$num]->id
                 ]);
             }
 
