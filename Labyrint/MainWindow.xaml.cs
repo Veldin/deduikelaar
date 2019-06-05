@@ -148,17 +148,19 @@ namespace Labyrint
             //player = new GameObject(24 * 2.5f, 42 * 2.5f, 300, 300);
             player = GameObjectFactoryFacade.GetGameObject("player", MazeFacade.tileSize, MazeFacade.tileSize);
 
+
+
             this.Cursor = Cursors.None;
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
             //Innits the GameObject list
             gameObjects = new List<GameObject>();
 
-            gameObjects.Add(player);
+            gameObjects.Add(player);    
             gameObjects.Add(cursor);
 
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 DropNewPickup();
             }
@@ -180,6 +182,9 @@ namespace Labyrint
             renderDistance = SettingsFacade.Get("RenderDistance", 1200);//Desired max fps.
 
             TestBrowser();
+
+            int ammountPickedUp = SettingsFacade.Get("CountPickups", 0);
+
 
             camera.GenerateHeightAndWidth();
 

@@ -45,6 +45,24 @@ namespace GameObjectFactory
                 gameObject.setActiveBitmap("Assets/Sprites/Player/right1_145_200_32.gif");
             }
 
+            if (wantToGet == "rat")
+            {
+                gameObject.Width = 15f;
+                gameObject.Height = 15f;
+
+                gameObject.MovementSpeed = 600;
+                gameObject.Group = 1;
+
+                gameObject.TopDrawOffset = 0;
+
+                gameObject.onTickList.Add(new RatTargetBehaviour());
+                gameObject.onTickList.Add(new MoveToTargetBehaviour());
+                gameObject.onTickList.Add(new PlayerSpriteBehaviour());
+
+
+                gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
+            }
+
             if (wantToGet == "cursor")
             {
                 //Set the windowState.
