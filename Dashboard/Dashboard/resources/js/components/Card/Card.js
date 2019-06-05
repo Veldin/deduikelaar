@@ -20,6 +20,17 @@ const card = (props) => {
     })
   }
 
+ function generateValues(toDataArray){
+  var data = [];
+  var colors = ["blue","red","yellow","green"];
+
+  {toDataArray.map((innerFeedbackValue, innerFeedbackIndex) =>
+    data.push({value: innerFeedbackValue['count'], description: innerFeedbackValue['count'], color: colors[innerFeedbackIndex]})
+  )}
+
+  return data; 
+ }
+
   return (        
     <div className="col s12 m4">
       <div className="card">
@@ -56,6 +67,7 @@ const card = (props) => {
           <div className="row feedback">
             {props.cardInfo.map((cardValue, cardIndex) =>
               <span key={cardIndex}>
+                {console.log(props.cardInfo)}
               {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
                 <div key={OuterFeedbackIndex}>
                   <div className="col s3">
@@ -63,13 +75,8 @@ const card = (props) => {
                   </div>
                   <div className="col s9">
                     <div className="bar">
-                      {/* innerFeedbackValue['count'] */}
                       <HSBar
-                        data=
-                          {OuterFeedbackValue['feedback'].map((innerFeedbackValue, innerFeedbackIndex) =>
-                            [{value: 10, description: '10', color: "#ff0043"},]
-                          )}
-                        
+                        data={generateValues((OuterFeedbackValue['feedback']))}
                       />
                     </div>
                   </div>
