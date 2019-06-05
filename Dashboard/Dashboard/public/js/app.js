@@ -66715,10 +66715,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row statisticsFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 statisticsLabel"
-      }, "Statestieken"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s10"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col s2 offset-s10 statisticsLabel"
+      }, "Statestieken")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row allCharts"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s6 feedbackChartOne chart"
