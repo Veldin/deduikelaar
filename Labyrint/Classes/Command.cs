@@ -258,7 +258,18 @@ namespace Labyrint
                 // Try to execute the method
                 try
                 {
-                    methodInfo.Invoke(this, new object[] { parameter });
+                    // Invoke the method
+                    var returnValue = methodInfo.Invoke(this, new object[] { parameter });
+
+                    // If there is a return type print it, else print execute conformation
+                    if (returnValue != null)
+                    {
+                        DisplayLine(returnValue.ToString());
+                    }
+                    else
+                    {
+                        DisplayLine("Method succesfully executed!");
+                    }
                 }
                 catch
                 {
@@ -285,7 +296,18 @@ namespace Labyrint
                 // Try to execute the method
                 try
                 {
-                    methodInfo.Invoke(this, new object[] { parameters });
+                    // Invoke the method
+                    var returnValue = methodInfo.Invoke(this, parameters);
+
+                    // If there is a return type print it, else print execute conformation
+                    if (returnValue != null)
+                    {
+                        DisplayLine(returnValue.ToString());
+                    }
+                    else
+                    {
+                        DisplayLine("Method succesfully executed!");
+                    }
                 }
                 catch
                 {
