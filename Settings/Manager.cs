@@ -122,5 +122,35 @@ namespace Settings
 
             return defaultReturn;
         }
+
+        /// <summary>
+        /// Get the value of a setting
+        /// </summary>
+        /// <param name="needle">The name of the setting</param>
+        /// <returns>Returns the value of a setting</returns>
+        public string GetSetting(string key)
+        {
+            // Check if the key is in the dictionary 
+            if (merge.Keys.Contains(key))
+            {                
+                return merge[key];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Set a value to an already existing setting
+        /// </summary>
+        /// <param name="key">Setting name</param>
+        /// <param name="value">The new value of the setting</param>
+        public void SetSetting(string key, string value)
+        {
+            // Check if the key is in the dictionary 
+            if (merge.Keys.Contains(key))
+            {
+                merge[key] = value;
+            }
+        }
     }
 }
