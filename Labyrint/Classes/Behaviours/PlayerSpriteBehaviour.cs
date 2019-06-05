@@ -88,7 +88,7 @@ namespace Labyrint
 
                     animationDelta = animationDeltaMax;
                     //'assets/sprites/left2_145_200_32.gif'.'
-                    gameobject.setActiveBitmap("Assets/Sprites/Player/"+ position + frame + "_145_200_32.gif");
+                    gameobject.setActiveBitmap("Assets/Sprites/Player/"+ position + frame + "_145_200_32_v2.gif");
                 }
 
             }

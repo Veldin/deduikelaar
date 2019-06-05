@@ -26,7 +26,7 @@ Route::get('/overview', function () {
     return view('welcome');
     });
 
-Route::get('/see-example', function () {
+Route::get('/statistics', function () {
     return view('welcome');
     });
 

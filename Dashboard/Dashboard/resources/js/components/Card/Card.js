@@ -3,29 +3,8 @@ import HSBar from 'react-horizontal-stacked-bar-chart';
 import toastr from 'toastr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { faSmile } from '@fortawesome/free-solid-svg-icons'
-import { faSadTear } from '@fortawesome/free-solid-svg-icons'
-import { faAngry } from '@fortawesome/free-solid-svg-icons'
 
 const card = (props) => {
-  // const total = parseInt(props.emoteOne) + parseInt(props.emoteTwo) + parseInt(props.emoteThree);
-
-  // const percentageEmoteOne = Math.round((props.emoteOne / total) * 100);
-  // const percentageEmoteTwo = Math.round((props.emoteTwo / total) * 100);
-  // const percentageEmoteThree = Math.round((props.emoteThree / total) * 100);
-
-  // const percentageEmoteOneDOM = {
-  //   width: percentageEmoteOne
-  // };
-
-  // const percentageEmoteTwoDOM = {
-  //   width: percentageEmoteTwo
-  // };
-
-  // const percentageEmoteThreeDOM = {
-  //   width: percentageEmoteThree
-  // };
-
   function deleteItem() {
     fetch('/api/v1/story/'+props.storyID,{
       method: 'DELETE',
@@ -45,7 +24,7 @@ const card = (props) => {
     <div className="col s12 m4">
       <div className="card">
          <div className="card-content white-text">
-          <div className="row">
+          <div className="row adminPanel">
             <div className="col s10">
               <div className="switch">
                 <label>
@@ -62,32 +41,41 @@ const card = (props) => {
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row divide">
+            <div className="col s12">
+              <ul>
+                <li className="divider"></li>
+              </ul>
+            </div>
+          </div>
+          <div className="row cardTitle">
             <div className="col s12">
                <span className="card-title">{props.title}</span>
             </div>
           </div>
           <div className="row feedback">
             {props.cardInfo.map((cardValue, cardIndex) =>
-              //console.log(item[key]['feedback'])
+              <span key={cardIndex}>
               {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
-                <div>
+                <div key={OuterFeedbackIndex}>
                   <div className="col s3">
-                    <p>{OuterFeedbackValue['question']}</p>
+                    <p>{OuterFeedbackValue['oneWord']}</p>
                   </div>
                   <div className="col s9">
                     <div className="bar">
-                     <HSBar
-                      data={[
-                        { value: 10, description: 'oke', color: "#ff0043" },
-                        { value: 4, description: 'oke', color: "#77c6a0" },
-                        { value: 8, description: 'oke', color: "#8391a5" }
-                      ]}
-                    />
+                      {/* innerFeedbackValue['count'] */}
+                      <HSBar
+                        data=
+                          {OuterFeedbackValue['feedback'].map((innerFeedbackValue, innerFeedbackIndex) =>
+                            [{value: 10, description: '10', color: "#ff0043"},]
+                          )}
+                        
+                      />
                     </div>
                   </div>
                 </div>
-              )}            
+              )}
+              </span>         
             )}
           </div>
          </div>

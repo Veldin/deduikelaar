@@ -96,6 +96,30 @@
   justify-content: flex-start;
 }
 
+#superContainer .contentContainer .overviewCards .card .adminPanel {
+  margin-bottom: 0px;
+}
+
+#superContainer .contentContainer .overviewCards .card .divide {
+  margin-bottom: 0px;
+}
+
+#superContainer .contentContainer .overviewCards .card .divide .divider {
+  background-color: #8391a5;
+}
+
+#superContainer .contentContainer .overviewCards .card .cardTitle {
+  margin-bottom: 0px;
+}
+
+#superContainer .contentContainer .overviewCards .card .feedback {
+  font-size: 0.8rem;
+}
+
+#superContainer .contentContainer .overviewCards .card .feedback.row {
+  margin-bottom: 0px;
+}
+
 #superContainer .contentContainer .overviewCards .card .feedback p {
   color: #8391a5;
 }
@@ -114,6 +138,10 @@
 #superContainer .contentContainer .overviewCards .card .progress .determinate {
   background-color: #ff0043;
   border-radius: 7px;
+}
+
+body {
+  overflow-y: scroll;
 }
 
 body #toast-container {
@@ -200,28 +228,9 @@ div.items {
   background-color: #ff0043 !important;
 }
 
-.exampleCard {
-  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
-  background-size: cover;
-  margin-top: 4%;
-  height: 625px;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5%;
-}
-
-.all {
-  height: 500px;
-}
-
 .emoteIconExample {
   color: #685643;
   font-size: 3rem;
-}
-
-.itemImage img {
-  height: 170px;
-  padding: 15px;
 }
 
 ::-webkit-scrollbar {
@@ -281,7 +290,26 @@ div.items {
 }
 
 .itemImage img {
-  width: 180px;
+  height: 180px;
+  width: auto;
+  padding: 15px;
+}
+
+.exampleCard {
+  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-size: cover;
+  height: 700px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5%;
+}
+
+.allContent {
+  height: 500px;
+}
+
+.buttonsFeedback img {
+  width: 170px;
   height: auto;
   padding: 5px !important;
 }
@@ -290,13 +318,13 @@ div.items {
   height: 670px;
 }
 
-.exampleCard .all .title {
+.exampleCard .allContent .title {
   padding: 0px 10px;
   font-size: 1.8rem;
   word-wrap: break-word;
 }
 
-.exampleCard .all .content {
+.exampleCard .allContent .content {
   height: 310px;
   padding: 0px 10px;
   overflow: auto;
@@ -304,6 +332,29 @@ div.items {
 
 .inputField {
   color: #e7edf2 !important;
+}
+
+.statisticsFilter {
+  color: #8391a5;
+  height: 75px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.statisticsLabel {
+  margin-left: 0 !important;
+}
+
+.titleStat {
+  color: #8391a5;
+  display: flex;
+  justify-content: center;
+}
+
+.chart {
+  padding: 0 8% !important;
 }
 
 .materialize-red {
@@ -3808,7 +3859,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 90%;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {

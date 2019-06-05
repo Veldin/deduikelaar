@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Router, Route, Link } from 'react-router';
 import Card from './Card/Card';
 
 class Overview extends Component {
@@ -18,7 +17,6 @@ class Overview extends Component {
         this.setState({ 
           card: responseJson
         })
-        console.log(this.state.card);
       })
   }
 
