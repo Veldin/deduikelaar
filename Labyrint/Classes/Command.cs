@@ -188,6 +188,13 @@ namespace Labyrint
             // Get the Method
             MethodInfo method = GetMethod(splittedText[0], splittedText2[0], splittedText2[1]);
 
+            // If method is null, return
+            if (method == null)
+            {                
+                DisplayLine("No method found");
+                return;
+            }
+
             // Get the parameters of the method
             ParameterInfo[] parameters = method.GetParameters();
 
@@ -196,8 +203,17 @@ namespace Labyrint
             {
                 try
                 {
-                    method.Invoke(this, null);
-                    Log.Debug("Method succesfully executed!");
+                    // Invoke the method
+                    var returnValue = method.Invoke(this, null);
+
+                    // If there is a return type print it, else print execute conformation
+                    if (returnValue != null)
+                    {
+                        DisplayLine(returnValue.ToString());
+                    } else
+                    {
+                        DisplayLine("Method succesfully executed!");
+                    }
                     return;
                 }
                 catch
@@ -293,7 +309,6 @@ namespace Labyrint
             else
             {
                 commandBar.Visibility = Visibility.Visible;
-                //commandBar.Focus();
                 commandResponse.Visibility = Visibility.Visible;
             }
         }

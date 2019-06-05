@@ -183,8 +183,6 @@ namespace Labyrint
 
             TestBrowser();
 
-            int ammountPickedUp = SettingsFacade.Get("CountPickups", 0);
-
 
             camera.GenerateHeightAndWidth();
 
