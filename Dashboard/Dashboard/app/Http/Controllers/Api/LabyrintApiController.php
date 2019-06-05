@@ -235,7 +235,7 @@ class LabyrintApiController extends Controller
         $data = [];
         foreach ($feedbacks as $feedback) {
             $feedbackItemData = [];
-
+            $count = 0;
             // Set feedback item data
             foreach ($feedback->feedbackItems as $feedbackItem){
 
@@ -244,7 +244,7 @@ class LabyrintApiController extends Controller
 
                 // Count given feedback
                 $feedbackItemJson['count'] = $feedbackItem->storyFeedback->count();
-
+                $count += $feedbackItemJson['count'];
                 $feedbackItemData[] = $feedbackItemJson;
             }
 
@@ -255,6 +255,7 @@ class LabyrintApiController extends Controller
                 'extraInfo' => $feedback->extraInfo,
                 'feedbackType' => $feedback->feedbackType,
                 'oneWord' => $feedback->oneWord,
+                'count' => $count,
                 'feedback' => $feedbackItemData
             ];
         }
