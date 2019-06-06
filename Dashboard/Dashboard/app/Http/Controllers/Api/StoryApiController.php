@@ -55,7 +55,7 @@ class StoryApiController extends Controller
 
         }
 
-        return  response()->json(["response" => $data]);
+        return response()->json($data);
     }
 
     /**
