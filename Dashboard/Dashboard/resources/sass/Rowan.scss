@@ -206,7 +206,6 @@ div.itemCollection {
     margin-bottom: 10px;
     display: flex;
     align-items: flex-end;
-    justify-content: space-around;
 }
 
 .statisticsLabel{
@@ -221,5 +220,21 @@ div.itemCollection {
 }
 
 .chart{
-    padding: 0 8% !important;
+    // padding: 0 8% !important;
+}
+
+.legendGevoel{
+    width: 30px;
+    height: 25px;
+}
+.legendGevoel0{
+    background-color: #ff0043;
+}
+
+.legendGevoel1{
+    background-color: #77c6a0;
+}
+
+.legendGevoel2{
+    background-color: #304964;
 }

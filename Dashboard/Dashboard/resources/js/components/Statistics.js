@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DonutChart from "react-svg-donut-chart";
+import DonutChart from 'react-donut-chart';
 
 class Statistics extends Component {
   constructor() {
@@ -56,9 +56,9 @@ class Statistics extends Component {
         var colors = ['#ff0043','#77c6a0','#304964'];
       
         {arrayGevoel.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+          data.push({value: innerFeedbackValue, label: "hello", isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: colors[innerFeedbackIndex]})
         )}
-     
+        console.log(arrayGevoel)
         return data;
        }
 
@@ -68,33 +68,33 @@ class Statistics extends Component {
         var colors = ['#ff0043','#77c6a0','#304964'];
       
         {arrayLeesbaar.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+          data.push({value: innerFeedbackValue, clickToggle: false, label: "hello", width: 500, height: 500, isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: colors[innerFeedbackIndex]})
         )}
-     
+        console.log(arrayLeesbaar)
         return data;
        }
 
-       function generateValues2(arrayInteressant){
+       function generateValues3(arrayInteressant){
 
         var data = [];
         var colors = ['#ff0043','#77c6a0','#304964'];
       
         {arrayInteressant.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+          data.push({label: "hello", value: innerFeedbackValue,  height: 500, width: 500, clickToggle: false,  isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: '#304964'})
         )}
-     
+        console.log(arrayInteressant)
         return data;
        }
 
-       function generateValues2(arrayDuidelijkheid){
+       function generateValues4(arrayDuidelijkheid){
 
         var data = [];
         var colors = ['#ff0043','#77c6a0','#304964'];
       
         {arrayDuidelijkheid.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({stroke: colors[innerFeedbackIndex], strokeWidth: 6, value: innerFeedbackValue})
+          data.push({value: innerFeedbackValue, clickToggle: false, label: "hello", width: 500, height: 500, isEmpty: false, colors: colors, strokeColor: colors[innerFeedbackIndex]})
         )}
-     
+          console.log(arrayDuidelijkheid)
         return data;
        }
 
@@ -121,13 +121,13 @@ class Statistics extends Component {
             <div className="row allCharts">
                 <div className="col s6 feedbackChartThree chart">
                     <DonutChart
-                        data={generateValues2((arrayInteressant))}
+                        data={generateValues3((arrayInteressant))}
                     />
                     <div className="titleStat">Interesse</div>
                 </div>
                 <div className="col s6 feedbackChartThree chart">
                     <DonutChart
-                        data={generateValues2((arrayDuidelijkheid))}
+                        data={generateValues4((arrayDuidelijkheid))}
                     />
                     <div className="titleStat">Duidelijkheid</div>
                 </div>
