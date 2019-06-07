@@ -144,7 +144,7 @@ class CreateItem extends Component {
       <div className="container-fluid containerAddItem">
         <div className="row">
 
-          <div className="col s5 inputFields">
+          <div className="col s12 m5 l5 inputFields">
             <form name="createItemForm" encType="multipart/form-data">
 
             <div className="row">
@@ -286,7 +286,7 @@ class CreateItem extends Component {
           </div>
 
 
-          <div className="col s7 exampleSide">
+          <div className="col s12 m7 l7 exampleSide">
 
             <div className="row exampleCard">
               <div className="allContent">
@@ -306,21 +306,24 @@ class CreateItem extends Component {
                   <div className="quizQuestion4">
                   </div>
                 </div>
+
+                <div className="row feedback">
+              <p>Welke emotie wekte dit verhaal bij jou op?</p>
+                <div className="col s3">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+                <div className="col s3">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+                <div className="col s3">
+                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
+                </div>
+            </div>
+
               </div>
             </div>
 
-            <div className="row feedback">
-              <p>Welke emotie wekte dit verhaal bij jou op?</p>
-                <div className="col s4">
-                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
-                </div>
-                <div className="col s4">
-                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
-                </div>
-                <div className="col s4">
-                  <span className="buttonsFeedback"><img src={ require('../../../public/images/poststamp2.png') } /></span>
-                </div>
-            </div>
+            
 
           </div>
 

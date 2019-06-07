@@ -69491,7 +69491,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s5 inputFields"
+        className: "col s12 m5 l5 inputFields"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         name: "createItemForm",
         encType: "multipart/form-data"
@@ -69690,7 +69690,7 @@ function (_Component) {
         onClick: this.insertItem.bind(this),
         name: "action"
       }, "Opslaan"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s7 exampleSide"
+        className: "col s12 m7 l7 exampleSide"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row exampleCard"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -69713,27 +69713,27 @@ function (_Component) {
         className: "quizQuestion3"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "quizQuestion4"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row feedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4"
+        className: "col s3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "buttonsFeedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4"
+        className: "col s3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "buttonsFeedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4"
+        className: "col s3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "buttonsFeedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
-      })))))));
+      })))))))));
     }
   }]);
 
@@ -69837,7 +69837,7 @@ function (_Component) {
       }, "Statestieken"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s1"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s9 contentContainer"
+        className: "col s12 m9 l9 contentContainer"
       }, this.props.children))));
     }
   }]);
