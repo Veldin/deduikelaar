@@ -340,7 +340,6 @@ div.items {
   margin-bottom: 10px;
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
 }
 
 .statisticsLabel {
@@ -353,8 +352,21 @@ div.items {
   justify-content: center;
 }
 
-.chart {
-  padding: 0 8% !important;
+.legendGevoel {
+  width: 30px;
+  height: 25px;
+}
+
+.legendGevoel0 {
+  background-color: #ff0043;
+}
+
+.legendGevoel1 {
+  background-color: #77c6a0;
+}
+
+.legendGevoel2 {
+  background-color: #304964;
 }
 
 .materialize-red {
@@ -3859,7 +3871,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
