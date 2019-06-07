@@ -8,10 +8,12 @@ use App\Feedback;
 use App\File;
 use App\Http\Controllers\Controller;
 use App\Story;
+use App\StoryFeedback;
 use App\StoryItem;
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -30,13 +32,14 @@ class StoryApiController extends Controller
 
         // Get all stories
         if(isset($_GET['onlyActive'])){
-            $stories = \App\Story::with('feedback')->where('active', 1)->get();
+            $stories = \App\Story::with('storyFeedback')->where('active', 1)->get();
         }else{
-            $stories = \App\Story::with('feedback')->get();
+            $stories = \App\Story::with('storyFeedback')->get();
         }
 
-        // Get all feedback items
-//        $feedbacks = \App\Feedback::with('feedbackItems')->get();
+        $storyFeedback = StoryFeedback::getCount();
+
+        $feedbacks = \App\Feedback::with('feedbackItems')->get();
 
         // Loop through all stories
         foreach ($stories as $story){
@@ -47,12 +50,12 @@ class StoryApiController extends Controller
                 'description' => $story->description,
                 'icon' => $story->icon,
                 'active' => $story->active,
-                'feedback' => $story->allFeedback()
+                'feedback' => $story->allFeedback($feedbacks, $storyFeedback)
             ];
 
         }
 
-        return  response()->json($data);
+        return response()->json($data);
     }
 
     /**
@@ -118,7 +121,7 @@ class StoryApiController extends Controller
         }
 
         // Add feedback
-        $data['feedbackItems'] = $story->allFeedback();
+        $data['feedbackItems'] = $story->allFeedback(null, StoryFeedback::getCount($story));
 
         return response()->json($data);
     }

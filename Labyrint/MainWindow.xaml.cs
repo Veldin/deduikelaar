@@ -32,6 +32,9 @@ namespace Labyrint
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Version of the application
+        private static string version { get; } = "v0.1";
+
         //For keeping the sizes of the window (on the canvas, not IRL)
         private int width;
         private int height;
@@ -195,7 +198,9 @@ namespace Labyrint
             Run();
         }
 
-
+        /***************************************************************************
+         * TEST METHODS (Remove these before publish)
+         * ************************************************************************/
         public void TestBrowser()
         {
             //browser.Refresh();
@@ -210,6 +215,11 @@ namespace Labyrint
 
             //browser.NavigateToString(str);
         }
+
+        /***************************************************************************
+         * PUBLIC METHODS
+         * ************************************************************************/
+        #region publicMethods
 
         public void Run()
         {
@@ -230,6 +240,70 @@ namespace Labyrint
             Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
             Task.Run(() => Run());  //Schedule new Run() task
         }
+
+        /// <summary>
+        /// CloseApp gets called from the mainWindow_Closing event.
+        /// </summary>
+        public async void CloseApp()
+        {
+            // Give the user feedback
+            Log.Info("Shutting down...");
+
+            // Sending the api the statsistics
+            if (await ApiParserFacade.InformApiAsync())
+            {
+                // If the statistics are sent to the api delete the file to prevent double data insertion
+                FileReaderWriterFacade.DeleteFile(new string[] { FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json" });
+            }
+
+            // Save the settings
+            SettingsFacade.Save();
+
+            // Close the application
+            System.Windows.Application.Current.Shutdown();
+            //this.Close();
+        }
+
+        /// <summary>
+        /// This method reset the controls by unpressing all keys and destroying all gameObjects that are needed for the controls
+        /// </summary>
+        public void ResetControls()
+        {
+            // Unpress all keys
+            pressedKeys.Clear();
+
+            // Loop through all the gameObjects
+            foreach (GameObject gameObject in gameObjects)
+            {
+                // Destroy it if its a controllerAnchor or an ControllerCursor
+                if (gameObject.BuilderType == "ControllerAncher" || gameObject.BuilderType == "ControllerCursor")
+                {
+                    gameObject.destroyed = true;
+                }
+            }
+
+            // Give programmer feedback
+            Log.Debug("Keys resetted");
+        }
+
+        public void ActivateCollision()
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                if (gameObject.BuilderType == "player")
+                {
+                    gameObject.Collition = !gameObject.Collition;
+                    Log.Debug("The player collision is now: " + gameObject.Collition);
+                }
+            }
+        }
+
+        #endregion
+
+        /***************************************************************************
+         * PRIVATE METHODS
+         * ************************************************************************/
+        #region privateMethods
 
         private void Logic(long delta)
         {
@@ -304,7 +378,7 @@ namespace Labyrint
             {
                 Log.Warning("Could not invoke thread");
             }
-            
+
 
             //Destory old objects
             foreach (GameObject gameObject in loopList)
@@ -336,21 +410,21 @@ namespace Labyrint
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
             lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
+                {
+                    try
                     {
-                try
-                {
-                    //Try to duplicate the arraylist.
-                    loopList = new ArrayList(backgroundObjects);
-                    loopList.AddRange(gameObjects);
+                        //Try to duplicate the arraylist.
+                        loopList = new ArrayList(backgroundObjects);
+                        loopList.AddRange(gameObjects);
 
-                    loopList.Add(cursor); 
+                        loopList.Add(cursor);
+                    }
+                    catch
+                    {
+                        //if it failes for any reason skip this frame.
+                        return;
+                    }
                 }
-                catch
-                {
-                    //if it failes for any reason skip this frame.
-                    return;
-                }
-            }
 
             //Run it in the UI thread
             Application.Current.Dispatcher.Invoke((Action)delegate
@@ -401,7 +475,7 @@ namespace Labyrint
                             }
                             else
                             {
-                                gameCanvas.Children.Insert(0,rect);
+                                gameCanvas.Children.Insert(0, rect);
                             }
                         }
 
@@ -490,79 +564,14 @@ namespace Labyrint
             }
         }
 
-        /* KeyDown */
-        /* 
-        * Add the given key in the pressedKeys collection.
-        * The argument is the given key represented as a string.
-        */
-        public void KeyDown(object sender, KeyEventArgs args)
-        {
-            pressedKeys.Add(args.Key.ToString());
-            command.KeyPressed(args);
-
-        }
-
-
-        /* KeyDown */
-        /* 
-         * Remove the given key in the pressedKeys collection.
-         * The argument is the given key represented as a string.
-         */
-        public void KeyUp(object sender, KeyEventArgs args)
-        {
-            pressedKeys.Remove(args.Key.ToString());
-        }
-
         /* IsKeyPressed */
         /* 
          * Returns wheater the given key exists within the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public Boolean IsKeyPressed(String virtualKey)
+        private Boolean IsKeyPressed(String virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
-        }
-
-        /// <summary>
-        /// This is the EventHandler of the MouseDownEvent
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void OnMouseDown(object sender, MouseButtonEventArgs args)
-        {
-            // Set IsMouseDown on true
-            pressedKeys.Add("LeftMouse");
-
-            // Create the controller GameObjects
-            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
-            gameObjects.Add(controllerAnchor);
-            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft , cursor.FromTop );
-            gameObjects.Add(controllerCursor);
-        }
-
-        /// <summary>
-        /// This is the EventHandler of the MouseUpEvent
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void OnMouseUp(object sender, MouseButtonEventArgs args)
-        {
-            // Set IsMouseDown on false
-            pressedKeys.Remove("LeftMouse");
-
-            // Set the target of the player to the current position to stop it from moving
-            player.Target.SetFromLeft(player.FromLeft);
-            player.Target.SetFromTop(player.FromTop);
-
-            // Remove the anchor for the controller
-            if (!(controllerAnchor is null))
-            {
-                controllerAnchor.destroyed = true;
-            }
-            if (!(controllerCursor is null))
-            {
-                controllerCursor.destroyed = true;
-            }
         }
 
         /// <summary>
@@ -613,12 +622,12 @@ namespace Labyrint
                     //Get a random wall position
                     randomFromTop = random.Next(MazeFacade.GetMazeHeight());
                     randomFromLeft = random.Next(MazeFacade.GetMazeWidth());
-                }while (MazeFacade.IsWall(randomFromLeft, randomFromTop)); //If its a wall pick a new location
-                
+                } while (MazeFacade.IsWall(randomFromLeft, randomFromTop)); //If its a wall pick a new location
+
                 // create the pickup
                 newPickup = GameObjectFactoryFacade.GetGameObject(
-                    "pickup", 
-                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2 , 
+                    "pickup",
+                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
                     randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
                     new object[2] { browser, camera }
                 );
@@ -626,6 +635,79 @@ namespace Labyrint
 
             gameObjects.Add(newPickup);
         }
+
+        #endregion
+
+        /***************************************************************************
+         * EVENTS
+         * ************************************************************************/
+        #region events
+
+        /* KeyDown */
+        /* 
+        * Add the given key in the pressedKeys collection.
+        * The argument is the given key represented as a string.
+        */
+        public void KeyDown(object sender, KeyEventArgs args)
+        {
+            pressedKeys.Add(args.Key.ToString());
+            command.KeyPressed(args);
+
+        }
+
+
+        /* KeyDown */
+        /* 
+         * Remove the given key in the pressedKeys collection.
+         * The argument is the given key represented as a string.
+         */
+        public void KeyUp(object sender, KeyEventArgs args)
+        {
+            pressedKeys.Remove(args.Key.ToString());
+        }
+
+        /// <summary>
+        /// This is the EventHandler of the MouseDownEvent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnMouseDown(object sender, MouseButtonEventArgs args)
+        {
+            // Set IsMouseDown on true
+            pressedKeys.Add("LeftMouse");
+
+            // Create the controller GameObjects
+            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
+            gameObjects.Add(controllerAnchor);
+            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop);
+            gameObjects.Add(controllerCursor);
+        }
+
+        /// <summary>
+        /// This is the EventHandler of the MouseUpEvent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnMouseUp(object sender, MouseButtonEventArgs args)
+        {
+            // Set IsMouseDown on false
+            pressedKeys.Remove("LeftMouse");
+
+            // Set the target of the player to the current position to stop it from moving
+            player.Target.SetFromLeft(player.FromLeft);
+            player.Target.SetFromTop(player.FromTop);
+
+            // Remove the anchor for the controller
+            if (!(controllerAnchor is null))
+            {
+                controllerAnchor.destroyed = true;
+            }
+            if (!(controllerCursor is null))
+            {
+                controllerCursor.destroyed = true;
+            }
+        }
+
 
         public void SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -635,63 +717,6 @@ namespace Labyrint
                 camera.GenerateHeightAndWidth();
             }
             Log.Debug("changed" + camera.GetWidth());
-        }
-
-        /// <summary>
-        /// CloseApp gets called from the mainWindow_Closing event.
-        /// </summary>
-        public async void CloseApp()
-        {
-            // Give the user feedback
-            Log.Info("Shutting down...");
-
-            // Sending the api the statsistics
-            if (await ApiParserFacade.InformApiAsync())
-            {
-                // If the statistics are sent to the api delete the file to prevent double data insertion
-                FileReaderWriterFacade.DeleteFile(new string[] { FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json" });
-            }
-
-            // Save the settings
-            SettingsFacade.Save();
-
-            // Close the application
-            System.Windows.Application.Current.Shutdown();
-            //this.Close();
-        }
-
-        /// <summary>
-        /// This method reset the controls by unpressing all keys and destroying all gameObjects that are needed for the controls
-        /// </summary>
-        public void ResetControls()
-        {
-            // Unpress all keys
-            pressedKeys.Clear();
-
-            // Loop through all the gameObjects
-            foreach (GameObject gameObject in gameObjects)
-            {
-                // Destroy it if its a controllerAnchor or an ControllerCursor
-                if (gameObject.BuilderType == "ControllerAncher" || gameObject.BuilderType == "ControllerCursor")
-                {
-                    gameObject.destroyed = true;
-                }
-            }
-
-            // Give programmer feedback
-            Log.Debug("Keys resetted");
-        }
-
-        public void ActivateCollision()
-        {
-            foreach (GameObject gameObject in gameObjects)
-            {
-                if (gameObject.BuilderType == "player")
-                {
-                    gameObject.Collition = !gameObject.Collition;
-                    Log.Debug("The player collision is now: " + gameObject.Collition);
-                }
-            }
         }
 
         /// <summary>
@@ -706,5 +731,7 @@ namespace Labyrint
         {
             pressedKeys.Clear();
         }
+
+        #endregion
     }
 }
