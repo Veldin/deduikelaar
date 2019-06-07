@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import HSBar from 'react-horizontal-stacked-bar-chart';
 import toastr from 'toastr';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const card = (props) => {
   function deleteItem() {
@@ -13,46 +13,35 @@ const card = (props) => {
     .then(response => {
       if(response['response'] == "success"){
         toastr.success('dit item is verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
-        window.location.href = "/overview";
+        //window.location.href = "/overview";
       }else{
         toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
       }
     })
   }
 
-  function generateValues(toDataArray){
+  function createBarData(toDataArray){
     var data = [];
-    var colors = ["blue","red","yellow","green"];
-
-    {Object.values(toDataArray).map((innerFeedbackValue, innerFeedbackIndex) =>
-      //console.log(innerFeedbackValue['count'])
-      data.push({value: innerFeedbackValue['count'], description: innerFeedbackValue['count'], color: colors[innerFeedbackIndex]})
-    )}
-    
-    return data; 
-  }
-
-  function doStuff(toDataArray){
-
-    var data = [];
+    var colors = ["#e91e63","#9c27b0","#f44336","#f4c236"];
 
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function(element) {
       if(toDataArray.storyID == element.storyId){
-        //console.log(element.feedback);
-
+        var i = 0;
         element.feedback.forEach(function(feedbackItem) {
-          data[feedbackItem.oneWord] = feedbackItem.count;
+          if (typeof data[feedbackItem.oneWord] === 'undefined') {
+            data[feedbackItem.oneWord] = [];
+          }
+
+          Object.entries(feedbackItem.feedback).map((element, index) =>
+              data[feedbackItem.oneWord][index] ={value: element[1].count, description: element[1].count, color: colors[index]}
+          );
         });
-
       }
-
     });
     
 
-    //console.log(data);
-
-    return "TEST TEST ||";
+    return data;
   }
 
   return (        
@@ -89,30 +78,20 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
-            {props.cardInfo.map((cardValue, cardIndex) =>
-              <span key={cardValue['storyId']}>
-              {console.log(props.cardInfo)}
-              {doStuff(props)}
-
-              {Array.from(doStuff(props)).map((element, index) =>
-                {console.log(element)}
-              )}
-
-              {/* // {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
-              //   <div key={OuterFeedbackIndex}>
-              //     {console.log(cardValue)}
-              //     <div className="col s3">
-              //       <p>{OuterFeedbackValue['oneWord']}</p>
-              //     </div>
-              //     <div className="col s9">
-              //       <div className="bar">
-              //         <HSBar
-              //           data={generateValues((OuterFeedbackValue['feedback']))}
-              //         />
-              //       </div>
-              //     </div>
-              //   </div>
-              // )} */}
+          {Object.entries(createBarData(props)).map((element, index) =>
+              <span key={element[0]}>
+                <div key={element[0]}>
+                  <div className="col s3">
+                    <p>{element[0]}</p>
+                  </div>
+                  <div className="col s9">
+                    <div className="bar">
+                        <HSBar
+                          data={element[1]}
+                        />
+                    </div>
+                  </div>
+                </div>
               </span>         
             )}
           </div>
