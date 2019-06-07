@@ -70029,6 +70029,7 @@ function (_Component) {
       var arrayLeesbaar = [];
       var arrayInteressant = [];
       var arrayDuidelijkheid = [];
+      var questions = [];
       {
         this.state.card.map(function (item) {
           if (item['oneWord'] == "Gevoel") {
@@ -70085,7 +70086,7 @@ function (_Component) {
             return data.push({
               value: innerFeedbackValue,
               clickToggle: false,
-              label: "hello",
+              label: "doei",
               width: 500,
               height: 500,
               isEmpty: false,

@@ -29,6 +29,7 @@ class Statistics extends Component {
     let arrayLeesbaar = [];
     let arrayInteressant = [];
     let arrayDuidelijkheid = [];
+    let questions = [];
 
     {this.state.card.map((item) =>
         {if((item['oneWord']) == "Gevoel"){
@@ -68,7 +69,7 @@ class Statistics extends Component {
         var colors = ['#ff0043','#77c6a0','#304964'];
       
         {arrayLeesbaar.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({value: innerFeedbackValue, clickToggle: false, label: "hello", width: 500, height: 500, isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: colors[innerFeedbackIndex]})
+          data.push({value: innerFeedbackValue, clickToggle: false, label: "doei", width: 500, height: 500, isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: colors[innerFeedbackIndex]})
         )}
         console.log(arrayLeesbaar)
         return data;
