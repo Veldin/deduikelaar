@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import DonutChart from 'react-donut-chart';
 
 class Statistics extends Component {
   constructor() {
@@ -7,7 +6,8 @@ class Statistics extends Component {
 
     this.state = {
       card: [],
-      title: 'Gevoel'
+      canvasData: {},
+      canvasSave: {}
     }
   }
 
@@ -17,126 +17,141 @@ class Statistics extends Component {
       .then((responseJson) => {
         this.setState({ 
           card: responseJson
-        })
-        console.log(this.state.card);
-      })
+        });
+
+          responseJson.map((item, index) => {
+
+              this.createChart('canvas'+index, item);
+
+          })
+      });
+
+      const script = document.createElement("script");
+      script.src = "js/hack-donutchart.js";
+      script.async = true;
+      document.body.appendChild(script);
+
+
+
+  }
+
+  createChart(id, data){
+
+      var total = parseInt(data['count']);
+      var offset = 0;
+      var colors = ['#ff0043','#77c6a0','#304964'];
+      colors.sort(() => Math.random() - 0.5);
+
+      var c = document.getElementById(id);
+      c.width = 500;
+      c.height = 500;
+      var ctx = c.getContext("2d");
+      ctx.beginPath();
+      ctx.lineWidth = 40;
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#FFFFFF";
+      ctx.textAlign = "center";
+      ctx.fillText(data['question'], 250, 250);
+      ctx.font = "16px Arial";
+      var size = 180;
+      var canvasData = [];
+      data['feedback'].map(function(fb, fbIndex){
+          ctx.beginPath();
+
+          var end = (parseInt(fb['count']) / total) * 2;
+          end += offset;
+
+          ctx.arc(c.width/2, c.height/2, size, offset * Math.PI, end * Math.PI);
+          ctx.strokeStyle = colors[fbIndex];
+          ctx.stroke();
+
+          var loc = (offset + ((end-offset)/2)) * Math.PI;
+          var xLoc = size*Math.cos(loc);
+          var yLoc = size*Math.sin(loc);
+
+          canvasData[fbIndex] = {
+              x: xLoc,
+              y: yLoc,
+              answer: fb['answer'],
+              count: fb['count']
+          };
+          offset = end;
+      });
+      if(typeof this.state.canvasData === "undefined"){
+          this.state.canvasData = {};
+
+      }
+      this.state.canvasData[id] = canvasData;
+      this.state.canvasSave[id] = ctx.getImageData(0, 0, c.width, c.height);
+
+  }
+
+  mouseEnter (e) {
+      var c = e.target;
+      var ctx = c.getContext("2d");
+      ctx.beginPath();
+      ctx.lineWidth = 40;
+
+      this.state.canvasData[c.id].map(function(item){
+          ctx.beginPath();
+          var xLoc = item.x;
+          var yLoc = item.y;
+
+          switch (item.answer) {
+              case "\\u1F603":
+                  var img = new Image();
+                  img.src = "images/sprites/happy.gif";
+                  img.onload = function(){
+                      ctx.drawImage(this, 235 + xLoc, 225 + yLoc, 30, 30);
+                  };
+                  break;
+              case "\\u1F620":
+                  var img = new Image();
+                  img.src = "images/sprites/angry.gif";
+                  img.onload = function(){
+                      ctx.drawImage(this, 235 + xLoc, 225 + yLoc, 30, 30);
+                  };
+                  break;
+              case "\\u1F622":
+                  var img = new Image();
+                  img.src = "images/sprites/sad.gif";
+                  img.onload = function(){
+                      ctx.drawImage(this, 235 + xLoc, 225 + yLoc, 30, 30);
+                  };
+                  break;
+              default:
+                  ctx.fillText(item.answer, 250 + xLoc, 250 + yLoc);
+          }
+          ctx.fillText(item.count, 250 + xLoc, 280 + yLoc);
+      });
+  }
+
+  mouseLeave (e) {
+      var c = e.target;
+      var ctx = c.getContext("2d");
+      ctx.putImageData(this.state.canvasSave[c.id], 0, 0);
   }
 
 
+
   render(){
-
-    let arrayGevoel = [];
-    let arrayLeesbaar = [];
-    let arrayInteressant = [];
-    let arrayDuidelijkheid = [];
-    let questions = [];
-
-    {this.state.card.map((item) =>
-        {if((item['oneWord']) == "Gevoel"){
-            {item['feedback'].map((item2) =>
-               arrayGevoel.push(item2['count'])
-            )}
-        }else if((item['oneWord']) == "Leesbaar"){
-            {item['feedback'].map((item2) =>
-                arrayLeesbaar.push(item2['count'])
-            )}
-        }else if((item['oneWord']) == "Interessant"){
-            {item['feedback'].map((item2) =>
-                arrayInteressant.push(item2['count'])
-            )}
-        }else if((item['oneWord']) == "Duidelijkheid"){
-            {item['feedback'].map((item2) =>
-                arrayDuidelijkheid.push(item2['count'])
-            )}
-        }}
-    )}
-
-    function generateValues(arrayGevoel){
-
-        var data = [];
-        var colors = ['#ff0043','#77c6a0','#304964'];
-      
-        {arrayGevoel.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({value: innerFeedbackValue, label: "hello", isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: colors[innerFeedbackIndex]})
-        )}
-        console.log(arrayGevoel)
-        return data;
-       }
-
-       function generateValues2(arrayLeesbaar){
-
-        var data = [];
-        var colors = ['#ff0043','#77c6a0','#304964'];
-      
-        {arrayLeesbaar.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({value: innerFeedbackValue, clickToggle: false, label: "doei", width: 500, height: 500, isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: colors[innerFeedbackIndex]})
-        )}
-        console.log(arrayLeesbaar)
-        return data;
-       }
-
-       function generateValues3(arrayInteressant){
-
-        var data = [];
-        var colors = ['#ff0043','#77c6a0','#304964'];
-      
-        {arrayInteressant.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({label: "hello", value: innerFeedbackValue,  height: 500, width: 500, clickToggle: false,  isEmpty: false, colorFunction: colors[innerFeedbackIndex], strokeColor: '#304964'})
-        )}
-        console.log(arrayInteressant)
-        return data;
-       }
-
-       function generateValues4(arrayDuidelijkheid){
-
-        var data = [];
-        var colors = ['#ff0043','#77c6a0','#304964'];
-      
-        {arrayDuidelijkheid.map((innerFeedbackValue, innerFeedbackIndex) =>
-          data.push({value: innerFeedbackValue, clickToggle: false, label: "hello", width: 500, height: 500, isEmpty: false, colors: colors, strokeColor: colors[innerFeedbackIndex]})
-        )}
-          console.log(arrayDuidelijkheid)
-        return data;
-       }
+      return (
+              <div className="statisticsContentContainer">
+                  <div className="row statisticsFilter">
+                      <div className="col s2 offset-s10 statisticsLabel">Statestieken</div>
+                  </div>
+                  <div className="row allCharts">
+                  {this.state.card.map((item, index) => {
 
 
-    return (
-        <div className="statisticsContentContainer">
-            <div className="row statisticsFilter">
-                <div className="col s2 offset-s10 statisticsLabel">Statestieken</div>
-            </div>
-            <div className="row allCharts">
-                <div className="col s6 feedbackChartOne chart">
-                    <DonutChart
-                        data={generateValues((arrayGevoel))}
-                    />
-                    <div className="titleStat">Gevoel</div>
-                </div>
-                <div className="col s6 feedbackChartTwo chart">
-                    <DonutChart
-                        data={generateValues2((arrayLeesbaar))}
-                    />
-                    <div className="titleStat">Leesbaarheid</div>
-                </div>
-            </div>
-            <div className="row allCharts">
-                <div className="col s6 feedbackChartThree chart">
-                    <DonutChart
-                        data={generateValues3((arrayInteressant))}
-                    />
-                    <div className="titleStat">Interesse</div>
-                </div>
-                <div className="col s6 feedbackChartThree chart">
-                    <DonutChart
-                        data={generateValues4((arrayDuidelijkheid))}
-                    />
-                    <div className="titleStat">Duidelijkheid</div>
-                </div>
-           
+                      return <div className="col s6 chart" key={index}>
+                          <canvas id={"canvas"+index} onMouseEnter={this.mouseEnter.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}></canvas>
+                      </div>
 
-            </div>
-        </div>
-    )
+                  })}
+                  </div>
+              </div>
+      )
   }
 }
 export default Statistics;
