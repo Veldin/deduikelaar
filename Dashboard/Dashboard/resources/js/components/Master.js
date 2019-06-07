@@ -35,7 +35,7 @@ class Master extends Component {
               </Link>
             </div>
             <div className="col s1"></div>
-            <div className="col s9 contentContainer">
+            <div className="col s12 m9 l9 contentContainer">
               {this.props.children}
             </div>
           </div>
