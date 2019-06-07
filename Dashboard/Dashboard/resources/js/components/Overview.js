@@ -15,7 +15,7 @@ class Overview extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ 
-          card: responseJson
+          card: responseJson['response']
         })
       })
   }

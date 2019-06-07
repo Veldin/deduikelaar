@@ -65885,15 +65885,32 @@ var card = function card(props) {
     var data = [];
     var colors = ["blue", "red", "yellow", "green"];
     {
-      toDataArray.map(function (innerFeedbackValue, innerFeedbackIndex) {
-        return data.push({
-          value: innerFeedbackValue['count'],
-          description: innerFeedbackValue['count'],
-          color: colors[innerFeedbackIndex]
-        });
+      Object.values(toDataArray).map(function (innerFeedbackValue, innerFeedbackIndex) {
+        return (//console.log(innerFeedbackValue['count'])
+          data.push({
+            value: innerFeedbackValue['count'],
+            description: innerFeedbackValue['count'],
+            color: colors[innerFeedbackIndex]
+          })
+        );
       });
     }
     return data;
+  }
+
+  function doStuff(toDataArray) {
+    var data = [];
+    var toloop = toDataArray.cardInfo[0];
+    toloop.forEach(function (element) {
+      if (toDataArray.storyID == element.storyId) {
+        //console.log(element.feedback);
+        element.feedback.forEach(function (feedbackItem) {
+          data[feedbackItem.oneWord] = feedbackItem.count;
+        });
+      }
+    }); //console.log(data);
+
+    return "TEST TEST ||";
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65936,19 +65953,9 @@ var card = function card(props) {
     className: "row feedback"
   }, props.cardInfo.map(function (cardValue, cardIndex) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      key: cardIndex
-    }, console.log(props.cardInfo), cardValue[cardIndex]['feedback'].map(function (OuterFeedbackValue, OuterFeedbackIndex) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        key: OuterFeedbackIndex
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, OuterFeedbackValue['oneWord'])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s9"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default.a, {
-        data: generateValues(OuterFeedbackValue['feedback'])
-      }))));
+      key: cardValue['storyId']
+    }, console.log(props.cardInfo), doStuff(props), Array.from(doStuff(props)).map(function (element, index) {
+      console.log(element);
     }));
   })))));
 };
@@ -66567,7 +66574,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
-      card: {}
+      card: []
     };
     return _this;
   }
@@ -66581,7 +66588,7 @@ function (_Component) {
         return response.json();
       }).then(function (responseJson) {
         _this2.setState({
-          card: responseJson
+          card: responseJson['response']
         });
       });
     }

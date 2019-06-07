@@ -20,16 +20,40 @@ const card = (props) => {
     })
   }
 
- function generateValues(toDataArray){
-  var data = [];
-  var colors = ["blue","red","yellow","green"];
+  function generateValues(toDataArray){
+    var data = [];
+    var colors = ["blue","red","yellow","green"];
 
-  {toDataArray.map((innerFeedbackValue, innerFeedbackIndex) =>
-    data.push({value: innerFeedbackValue['count'], description: innerFeedbackValue['count'], color: colors[innerFeedbackIndex]})
-  )}
+    {Object.values(toDataArray).map((innerFeedbackValue, innerFeedbackIndex) =>
+      //console.log(innerFeedbackValue['count'])
+      data.push({value: innerFeedbackValue['count'], description: innerFeedbackValue['count'], color: colors[innerFeedbackIndex]})
+    )}
+    
+    return data; 
+  }
 
-  return data; 
- }
+  function doStuff(toDataArray){
+
+    var data = [];
+
+    var toloop = toDataArray.cardInfo[0];
+    toloop.forEach(function(element) {
+      if(toDataArray.storyID == element.storyId){
+        //console.log(element.feedback);
+
+        element.feedback.forEach(function(feedbackItem) {
+          data[feedbackItem.oneWord] = feedbackItem.count;
+        });
+
+      }
+
+    });
+    
+
+    //console.log(data);
+
+    return "TEST TEST ||";
+  }
 
   return (        
     <div className="col s12 m4">
@@ -66,22 +90,29 @@ const card = (props) => {
           </div>
           <div className="row feedback">
             {props.cardInfo.map((cardValue, cardIndex) =>
-              <span key={cardIndex}>
-                {console.log(props.cardInfo)}
-              {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
-                <div key={OuterFeedbackIndex}>
-                  <div className="col s3">
-                    <p>{OuterFeedbackValue['oneWord']}</p>
-                  </div>
-                  <div className="col s9">
-                    <div className="bar">
-                      <HSBar
-                        data={generateValues((OuterFeedbackValue['feedback']))}
-                      />
-                    </div>
-                  </div>
-                </div>
+              <span key={cardValue['storyId']}>
+              {console.log(props.cardInfo)}
+              {doStuff(props)}
+
+              {Array.from(doStuff(props)).map((element, index) =>
+                {console.log(element)}
               )}
+
+              {/* // {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
+              //   <div key={OuterFeedbackIndex}>
+              //     {console.log(cardValue)}
+              //     <div className="col s3">
+              //       <p>{OuterFeedbackValue['oneWord']}</p>
+              //     </div>
+              //     <div className="col s9">
+              //       <div className="bar">
+              //         <HSBar
+              //           data={generateValues((OuterFeedbackValue['feedback']))}
+              //         />
+              //       </div>
+              //     </div>
+              //   </div>
+              // )} */}
               </span>         
             )}
           </div>
