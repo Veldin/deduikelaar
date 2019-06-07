@@ -118,7 +118,7 @@ namespace Settings
                 return defaultReturn;
             }
 
-            //fromFile.Add(needle, defaultReturn.ToString());
+            fromFile.Add(needle, defaultReturn.ToString());
 
             return defaultReturn;
         }
@@ -131,7 +131,7 @@ namespace Settings
         public string GetSetting(string key)
         {
             // Check if the key is in the dictionary 
-            if (merge.Keys.Contains(key))
+            if (fromFile.Keys.Contains(key))
             {                
                 return fromFile[key];
             }
@@ -147,10 +147,11 @@ namespace Settings
         public void SetSetting(string key, string value)
         {
             // Check if the key is in the dictionary 
-            if (merge.Keys.Contains(key))
+            if (fromFile.Keys.Contains(key))
             {
                 fromFile[key] = value;
             }
         }
+
     }
 }

@@ -101,7 +101,17 @@ namespace Labyrint
                 new object[2] { browser, camera }
             );
 
+            // create the pickup
+            GameObject orb = GameObjectFactoryFacade.GetGameObject(
+                "orb",
+                randomFromLeft * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                randomFromTop * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                newPickup
+            );
+
+            gameObjects.Add(orb);
             gameObjects.Add(newPickup);
+
         }
     }
 }

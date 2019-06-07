@@ -10,9 +10,9 @@ namespace Labyrint
 {
     class AnimateOpacityBehaviour : IBehaviour
     {
-        float currentDelta;
-        float maxDelta;
-        float maxOpacity;
+        private float currentDelta;
+        private float maxDelta;
+        private float maxOpacity;
 
 
         public AnimateOpacityBehaviour(float maxOpacity)

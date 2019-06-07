@@ -15,11 +15,18 @@ namespace Labyrint
         private readonly float destinationFromTop;
 
         //The movementspeed the gameobjects gets if they are anchord to the target.
+        public bool modifiersApplied; //Public for others to see if the modifiers are applied;
         private readonly int moveSpeedModifier;
+        private readonly int sizeModifier;
+
 
         //The pickup floats around an anchor.
         private GameObject anchor;
-        private bool moveSpeedModifierApplied;
+
+        private GameObject pointer; //The arrow is used to point to the anchor
+
+
+
 
         /// <summary>
         /// Initializes a new instance of the pickupTargetBehaviour.
@@ -28,15 +35,27 @@ namespace Labyrint
         /// <param name="destinationFromTop">The destination of the pickup from right.</param>
         public pickupTargetBehaviour(float destinationFromLeft, float destinationFromTop)
         {
+            
             this.destinationFromLeft = destinationFromLeft;
             this.destinationFromTop = destinationFromTop;
 
             moveSpeedModifier = 200;
-            moveSpeedModifierApplied = false;
+            sizeModifier = 20;
+
+            modifiersApplied = false;
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
+            //If the anchor is null search an anchor.
+            if (pointer == null)
+            {
+                pointer = GameObjectFactoryFacade.GetGameObject("pointer", destinationFromLeft, destinationFromTop);
+                pointer.Target = new Target(0,0);
+                gameObjects.Add(pointer);
+            }
+
+
             //If the anchor is null search an anchor.
             if (anchor == null)
             {
@@ -74,44 +93,80 @@ namespace Labyrint
             //If the absolute difference is high (when its out of the screen) place the object closer.
             if (diffFromTopAbs > 300 || diffFromLeftAbs > 550)
             {
-                if (!moveSpeedModifierApplied)
+                //Show the arrow
+                pointer.SetOpacity(1);
+
+                if (!modifiersApplied)
                 {
                     gameobject.MovementSpeed += moveSpeedModifier;
-                    moveSpeedModifierApplied = true;
+                    gameobject.Width -= sizeModifier;
+                    gameobject.Height -= sizeModifier;
+
+                    modifiersApplied = true;
                 }
 
                 gameobject.Target.SetFromLeft(destinationFromLeft + (diffFromLeft));
+
                 //Place it to the left or right of the player depending on what side the item is.
                 if (diffFromLeft > 0)
                 {
-                    gameobject.Target.AddFromLeft((percentageFromTop * -1) * 3);
+                    gameobject.Target.AddFromLeft((percentageFromTop * -1) * 2.5f);
                 }
                 else
                 {
-                    gameobject.Target.AddFromLeft(percentageFromTop * 3);
+                    gameobject.Target.AddFromLeft(percentageFromTop * 2.5f);
                 }
 
                 gameobject.Target.SetFromTop(destinationFromTop + (diffFromTop));
                 //Place it to the left or right of the player depending on what side the item is.
                 if (diffFromTop > 0)
                 {
-                    gameobject.Target.AddFromTop((percentageFromLeft * -1) * 3);
+                    gameobject.Target.AddFromTop((percentageFromLeft * -1) * 2.5f);
                 }
                 else
                 {
-                    gameobject.Target.AddFromTop(percentageFromLeft * 3);
+                    gameobject.Target.AddFromTop(percentageFromLeft * 2.5f);
                 }
+
+                pointer.Target = new Target(gameobject, false);
+                if (diffFromTop > 0)
+                {
+                    pointer.Target.AddFromTop((percentageFromLeft * -1) / 5);
+                }
+                else
+                {
+                    pointer.Target.AddFromTop(percentageFromLeft / 5);
+                }
+
+                if (diffFromLeft > 0)
+                {
+                    pointer.Target.AddFromLeft((percentageFromTop * -1) / 5);
+                }
+                else
+                {
+                    pointer.Target.AddFromLeft(percentageFromTop / 5);
+
+                }
+
+
+
             }
             else
             {
-                if (moveSpeedModifierApplied)
+                if (modifiersApplied)
                 {
                     gameobject.MovementSpeed -= moveSpeedModifier;
-                    moveSpeedModifierApplied = false;
+                    gameobject.Width += sizeModifier;
+                    gameobject.Height += sizeModifier;
+
+                    modifiersApplied = false;
                 }
                 //If the object is close anough set its target to its destination
                 gameobject.Target.SetFromLeft(destinationFromLeft);
                 gameobject.Target.SetFromTop(destinationFromTop);
+
+                //And hide the arrow
+                pointer.SetOpacity(0);
             }
 
             return true;

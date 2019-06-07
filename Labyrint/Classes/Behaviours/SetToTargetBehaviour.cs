@@ -14,12 +14,12 @@ namespace Labyrint
             // Check if target if null, if so return false
             if (gameobject.Target is null)
             {
-                gameobject.Target = new Target(gameobject.Target.FromLeft(), gameobject.Target.FromTop());
+                gameobject.Target = new Target(0, 0);
             }else
             {
                 //Set the fromLeft and fromTop to the targets fromLeft and fromTop
-                gameobject.FromLeft = gameobject.Target.FromLeft();
-                gameobject.FromTop = gameobject.Target.FromTop();
+                gameobject.FromLeft = gameobject.Target.FromLeft() - gameobject.Width / 2;
+                gameobject.FromTop = gameobject.Target.FromTop() - gameobject.Height / 2;
             }
 
 
