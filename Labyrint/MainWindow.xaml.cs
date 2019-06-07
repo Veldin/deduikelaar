@@ -162,7 +162,7 @@ namespace Labyrint
 
             for (int i = 0; i < 5; i++)
             {
-                DropNewPickup();
+                //DropNewPickup();
             }
 
             TestBrowser();

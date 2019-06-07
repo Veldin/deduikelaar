@@ -30,8 +30,8 @@ namespace GameObjectFactory
             switch (wantToGet)
             {
                 case "player":
-                    gameObject.Width = 40f;
-                    gameObject.Height = 40f;
+                    gameObject.Width = 45f;
+                    gameObject.Height = 45f;
 
                     gameObject.MovementSpeed = 0;
                     gameObject.Group = 1;
@@ -62,9 +62,8 @@ namespace GameObjectFactory
                     }
                     break;
                 case "pickup":       // value = new object[2] { browser, camera }
-                    gameObject.Width = 30f;
-                    gameObject.Height = 30f;
-
+                    gameObject.Width = 55f;
+                    gameObject.Height = 55f;
 
                     gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
                     gameObject.onTickList.Add(new MoveToTargetBehaviour());
@@ -84,6 +83,34 @@ namespace GameObjectFactory
                     gameObject.highVisibility = false;
 
                     gameObject.setActiveBitmap("Assets/wall_600_600_16.gif");
+                    break;
+                case "orb": // value is the gameObject the orb needs to get pulled in.
+                    gameObject.Width = 50;
+                    gameObject.Height = 50;
+
+                    gameObject.Target = new Target(value as GameObject);
+
+                    gameObject.onTickList.Add(new SetToTargetBehaviour());
+                    gameObject.onTickList.Add(new OrbOpacityBehaviour());
+
+
+                    gameObject.highVisibility = true;
+                    gameObject.Collition = false;
+
+                    gameObject.setActiveBitmap("Assets/Sprites/Orb" + gameObject.random.Next(4) + ".gif");
+
+                    break;
+                case "pointer":
+                    gameObject.Width = 10;
+                    gameObject.Height = 10;
+
+                    gameObject.onTickList.Add(new SetToTargetBehaviour());
+
+                    gameObject.highVisibility = true;
+                    gameObject.Collition = false;
+
+                    gameObject.setActiveBitmap("Assets/Sprites/Orb" + gameObject.random.Next(4) + ".gif");
+
                     break;
                 case "button":      // value = new object[] { camera, storyId, anwserId, browser }
                     object[] val = value as object[];
