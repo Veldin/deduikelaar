@@ -19,9 +19,8 @@ class CreateItem extends Component {
     super();
     this.state = {
       title: 'Vul hier de titel in',
-      textArea: 'Vul hier de tekst in',
       isChecked: true,
-      editorContent: 'kgjh',
+      editorContent: 'Vul hier de tekst in',
       files: null,
       removed: 0,
       showPopup1: false,
@@ -49,12 +48,6 @@ class CreateItem extends Component {
   changeState(event) {
     this.setState({
       title: event.target.value
-    })
-  }
-
-  changeStateTextArea(event) {
-    this.setState({
-      textArea: event.target.value
     })
   }
 

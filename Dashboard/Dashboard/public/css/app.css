@@ -28,7 +28,7 @@
 #superContainer .header .buttonHeader {
   display: flex;
   justify-content: flex-end;
-  margin-right: 40px;
+  margin-right: 9%;
   margin-top: 5px;
 }
 
@@ -297,15 +297,15 @@ div.items {
 
 .exampleCard {
   background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
-  background-size: cover;
-  height: 700px;
+  background-size: 98%;
   flex-direction: column;
   justify-content: center;
   padding: 5%;
+  background-repeat: no-repeat;
 }
 
 .allContent {
-  height: 500px;
+  height: 625px;
 }
 
 .buttonsFeedback img {
@@ -325,7 +325,7 @@ div.items {
 }
 
 .exampleCard .allContent .content {
-  height: 310px;
+  height: 300px;
   padding: 0px 10px;
   overflow: auto;
 }
@@ -3871,7 +3871,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {

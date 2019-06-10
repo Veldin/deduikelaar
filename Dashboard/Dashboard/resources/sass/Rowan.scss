@@ -160,15 +160,15 @@ div.itemCollection {
 
 .exampleCard{
     background-image: url("../../public/images/letterBackground.png");
-    background-size: cover;
-    height: 700px;
+    background-size: 98%;
     flex-direction: column;
     justify-content: center;
-    padding: 5%
+    padding: 5%;
+    background-repeat: no-repeat;
 }
 
 .allContent{
-    height: 500px;
+    height: 625px;
 }
 
 .buttonsFeedback img{
@@ -188,7 +188,7 @@ div.itemCollection {
 }
 
 .exampleCard .allContent .content{
-    height: 310px;
+    height: 300px;
     padding: 0px 10px;
     overflow: auto;
 }
