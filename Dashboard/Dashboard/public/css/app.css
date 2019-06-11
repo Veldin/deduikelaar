@@ -142,6 +142,7 @@
 
 body {
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 body #toast-container {
@@ -367,6 +368,10 @@ div.items {
 
 .legendGevoel2 {
   background-color: #304964;
+}
+
+.content img {
+  max-width: 100%;
 }
 
 .materialize-red {

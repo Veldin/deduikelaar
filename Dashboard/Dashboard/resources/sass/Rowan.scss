@@ -1,5 +1,6 @@
 body{
     overflow-y: scroll;
+    overflow-x: hidden;
     
 	#toast-container{
 		top: 75%!important;
@@ -237,4 +238,8 @@ div.itemCollection {
 
 .legendGevoel2{
     background-color: #304964;
+}
+
+.content img{
+    max-width: 100%;
 }

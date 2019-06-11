@@ -66006,8 +66006,6 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid containerAddItem"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s12 m5 l5 inputFields"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         name: "createItemForm",
@@ -66250,7 +66248,7 @@ function (_Component) {
         className: "buttonsFeedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: __webpack_require__(/*! ../../../public/images/poststamp2.png */ "./public/images/poststamp2.png")
-      })))))))));
+      }))))))));
     }
   }]);
 
