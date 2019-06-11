@@ -21,6 +21,7 @@ class CreateItem extends Component {
       title: 'Vul hier de titel in',
       isChecked: true,
       editorContent: 'Vul hier de tekst in',
+      imagesContent: '',
       files: null,
       removed: 0,
       showPopup1: false,
@@ -58,8 +59,23 @@ class CreateItem extends Component {
   }
 
   setFile(e) {
+
+    var t = this;
+    this.setState({imagesContent: ""});
+    var files = e.target.files;
+    for(var i=0;i<files.length;i++){
+
+      var reader = new FileReader();
+      reader.readAsDataURL(files[i]);
+      reader.onload = function () {
+        t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+    }
     this.setState({
-      files: e.target.files
+      files: files
     });
   }
 
@@ -149,6 +165,7 @@ class CreateItem extends Component {
             </div>
           </div>
 
+<<<<<<< HEAD
           {this.state.showPopup1 ?  
             <Popup  title={this.state.text[0].title} closePopup={this.togglePopup1.bind(this)}/>  
             : null  
@@ -193,6 +210,53 @@ class CreateItem extends Component {
               <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup3.bind(this)} />
             </div>
           </div>
+=======
+            {this.state.showPopup1 ?  
+              <Popup  title={this.state.text[0].title} closePopup={this.togglePopup1.bind(this)}/>  
+              : null  
+            }  
+
+              {/*<label htmlFor="existingFile">Bestaand document</label>*/}
+              {/*<div className="row">*/}
+                {/*<div className="switch existingFile col s11">*/}
+                  {/*<label>*/}
+                    {/*Nee*/}
+                    {/*<input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>*/}
+                    {/*<span className="lever"></span>*/}
+                    {/*Ja*/}
+                  {/*</label>*/}
+                {/*</div>*/}
+                {/*<div className="question col s1">*/}
+                  {/*<FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>*/}
+                {/*</div>*/}
+              {/*</div>*/}
+
+              {/*{this.state.showPopup2 ?  */}
+              {/*<Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>  */}
+              {/*: null  */}
+              {/*}  */}
+
+              {/*<div className="row" style={ hidden }>*/}
+              <div className="row">
+                <div className="input-field col s11">
+                  <CKEditor
+                      editor={ ClassicEditor }
+                      data=" "
+                      config={ {
+                          toolbar: [ [ 'Heading' ], [ 'Bold' ], [ 'Italic' ], ['imageUpload'] ],
+                          extraPlugins: [ this.customAdapterPlugin ]
+                      } }
+                      onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        this.editorHandler(data)
+                      } }
+                  />
+                </div>
+                <div className="question questionOwnText col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup3.bind(this)} />
+                </div>
+              </div>
+>>>>>>> e35ff73df30772f757d93fbd24e6f950c12af9ae
 
           {this.state.showPopup3 ?  
           <Popup  title={this.state.text[2].title} closePopup={this.togglePopup3.bind(this)}/>  
@@ -293,7 +357,13 @@ class CreateItem extends Component {
                 </div>
                 <div className="quizQuestion2">
                 </div>
+<<<<<<< HEAD
                 <div className="quizQuestion3">
+=======
+                <div className="content">
+                  <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
+                  <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} />
+>>>>>>> e35ff73df30772f757d93fbd24e6f950c12af9ae
                 </div>
                 <div className="quizQuestion4">
                 </div>

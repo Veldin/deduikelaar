@@ -33,7 +33,7 @@ class StoryTest extends TestCase
 
         $files = [
 //            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
-            UploadedFile::fake()->image('test1.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test1.qwe', 1920, 1080),
             UploadedFile::fake()->image('test2.jpg', 1920, 1080),
             UploadedFile::fake()->image('test3.jpg', 1920, 1080),
         ];
@@ -42,9 +42,18 @@ class StoryTest extends TestCase
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
 
+        $data = $this->storyData;
+        $data['files'] = $files;
+
+        $response = $this->json('POST', '/api/v1/story', $data);
+
+        $this->assertEquals('failed', $response->json()['response']);
+
+
+        // Replace first file
         if (Storage::disk('storage')->exists($filename)) {
 
-            $files[0] = new UploadedFile(
+            $data['files'][0] = new UploadedFile(
                 $file_path,
                 $filename,
                 $finfo->file($file_path),
@@ -53,12 +62,6 @@ class StoryTest extends TestCase
                 false
             );
         }
-        $data = $this->storyData;
-        $data['files'] = $files;
-
-        $response = $this->json('POST', '/api/v1/story', $data);
-
-        $this->assertEquals('failed', $response->json()['response']);
 
         $data['icon'] = "candle";
         $response = $this->json('POST', '/api/v1/story', $data);
