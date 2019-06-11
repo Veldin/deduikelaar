@@ -119,7 +119,7 @@ class StoryTest extends TestCase
 
             if(isset($response->json()['storyId'])){
                 // Delete story
-//                $this->json('DELETE', '/api/v1/story/'.$response->json()['storyId']);
+                $this->json('DELETE', '/api/v1/story/'.$response->json()['storyId']);
             }
         } else {
             var_dump($response->json());
