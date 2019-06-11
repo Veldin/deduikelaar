@@ -251,23 +251,9 @@ class StoryApiController extends Controller
 
                 /** @var File $file */
 
-                $text = "";
+                $text = $file->getFileAsText();
 
-                // Image files
-                if(in_array($extension, File::$allowedImageFiles)){
-                    $text = $file->convertImageFile();
-                }
-                // Word files
-                if(in_array($extension, File::$allowedTextFiles)){
-                    // Set story item text if the file is an docx file
-                    $text = $file->convertDocxFile();
-                }
-                // Video files
-                if(in_array($extension, File::$allowedVideoFiles)){
-                    // Set story item text if the file is an docx file
-                    $text = $file->convertVideoFile();
-                }
-                if($text != null){
+                if($text != ""){
                     $storyItem->update(['text' => $text]);
                 }
             }
@@ -348,6 +334,7 @@ class StoryApiController extends Controller
                         'storyId' => $story->id
                     ]);
 
+                    /** @var File $file */
                     // Create file
                     $file = File::create([
                         'fileName' => $filename,
@@ -359,24 +346,9 @@ class StoryApiController extends Controller
                     ]);
 
 
-                    $text = "";
+                    $text = $file->getFileAsText();
 
-                    // Image files
-                    if(in_array($extension, File::$allowedImageFiles)){
-                        $text = $file->convertImageFile();
-                    }
-                    // Word files
-                    if(in_array($extension, File::$allowedTextFiles)){
-                        // Set story item text if the file is an docx file
-                        $text = $file->convertDocxFile();
-                    }
-                    // Video files
-                    if(in_array($extension, File::$allowedVideoFiles)){
-                        // Set story item text if the file is an docx file
-                        $text = $file->convertVideoFile();
-                    }
-
-                    if($text != null){
+                    if($text != ""){
                         $storyItem->update(['text' => $text]);
                     }
                 }

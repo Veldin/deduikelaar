@@ -69,8 +69,7 @@ class CreateItem extends Component {
       reader.readAsDataURL(files[i]);
       reader.onload = function (e) {
         var extension = files[this.num].name.split('.').pop().toLowerCase();
-
-        if(extension === "docx"){
+        if(['pdf','docx'].indexOf(extension) >= 0){
 
           var formData = new FormData();
           formData.append("file", files[this.num]);
@@ -85,8 +84,11 @@ class CreateItem extends Component {
                   toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
                 }
               });
-        }else if(['jpeg','jpg','png','gif','bmp'].indexOf(extension) > 0){
+        }else if(['jpeg','jpg','png','gif','bmp'].indexOf(extension) >= 0){
           t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
+        }else if(['avi','mp4','mpeg', 'webm'].indexOf(extension) >= 0){
+          // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
+          t.setState({ imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='"+this.result+"' /></video>" });
         }else{
           toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
         }
@@ -191,28 +193,27 @@ class CreateItem extends Component {
               : null  
             }  
 
-              {/*<label htmlFor="existingFile">Bestaand document</label>*/}
-              {/*<div className="row">*/}
-                {/*<div className="switch existingFile col s11">*/}
-                  {/*<label>*/}
-                    {/*Nee*/}
-                    {/*<input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>*/}
-                    {/*<span className="lever"></span>*/}
-                    {/*Ja*/}
-                  {/*</label>*/}
-                {/*</div>*/}
-                {/*<div className="question col s1">*/}
-                  {/*<FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>*/}
-                {/*</div>*/}
-              {/*</div>*/}
-
-              {/*{this.state.showPopup2 ?  */}
-              {/*<Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>  */}
-              {/*: null  */}
-              {/*}  */}
-
-              {/*<div className="row" style={ hidden }>*/}
+              <label htmlFor="existingFile">Bestaand document</label>
               <div className="row">
+                <div className="switch existingFile col s11">
+                  <label>
+                    Nee
+                    <input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
+                    <span className="lever"></span>
+                    Ja
+                  </label>
+                </div>
+                <div className="question col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>
+                </div>
+              </div>
+
+              {this.state.showPopup2 ?
+              <Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>
+              : null
+              }
+
+              <div className="row" style={ hidden }>
                 <div className="input-field col s11">
                   <CKEditor
                       editor={ ClassicEditor }
@@ -324,8 +325,8 @@ class CreateItem extends Component {
                 <p> {this.state.title} </p>
               </div>
               <div className="content">
-                <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
-                <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} />
+                <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} style={hidden} />
+                <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} style={isChecked}/>
               </div>
               <div className="row feedback">
                 <p>Welke emotie wekte dit verhaal bij jou op?</p>

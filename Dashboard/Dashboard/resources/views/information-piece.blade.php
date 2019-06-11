@@ -30,6 +30,12 @@
                 margin-bottom: 60px;
                 width: 70%;
             }
+            video{
+                width: 100%;
+            }
+            img{
+                max-width: 100%;
+            }
 
             .description,
 			.feedback{

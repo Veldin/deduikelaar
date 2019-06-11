@@ -65939,7 +65939,7 @@ function (_Component) {
 
           var extension = files[this.num].name.split('.').pop().toLowerCase();
 
-          if (extension === "docx") {
+          if (['pdf', 'docx'].indexOf(extension) >= 0) {
             var formData = new FormData();
             formData.append("file", files[this.num]);
             fetch('/api/v1/file/convert', {
@@ -65956,9 +65956,14 @@ function (_Component) {
                 toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' worden laten zien.');
               }
             });
-          } else if (['jpeg', 'jpg', 'png', 'gif', 'bmp'].indexOf(extension) > 0) {
+          } else if (['jpeg', 'jpg', 'png', 'gif', 'bmp'].indexOf(extension) >= 0) {
             t.setState({
               imagesContent: t.state.imagesContent + "<img src='" + this.result + "' alt='preview' style='max-width: 100%;' />"
+            });
+          } else if (['avi', 'mp4', 'mpeg', 'webm'].indexOf(extension) >= 0) {
+            // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
+            t.setState({
+              imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='" + this.result + "' /></video>"
             });
           } else {
             toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
@@ -66080,8 +66085,30 @@ function (_Component) {
       }))), this.state.showPopup1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: this.state.text[0].title,
         closePopup: this.togglePopup1.bind(this)
-      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "existingFile"
+      }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "switch existingFile col s11"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        name: "existingFile",
+        onChange: this.changeStateSwitch.bind(this),
+        checked: this.state.isChecked
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "lever"
+      }), "Ja")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question col s1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
+        onClick: this.togglePopup2.bind(this)
+      }))), this.state.showPopup2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: this.state.text[1].title,
+        closePopup: this.togglePopup2.bind(this)
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row",
+        style: hidden
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6___default.a, {
@@ -66244,11 +66271,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         dangerouslySetInnerHTML: {
           __html: this.state.editorContent
-        }
+        },
+        style: hidden
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         dangerouslySetInnerHTML: {
           __html: this.state.imagesContent
-        }
+        },
+        style: isChecked
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row feedback"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welke emotie wekte dit verhaal bij jou op?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66821,8 +66850,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

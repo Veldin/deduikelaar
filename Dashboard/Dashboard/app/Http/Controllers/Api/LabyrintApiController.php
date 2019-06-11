@@ -377,22 +377,7 @@ class LabyrintApiController extends Controller
         ]);
 
 
-        $text = "";
-
-        // Image files
-        if(in_array($extension, File::$allowedImageFiles)){
-            $text = $file->convertImageFile();
-        }
-        // Word files
-        if(in_array($extension, File::$allowedTextFiles)){
-            // Set story item text if the file is an docx file
-            $text = $file->convertDocxFile();
-        }
-        // Video files
-        if(in_array($extension, File::$allowedVideoFiles)){
-            // Set story item text if the file is an docx file
-            $text = $file->convertVideoFile();
-        }
+        $text = $file->getFileAsText();
 
         if(Storage::disk('local')->exists("/uploads/temp/".$filename)){
             Storage::disk('local')->delete("/uploads/temp/".$filename);
