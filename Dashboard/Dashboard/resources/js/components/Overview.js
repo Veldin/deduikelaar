@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import toastr from 'toastr';
 import Card from './Card/Card';
 
 class Overview extends Component {
@@ -6,7 +7,8 @@ class Overview extends Component {
     super();
 
     this.state = {
-      card: []
+      card: [],
+      switch: true
     }
   }
 
@@ -20,13 +22,39 @@ class Overview extends Component {
       })
   }
 
+  toggleSwitch() {
+    this.setState({ 
+      switch: !this.state.switch
+    })
+    console.log(this.state.switch)
+  }
+
+  deleteItem(id) {
+    fetch('/api/v1/story/'+id,{
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(response => {
+      if(response['response'] == "success"){
+        toastr.success('Het item is verwijderd!', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        this.setState({
+          card: this.state.card.filter(s => s.storyId !== id)
+        });
+      }else{
+        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+      }
+    })
+  }
+
+
+
   render(){
     return (
       <div className="overviewContentContainer">
         <div className="row overviewFilter">
           <div className="col s2 overviewLabel">Alle Items</div>
           <div className="col s10 overviewSwitch">
-            <div className="switch">
+            <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief
                 <input type="checkbox" defaultChecked></input>
@@ -40,7 +68,9 @@ class Overview extends Component {
           <div className="cards-container">
             {this.state.card.map((item, key) =>
               <Card 
+                onDelete={this.deleteItem.bind(this)}
                 key={key} 
+                active={item.active}
                 storyID={item.storyId} 
                 title={item.title} 
                 active={item.active}

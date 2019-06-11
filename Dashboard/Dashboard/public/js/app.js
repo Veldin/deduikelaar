@@ -65694,40 +65694,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-horizontal-stacked-bar-chart */ "./node_modules/react-horizontal-stacked-bar-chart/umd/hsbar.min.js");
 /* harmony import */ var react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_horizontal_stacked_bar_chart__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
-/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 
 
 
 
 
 var card = function card(props) {
-  function deleteItem() {
-    fetch('/api/v1/story/' + props.storyID, {
-      method: 'DELETE'
-    }).then(function (response) {
-      return response.json();
-    }).then(function (response) {
-      if (response['response'] == "success") {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('dit item is verwijderd', '', {
-          positionClass: "toast-bottom-right",
-          timeOut: 40000
-        }); //window.location.href = "/overview";
-      } else {
-        toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('dit item is al verwijderd', '', {
-          positionClass: "toast-bottom-right",
-          timeOut: 40000
-        });
-      }
-    });
-  }
+  var deleteItem = function deleteItem() {
+    return props.onDelete(props.storyID);
+  };
 
   function createBarData(toDataArray) {
     var data = [];
-    var colors = ["#e91e63", "#9c27b0", "#f44336", "#f4c236"];
+    var colors = ["#77c6a0", "#304964", "#ff0043", "#e7edf2"];
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function (element) {
       if (toDataArray.storyID == element.storyId) {
@@ -65762,9 +65743,11 @@ var card = function card(props) {
     className: "col s10"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "switch"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Actief", props.active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "checkbox",
     defaultChecked: true
+  }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "checkbox"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "lever"
   }), "Inactief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65772,8 +65755,8 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "deleteItem",
     onClick: deleteItem
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faTrashAlt"]
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTrashAlt"]
   })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row divide"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66385,16 +66368,16 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 navigationContainer"
+        className: "col s12 m2 l2 navigationContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "col s12 navigationItem",
+        className: "col s6 m12 l12 navigationItem",
         activeClassName: "col s12 navigationItem active",
         to: "/overview"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "navigationItemText",
         id: "overview"
       }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "col s12 navigationItem",
+        className: "col s6 m12 l12 navigationItem",
         activeClassName: "col s12 navigationItem active",
         to: "/statistics"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -66425,8 +66408,12 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -66447,6 +66434,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Overview =
 /*#__PURE__*/
 function (_Component) {
@@ -66459,7 +66447,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
-      card: []
+      card: [],
+      "switch": 1
     };
     return _this;
   }
@@ -66478,20 +66467,58 @@ function (_Component) {
       });
     }
   }, {
+    key: "handleSwitch",
+    value: function handleSwitch() {
+      this.setState({
+        "switch": !this.state["switch"]
+      });
+      console.log(this.state["switch"]);
+    }
+  }, {
+    key: "deleteItem",
+    value: function deleteItem(id) {
+      var _this3 = this;
+
+      fetch('/api/v1/story/' + id, {
+        method: 'DELETE'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response['response'] == "success") {
+          toastr__WEBPACK_IMPORTED_MODULE_1___default.a.success('Het item is verwijderd!', '', {
+            positionClass: "toast-bottom-right",
+            timeOut: 40000
+          });
+
+          _this3.setState({
+            card: _this3.state.card.filter(function (s) {
+              return s.storyId !== id;
+            })
+          });
+        } else {
+          toastr__WEBPACK_IMPORTED_MODULE_1___default.a.warning('dit item is al verwijderd', '', {
+            positionClass: "toast-bottom-right",
+            timeOut: 40000
+          });
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "overviewContentContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 overviewLabel"
+        className: "col s3 m2 l2 overviewLabel"
       }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s10 overviewSwitch"
+        className: "col s9 m10 l10 overviewSwitch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "switch"
+        className: "switch",
+        onChange: this.handleSwitch.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         defaultChecked: true
@@ -66502,13 +66529,15 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cards-container"
       }, this.state.card.map(function (item, key) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        var _React$createElement;
+
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], (_React$createElement = {
+          onDelete: _this4.deleteItem.bind(_this4),
           key: key,
-          storyID: item.storyId,
-          title: item.title,
           active: item.active,
-          cardInfo: [_this3.state.card]
-        });
+          storyID: item.storyId,
+          title: item.title
+        }, _defineProperty(_React$createElement, "active", item.active), _defineProperty(_React$createElement, "cardInfo", [_this4.state.card]), _React$createElement));
       }))));
     }
   }]);
@@ -66706,12 +66735,12 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row statisticsFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 offset-s10 statisticsLabel"
+        className: "col s12 m2 l2 offset-m10 offset-l10 statisticsLabel"
       }, "Statestieken")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row allCharts"
       }, this.state.card.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "col s6 chart",
+          className: "col s12 m6 l6 chart",
           key: index
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("canvas", {
           id: "canvas" + index,

@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import HSBar from 'react-horizontal-stacked-bar-chart';
-import toastr from 'toastr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const card = (props) => {
-  function deleteItem() {
-    fetch('/api/v1/story/'+props.storyID,{
-      method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(response => {
-      if(response['response'] == "success"){
-        toastr.success('dit item is verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
-        //window.location.href = "/overview";
-      }else{
-        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
-      }
-    })
-  }
+  const deleteItem = () => props.onDelete(props.storyID)
 
   function createBarData(toDataArray){
     var data = [];
-    var colors = ["#e91e63","#9c27b0","#f44336","#f4c236"];
+    var colors = ["#77c6a0","#304964","#ff0043","#e7edf2"];
 
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function(element) {
@@ -40,7 +26,6 @@ const card = (props) => {
       }
     });
     
-
     return data;
   }
 
@@ -53,7 +38,11 @@ const card = (props) => {
               <div className="switch">
                 <label>
                   Actief
-                  <input type="checkbox" defaultChecked></input> 
+                  {props.active ? (
+                    <input type="checkbox" defaultChecked></input> 
+                  ) : (
+                    <input type="checkbox"></input> 
+                  )}
                   <span className="lever"></span>
                   Inactief
                 </label>
