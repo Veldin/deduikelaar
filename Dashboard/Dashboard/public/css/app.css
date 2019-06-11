@@ -20,7 +20,7 @@
   background-size: contain;
   height: 55px;
   margin-top: 10px;
-  margin-left: 45px;
+  margin-left: 5%;
   background-position: 0% 45%;
   background-repeat: no-repeat;
 }
@@ -418,7 +418,6 @@ div.items {
 @media screen and (max-width: 1270px) and (min-width: 416px) {
   .exampleCard .allContent .content {
     height: 200px;
-    background-color: blue;
   }
 }
 
@@ -3924,7 +3923,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
