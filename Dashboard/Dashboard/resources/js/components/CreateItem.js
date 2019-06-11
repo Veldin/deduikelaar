@@ -137,16 +137,13 @@ class CreateItem extends Component {
     var formData = new FormData();
     formData.append("title", createItemForm.title.value);
     formData.append("icon", createItemForm.item.value);
+    formData.append("texts[]", this.state.editorContent);
+    var filesInput = this.state.files;
 
-    if(this.state.isChecked){
-      var filesInput = this.state.files;
-      if(filesInput){
-        for(var i=0;i<filesInput.length;i++){
-          formData.append("files[]", filesInput[i]);
-        }
+    if(filesInput){
+      for(var i=0;i<filesInput.length;i++){
+        formData.append("files[]", filesInput[i]);
       }
-    }else{
-      formData.append("texts[]", this.state.editorContent);
     }
 
     fetch('/api/v1/story', {
@@ -174,7 +171,6 @@ class CreateItem extends Component {
         display: this.state.isChecked ? "none" : "block"
       }
 
-
       return (
       <div className="container-fluid containerAddItem">
 
@@ -195,27 +191,28 @@ class CreateItem extends Component {
               : null  
             }  
 
-              <label htmlFor="existingFile">Bestaand document</label>
+              {/*<label htmlFor="existingFile">Bestaand document</label>*/}
+              {/*<div className="row">*/}
+                {/*<div className="switch existingFile col s11">*/}
+                  {/*<label>*/}
+                    {/*Nee*/}
+                    {/*<input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>*/}
+                    {/*<span className="lever"></span>*/}
+                    {/*Ja*/}
+                  {/*</label>*/}
+                {/*</div>*/}
+                {/*<div className="question col s1">*/}
+                  {/*<FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>*/}
+                {/*</div>*/}
+              {/*</div>*/}
+
+              {/*{this.state.showPopup2 ?  */}
+              {/*<Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>  */}
+              {/*: null  */}
+              {/*}  */}
+
+              {/*<div className="row" style={ hidden }>*/}
               <div className="row">
-                <div className="switch existingFile col s11">
-                  <label>
-                    Nee
-                    <input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
-                    <span className="lever"></span>
-                    Ja
-                  </label>
-                </div>
-                <div className="question col s1">
-                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>
-                </div>
-              </div>
-
-              {this.state.showPopup2 ?
-                <Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>
-                : null
-              }
-
-              <div className="row" style={ hidden }>
                 <div className="input-field col s11">
                   <CKEditor
                       editor={ ClassicEditor }
@@ -327,8 +324,8 @@ class CreateItem extends Component {
                 <p> {this.state.title} </p>
               </div>
               <div className="content">
-                <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} style={hidden}/>
-                <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} style={isChecked}/>
+                <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
+                <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} />
               </div>
               <div className="row feedback">
                 <p>Welke emotie wekte dit verhaal bij jou op?</p>
