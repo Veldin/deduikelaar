@@ -92,6 +92,9 @@ div.itemCollection {
     font-size: 3rem;
 }
 
+.validate{
+    color: $secondary-dark;
+}
 
 
 // Style for scrollbar
@@ -259,6 +262,29 @@ div.itemCollection {
     }
     .feedback p{
         margin-left: 20px;
-        font-size: 0.8rem;
+        font-size: 0.6rem;
     }
+
+    .navigationContainer{
+        &.active{
+            margin-left: 0;
+        }
+        .navigationItemText{
+            margin-left: 0px;
+        }
+    }
+    canvas{
+        width: 300px;
+    }
+    .popup{
+        right: 0px;
+    }
+
+                
+  }
+
+  @media screen and (max-width: 1270px) and (min-width: 416px) {
+    .exampleCard .allContent .content {
+      height: 200px;
+    }                
   }
