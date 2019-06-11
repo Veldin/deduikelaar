@@ -1,5 +1,6 @@
 body{
     overflow-y: scroll;
+    overflow-x: hidden;
     
 	#toast-container{
 		top: 75%!important;
@@ -238,3 +239,26 @@ div.itemCollection {
 .legendGevoel2{
     background-color: #304964;
 }
+
+.content img{
+    max-width: 100%;
+}
+
+//mobile
+@media screen and (max-width: 415px) {
+    .exampleCard .allContent .content {
+      height: 150px;
+    }
+    .exampleCard .allContent .title{
+        padding: 0px 5px;
+        font-size: 1.2rem;
+        word-wrap: break-word;
+    }
+    .exampleCard .allContent{
+        font-size: 0.8rem;
+    }
+    .feedback p{
+        margin-left: 20px;
+        font-size: 0.8rem;
+    }
+  }

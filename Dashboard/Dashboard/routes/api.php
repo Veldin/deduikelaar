@@ -60,6 +60,7 @@ Route::get('story/{storyId}/{active}', 'Api\StoryApiController@storyChangeActive
     'active' => '(deactivate|activate)'
 ]);
 
+Route::post('file/convert', 'Api\LabyrintApiController@convertFile');
 Route::get('file/{fileId}', 'Api\LabyrintApiController@downloadFile');
 
 Route::get('database/refresh', function(){

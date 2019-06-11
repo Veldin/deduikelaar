@@ -168,8 +168,9 @@ class DatabaseSeeder extends Seeder
                             'storyItemId' => $storyItem->id
                         ]);
 
+                        /** @var File $f */
                         // Set story item text if the file is an docx file
-                        $text = StoryApiController::convertDocxFile($f);
+                        $text = $f->convertDocxFile();
                         if($text != null){
                             $storyItem->update(['text' => $text]);
                         }
