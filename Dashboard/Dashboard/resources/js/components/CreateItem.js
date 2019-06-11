@@ -64,11 +64,33 @@ class CreateItem extends Component {
     this.setState({imagesContent: ""});
     var files = e.target.files;
     for(var i=0;i<files.length;i++){
-
       var reader = new FileReader();
+      reader.num = i;// = input.files[0].name.split('.').pop().toLowerCase();
       reader.readAsDataURL(files[i]);
-      reader.onload = function () {
-        t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
+      reader.onload = function (e) {
+        var extension = files[this.num].name.split('.').pop().toLowerCase();
+
+        if(extension === "docx"){
+
+          var formData = new FormData();
+          formData.append("file", files[this.num]);
+          fetch('/api/v1/file/convert', {
+            method: 'POST',
+            body: formData
+          }).then(response => response.json())
+              .then(response => {
+                if(response['response'] === "success"){
+                  t.setState({ imagesContent: t.state.imagesContent + response['data'] });
+                }else{
+                  toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+                }
+              });
+        }else if(['jpeg','jpg','png','gif','bmp'].indexOf(extension) > 0){
+          t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
+        }else{
+          toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+        }
+
       };
       reader.onerror = function (error) {
         console.log('Error: ', error);

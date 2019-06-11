@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import toastr from 'toastr';
 import Card from './Card/Card';
 
 class Overview extends Component {
@@ -8,6 +9,23 @@ class Overview extends Component {
     this.state = {
       card: []
     }
+  }
+
+  deleteItem(id) {
+    fetch('/api/v1/story/'+id,{
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(response => {
+      if(response['response'] == "success"){
+        toastr.success('Het item is verwijderd!', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        this.setState({
+          card: this.state.card.filter(s => s.storyId !== id)
+        });
+      }else{
+        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+      }
+    })
   }
 
   componentDidMount() {
@@ -40,7 +58,9 @@ class Overview extends Component {
           <div className="cards-container">
             {this.state.card.map((item, key) =>
               <Card 
+                onDelete={this.deleteItem.bind(this)}
                 key={key} 
+                active={item.active}
                 storyID={item.storyId} 
                 title={item.title} 
                 active={item.active}
