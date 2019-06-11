@@ -66329,16 +66329,16 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 navigationContainer"
+        className: "col s12 m2 l2 navigationContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "col s12 navigationItem",
+        className: "col s6 m12 l12 navigationItem",
         activeClassName: "col s12 navigationItem active",
         to: "/overview"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "navigationItemText",
         id: "overview"
       }, "Overzicht")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "col s12 navigationItem",
+        className: "col s6 m12 l12 navigationItem",
         activeClassName: "col s12 navigationItem active",
         to: "/statistics"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -66431,9 +66431,9 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 overviewLabel"
+        className: "col s3 m2 l2 overviewLabel"
       }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s10 overviewSwitch"
+        className: "col s9 m10 l10 overviewSwitch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -66650,12 +66650,12 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row statisticsFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s2 offset-s10 statisticsLabel"
+        className: "col s12 m2 l2 offset-m10 offset-l10 statisticsLabel"
       }, "Statestieken")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row allCharts"
       }, this.state.card.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "col s6 chart",
+          className: "col s12 m6 l6 chart",
           key: index
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("canvas", {
           id: "canvas" + index,
