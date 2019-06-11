@@ -65930,12 +65930,39 @@ function (_Component) {
 
       for (var i = 0; i < files.length; i++) {
         var reader = new FileReader();
+        reader.num = i; // = input.files[0].name.split('.').pop().toLowerCase();
+
         reader.readAsDataURL(files[i]);
 
-        reader.onload = function () {
-          t.setState({
-            imagesContent: t.state.imagesContent + "<img src='" + this.result + "' alt='preview' style='max-width: 100%;' />"
-          });
+        reader.onload = function (e) {
+          var _this2 = this;
+
+          var extension = files[this.num].name.split('.').pop().toLowerCase();
+
+          if (extension === "docx") {
+            var formData = new FormData();
+            formData.append("file", files[this.num]);
+            fetch('/api/v1/file/convert', {
+              method: 'POST',
+              body: formData
+            }).then(function (response) {
+              return response.json();
+            }).then(function (response) {
+              if (response['response'] === "success") {
+                t.setState({
+                  imagesContent: t.state.imagesContent + response['data']
+                });
+              } else {
+                toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' worden laten zien.');
+              }
+            });
+          } else if (['jpeg', 'jpg', 'png', 'gif', 'bmp'].indexOf(extension) > 0) {
+            t.setState({
+              imagesContent: t.state.imagesContent + "<img src='" + this.result + "' alt='preview' style='max-width: 100%;' />"
+            });
+          } else {
+            toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+          }
         };
 
         reader.onerror = function (error) {
@@ -66021,7 +66048,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var isChecked = {
         display: this.state.isChecked ? "block" : "none"
@@ -66093,7 +66120,7 @@ function (_Component) {
         onChange: function onChange(event, editor) {
           var data = editor.getData();
 
-          _this2.editorHandler(data);
+          _this3.editorHandler(data);
         }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question questionOwnText col s1"
