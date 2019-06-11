@@ -7,8 +7,26 @@ class Overview extends Component {
     super();
 
     this.state = {
-      card: []
+      card: [],
+      switch: true
     }
+  }
+
+  componentDidMount() {
+    fetch('/api/v1/overview')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ 
+          card: responseJson
+        })
+      })
+  }
+
+  toggleSwitch() {
+    this.setState({ 
+      switch: !this.state.switch
+    })
+    console.log(this.state.switch)
   }
 
   deleteItem(id) {
@@ -28,15 +46,7 @@ class Overview extends Component {
     })
   }
 
-  componentDidMount() {
-    fetch('/api/v1/overview')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({ 
-          card: responseJson
-        })
-      })
-  }
+
 
   render(){
     return (
@@ -44,7 +54,7 @@ class Overview extends Component {
         <div className="row overviewFilter">
           <div className="col s2 overviewLabel">Alle Items</div>
           <div className="col s10 overviewSwitch">
-            <div className="switch">
+            <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief
                 <input type="checkbox" defaultChecked></input>

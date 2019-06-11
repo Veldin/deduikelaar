@@ -65708,7 +65708,7 @@ var card = function card(props) {
 
   function createBarData(toDataArray) {
     var data = [];
-    var colors = ["#77c6a0", "#ff0043", "#8391a5", "#e7edf2"];
+    var colors = ["#77c6a0", "#304964", "#ff0043", "#e7edf2"];
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function (element) {
       if (toDataArray.storyID == element.storyId) {
@@ -66418,15 +66418,37 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
-      card: []
+      card: [],
+      "switch": 1
     };
     return _this;
   }
 
   _createClass(Overview, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch('/api/v1/overview').then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        _this2.setState({
+          card: responseJson
+        });
+      });
+    }
+  }, {
+    key: "handleSwitch",
+    value: function handleSwitch() {
+      this.setState({
+        "switch": !this.state["switch"]
+      });
+      console.log(this.state["switch"]);
+    }
+  }, {
     key: "deleteItem",
     value: function deleteItem(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       fetch('/api/v1/story/' + id, {
         method: 'DELETE'
@@ -66439,8 +66461,8 @@ function (_Component) {
             timeOut: 40000
           });
 
-          _this2.setState({
-            card: _this2.state.card.filter(function (s) {
+          _this3.setState({
+            card: _this3.state.card.filter(function (s) {
               return s.storyId !== id;
             })
           });
@@ -66450,19 +66472,6 @@ function (_Component) {
             timeOut: 40000
           });
         }
-      });
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this3 = this;
-
-      fetch('/api/v1/overview').then(function (response) {
-        return response.json();
-      }).then(function (responseJson) {
-        _this3.setState({
-          card: responseJson
-        });
       });
     }
   }, {
@@ -66479,7 +66488,8 @@ function (_Component) {
       }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col s10 overviewSwitch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "switch"
+        className: "switch",
+        onChange: this.handleSwitch.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         defaultChecked: true
