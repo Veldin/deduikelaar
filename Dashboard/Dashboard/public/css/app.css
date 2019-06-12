@@ -95,7 +95,8 @@
 }
 
 #superContainer .contentContainer .overviewCards .card .showItem {
-  color: #77c6a0;
+  color: #009688;
+  margin-right: 5px;
 }
 
 #superContainer .contentContainer .overviewCards .card .switch {
@@ -145,6 +146,40 @@
 #superContainer .contentContainer .overviewCards .card .progress .determinate {
   background-color: #ff0043;
   border-radius: 7px;
+}
+
+#superContainer .contentContainer .modal.preview {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#superContainer .contentContainer .modal.preview .modal-content {
+  position: relative;
+  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 700px;
+  width: 618px;
+  margin-left: -309px;
+  left: 50%;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content .modal-container {
+  position: relative;
+  top: 150px;
+  height: 400px;
+  overflow: auto;
+}
+
+#superContainer .contentContainer .modal.preview .modal-footer {
+  border-top: none;
+  width: 618px;
+  left: 50%;
+  margin-left: -309px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#superContainer .contentContainer .modal.preview .modal-footer .modal-close {
+  background-color: white;
 }
 
 body {
@@ -3930,19 +3965,19 @@ table span.badge {
 
 .container {
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1280px;
   width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
   .container {
-    width: 95%;
+    width: 85%;
   }
 }
 
 @media only screen and (min-width : 993px) {
   .container {
-    width: 95%;
+    width: 70%;
   }
 }
 
