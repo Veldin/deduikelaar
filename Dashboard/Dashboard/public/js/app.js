@@ -65621,7 +65621,7 @@ module.exports = "/images/poststamp2.png?77a150ab31ada8b69554b7a3149a3220";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/rat2.png?d41d8cd98f00b204e9800998ecf8427e";
+module.exports = "/images/rat2.png?84e2173b0f1ac95186b05824513dd40f";
 
 /***/ }),
 
@@ -65632,7 +65632,7 @@ module.exports = "/images/rat2.png?d41d8cd98f00b204e9800998ecf8427e";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/yatvasum2.png?d41d8cd98f00b204e9800998ecf8427e";
+module.exports = "/images/yatvasum2.png?47a35537020245a56671d52f50253f30";
 
 /***/ }),
 
@@ -65947,7 +65947,9 @@ function (_Component) {
                   imagesContent: t.state.imagesContent + response['data']
                 });
               } else {
-                toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' worden laten zien.');
+                toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.', {
+                  timeOut: 400000
+                });
               }
             });
           } else if (['jpeg', 'jpg', 'png', 'gif', 'bmp'].indexOf(extension) >= 0) {
@@ -65960,7 +65962,9 @@ function (_Component) {
               imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='" + this.result + "' /></video>"
             });
           } else {
-            toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+            toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.', {
+              timeOut: 400000
+            });
           }
         };
 
@@ -66036,7 +66040,9 @@ function (_Component) {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
           window.location.href = "/overview";
         } else {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
+          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.', {
+            timeOut: 400000
+          });
         }
       });
     }
@@ -66080,12 +66086,15 @@ function (_Component) {
         title: this.state.text[0].title,
         closePopup: this.togglePopup1.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        "class": "label",
         htmlFor: "existingFile"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch existingFile col s11"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        "class": "label"
+      }, "Nee", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         name: "existingFile",
         onChange: this.changeStateSwitch.bind(this),
@@ -66144,8 +66153,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "file-path validate",
         name: "uploadFile",
-        type: "text",
-        placeholder: "Upload hier het gewenste bestand"
+        type: "text"
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question questionExFile col s1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
@@ -66155,6 +66163,7 @@ function (_Component) {
         title: this.state.text[3].title,
         closePopup: this.togglePopup4.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        "class": "label",
         htmlFor: "chooseIcon"
       }, "Kies een icoon"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row col s12 itemCollection"
@@ -66526,17 +66535,6 @@ function (_Component) {
   }, {
     key: "showItem",
     value: function showItem(id) {
-      // fetch('/api/v1/story/'+id+'/preview')
-      // .then(response => response.json())
-      // .then(response => {
-      //   if(response['response'] === "success"){
-      //   }else{
-      //     this.state.modal.close();
-      //   }
-      // });
-      // this.setState({
-      //   modalContent: '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner fa-w-32 fa-spin fa-pulse " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg>'
-      // });
       this.setState({
         modalContent: "<iframe class=\"modal-container\" src=\"/api/v1/story/" + id + "/preview\" frameborder=\"0\"></iframe>"
       });
@@ -66932,8 +66930,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -96,7 +96,7 @@
 
 #superContainer .contentContainer .overviewCards .card .showItem {
   color: #009688;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 #superContainer .contentContainer .overviewCards .card .switch {
@@ -227,7 +227,7 @@ body #toast-container .toast-success {
   letter-spacing: 0.5px !important;
   border: none !important;
   border-radius: 5px !important;
-  height: 36px !important;
+  height: 45px !important;
   line-height: 36px !important;
   padding: 0 16px !important;
   text-transform: uppercase !important;
@@ -248,7 +248,7 @@ body #toast-container .toast-warning {
   letter-spacing: 0.5px !important;
   border: none !important;
   border-radius: 5px !important;
-  height: 36px !important;
+  height: 80px !important;
   line-height: 20px !important;
   padding: 0 16px !important;
   text-transform: uppercase !important;
@@ -302,7 +302,7 @@ div.items {
 }
 
 .validate {
-  color: #e7edf2;
+  color: #8391a5 !important;
 }
 
 ::-webkit-scrollbar {
@@ -479,7 +479,7 @@ div.items {
 
   .popup {
     right: 20px;
-    width: 270px;
+    width: 315px;
   }
 
   .containerAddItem {
@@ -492,6 +492,18 @@ div.items {
   .exampleCard .allContent .content {
     height: 200px;
   }
+}
+
+.input-field label {
+  color: #8391a5 !important;
+}
+
+.inputField {
+  border-bottom-color: #8391a5 !important;
+}
+
+.label {
+  color: #8391a5 !important;
 }
 
 .materialize-red {
@@ -3995,19 +4007,19 @@ table span.badge {
 
 .container {
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: 1440px;
   width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
   .container {
-    width: 85%;
+    width: 95%;
   }
 }
 
 @media only screen and (min-width : 993px) {
   .container {
-    width: 70%;
+    width: 95%;
   }
 }
 

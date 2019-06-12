@@ -81,7 +81,7 @@ class CreateItem extends Component {
                 if(response['response'] === "success"){
                   t.setState({ imagesContent: t.state.imagesContent + response['data'] });
                 }else{
-                  toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+                  toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
                 }
               });
         }else if(['jpeg','jpg','png','gif','bmp'].indexOf(extension) >= 0){
@@ -90,7 +90,7 @@ class CreateItem extends Component {
           // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
           t.setState({ imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='"+this.result+"' /></video>" });
         }else{
-          toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+          toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
         }
 
       };
@@ -193,10 +193,10 @@ class CreateItem extends Component {
               : null  
             }  
 
-              <label htmlFor="existingFile">Bestaand document</label>
+              <label class="label" htmlFor="existingFile">Bestaand document</label>
               <div className="row">
                 <div className="switch existingFile col s11">
-                  <label>
+                  <label class="label">
                     Nee
                     <input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
                     <span className="lever"></span>
@@ -246,7 +246,7 @@ class CreateItem extends Component {
                   <input name="uploadFileButton" onChange={this.setFile.bind(this)} type="file" multiple></input>
                 </div>
                 <div className="file-path-wrapper">
-                  <input className="file-path validate" name="uploadFile" type="text" placeholder="Upload hier het gewenste bestand"></input>
+                  <input className="file-path validate" name="uploadFile" type="text" ></input>
                 </div>
               </div>
             </div>
@@ -260,7 +260,7 @@ class CreateItem extends Component {
           : null  
           }  
 
-          <label htmlFor="chooseIcon">Kies een icoon</label>
+          <label class="label" htmlFor="chooseIcon">Kies een icoon</label>
           <div className="row col s12 itemCollection">
 
           <label htmlFor="item1">
