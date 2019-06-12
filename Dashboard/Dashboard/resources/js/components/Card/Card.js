@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import HSBar from 'react-horizontal-stacked-bar-chart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 
 const card = (props) => {
-  const deleteItem = () => props.onDelete(props.storyID)
+  const deleteItem = () => props.onDelete(props.storyID);
+  const showItem = () => props.onShow(props.storyID);
 
   function createBarData(toDataArray){
     var data = [];
@@ -34,7 +35,7 @@ const card = (props) => {
       <div className="card">
          <div className="card-content white-text">
           <div className="row adminPanel">
-            <div className="col s10">
+            <div className="col s8">
               <div className="switch">
                 <label>
                   Actief
@@ -48,9 +49,14 @@ const card = (props) => {
                 </label>
               </div>
             </div>
-            <div className="col s2">
-              <div className="deleteItem" onClick={deleteItem}>
-                <FontAwesomeIcon icon={faTrashAlt} />
+            <div className="col s4">
+              <div className="right-buttons">
+                  <div className="showItem" onClick={showItem}>
+                      <FontAwesomeIcon icon={faEye} />
+                  </div>
+                <div className="deleteItem" onClick={deleteItem}>
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </div>
               </div>
             </div>
           </div>

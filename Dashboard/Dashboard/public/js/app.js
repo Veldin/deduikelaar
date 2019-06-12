@@ -65632,7 +65632,7 @@ module.exports = "/images/rat2.png?84e2173b0f1ac95186b05824513dd40f";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/yatvasum2.png?d41d8cd98f00b204e9800998ecf8427e";
+module.exports = "/images/yatvasum2.png?47a35537020245a56671d52f50253f30";
 
 /***/ }),
 
