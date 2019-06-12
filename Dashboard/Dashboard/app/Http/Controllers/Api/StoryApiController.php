@@ -132,7 +132,7 @@ class StoryApiController extends Controller
      * @throws \Throwable
      */
     public function getStories(){
-
+        ini_set('max_execution_time', 300); // 5 minutes
         $data = [];
 
         // Get all active stories
@@ -267,10 +267,18 @@ class StoryApiController extends Controller
 
     }
 
+    /**
+     * Change a story
+     * @param Request $request
+     * @param $storyId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeStory(Request $request, $storyId){
 
+        // Get story
         $story = Story::with('storyItems', 'storyItems.file')->find($storyId);
         if(!$story){
+            // Return error when
             return response()->json([
                 'response' => 'failed',
                 'errors' => [
@@ -362,6 +370,31 @@ class StoryApiController extends Controller
         ]);
     }
 
+
+    /**
+     * Preview of a story
+     * @param $storyId
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function previewStory($storyId){
+
+        $story = \App\Story::with('storyItems')->find($storyId);
+
+        if(!$story){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'Story not found'
+                ]
+            ]);
+        }
+
+        return response()->json([
+            'response' => 'success',
+            'data' => view('information-piece', compact('story'))->render()
+        ]);
+    }
 
     /**
      * Delete a story

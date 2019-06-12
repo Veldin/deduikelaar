@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import toastr from 'toastr';
 import Card from './Card/Card';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 class Overview extends Component {
   constructor() {
@@ -8,15 +10,18 @@ class Overview extends Component {
 
     this.state = {
       card: [],
-      switch: true
+      switch: true,
+      modal: null,
+      modalContent: ""
     }
   }
 
   componentDidMount() {
+    this.state.modal = M.Modal.init(document.getElementById('story_example'), {opacity: 0});
     fetch('/api/v1/overview')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ 
+        this.setState({
           card: responseJson
         })
       })
@@ -46,6 +51,13 @@ class Overview extends Component {
     })
   }
 
+  showItem(id) {
+    this.setState({
+      modalContent: "<iframe class=\"modal-container\" src=\"/api/v1/story/"+id+"/preview\" frameborder=\"0\"></iframe>"
+    });
+    this.state.modal.open();
+  }
+
 
 
   render(){
@@ -69,14 +81,24 @@ class Overview extends Component {
             {this.state.card.map((item, key) =>
               <Card 
                 onDelete={this.deleteItem.bind(this)}
+                onShow={this.showItem.bind(this)}
                 key={key} 
                 active={item.active}
                 storyID={item.storyId} 
                 title={item.title} 
                 active={item.active}
                 cardInfo={[this.state.card]}
-              />
+              >
+              </Card>
             )}
+          </div>
+        </div>
+        <div id="story_example" className="modal modal-fixed-footer preview">
+          <div className="modal-content" dangerouslySetInnerHTML={{__html: this.state.modalContent}}>
+
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className="modal-close btn waves-effect waves-light btn-flat">Sluit</a>
           </div>
         </div>
       </div>

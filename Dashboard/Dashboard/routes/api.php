@@ -28,9 +28,12 @@ Route::get('statistics', 'Api\LabyrintApiController@getStatistics');
 Route::get('overview', 'Api\StoryApiController@getOverview');
 Route::get('stories', 'Api\StoryApiController@getStories');
 
-Route::get('story/{storyId}', 'Api\StoryApiController@getStory');
-Route::post('story', 'Api\StoryApiController@newStory');
-Route::post('story/{storyId}/change', 'Api\StoryApiController@changeStory');
+Route::prefix('story')->group(function() {
+    Route::get('{storyId}/preview', 'Api\StoryApiController@previewStory');
+    Route::get('{storyId}', 'Api\StoryApiController@getStory');
+    Route::post('{storyId}/change', 'Api\StoryApiController@changeStory');
+    Route::post('/', 'Api\StoryApiController@newStory');
+});
 Route::prefix('testStory')->group(function(){
 
     Route::get('/', function(){

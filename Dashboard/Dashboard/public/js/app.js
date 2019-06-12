@@ -65621,7 +65621,7 @@ module.exports = "/images/poststamp2.png?77a150ab31ada8b69554b7a3149a3220";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/rat2.png?84e2173b0f1ac95186b05824513dd40f";
+module.exports = "/images/rat2.png?d41d8cd98f00b204e9800998ecf8427e";
 
 /***/ }),
 
@@ -65632,7 +65632,7 @@ module.exports = "/images/rat2.png?84e2173b0f1ac95186b05824513dd40f";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/yatvasum2.png?47a35537020245a56671d52f50253f30";
+module.exports = "/images/yatvasum2.png?d41d8cd98f00b204e9800998ecf8427e";
 
 /***/ }),
 
@@ -65706,9 +65706,13 @@ var card = function card(props) {
     return props.onDelete(props.storyID);
   };
 
+  var showItem = function showItem() {
+    return props.onShow(props.storyID);
+  };
+
   function createBarData(toDataArray) {
     var data = [];
-    var colors = ["#77c6a0", "#304964", "#ff0043", "#e7edf2"];
+    var colors = ["#009688", "#304964", "#ff0043", "#e7edf2"];
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function (element) {
       if (toDataArray.storyID == element.storyId) {
@@ -65740,7 +65744,7 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row adminPanel"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s10"
+    className: "col s8"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "switch"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Actief", props.active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -65751,13 +65755,20 @@ var card = function card(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "lever"
   }), "Inactief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s2"
+    className: "col s4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "right-buttons"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "showItem",
+    onClick: showItem
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faEye"]
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "deleteItem",
     onClick: deleteItem
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTrashAlt"]
-  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row divide"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12"
@@ -65874,7 +65885,7 @@ function (_Component) {
       }, {
         title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'
       }, {
-        title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'
+        title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal. Deze bestandstypen kunnen geüpload worden: docx, jpeg, jpg, png, gif, bmp, avi, mp4, mpeg, webm.'
       }]
     };
     return _this;
@@ -66411,6 +66422,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card/Card */ "./resources/js/components/Card/Card.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -66435,6 +66448,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var Overview =
 /*#__PURE__*/
 function (_Component) {
@@ -66448,7 +66463,9 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
       card: [],
-      "switch": 1
+      "switch": true,
+      modal: null,
+      modalContent: ""
     };
     return _this;
   }
@@ -66458,6 +66475,9 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.state.modal = M.Modal.init(document.getElementById('story_example'), {
+        opacity: 0
+      });
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
@@ -66467,8 +66487,8 @@ function (_Component) {
       });
     }
   }, {
-    key: "handleSwitch",
-    value: function handleSwitch() {
+    key: "toggleSwitch",
+    value: function toggleSwitch() {
       this.setState({
         "switch": !this.state["switch"]
       });
@@ -66504,6 +66524,25 @@ function (_Component) {
       });
     }
   }, {
+    key: "showItem",
+    value: function showItem(id) {
+      // fetch('/api/v1/story/'+id+'/preview')
+      // .then(response => response.json())
+      // .then(response => {
+      //   if(response['response'] === "success"){
+      //   }else{
+      //     this.state.modal.close();
+      //   }
+      // });
+      // this.setState({
+      //   modalContent: '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner fa-w-32 fa-spin fa-pulse " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg>'
+      // });
+      this.setState({
+        modalContent: "<iframe class=\"modal-container\" src=\"/api/v1/story/" + id + "/preview\" frameborder=\"0\"></iframe>"
+      });
+      this.state.modal.open();
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
@@ -66513,12 +66552,12 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s3 m2 l2 overviewLabel"
+        className: "col s4 m2 l2 overviewLabel"
       }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s9 m10 l10 overviewSwitch"
+        className: "col s8 m10 l10 overviewSwitch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch",
-        onChange: this.handleSwitch.bind(this)
+        onChange: this.toggleSwitch.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         defaultChecked: true
@@ -66533,12 +66572,26 @@ function (_Component) {
 
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], (_React$createElement = {
           onDelete: _this4.deleteItem.bind(_this4),
+          onShow: _this4.showItem.bind(_this4),
           key: key,
           active: item.active,
           storyID: item.storyId,
           title: item.title
         }, _defineProperty(_React$createElement, "active", item.active), _defineProperty(_React$createElement, "cardInfo", [_this4.state.card]), _React$createElement));
-      }))));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "story_example",
+        className: "modal modal-fixed-footer preview"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content",
+        dangerouslySetInnerHTML: {
+          __html: this.state.modalContent
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "#!",
+        className: "modal-close btn waves-effect waves-light btn-flat"
+      }, "Sluit"))));
     }
   }]);
 
@@ -66625,7 +66678,7 @@ function (_Component) {
     value: function createChart(id, data) {
       var total = parseInt(data['count']);
       var offset = 0;
-      var colors = ['#ff0043', '#77c6a0', '#304964'];
+      var colors = ["#009688", "#304964", "#ff0043"];
       colors.sort(function () {
         return Math.random() - 0.5;
       });

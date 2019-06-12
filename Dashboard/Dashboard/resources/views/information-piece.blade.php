@@ -23,6 +23,11 @@
                 margin: 0;
                 padding: 0;
             }
+			
+			/* Dont remove the transform below. This is necassary for the rotation in the Labyrint application */
+			html{
+				transform: rotate(0deg);
+			}
 
             .title{
                 font-weight: 400;
