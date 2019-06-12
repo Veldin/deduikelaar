@@ -150,6 +150,7 @@
 
 #superContainer .contentContainer .modal.preview {
   background-color: rgba(255, 255, 255, 0);
+  box-shadow: none;
 }
 
 #superContainer .contentContainer .modal.preview .modal-content {
@@ -157,16 +158,20 @@
   background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
   background-size: contain;
   background-repeat: no-repeat;
-  height: 700px;
-  width: 618px;
-  margin-left: -309px;
+  height: 650px;
+  width: 573px;
+  min-height: 650px;
+  min-width: 573px;
+  margin-left: -287px;
   left: 50%;
 }
 
 #superContainer .contentContainer .modal.preview .modal-content .modal-container {
   position: relative;
   top: 150px;
-  height: 400px;
+  height: 380px;
+  width: 90%;
+  left: 5%;
   overflow: auto;
 }
 
@@ -180,6 +185,26 @@
 
 #superContainer .contentContainer .modal.preview .modal-footer .modal-close {
   background-color: white;
+}
+
+@media screen and (max-width: 1100px), screen and (max-height: 900px) {
+  #superContainer .contentContainer .modal.preview .modal-content {
+    height: 400px;
+    width: 353px;
+    min-height: 400px;
+    min-width: 353px;
+    margin-left: -177px;
+  }
+
+  #superContainer .contentContainer .modal.preview .modal-content .modal-container {
+    top: 80px;
+    height: 240px;
+  }
+
+  #superContainer .contentContainer .modal.preview .modal-footer {
+    width: 353px;
+    margin-left: -177px;
+  }
 }
 
 body {
