@@ -382,18 +382,20 @@ class StoryApiController extends Controller
         $story = \App\Story::with('storyItems')->find($storyId);
 
         if(!$story){
-            return response()->json([
-                'response' => 'failed',
-                'errors' => [
-                    'Story not found'
-                ]
-            ]);
+            return "Informatiestuk niet gevonden.";
+//            return response()->json([
+//                'response' => 'failed',
+//                'errors' => [
+//                    'Story not found'
+//                ]
+//            ]);
         }
-
-        return response()->json([
-            'response' => 'success',
-            'data' => view('information-piece', compact('story'))->render()
-        ]);
+        return view('information-piece', compact('story'));
+//
+//        return response()->json([
+//            'response' => 'success',
+//            'data' => view('information-piece', compact('story'))->render()
+//        ]);
     }
 
     /**
