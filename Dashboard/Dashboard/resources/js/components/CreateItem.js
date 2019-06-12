@@ -32,7 +32,7 @@ class CreateItem extends Component {
         {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke item over gaat.'},
         {title: 'Hier kan gekozen worden voor een bestaand bestand toe te voegen of om zelf een stuk te schrijven.'},
         {title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'},
-        {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'}
+        {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal. Deze bestandstypen kunnen geüpload worden: docx, jpeg, jpg, png, gif, bmp, avi, mp4, mpeg, webm.'}
       ]      
     };
 

@@ -84,11 +84,19 @@
   min-height: 64px;
 }
 
-#superContainer .contentContainer .overviewCards .card .deleteItem {
+#superContainer .contentContainer .overviewCards .card .right-buttons {
   display: flex;
   justify-content: flex-end;
-  color: #ff0043;
   font-size: 1.2rem;
+}
+
+#superContainer .contentContainer .overviewCards .card .deleteItem {
+  color: #ff0043;
+}
+
+#superContainer .contentContainer .overviewCards .card .showItem {
+  color: #009688;
+  margin-right: 5px;
 }
 
 #superContainer .contentContainer .overviewCards .card .switch {
@@ -138,6 +146,40 @@
 #superContainer .contentContainer .overviewCards .card .progress .determinate {
   background-color: #ff0043;
   border-radius: 7px;
+}
+
+#superContainer .contentContainer .modal.preview {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#superContainer .contentContainer .modal.preview .modal-content {
+  position: relative;
+  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 700px;
+  width: 618px;
+  margin-left: -309px;
+  left: 50%;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content .modal-container {
+  position: relative;
+  top: 150px;
+  height: 400px;
+  overflow: auto;
+}
+
+#superContainer .contentContainer .modal.preview .modal-footer {
+  border-top: none;
+  width: 618px;
+  left: 50%;
+  margin-left: -309px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#superContainer .contentContainer .modal.preview .modal-footer .modal-close {
+  background-color: white;
 }
 
 body {
@@ -407,11 +449,12 @@ div.items {
   }
 
   canvas {
-    width: 300px;
+    width: 100%;
   }
 
   .popup {
-    right: 0px;
+    right: 20px;
+    width: 270px;
   }
 }
 

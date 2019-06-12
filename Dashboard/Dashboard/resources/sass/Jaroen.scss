@@ -84,12 +84,24 @@
 					min-height: 64px;
 				}
 
-				.deleteItem{
+				.right-buttons{
 					display: flex;
 					justify-content: flex-end;
-					color: $accent-red;
 					font-size: 1.2rem;
 				}
+				.deleteItem{
+					//display: flex;
+					//justify-content: flex-end;
+					color: $accent-red;
+					//font-size: 1.2rem;
+				}
+
+				.showItem{
+					color: $accent-green;
+					margin-right: 5px;
+				}
+
+
 
 				.switch{
 					display: flex;
@@ -140,6 +152,44 @@
 						background-color: $accent-red;
 						border-radius: 7px;
 					}
+				}
+			}
+		}
+		.modal.preview{
+			background-color: rgba(255,255,255,0);
+
+			// https://calculateaspectratio.com/
+			// 2466 * 2797
+
+			.modal-content{
+				position: relative;
+				background-image: url("../../public/images/letterBackground.png");
+				background-size: contain;
+				background-repeat: no-repeat;
+				height: 700px;
+				width: 618px;
+				margin-left: -309px;
+				left: 50%;
+				//left: 20%;
+				//margin-left: 100px;
+				//padding-top: 100px;
+				//margin-top: 100px;
+				.modal-container{
+					position: relative;
+					top: 150px;
+					height: 400px;
+					overflow: auto;
+				}
+			}
+
+			.modal-footer{
+				border-top: none;
+				width: 618px;
+				left: 50%;
+				margin-left: -309px;
+				background-color: rgba(255,255,255,0);
+				.modal-close{
+					background-color: rgba(255,255,255,1);
 				}
 			}
 		}
