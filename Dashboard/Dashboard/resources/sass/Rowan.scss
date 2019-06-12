@@ -20,7 +20,7 @@ body{
 		    line-height: 36px!important;
 		    padding: 0 16px!important;
             text-transform: uppercase!important;
-            
+            margin-left: 45px !important;
 
 		    &:hover{
 		    	box-shadow: none!important;
@@ -38,15 +38,16 @@ body{
 		    letter-spacing: 0.5px!important;
 		    border: none!important;
 		    border-radius: 5px!important;
-		    height: 80px!important;
+		    height: auto !important;
 		    line-height: 20px!important;
 		    padding: 0 16px!important;
-		    text-transform: uppercase!important;
+            text-transform: uppercase!important;
+            margin-left: 45px !important;
 
 		    &:hover{
 		    	box-shadow: none!important;
 		    }
-		}
+        }
 	}
 }
 
