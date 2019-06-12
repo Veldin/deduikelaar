@@ -82,14 +82,18 @@ class CreateItem extends Component {
                   t.setState({ imagesContent: t.state.imagesContent + response['data'] });
                 }else{
                   toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
+                  console.log('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
                 }
               });
         }else if(['jpeg','jpg','png','gif','bmp'].indexOf(extension) >= 0){
           t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
         }else if(['avi','mp4','mpeg', 'webm'].indexOf(extension) >= 0){
           // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
-          t.setState({ imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='"+this.result+"' /></video>" });
+          t.setState({ imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;width: 100%;'><source src='"+this.result+"' /></video>" });
+        }else if(['mp3','wav'].indexOf(extension) >= 0){
+          t.setState({ imagesContent: t.state.imagesContent + "<audio controls style='max-width: 100%;width: 100%;'><source src='"+this.result+"' /></audio>" });
         }else{
+          console.log('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
           toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
         }
 
@@ -193,7 +197,7 @@ class CreateItem extends Component {
               : null  
             }  
 
-              <label class="label" htmlFor="existingFile">Bestaand document</label>
+              <label className="label" htmlFor="existingFile">Bestaand document</label>
               <div className="row">
                 <div className="switch existingFile col s11">
                   <label class="label">

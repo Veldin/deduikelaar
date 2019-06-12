@@ -35,8 +35,9 @@
                 margin-bottom: 60px;
                 width: 70%;
             }
-            video{
+            audio, video{
                 width: 100%;
+                max-width: 100%;
             }
             img{
                 max-width: 100%;

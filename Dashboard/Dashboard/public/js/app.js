@@ -65947,9 +65947,8 @@ function (_Component) {
                   imagesContent: t.state.imagesContent + response['data']
                 });
               } else {
-                toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.', {
-                  timeOut: 400000
-                });
+                toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.');
+                console.log('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.');
               }
             });
           } else if (['jpeg', 'jpg', 'png', 'gif', 'bmp'].indexOf(extension) >= 0) {
@@ -65959,12 +65958,15 @@ function (_Component) {
           } else if (['avi', 'mp4', 'mpeg', 'webm'].indexOf(extension) >= 0) {
             // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
             t.setState({
-              imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='" + this.result + "' /></video>"
+              imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;width: 100%;'><source src='" + this.result + "' /></video>"
+            });
+          } else if (['mp3', 'wav'].indexOf(extension) >= 0) {
+            t.setState({
+              imagesContent: t.state.imagesContent + "<audio controls style='max-width: 100%;width: 100%;'><source src='" + this.result + "' /></audio>"
             });
           } else {
-            toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.', {
-              timeOut: 400000
-            });
+            console.log('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
+            toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
           }
         };
 
@@ -66040,9 +66042,7 @@ function (_Component) {
           toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
           window.location.href = "/overview";
         } else {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.', {
-            timeOut: 400000
-          });
+          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
       });
     }
@@ -66086,7 +66086,7 @@ function (_Component) {
         title: this.state.text[0].title,
         closePopup: this.togglePopup1.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "class": "label",
+        className: "label",
         htmlFor: "existingFile"
       }, "Bestaand document"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
@@ -66930,8 +66930,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
