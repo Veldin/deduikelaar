@@ -248,8 +248,11 @@ namespace Labyrint
                                                 CenterY = toAdd.Height / 2
                                             };
 
-                                            // Apply to the rectagnle of the button
-                                            toAdd.rectangle.RenderTransform = rotateTransform1;
+                                            // If the rectangle is not null apply the rotation on the rectangle
+                                            if (toAdd.rectangle != null)
+                                            {
+                                                toAdd.rectangle.RenderTransform = rotateTransform1;
+                                            }
 
                                             // If the textBlock is not null apply the rotation on the textblock
                                             if (toAdd.textBlock != null)
