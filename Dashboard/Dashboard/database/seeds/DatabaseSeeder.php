@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Eg interessant',
+                'feedback' => 'Erg interessant',
                 'feedbackId' => $feedback->id
             ]);
 
@@ -122,18 +122,28 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $filename = 'Test document.docx';
-        $file_path = storage_path($filename);
-        $finfo = new finfo(16);
 
-        $file = [
-            'path' => $file_path,
-            'name' => $filename,
-            'extension' => 'docx',
-            'type' => $finfo->file($file_path)
+        $filenames = [
+            'Test document.docx',
+            'Test document.pdf',
+            'Test audio.mp3',
+            'Test video.mp4',
+            'Test video2.mp4',
         ];
+        $files = [];
+        $finfo = new finfo(16);
+        foreach ($filenames as $filename){
+            $file_path = storage_path($filename);
+            $fileExplode = explode('.', $filename);
+            $files[] = [
+                'path' => $file_path,
+                'name' => $filename,
+                'extension' => array_pop($fileExplode),
+                'type' => $finfo->file($file_path)
+            ];
+        }
 
-        factory(Story::class, 20)->create()->each(function (Story $story) use ($file, $feedbackItems) {
+        factory(Story::class, 20)->create()->each(function (Story $story) use ($files, $feedbackItems) {
 
             for($i=0; $i<rand(200,1000);$i++){
                 $num = mt_rand(0,count($feedbackItems)-1);
@@ -150,7 +160,8 @@ class DatabaseSeeder extends Seeder
                 ]);
                 if(rand(0,5) < 2){
 
-//                    var_dump($file);
+                    $file = $files[rand(0,4)];
+
                     if($file){
 
                         // Create a new filename
@@ -170,8 +181,8 @@ class DatabaseSeeder extends Seeder
 
                         /** @var File $f */
                         // Set story item text if the file is an docx file
-                        $text = $f->convertDocxFile();
-                        if($text != null){
+                        $text = $f->getFileAsText();
+                        if($text != ""){
                             $storyItem->update(['text' => $text]);
                         }
                     }
