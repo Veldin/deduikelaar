@@ -19,19 +19,38 @@ class Overview extends Component {
   componentDidMount() {
     this.state.modal = M.Modal.init(document.getElementById('story_example'), {opacity: 0});
     fetch('/api/v1/overview')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          card: responseJson
-        })
-      })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      const filteredCardList = []
+
+      responseJson.map((card, key) =>
+        {if(this.state.switch == true){
+          this.setState({ 
+            card: responseJson
+          })
+        }else{
+          {if(responseJson[key]['active'] == true){
+            filteredCardList.push(card)
+            this.setState({ 
+              card: filteredCardList
+            })
+          }}
+        }}
+      );
+    })
   }
 
   toggleSwitch() {
-    this.setState({ 
-      switch: !this.state.switch
-    })
-    console.log(this.state.switch)
+    var elements = document.getElementsByClassName('notActive');
+    var i;
+
+    for (i = 0; i < elements.length; i++) { 
+      if (elements[i].parentNode.style.display === "none") {
+        elements[i].parentNode.style.display = "block";
+      } else {
+        elements[i].parentNode.style.display = "none";
+      }
+    }
   }
 
   deleteItem(id) {
@@ -41,12 +60,12 @@ class Overview extends Component {
     .then(response => response.json())
     .then(response => {
       if(response['response'] == "success"){
-        toastr.success('Het item is verwijderd!', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        toastr.success('Het item is verwijderd!', '')
         this.setState({
           card: this.state.card.filter(s => s.storyId !== id)
         });
       }else{
-        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        toastr.warning('dit item is al verwijderd', '')
       }
     })
   }
@@ -59,8 +78,6 @@ class Overview extends Component {
     this.state.modal.open();
   }
 
-
-
   render(){
     return (
       <div className="overviewContentContainer">
@@ -70,7 +87,11 @@ class Overview extends Component {
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief
-                <input type="checkbox" defaultChecked></input>
+                {this.state.switch ? (
+                    <input type="checkbox" defaultChecked></input> 
+                  ) : (
+                    <input type="checkbox"></input> 
+                  )}
                 <span className="lever"></span>
                 Alle
               </label>

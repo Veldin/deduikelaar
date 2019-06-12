@@ -32,20 +32,25 @@ const card = (props) => {
 
   return (        
     <div className="col s12 m4">
+      {props.active ? (
+        <span className="active"></span>
+      ) : (
+        <span className="notActive"></span>
+      )}
       <div className="card">
          <div className="card-content white-text">
           <div className="row adminPanel">
             <div className="col s8">
               <div className="switch">
                 <label>
-                  Actief
+                  Inactief
                   {props.active ? (
                     <input type="checkbox" defaultChecked></input> 
                   ) : (
                     <input type="checkbox"></input> 
                   )}
                   <span className="lever"></span>
-                  Inactief
+                  Actief
                 </label>
               </div>
             </div>
