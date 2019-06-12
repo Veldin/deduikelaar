@@ -17,6 +17,8 @@ namespace ApiParser
 
         public static void Init()
         {
+            AddStatistics();
+
             // Try to get the data from the api
             SaveItemOrdersAsync();
             SaveStoriesAsync();
@@ -24,7 +26,6 @@ namespace ApiParser
 
             // Fill all the static collections from the json files
             AddItemOrder();
-            AddStatistics();
             AddQuestion();
             AddStory();
         }
@@ -280,7 +281,7 @@ namespace ApiParser
             statistics.Clear();
 
             // Read the json file with the itemorder
-            string json = FileReaderWriterFacade.ReadFile("Items\\Statistics.json");
+            string json = FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json");
 
             // IsEmpty check
             if (json == null || json.Length < 5)

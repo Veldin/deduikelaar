@@ -9,19 +9,22 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using FileReaderWriterSystem;
 using LogSystem;
+using ApiParser;
+using Settings;
 
 namespace Labyrint
 {
     public class Command : ILogObserver
     {
-        private MainWindow engine;              // The engine class that creates this class
-        private TextBox commandBar;             // The upper textbox where the commands are filled in
-        private TextBox commandResponse;        // The lower textbox where the feedback is given
-        private bool active;                    // If this bool is true commands can be typed
-        private List<string> logClass;          // If filled only messages from those classes will be shown
-        private MethodInfo methodInfo;          // This is the method info of a method whereby the parameters still needs to be given
-        private List<string> commandHistory;    // In this list are all the commands saved that are made
-        private int historyIndex = -1;          // This index shows the command that is displayed in the commandHistory. If no command in the commandHistory is displayed the value is -1
+        private MainWindow engine;                                  // The engine class that creates this class
+        private TextBox commandBar;                                 // The upper textbox where the commands are filled in
+        private TextBox commandResponse;                            // The lower textbox where the feedback is given
+        private bool active;                                        // If this bool is true commands can be typed
+        private List<string> logClass;                              // If filled only messages from those classes will be shown
+        private MethodInfo methodInfo;                              // This is the method info of a method whereby the parameters still needs to be given
+        private List<string> commandHistory;                        // In this list are all the commands saved that are made
+        private int historyIndex = -1;                              // This index shows the command that is displayed in the commandHistory. If no command in the commandHistory is displayed the value is -1
+        private Dictionary<string, IQuickCommand> quickCommands;    // This dictionary holds all the quickCommands
 
         public Command(MainWindow engine, TextBox commandBar, TextBox commandResponse)
         {
@@ -32,6 +35,7 @@ namespace Labyrint
             active = false;
             logClass = new List<string>();
             methodInfo = null;
+            quickCommands = new Dictionary<string, IQuickCommand>();
             
             // Get the commandHistory and reverse it
             commandHistory = FileReaderWriterFacade.ReadLines(FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt");
@@ -45,6 +49,8 @@ namespace Labyrint
 
             // Subscribe to the log
             Log.Subscribe(this);
+
+            CreateQuickCommands();
         }
 
         public void LogUpdate(LogMessage message)
@@ -127,6 +133,11 @@ namespace Labyrint
 
         private bool ExecuteQuickCommand(string text)
         {
+            if (quickCommands.ContainsKey(text))
+            {
+                quickCommands[text].ExecuteMethod();
+            }
+
             
             switch (text)
             {
@@ -134,7 +145,8 @@ namespace Labyrint
                     commandResponse.Text = "";
                     break;
                 case "qqq":
-                    engine.CloseApp();
+                    //engine.CloseApp();
+                    //ExecuteMethod("Labyrint MainWindow.CloseApp");
                     break;
                 case "resetControls":
                     engine.ResetControls();
@@ -187,6 +199,7 @@ namespace Labyrint
 
             // Get the Method
             MethodInfo method = GetMethod(splittedText[0], splittedText2[0], splittedText2[1]);
+            
 
             // If method is null, return
             if (method == null)
@@ -335,7 +348,7 @@ namespace Labyrint
             }
         }
 
-        private void DisplayLine(string text)
+        public void DisplayLine(string text)
         {
             // Try to invoke the UI thread
             try
@@ -628,6 +641,7 @@ namespace Labyrint
                     if (tempType.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase))
                     {
                         type = tempType;
+                        break;
                     }
                 }
 
@@ -653,6 +667,35 @@ namespace Labyrint
             {
                 DisplayLine("assembly, type or method is not valid");
                 return null;
+            }
+        }
+
+        private void CreateQuickCommands()
+        {
+            Assembly QCs = Assembly.Load("Labyrint");
+            
+            Type[] types = QCs.GetTypes();
+
+            object[] parameters = new object[] { engine, this };
+
+            foreach(Type type in types)
+            {
+                if (type.ToString().Substring(9,2) != "QC")
+                {                    
+                    continue;
+                }
+
+                IQuickCommand instance = (IQuickCommand)Activator.CreateInstance(type, parameters);
+
+                if (instance != null)
+                {
+                    quickCommands.Add(instance.GetCommand(), instance);
+                    Log.Debug(type + " is created");
+                }
+                else
+                {
+                    Log.Warning("Failed to create: " + type);
+                }
             }
         }
     }

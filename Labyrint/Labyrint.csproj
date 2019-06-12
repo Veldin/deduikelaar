@@ -83,6 +83,9 @@
     <Compile Include="Classes\GameObjectFactory\GameObjectFactoryFacade.cs" />
     <Compile Include="Classes\GameObjectFactory\Pool.cs" />
     <Compile Include="Classes\IBehaviour.cs" />
+    <Compile Include="Classes\IQuickCommand.cs" />
+    <Compile Include="Classes\QuickCommands\QCGoodBoy.cs" />
+    <Compile Include="Classes\QuickCommands\QCQuit.cs" />
     <Compile Include="Classes\Target.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -229,5 +232,6 @@
     <Resource Include="Assets\Sprites\Player\right2_145_200_32_v2.gif" />
     <Resource Include="Assets\Sprites\Player\right3_145_200_32_v2.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

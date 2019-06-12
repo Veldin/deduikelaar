@@ -60,8 +60,7 @@ namespace FileReaderWriterSystem
 
                     // Log the file that is read
                     Log.Debug("The following file is read: " + filePath);
-
-                    Log.Debug(line);
+                 
                     // Return the contents of the file
                     return line;
                 }
@@ -96,7 +95,6 @@ namespace FileReaderWriterSystem
                     while ((line = sr.ReadLine()) != null)
                     {
                         lines.Add(line);
-                        Log.Debug(line);
                     }
 
                     // Return the list with all the lines

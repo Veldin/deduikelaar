@@ -157,9 +157,9 @@ namespace CameraSystem
                 width = (float) (gameCanvas.Width / heightFac * widthFac);
             }
 
-            // Useless debbuging
-            Log.Debug(width);
-            Log.Debug(height);
+            //// Useless debbuging
+            //Log.Debug(width);
+            //Log.Debug(height);
         }
     }
 }
