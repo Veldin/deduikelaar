@@ -112,9 +112,9 @@ namespace GameObjectFactory
             assemblyName = "Labyrint";
 
             //Default location of the sprite.
-            setActiveBitmap("Assets/redrand.png");
-            location = "Assets/redrand.png";
-            setActiveBitmap(location);
+            //setActiveBitmap("Assets/redrand.png");
+            //location = "Assets/redrand.png";
+            //setActiveBitmap(location);
         }
 
         public List<FrameworkElement> Drawables
@@ -650,9 +650,9 @@ namespace GameObjectFactory
             assemblyName = "Labyrint";
             //Default location of the sprite.
 
-            setActiveBitmap("Assets/redrand.png");
-            location = "Assets/redrand.png";
-            setActiveBitmap(location);
+            //setActiveBitmap("Assets/redrand.png");
+            //location = "Assets/redrand.png";
+            //setActiveBitmap(location);
         }
 
         public float GetOpacity()
