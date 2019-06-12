@@ -65706,6 +65706,10 @@ var card = function card(props) {
     return props.onDelete(props.storyID);
   };
 
+  var showItem = function showItem() {
+    return props.onShow(props.storyID);
+  };
+
   function createBarData(toDataArray) {
     var data = [];
     var colors = ["#77c6a0", "#304964", "#ff0043", "#e7edf2"];
@@ -65740,7 +65744,7 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row adminPanel"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s10"
+    className: "col s8"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "switch"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Actief", props.active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -65751,13 +65755,20 @@ var card = function card(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "lever"
   }), "Inactief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s2"
+    className: "col s4"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "right-buttons"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "deleteItem",
     onClick: deleteItem
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTrashAlt"]
-  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "showItem",
+    onClick: showItem
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faEye"]
+  }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row divide"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s12"
@@ -66448,7 +66459,9 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
       card: [],
-      "switch": 1
+      "switch": true,
+      modal: null,
+      modalContent: ""
     };
     return _this;
   }
@@ -66458,6 +66471,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.state.modal = M.Modal.init(document.getElementById('story_example'), {});
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
@@ -66467,8 +66481,8 @@ function (_Component) {
       });
     }
   }, {
-    key: "handleSwitch",
-    value: function handleSwitch() {
+    key: "toggleSwitch",
+    value: function toggleSwitch() {
       this.setState({
         "switch": !this.state["switch"]
       });
@@ -66504,21 +66518,39 @@ function (_Component) {
       });
     }
   }, {
+    key: "showItem",
+    value: function showItem(id) {
+      var _this4 = this;
+
+      fetch('/api/v1/story/' + id + '/preview').then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response['response'] === "success") {
+          _this4.setState({
+            modalContent: response['data']
+          });
+        } else {
+          _this4.state.modal.close();
+        }
+      });
+      this.state.modal.open();
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "overviewContentContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s3 m2 l2 overviewLabel"
+        className: "col s2 overviewLabel"
       }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s9 m10 l10 overviewSwitch"
+        className: "col s10 overviewSwitch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch",
-        onChange: this.handleSwitch.bind(this)
+        onChange: this.toggleSwitch.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         defaultChecked: true
@@ -66532,13 +66564,27 @@ function (_Component) {
         var _React$createElement;
 
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], (_React$createElement = {
-          onDelete: _this4.deleteItem.bind(_this4),
+          onDelete: _this5.deleteItem.bind(_this5),
+          onShow: _this5.showItem.bind(_this5),
           key: key,
           active: item.active,
           storyID: item.storyId,
           title: item.title
-        }, _defineProperty(_React$createElement, "active", item.active), _defineProperty(_React$createElement, "cardInfo", [_this4.state.card]), _React$createElement));
-      }))));
+        }, _defineProperty(_React$createElement, "active", item.active), _defineProperty(_React$createElement, "cardInfo", [_this5.state.card]), _React$createElement));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "story_example",
+        className: "modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content",
+        dangerouslySetInnerHTML: {
+          __html: this.state.modalContent
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "#!",
+        className: "modal-close waves-effect waves-green btn-flat"
+      }, "Sluit"))));
     }
   }]);
 

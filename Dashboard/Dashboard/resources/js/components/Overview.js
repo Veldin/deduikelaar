@@ -8,15 +8,18 @@ class Overview extends Component {
 
     this.state = {
       card: [],
-      switch: true
+      switch: true,
+      modal: null,
+      modalContent: ""
     }
   }
 
   componentDidMount() {
+    this.state.modal = M.Modal.init(document.getElementById('story_example'), {});
     fetch('/api/v1/overview')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ 
+        this.setState({
           card: responseJson
         })
       })
@@ -46,6 +49,22 @@ class Overview extends Component {
     })
   }
 
+  showItem(id) {
+
+    fetch('/api/v1/story/'+id+'/preview')
+    .then(response => response.json())
+    .then(response => {
+      if(response['response'] === "success"){
+        this.setState({
+          modalContent: response['data']
+        });
+      }else{
+        this.state.modal.close();
+      }
+    });
+    this.state.modal.open();
+  }
+
 
 
   render(){
@@ -69,14 +88,23 @@ class Overview extends Component {
             {this.state.card.map((item, key) =>
               <Card 
                 onDelete={this.deleteItem.bind(this)}
+                onShow={this.showItem.bind(this)}
                 key={key} 
                 active={item.active}
                 storyID={item.storyId} 
                 title={item.title} 
                 active={item.active}
                 cardInfo={[this.state.card]}
-              />
+              >
+              </Card>
             )}
+          </div>
+        </div>
+        <div id="story_example" className="modal">
+          <div className="modal-content" dangerouslySetInnerHTML={{__html: this.state.modalContent}} >
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className="modal-close waves-effect waves-green btn-flat">Sluit</a>
           </div>
         </div>
       </div>
