@@ -9,7 +9,7 @@ using ApiParser;
 using CameraSystem;
 using GameObjectFactory;
 using LogSystem;
-
+using Settings;
 
 namespace Labyrint
 {
@@ -66,6 +66,11 @@ namespace Labyrint
                     }
                     // Unpress all keys
                     pressedKeys.Clear();
+
+                    // Increment the pickud up pickups
+                    int currentPickupCount = SettingsFacade.Get("CountPickups", 0) + 1;
+                    SettingsFacade.SetSetting("CountPickups", currentPickupCount.ToString());
+
 
                     // Loop through the behaviours of the gameObject to find the HaveAStory behaviour
                     foreach (IBehaviour behaviour in gameobject.onTickList)

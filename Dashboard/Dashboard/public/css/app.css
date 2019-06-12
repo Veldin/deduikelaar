@@ -20,7 +20,7 @@
   background-size: contain;
   height: 55px;
   margin-top: 10px;
-  margin-left: 45px;
+  margin-left: 5%;
   background-position: 0% 45%;
   background-repeat: no-repeat;
 }
@@ -28,7 +28,7 @@
 #superContainer .header .buttonHeader {
   display: flex;
   justify-content: flex-end;
-  margin-right: 40px;
+  margin-right: 9%;
   margin-top: 5px;
 }
 
@@ -142,6 +142,7 @@
 
 body {
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 body #toast-container {
@@ -233,6 +234,10 @@ div.items {
   font-size: 3rem;
 }
 
+.validate {
+  color: #e7edf2;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 8px;
@@ -297,15 +302,15 @@ div.items {
 
 .exampleCard {
   background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
-  background-size: cover;
-  height: 700px;
+  background-size: 98%;
   flex-direction: column;
   justify-content: center;
   padding: 5%;
+  background-repeat: no-repeat;
 }
 
 .allContent {
-  height: 500px;
+  height: 625px;
 }
 
 .buttonsFeedback img {
@@ -325,7 +330,7 @@ div.items {
 }
 
 .exampleCard .allContent .content {
-  height: 310px;
+  height: 300px;
   padding: 0px 10px;
   overflow: auto;
 }
@@ -340,7 +345,6 @@ div.items {
   margin-bottom: 10px;
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
 }
 
 .statisticsLabel {
@@ -353,8 +357,68 @@ div.items {
   justify-content: center;
 }
 
-.chart {
-  padding: 0 8% !important;
+.legendGevoel {
+  width: 30px;
+  height: 25px;
+}
+
+.legendGevoel0 {
+  background-color: #ff0043;
+}
+
+.legendGevoel1 {
+  background-color: #77c6a0;
+}
+
+.legendGevoel2 {
+  background-color: #304964;
+}
+
+.content img {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 415px) {
+  .exampleCard .allContent .content {
+    height: 150px;
+  }
+
+  .exampleCard .allContent .title {
+    padding: 0px 5px;
+    font-size: 1.2rem;
+    word-wrap: break-word;
+  }
+
+  .exampleCard .allContent {
+    font-size: 0.8rem;
+  }
+
+  .feedback p {
+    margin-left: 20px;
+    font-size: 0.6rem;
+  }
+
+  .navigationContainer.active {
+    margin-left: 0;
+  }
+
+  .navigationContainer .navigationItemText {
+    margin-left: 0px;
+  }
+
+  canvas {
+    width: 300px;
+  }
+
+  .popup {
+    right: 0px;
+  }
+}
+
+@media screen and (max-width: 1270px) and (min-width: 416px) {
+  .exampleCard .allContent .content {
+    height: 200px;
+  }
 }
 
 .materialize-red {
@@ -3858,19 +3922,19 @@ table span.badge {
 
 .container {
   margin: 0 auto;
-  max-width: 1440px;
-  width: 95%;
+  max-width: 1280px;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
   .container {
-    width: 95%;
+    width: 85%;
   }
 }
 
 @media only screen and (min-width : 993px) {
   .container {
-    width: 95%;
+    width: 70%;
   }
 }
 

@@ -14,7 +14,10 @@
             html, body{
                 width: 100%;
                 height: 100%;
-
+            }
+            body{
+                margin-top: -135px;
+                transform: scale(0.7);
             }
             .background{
                 position: relative;
@@ -28,11 +31,11 @@
             }
             iframe{
                 position: absolute;
-                top: 200px;
+                top: 300px;
                 left: 50%;
                 margin-left: -500px;
                 width: 1000px;
-                height: 900px;
+                height: 850px;
 
             }
         </style>

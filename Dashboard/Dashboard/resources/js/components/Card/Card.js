@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import HSBar from 'react-horizontal-stacked-bar-chart';
-import toastr from 'toastr';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const card = (props) => {
-  function deleteItem() {
-    fetch('/api/v1/story/'+props.storyID,{
-      method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(response => {
-      if(response['response'] == "success"){
-        toastr.success('dit item is verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
-        window.location.href = "/overview";
-      }else{
-        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+  const deleteItem = () => props.onDelete(props.storyID)
+
+  function createBarData(toDataArray){
+    var data = [];
+    var colors = ["#77c6a0","#304964","#ff0043","#e7edf2"];
+
+    var toloop = toDataArray.cardInfo[0];
+    toloop.forEach(function(element) {
+      if(toDataArray.storyID == element.storyId){
+        var i = 0;
+        element.feedback.forEach(function(feedbackItem) {
+          if (typeof data[feedbackItem.oneWord] === 'undefined') {
+            data[feedbackItem.oneWord] = [];
+          }
+
+          Object.entries(feedbackItem.feedback).map((element, index) =>
+              data[feedbackItem.oneWord][index] ={value: element[1].count, description: element[1].count, color: colors[index]}
+          );
+        });
       }
-    })
+    });
+    
+    return data;
   }
 
   return (        
@@ -29,7 +38,11 @@ const card = (props) => {
               <div className="switch">
                 <label>
                   Actief
-                  <input type="checkbox" defaultChecked></input> 
+                  {props.active ? (
+                    <input type="checkbox" defaultChecked></input> 
+                  ) : (
+                    <input type="checkbox"></input> 
+                  )}
                   <span className="lever"></span>
                   Inactief
                 </label>
@@ -54,27 +67,20 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
-            {props.cardInfo.map((cardValue, cardIndex) =>
-              <span key={cardIndex}>
-              {cardValue[cardIndex]['feedback'].map((OuterFeedbackValue, OuterFeedbackIndex) =>
-                <div key={OuterFeedbackIndex}>
+          {Object.entries(createBarData(props)).map((element, index) =>
+              <span key={element[0]}>
+                <div key={element[0]}>
                   <div className="col s3">
-                    <p>{OuterFeedbackValue['oneWord']}</p>
+                    <p>{element[0]}</p>
                   </div>
                   <div className="col s9">
                     <div className="bar">
-                      {/* innerFeedbackValue['count'] */}
-                      <HSBar
-                        data=
-                          {OuterFeedbackValue['feedback'].map((innerFeedbackValue, innerFeedbackIndex) =>
-                            [{value: 10, description: '10', color: "#ff0043"},]
-                          )}
-                        
-                      />
+                        <HSBar
+                          data={element[1]}
+                        />
                     </div>
                   </div>
                 </div>
-              )}
               </span>         
             )}
           </div>

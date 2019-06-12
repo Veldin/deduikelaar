@@ -68,9 +68,11 @@
     <Compile Include="Classes\Behaviours\HaveAStoryBehaviour.cs" />
     <Compile Include="Classes\Behaviours\FollowCameraBehaviour.cs" />
     <Compile Include="Classes\Behaviours\MoveToTargetBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\OrbOpacityBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PickupCollisionBehavior.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PlayerSpriteBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\RatTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\ScaleItemBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpaceButtonsHorisontallyBehaviour.cs" />
@@ -188,13 +190,6 @@
     <Resource Include="Assets\rat2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Sprites\Items\binoculars.gif" />
-    <Resource Include="Assets\Sprites\Items\candle.gif" />
-    <Resource Include="Assets\Sprites\Items\crownsPen.gif" />
-    <Resource Include="Assets\Sprites\Items\envelope.gif" />
-    <Resource Include="Assets\Sprites\Items\rat.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Sprites\Black.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +227,21 @@
     <Resource Include="Assets\Sprites\Player\right2_145_200_32_v2.gif" />
     <Resource Include="Assets\Sprites\Player\right3_145_200_32_v2.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Items\binoculars.gif" />
+    <Resource Include="Assets\Sprites\Items\candle.gif" />
+    <Resource Include="Assets\Sprites\Items\crownsPen.gif" />
+    <Resource Include="Assets\Sprites\Items\envelope.gif" />
+    <Resource Include="Assets\Sprites\Items\rat.gif" />
+    <Resource Include="Assets\Sprites\Items\yat.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Orb0.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Orb1.gif" />
+    <Resource Include="Assets\Sprites\Orb2.gif" />
+    <Resource Include="Assets\Sprites\Orb3.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

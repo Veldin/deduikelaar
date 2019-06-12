@@ -26,16 +26,16 @@ class Master extends Component {
         </div>
         <div className="container">
           <div className="row content">
-            <div className="col s2 navigationContainer">
-              <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
+            <div className="col s12 m2 l2 navigationContainer">
+              <Link className="col s6 m12 l12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
                 <span className="navigationItemText" id="overview">Overzicht</span>
               </Link>
-              <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/statistics">
+              <Link className="col s6 m12 l12 navigationItem" activeClassName="col s12 navigationItem active" to="/statistics">
                 <span className="navigationItemText">Statestieken</span>
               </Link>
             </div>
             <div className="col s1"></div>
-            <div className="col s9 contentContainer">
+            <div className="col s12 m9 l9 contentContainer">
               {this.props.children}
             </div>
           </div>

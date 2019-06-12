@@ -84,5 +84,14 @@ namespace Labyrint
             }
             return target.FromLeft + (target.Width / 2);
         }
+
+        public GameObject GetGameObject()
+        {
+            if (!(target is null))
+            {
+                return target;
+            }
+            return null;
+        }
     }
 }

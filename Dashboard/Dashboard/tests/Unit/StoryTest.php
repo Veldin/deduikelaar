@@ -33,18 +33,29 @@ class StoryTest extends TestCase
 
         $files = [
 //            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
-            UploadedFile::fake()->image('test1.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test1.qwe', 1920, 1080),
             UploadedFile::fake()->image('test2.jpg', 1920, 1080),
             UploadedFile::fake()->image('test3.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test4.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test5.jpg', 1920, 1080),
         ];
 
         $filename = 'Test document.docx';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
 
+        $data = $this->storyData;
+        $data['files'] = $files;
+
+        $response = $this->json('POST', '/api/v1/story', $data);
+
+        $this->assertEquals('failed', $response->json()['response']);
+
+
+        // Replace first file docx
         if (Storage::disk('storage')->exists($filename)) {
 
-            $files[0] = new UploadedFile(
+            $data['files'][0] = new UploadedFile(
                 $file_path,
                 $filename,
                 $finfo->file($file_path),
@@ -53,12 +64,51 @@ class StoryTest extends TestCase
                 false
             );
         }
-        $data = $this->storyData;
-        $data['files'] = $files;
+        $filename = 'Test document.pdf';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
+        if (Storage::disk('storage')->exists($filename)) {
 
-        $response = $this->json('POST', '/api/v1/story', $data);
+            $data['files'][1] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
+        $filename = 'Test video.mp4';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
+        if (Storage::disk('storage')->exists($filename)) {
 
-        $this->assertEquals('failed', $response->json()['response']);
+            $data['files'][2] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
+        $filename = 'Test video2.mp4';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
+        if (Storage::disk('storage')->exists($filename)) {
+
+            $data['files'][0] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
 
         $data['icon'] = "candle";
         $response = $this->json('POST', '/api/v1/story', $data);
