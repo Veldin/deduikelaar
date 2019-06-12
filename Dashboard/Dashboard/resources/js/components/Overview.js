@@ -71,8 +71,8 @@ class Overview extends Component {
     return (
       <div className="overviewContentContainer">
         <div className="row overviewFilter">
-          <div className="col s2 overviewLabel">Alle Items</div>
-          <div className="col s10 overviewSwitch">
+          <div className="col s4 m2 l2 overviewLabel">Alle Items</div>
+          <div className="col s8 m10 l10 overviewSwitch">
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief

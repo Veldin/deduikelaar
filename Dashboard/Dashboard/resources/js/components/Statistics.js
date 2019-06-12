@@ -39,7 +39,7 @@ class Statistics extends Component {
 
       var total = parseInt(data['count']);
       var offset = 0;
-      var colors = ['#ff0043','#77c6a0','#304964'];
+      var colors = ["#009688","#304964","#ff0043"];
       colors.sort(() => Math.random() - 0.5);
 
       var c = document.getElementById(id);

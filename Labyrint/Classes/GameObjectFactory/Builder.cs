@@ -61,9 +61,10 @@ namespace GameObjectFactory
                             break;
                     }
                     break;
-                case "pickup":       // value = new object[2] { browser, camera }
+                case "pickup":       // value = new object[2] { browser, camera, engine }
                     gameObject.Width = 55f;
                     gameObject.Height = 55f;
+
 
                     gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
                     gameObject.onTickList.Add(new MoveToTargetBehaviour());
@@ -189,9 +190,9 @@ namespace GameObjectFactory
                     //gameObject.FromTop = (value as Camera).GetFromTop();
 
                     //gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
-                    gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val2[0] as Camera));
+                    //gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val2[0] as Camera));
 
-                    gameObject.onTickList.Add(new SetToTargetBehaviour());
+                    //gameObject.onTickList.Add(new SetToTargetBehaviour());
                     //gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
 
                     //val[1] should contain the orientation (True is horizontal, false is vertical)

@@ -99,13 +99,28 @@ namespace Labyrint
                                 // Insert the addhtml string in the og html
                                 string html = htmlArray[0] + addHtml + htmlArray[1];
 
+                                // Create the letter (thing behind the browser and buttons)
+                                GameObject letter = GameObjectFactoryFacade.GetGameObject("letter", 0, 0, new object[] { camera, true, "south" });
+
                                 // Invoke the Ui thread
                                 Application.Current.Dispatcher.Invoke(new Action(() =>
                                 {
                                     // Set put the html of the story in the browser and make it visible
                                     browser.NavigateToString(html);
                                     browser.Visibility = Visibility.Visible;
+
+                                    // Make the lettet a bit bigger than the browser
+                                    letter.AddHeight((float)(browser.Height + 300));
+                                    letter.AddWidth((float)(browser.Width + 200));
                                 }));
+
+                                // Position the letter right
+                                letter.FromLeft = camera.GetFromLeft() + (camera.GetWidth() - letter.Width) / 2;
+                                letter.FromTop = camera.GetFromTop() + (camera.GetHeight() - letter.Height) / 1.5f;
+                                letter.Target = new Target(camera.GetFromLeft() + (camera.GetWidth() - letter.Width) / 2, camera.GetFromTop() + (camera.GetHeight() - letter.Height) / 2);
+
+                                // Add the letter to the gameObjects list
+                                gameObjects.Add(letter);
 
                                 object[] arguments = new object[3];
                                 //val[0] should contain a Camera
@@ -121,7 +136,7 @@ namespace Labyrint
                                 //Log.Debug( letterTest.Width / camera.GetWidth());
                                 //Log.Debug(camera.GetWidth() - letterTest.Width);
 
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0, camera));
+                                //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0, camera));
 
                                 /*
                                 //Bottom Centre
@@ -161,7 +176,7 @@ namespace Labyrint
                                         int fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
 
                                         toAdd = null;
-                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, 83.5f, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
+                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, 78.5f, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
 
                                     Log.Debug(toAdd);
                                     switch (question.anwsers[i].response)

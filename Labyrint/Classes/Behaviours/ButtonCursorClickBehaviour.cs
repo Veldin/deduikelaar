@@ -65,7 +65,8 @@ namespace Labyrint
                 // Destroy all existing buttons
                 foreach (GameObject gameObject in gameObjects)
                 {
-                    if (gameObject.BuilderType == "button" || gameObject.BuilderType == "cover" || gameObject.BuilderType == "ControllerAncher" || gameObject.BuilderType == "ControllerCursor")
+                    if (gameObject.BuilderType == "button" || gameObject.BuilderType == "cover" || gameObject.BuilderType == "ControllerAncher" || 
+                        gameObject.BuilderType == "ControllerCursor" || gameObject.BuilderType == "letter")
                     {
                         gameObject.destroyed = true;
                     }
