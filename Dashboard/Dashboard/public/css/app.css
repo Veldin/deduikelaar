@@ -251,6 +251,7 @@ body #toast-container .toast-success {
   line-height: 36px !important;
   padding: 0 16px !important;
   text-transform: uppercase !important;
+  margin-left: 45px !important;
 }
 
 body #toast-container .toast-success:hover {
@@ -268,10 +269,11 @@ body #toast-container .toast-warning {
   letter-spacing: 0.5px !important;
   border: none !important;
   border-radius: 5px !important;
-  height: 80px !important;
+  height: auto !important;
   line-height: 20px !important;
   padding: 0 16px !important;
   text-transform: uppercase !important;
+  margin-left: 45px !important;
 }
 
 body #toast-container .toast-warning:hover {

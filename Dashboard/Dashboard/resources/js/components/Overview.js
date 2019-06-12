@@ -41,12 +41,12 @@ class Overview extends Component {
     .then(response => response.json())
     .then(response => {
       if(response['response'] == "success"){
-        toastr.success('Het item is verwijderd!', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        toastr.success('Het item is verwijderd!', '')
         this.setState({
           card: this.state.card.filter(s => s.storyId !== id)
         });
       }else{
-        toastr.warning('dit item is al verwijderd', '', {positionClass: "toast-bottom-right", timeOut: 40000})
+        toastr.warning('dit item is al verwijderd', '')
       }
     })
   }
