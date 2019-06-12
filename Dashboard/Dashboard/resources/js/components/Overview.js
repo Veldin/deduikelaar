@@ -14,19 +14,38 @@ class Overview extends Component {
 
   componentDidMount() {
     fetch('/api/v1/overview')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({ 
-          card: responseJson
-        })
-      })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      const filteredCardList = []
+
+      responseJson.map((card, key) =>
+        {if(this.state.switch == true){
+          this.setState({ 
+            card: responseJson
+          })
+        }else{
+          {if(responseJson[key]['active'] == true){
+            filteredCardList.push(card)
+            this.setState({ 
+              card: filteredCardList
+            })
+          }}
+        }}
+      );
+    })
   }
 
   toggleSwitch() {
-    this.setState({ 
-      switch: !this.state.switch
-    })
-    console.log(this.state.switch)
+    var elements = document.getElementsByClassName('notActive');
+    var i;
+
+    for (i = 0; i < elements.length; i++) { 
+      if (elements[i].parentNode.style.display === "none") {
+        elements[i].parentNode.style.display = "block";
+      } else {
+        elements[i].parentNode.style.display = "none";
+      }
+    }
   }
 
   deleteItem(id) {
@@ -46,8 +65,6 @@ class Overview extends Component {
     })
   }
 
-
-
   render(){
     return (
       <div className="overviewContentContainer">
@@ -57,7 +74,11 @@ class Overview extends Component {
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief
-                <input type="checkbox" defaultChecked></input>
+                {this.state.switch ? (
+                    <input type="checkbox" defaultChecked></input> 
+                  ) : (
+                    <input type="checkbox"></input> 
+                  )}
                 <span className="lever"></span>
                 Alle
               </label>

@@ -5,6 +5,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const card = (props) => {
   const deleteItem = () => props.onDelete(props.storyID)
+  const updateActiveStateCard = () => props.onToggleActive(props.storyID)
 
   function createBarData(toDataArray){
     var data = [];
@@ -31,20 +32,25 @@ const card = (props) => {
 
   return (        
     <div className="col s12 m4">
+      {props.active ? (
+        <span className="active"></span>
+      ) : (
+        <span className="notActive"></span>
+      )}
       <div className="card">
          <div className="card-content white-text">
           <div className="row adminPanel">
             <div className="col s10">
               <div className="switch">
                 <label>
-                  Actief
+                  Inactief
                   {props.active ? (
                     <input type="checkbox" defaultChecked></input> 
                   ) : (
                     <input type="checkbox"></input> 
                   )}
                   <span className="lever"></span>
-                  Inactief
+                  Actief
                 </label>
               </div>
             </div>
