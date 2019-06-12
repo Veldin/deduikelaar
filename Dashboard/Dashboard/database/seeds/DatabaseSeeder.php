@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run($amount=1)
     {
         $feedbackItems = [];
 
@@ -143,7 +143,7 @@ class DatabaseSeeder extends Seeder
             ];
         }
 
-        factory(Story::class, 20)->create()->each(function (Story $story) use ($files, $feedbackItems) {
+        factory(Story::class, $amount)->create()->each(function (Story $story) use ($files, $feedbackItems) {
 
             for($i=0; $i<rand(200,1000);$i++){
                 $num = mt_rand(0,count($feedbackItems)-1);
