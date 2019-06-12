@@ -32,7 +32,7 @@ class CreateItem extends Component {
         {title: 'Hier moet de titel ingevoerd worden, die duidelijk maakt waar dit specifieke item over gaat.'},
         {title: 'Hier kan gekozen worden voor een bestaand bestand toe te voegen of om zelf een stuk te schrijven.'},
         {title: 'Maak hier een eigen verhaal aan en voeg een afbeelding toe indien gewenst.'},
-        {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal.'}
+        {title: 'Kies hier het bestand dat u wilt toevoegen aan dit verhaal. Deze bestandstypen kunnen geüpload worden: docx, jpeg, jpg, png, gif, bmp, avi, mp4, mpeg, webm.'}
       ]      
     };
 
@@ -64,11 +64,35 @@ class CreateItem extends Component {
     this.setState({imagesContent: ""});
     var files = e.target.files;
     for(var i=0;i<files.length;i++){
-
       var reader = new FileReader();
+      reader.num = i;// = input.files[0].name.split('.').pop().toLowerCase();
       reader.readAsDataURL(files[i]);
-      reader.onload = function () {
-        t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
+      reader.onload = function (e) {
+        var extension = files[this.num].name.split('.').pop().toLowerCase();
+        if(['pdf','docx'].indexOf(extension) >= 0){
+
+          var formData = new FormData();
+          formData.append("file", files[this.num]);
+          fetch('/api/v1/file/convert', {
+            method: 'POST',
+            body: formData
+          }).then(response => response.json())
+              .then(response => {
+                if(response['response'] === "success"){
+                  t.setState({ imagesContent: t.state.imagesContent + response['data'] });
+                }else{
+                  toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+                }
+              });
+        }else if(['jpeg','jpg','png','gif','bmp'].indexOf(extension) >= 0){
+          t.setState({ imagesContent: t.state.imagesContent + "<img src='"+this.result+"' alt='preview' style='max-width: 100%;' />" });
+        }else if(['avi','mp4','mpeg', 'webm'].indexOf(extension) >= 0){
+          // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
+          t.setState({ imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;'><source src='"+this.result+"' /></video>" });
+        }else{
+          toastr.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' worden laten zien.');
+        }
+
       };
       reader.onerror = function (error) {
         console.log('Error: ', error);
@@ -169,28 +193,27 @@ class CreateItem extends Component {
               : null  
             }  
 
-              {/*<label htmlFor="existingFile">Bestaand document</label>*/}
-              {/*<div className="row">*/}
-                {/*<div className="switch existingFile col s11">*/}
-                  {/*<label>*/}
-                    {/*Nee*/}
-                    {/*<input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>*/}
-                    {/*<span className="lever"></span>*/}
-                    {/*Ja*/}
-                  {/*</label>*/}
-                {/*</div>*/}
-                {/*<div className="question col s1">*/}
-                  {/*<FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>*/}
-                {/*</div>*/}
-              {/*</div>*/}
-
-              {/*{this.state.showPopup2 ?  */}
-              {/*<Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>  */}
-              {/*: null  */}
-              {/*}  */}
-
-              {/*<div className="row" style={ hidden }>*/}
+              <label htmlFor="existingFile">Bestaand document</label>
               <div className="row">
+                <div className="switch existingFile col s11">
+                  <label>
+                    Nee
+                    <input type="checkbox" name="existingFile" onChange={ this.changeStateSwitch.bind(this) } checked={ this.state.isChecked }></input>
+                    <span className="lever"></span>
+                    Ja
+                  </label>
+                </div>
+                <div className="question col s1">
+                  <FontAwesomeIcon icon={ faQuestionCircle } onClick={this.togglePopup2.bind(this)}/>
+                </div>
+              </div>
+
+              {this.state.showPopup2 ?
+              <Popup  title={this.state.text[1].title} closePopup={this.togglePopup2.bind(this)}/>
+              : null
+              }
+
+              <div className="row" style={ hidden }>
                 <div className="input-field col s11">
                   <CKEditor
                       editor={ ClassicEditor }
@@ -302,8 +325,8 @@ class CreateItem extends Component {
                 <p> {this.state.title} </p>
               </div>
               <div className="content">
-                <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} />
-                <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} />
+                <p dangerouslySetInnerHTML={{__html: this.state.editorContent}} style={hidden} />
+                <p dangerouslySetInnerHTML={{__html: this.state.imagesContent}} style={isChecked}/>
               </div>
               <div className="row feedback">
                 <p>Welke emotie wekte dit verhaal bij jou op?</p>

@@ -177,7 +177,7 @@ namespace Labyrint
 
             onTickList = new List<IBehaviour>();
             onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
-            onTickList.Add(new SpawnNewItemsBehaviour(browser, camera, player));
+            onTickList.Add(new SpawnNewItemsBehaviour(browser, camera, player, this));
 
             //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
@@ -561,6 +561,37 @@ namespace Labyrint
                 // Add the difference to the players target to move it in the right direction
                 player.Target.AddFromLeft(differenceLeft * 20f);
                 player.Target.AddFromTop(differenceTop * 20f);
+
+                // Calc the distance between the cursor to the border
+                float[] distances = new float[]
+                {
+                    // Cursor to top border
+                    Math.Abs(camera.GetFromTop() - cursor.FromTop), 
+
+                    // Cursor to right border
+                    Math.Abs(camera.GetWidth()  +  camera.GetFromLeft() - cursor.FromLeft),
+
+                    // Cursor to bottom border
+                    Math.Abs(camera.GetHeight() +  camera.GetFromTop() - cursor.FromTop),
+
+                    // Cursor to left border
+                    Math.Abs(camera.GetFromLeft() - cursor.FromLeft)
+                };
+
+                // Check which distance is the lowest
+                int lowestKey = 0;
+                float lowestVal = cursor.FromTop;
+                for (int i = 1; i < 4; i++)
+                {
+                    if (distances[i] < lowestVal)
+                    {
+                        lowestVal = distances[i];
+                        lowestKey = i;
+                    }
+                }
+
+                //Log.Debug(lowestKey);
+
             }
         }
 

@@ -132,7 +132,7 @@ class StoryApiController extends Controller
      * @throws \Throwable
      */
     public function getStories(){
-
+        ini_set('max_execution_time', 300); // 5 minutes
         $data = [];
 
         // Get all active stories
@@ -251,23 +251,9 @@ class StoryApiController extends Controller
 
                 /** @var File $file */
 
-                $text = "";
+                $text = $file->getFileAsText();
 
-                // Image files
-                if(in_array($extension, File::$allowedImageFiles)){
-                    $text = $file->convertImageFile();
-                }
-                // Word files
-                if(in_array($extension, File::$allowedTextFiles)){
-                    // Set story item text if the file is an docx file
-                    $text = $file->convertDocxFile();
-                }
-                // Video files
-                if(in_array($extension, File::$allowedVideoFiles)){
-                    // Set story item text if the file is an docx file
-                    $text = $file->convertVideoFile();
-                }
-                if($text != null){
+                if($text != ""){
                     $storyItem->update(['text' => $text]);
                 }
             }
@@ -281,10 +267,18 @@ class StoryApiController extends Controller
 
     }
 
+    /**
+     * Change a story
+     * @param Request $request
+     * @param $storyId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeStory(Request $request, $storyId){
 
+        // Get story
         $story = Story::with('storyItems', 'storyItems.file')->find($storyId);
         if(!$story){
+            // Return error when
             return response()->json([
                 'response' => 'failed',
                 'errors' => [
@@ -348,6 +342,7 @@ class StoryApiController extends Controller
                         'storyId' => $story->id
                     ]);
 
+                    /** @var File $file */
                     // Create file
                     $file = File::create([
                         'fileName' => $filename,
@@ -359,24 +354,9 @@ class StoryApiController extends Controller
                     ]);
 
 
-                    $text = "";
+                    $text = $file->getFileAsText();
 
-                    // Image files
-                    if(in_array($extension, File::$allowedImageFiles)){
-                        $text = $file->convertImageFile();
-                    }
-                    // Word files
-                    if(in_array($extension, File::$allowedTextFiles)){
-                        // Set story item text if the file is an docx file
-                        $text = $file->convertDocxFile();
-                    }
-                    // Video files
-                    if(in_array($extension, File::$allowedVideoFiles)){
-                        // Set story item text if the file is an docx file
-                        $text = $file->convertVideoFile();
-                    }
-
-                    if($text != null){
+                    if($text != ""){
                         $storyItem->update(['text' => $text]);
                     }
                 }
@@ -390,6 +370,31 @@ class StoryApiController extends Controller
         ]);
     }
 
+
+    /**
+     * Preview of a story
+     * @param $storyId
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function previewStory($storyId){
+
+        $story = \App\Story::with('storyItems')->find($storyId);
+
+        if(!$story){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'Story not found'
+                ]
+            ]);
+        }
+
+        return response()->json([
+            'response' => 'success',
+            'data' => view('information-piece', compact('story'))->render()
+        ]);
+    }
 
     /**
      * Delete a story

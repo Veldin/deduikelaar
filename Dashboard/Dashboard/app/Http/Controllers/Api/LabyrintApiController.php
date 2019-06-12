@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Story;
 use App\StoryFeedback;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class LabyrintApiController extends Controller
 {
@@ -331,6 +333,62 @@ class LabyrintApiController extends Controller
 
         // Return file to download
         return response()->download(storage_path($file->path.$file->fileName), $file->realName);
+
+    }
+
+    /**
+     * Convert a file
+     * @param $fileId
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function convertFile(Request $request){
+
+        $file = $request->file('file');
+
+        // Check if file is in the database
+        if(!$file){
+            return response()->json([
+                'response' => 'failed',
+                'errors' => [
+                    'File not found'
+                ]
+            ]);
+        }
+
+        // Get file data
+        $f = $file;
+        $extension = $f->getClientOriginalExtension();
+        $fn = $f->getClientOriginalName();
+
+        // Create a new filename
+        $filename = Carbon::now()->format('Ymdhis') . rand(11111111, 99999999) . '.' . $extension;
+
+        // Save file
+        $file->storeAs("/uploads/temp/", $filename, 'local');
+
+        /** @var File $file */
+        // Create file
+        $file = File::make([
+            'fileName' => $filename,
+            'realName' => $fn,
+            'fileType' => $f->getMimeType(),
+            'extension' => $extension,
+            'path' => 'app/uploads/temp/',
+        ]);
+
+
+        $text = $file->getFileAsText();
+
+        if(Storage::disk('local')->exists("/uploads/temp/".$filename)){
+            Storage::disk('local')->delete("/uploads/temp/".$filename);
+        }
+
+
+        // Return file to download
+        return response()->json([
+            'response' => 'success',
+            'data' => $text
+        ]);
 
     }
 }

@@ -18,7 +18,7 @@
         
 
         <Viewbox Name="browserViewBox" Margin="10,10,10,10" RenderOptions.BitmapScalingMode="NearestNeighbor">
-            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="200" Height="200" Visibility="Hidden" MouseEnter="Browser_MouseEnter" />
+            <WebBrowser x:Name="browser" Margin="50,50,50,50" Width="150" Height="120" Visibility="Hidden" MouseEnter="Browser_MouseEnter" />
         </Viewbox>
 
         <Image Name="letter" Margin="10,10,10,10"  Width="250" Height="250"/>

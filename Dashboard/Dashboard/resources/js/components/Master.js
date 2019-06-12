@@ -26,11 +26,11 @@ class Master extends Component {
         </div>
         <div className="container">
           <div className="row content">
-            <div className="col s2 navigationContainer">
-              <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
+            <div className="col s12 m2 l2 navigationContainer">
+              <Link className="col s6 m12 l12 navigationItem" activeClassName="col s12 navigationItem active" to="/overview">
                 <span className="navigationItemText" id="overview">Overzicht</span>
               </Link>
-              <Link className="col s12 navigationItem" activeClassName="col s12 navigationItem active" to="/statistics">
+              <Link className="col s6 m12 l12 navigationItem" activeClassName="col s12 navigationItem active" to="/statistics">
                 <span className="navigationItemText">Statestieken</span>
               </Link>
             </div>

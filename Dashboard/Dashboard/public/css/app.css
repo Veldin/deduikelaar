@@ -20,7 +20,7 @@
   background-size: contain;
   height: 55px;
   margin-top: 10px;
-  margin-left: 45px;
+  margin-left: 5%;
   background-position: 0% 45%;
   background-repeat: no-repeat;
 }
@@ -84,11 +84,18 @@
   min-height: 64px;
 }
 
-#superContainer .contentContainer .overviewCards .card .deleteItem {
+#superContainer .contentContainer .overviewCards .card .right-buttons {
   display: flex;
   justify-content: flex-end;
-  color: #ff0043;
   font-size: 1.2rem;
+}
+
+#superContainer .contentContainer .overviewCards .card .deleteItem {
+  color: #ff0043;
+}
+
+#superContainer .contentContainer .overviewCards .card .showItem {
+  color: #77c6a0;
 }
 
 #superContainer .contentContainer .overviewCards .card .switch {
@@ -232,6 +239,10 @@ div.items {
 .emoteIconExample {
   color: #685643;
   font-size: 3rem;
+}
+
+.validate {
+  color: #e7edf2;
 }
 
 ::-webkit-scrollbar {
@@ -391,7 +402,30 @@ div.items {
 
   .feedback p {
     margin-left: 20px;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
+  }
+
+  .navigationContainer.active {
+    margin-left: 0;
+  }
+
+  .navigationContainer .navigationItemText {
+    margin-left: 0px;
+  }
+
+  canvas {
+    width: 100%;
+  }
+
+  .popup {
+    right: 20px;
+    width: 270px;
+  }
+}
+
+@media screen and (max-width: 1270px) and (min-width: 416px) {
+  .exampleCard .allContent .content {
+    height: 200px;
   }
 }
 

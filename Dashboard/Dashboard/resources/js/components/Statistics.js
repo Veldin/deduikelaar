@@ -39,7 +39,7 @@ class Statistics extends Component {
 
       var total = parseInt(data['count']);
       var offset = 0;
-      var colors = ['#ff0043','#77c6a0','#304964'];
+      var colors = ["#009688","#304964","#ff0043"];
       colors.sort(() => Math.random() - 0.5);
 
       var c = document.getElementById(id);
@@ -138,13 +138,13 @@ class Statistics extends Component {
       return (
               <div className="statisticsContentContainer">
                   <div className="row statisticsFilter">
-                      <div className="col s2 offset-s10 statisticsLabel">Statestieken</div>
+                      <div className="col s12 m2 l2 offset-m10 offset-l10 statisticsLabel">Statestieken</div>
                   </div>
                   <div className="row allCharts">
                   {this.state.card.map((item, index) => {
 
 
-                      return <div className="col s6 chart" key={index}>
+                      return <div className="col s12 m6 l6 chart" key={index}>
                           <canvas id={"canvas"+index} onMouseEnter={this.mouseEnter.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}></canvas>
                       </div>
 
