@@ -14,11 +14,10 @@ class File extends Model
     protected $table = 'file';
 
     // TODO: PDF omzetten wanneer tijd over
-    public static $allowedExtensions = ['docx','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg'];
+    public static $allowedExtensions = ['docx','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg', 'webm'];
 
-    public static $allowedImageFiles = ['jpeg','jpg','png','gif','bmp'];
-    public static $allowedTextFiles = ['docx'];
-    public static $allowedVideoFiles = ['avi','mp4','mpeg'];
+    public static $imageFileExtensions = ['jpeg','jpg','png','gif','bmp'];
+    public static $videoFilesExtensions = ['avi','mp4','mpeg', 'webm'];
 
     protected $fillable = [
         'fileName',
@@ -33,15 +32,100 @@ class File extends Model
         return $this->belongsTo(StoryItem::class,'storyItemId','id');
     }
 
+    public function getFileAsText(){
+        $text = "";
+        // Image files
+        if(in_array($this->extension, self::$imageFileExtensions)){
+            $text = $this->convertImageFile();
+        }
+        // Word files
+        if($this->extension == 'docx'){
+            // Set story item text if the file is an docx file
+            $text = $this->convertDocxFile();
+        }
+        // PDF files
+        if($this->extension == 'pdf'){
+            // Set story item text if the file is an pdf file
+            $text = $this->convertPDFFile();
+        }
+        // Video files
+        if(in_array($this->extension, self::$videoFilesExtensions)){
+            // Set story item text if the file is an video file
+            $text = $this->convertVideoFile();
+        }
+        return $text;
+    }
+
+    private function convertImageFile(){
+
+        // Check if it is an image file
+        if(!in_array($this->extension, self::$imageFileExtensions)) return "";
+
+        $path = storage_path($this->path.$this->fileName);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return "<img src='".$base64."' alt='".$this->realName."'>";
+    }
+
+    private function convertVideoFile(){
+
+        // Check if it is an image file
+        if(!in_array($this->extension, self::$videoFilesExtensions)) return "";
+
+
+
+        $path = storage_path($this->path.$this->fileName);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:video/' . $type . ';base64,' . base64_encode($data);
+
+
+        return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
+    }
+
+    private function convertPDFFile(){
+
+        // Check if it is an image file
+        if($this->extension != 'pdf') return null;
+
+//        var_dump($pdf->html(1));
+
+        $source_pdf=storage_path($this->path.$this->fileName);
+        $output_folder=storage_path("app/uploads/temp");
+//        var_dump($output_folder);
+        if(!file_exists($output_folder)) mkdir($output_folder, 777);
+
+        $cmd = '"'.storage_path().'\\app\\pdftohtml.exe" "'.$source_pdf.'" "'.$output_folder.'\\'.$this->fileName.'"';
+        exec( $cmd, $out, $ret);
+
+
+        $data = file_get_contents($output_folder.'\\'.$this->fileName.'s.html');
+        $data = preg_replace_callback ('/src="(.*?)"/i', function($matches) use ($output_folder) {
+            $file = $output_folder."\\".$matches[1];
+            $type = pathinfo($file, PATHINFO_EXTENSION);
+            $data = file_get_contents($file);
+            return 'src="data:image/' . $type . ';base64,' . base64_encode($data).'"';
+        }, $data);
+
+        $files = glob($output_folder.'/*'); // get all file names
+        foreach($files as $file){ // iterate files
+            if(is_file($file))
+                unlink($file); // delete file
+        }
+        return $data;
+    }
+
 
     /**
      * Convert a docx file to text
      * @return bool|string|null
      */
-    public function convertDocxFile(){
+    private function convertDocxFile(){
 
         // Check if it is a docx file
-        if(!in_array($this->extension, self::$allowedTextFiles)) return null;
+        if($this->extension != 'docx') return "";
         $content = '';
 
         // Open file as a zip file
@@ -156,23 +240,6 @@ class File extends Model
 
     }
 
-    public function convertImageFile(){
-
-        // Check if it is an image file
-        if(!in_array($this->extension, self::$allowedImageFiles)) return null;
-
-        $path = storage_path($this->path.$this->fileName);
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-        return "<img src='".$base64."' alt='".$this->realName."'>";
-    }
-
-    public function convertVideoFile(){
-
-        return "";
-    }
 
     /**
      * Find drawing tag for image

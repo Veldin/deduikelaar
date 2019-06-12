@@ -84,11 +84,19 @@
   min-height: 64px;
 }
 
-#superContainer .contentContainer .overviewCards .card .deleteItem {
+#superContainer .contentContainer .overviewCards .card .right-buttons {
   display: flex;
   justify-content: flex-end;
-  color: #ff0043;
   font-size: 1.2rem;
+}
+
+#superContainer .contentContainer .overviewCards .card .deleteItem {
+  color: #ff0043;
+}
+
+#superContainer .contentContainer .overviewCards .card .showItem {
+  color: #009688;
+  margin-right: 10px;
 }
 
 #superContainer .contentContainer .overviewCards .card .switch {
@@ -140,6 +148,85 @@
   border-radius: 7px;
 }
 
+#superContainer .contentContainer .modal.preview {
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content {
+  position: relative;
+  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 650px;
+  width: 573px;
+  min-height: 650px;
+  min-width: 573px;
+  margin-left: -287px;
+  left: 50%;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content #spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content .modal-container {
+  position: relative;
+  top: 120px;
+  height: 400px;
+  width: 90%;
+  left: 5%;
+  overflow: auto;
+}
+
+#superContainer .contentContainer .modal.preview .modal-footer {
+  border-top: none;
+  width: 618px;
+  left: 50%;
+  margin-left: -309px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#superContainer .contentContainer .modal.preview .modal-footer .modal-close {
+  background-color: white;
+}
+
+@media screen and (max-width: 1100px), screen and (max-height: 900px) {
+  #superContainer .contentContainer .modal.preview .modal-content {
+    height: 400px;
+    width: 353px;
+    min-height: 400px;
+    min-width: 353px;
+    margin-left: -177px;
+  }
+
+  #superContainer .contentContainer .modal.preview .modal-content .modal-container {
+    top: 80px;
+    height: 240px;
+  }
+
+  #superContainer .contentContainer .modal.preview .modal-footer {
+    width: 353px;
+    margin-left: -177px;
+  }
+}
+
+@media screen and (max-width: 450px), screen and (max-height: 650px) {
+  #superContainer .contentContainer .modal.preview {
+    width: 100%;
+  }
+
+  #superContainer .contentContainer .modal.preview .modal-footer {
+    text-align: center;
+  }
+}
+
 body {
   overflow-y: scroll;
   overflow-x: hidden;
@@ -160,7 +247,7 @@ body #toast-container .toast-success {
   letter-spacing: 0.5px !important;
   border: none !important;
   border-radius: 5px !important;
-  height: 36px !important;
+  height: 45px !important;
   line-height: 36px !important;
   padding: 0 16px !important;
   text-transform: uppercase !important;
@@ -181,7 +268,7 @@ body #toast-container .toast-warning {
   letter-spacing: 0.5px !important;
   border: none !important;
   border-radius: 5px !important;
-  height: 36px !important;
+  height: 80px !important;
   line-height: 20px !important;
   padding: 0 16px !important;
   text-transform: uppercase !important;
@@ -235,7 +322,7 @@ div.items {
 }
 
 .validate {
-  color: #e7edf2;
+  color: #8391a5 !important;
 }
 
 ::-webkit-scrollbar {
@@ -407,11 +494,17 @@ div.items {
   }
 
   canvas {
-    width: 300px;
+    width: 100%;
   }
 
   .popup {
-    right: 0px;
+    right: 20px;
+    width: 315px;
+  }
+
+  .containerAddItem {
+    padding: 0px;
+    margin-top: 35px;
   }
 }
 
@@ -419,6 +512,18 @@ div.items {
   .exampleCard .allContent .content {
     height: 200px;
   }
+}
+
+.input-field label {
+  color: #8391a5 !important;
+}
+
+.inputField {
+  border-bottom-color: #8391a5 !important;
+}
+
+.label {
+  color: #8391a5 !important;
 }
 
 .materialize-red {
@@ -3928,13 +4033,13 @@ table span.badge {
 
 @media only screen and (min-width : 601px) {
   .container {
-    width: 95%;
+    width: 85%;
   }
 }
 
 @media only screen and (min-width : 993px) {
   .container {
-    width: 95%;
+    width: 70%;
   }
 }
 

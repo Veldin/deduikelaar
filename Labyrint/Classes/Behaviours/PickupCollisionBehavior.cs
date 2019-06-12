@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using ApiParser;
 using CameraSystem;
 using GameObjectFactory;
@@ -18,6 +19,7 @@ namespace Labyrint
         private List<GameObject> loopList;
         private WebBrowser browser;
         private Camera camera;
+        private MainWindow engine;
 
         public PickupCollisionBehavior(object value){
             loopList = new List<GameObject>();
@@ -26,6 +28,7 @@ namespace Labyrint
 
             this.browser = values[0] as WebBrowser;
             this.camera = values[1] as Camera;
+            this.engine = values[2] as MainWindow;
         }
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
@@ -72,6 +75,30 @@ namespace Labyrint
                     SettingsFacade.SetSetting("CountPickups", currentPickupCount.ToString());
 
 
+                    int closestBorder = engine.GetLastClickClosestBorder();
+                    int degrees = 0;
+                    string compas = "south";
+                    switch (closestBorder)
+                    {
+                        case 0:
+                            degrees = 180;
+                            compas = "north";
+                            break;
+                        case 1:
+                            degrees = 270;
+                            compas = "east";
+                            break;
+                        case 2:
+                            degrees = 0;
+                            compas = "south";
+                            break;
+                        case 3:
+                            degrees = 90;
+                            compas = "west";
+                            break;
+                    }
+
+
                     // Loop through the behaviours of the gameObject to find the HaveAStory behaviour
                     foreach (IBehaviour behaviour in gameobject.onTickList)
                     {
@@ -99,13 +126,45 @@ namespace Labyrint
                                 // Insert the addhtml string in the og html
                                 string html = htmlArray[0] + addHtml + htmlArray[1];
 
+                                // Split the new html again to apply the right rotation
+                                string[] htmlArray2 = html.Split(new string[] { "transform: rotate(0deg);" }, StringSplitOptions.None);
+
+                                // Create the right string to insert in the css
+                                string addCss = "transform: rotate(" + degrees + "deg);";
+
+                                // Combine everything back together
+                                string html2 = htmlArray2[0] + addCss + htmlArray2[1];
+
+                                // Create the letter (thing behind the browser and buttons)
+                                GameObject letter = GameObjectFactoryFacade.GetGameObject("letter", 0, 0, new object[] { camera, true, compas });
+
                                 // Invoke the Ui thread
                                 Application.Current.Dispatcher.Invoke(new Action(() =>
                                 {
                                     // Set put the html of the story in the browser and make it visible
-                                    browser.NavigateToString(html);
+                                    browser.NavigateToString(html2);
                                     browser.Visibility = Visibility.Visible;
+
+                                    // Rotate the browser object
+                                    RotateTransform rotateTransform1 = new RotateTransform(degrees)
+                                    {
+                                        CenterX = 75,
+                                        CenterY = 60
+                                    };
+                                    browser.RenderTransform = rotateTransform1;
+
+                                    // Make the lettet a bit bigger than the browser
+                                    letter.AddHeight((float)(browser.Height + 300));
+                                    letter.AddWidth((float)(browser.Width + 200));
                                 }));
+
+                                // Position the letter right
+                                letter.FromLeft = camera.GetFromLeft() + (camera.GetWidth() - letter.Width) / 2;
+                                letter.FromTop = camera.GetFromTop() + (camera.GetHeight() - letter.Height) / 1.5f;
+                                letter.Target = new Target(camera.GetFromLeft() + (camera.GetWidth() - letter.Width) / 2, camera.GetFromTop() + (camera.GetHeight() - letter.Height) / 2);
+
+                                // Add the letter to the gameObjects list
+                                gameObjects.Add(letter);
 
                                 object[] arguments = new object[3];
                                 //val[0] should contain a Camera
@@ -121,7 +180,7 @@ namespace Labyrint
                                 //Log.Debug( letterTest.Width / camera.GetWidth());
                                 //Log.Debug(camera.GetWidth() - letterTest.Width);
 
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0, camera));
+                                //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0, camera));
 
                                 /*
                                 //Bottom Centre
@@ -161,27 +220,51 @@ namespace Labyrint
                                         int fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
 
                                         toAdd = null;
-                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, 83.5f, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
+                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, 84.5f, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
 
-                                    Log.Debug(toAdd);
-                                    switch (question.anwsers[i].response)
-                                    {
-                                        case "\\u1F603": // smile head
-                                            toAdd.setActiveBitmap("Assets/Sprites/Answers/happy.gif");
-                                            break;
-                                        case "\\u1F620": // angry head
-                                            toAdd.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
-                                            break;
-                                        case "\\u1F622": // sad head
-                                            toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
-                                            break;
-                                        default:
-                                            toAdd.SetText(question.anwsers[i].response);
-                                            break;
-                                    }
+                                        switch (question.anwsers[i].response)
+                                        {
+                                            case "\\u1F603": // smile head
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/happy.gif");
+                                                break;
+                                            case "\\u1F620": // angry head
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
+                                                break;
+                                            case "\\u1F622": // sad head
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
+                                                break;
+                                            default:
+                                                toAdd.SetText(question.anwsers[i].response);
+                                                break;
+                                        }
+
+                                        // Invoke the Ui thread
+                                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                                        {
+                                            // Create a RotateTransform object
+                                            RotateTransform rotateTransform1 = new RotateTransform(degrees)
+                                            {
+                                                CenterX = toAdd.Width / 2,
+                                                CenterY = toAdd.Height / 2
+                                            };
+
+                                            // If the rectangle is not null apply the rotation on the rectangle
+                                            if (toAdd.rectangle != null)
+                                            {
+                                                toAdd.rectangle.RenderTransform = rotateTransform1;
+                                            }
+
+                                            // If the textBlock is not null apply the rotation on the textblock
+                                            if (toAdd.textBlock != null)
+                                            {
+                                                toAdd.textBlock.RenderTransform = rotateTransform1;
+                                            }
+                                        }));
+
+                                        // Adde the button to the list of gameObjects
                                         lock (gameObjects)
                                         {
-                                            Log.Debug("added");
+                                            Log.Debug("button added");
                                             gameObjects.Add(toAdd);
                                         }
                                        

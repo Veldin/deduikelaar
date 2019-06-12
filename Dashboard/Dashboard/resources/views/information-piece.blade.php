@@ -23,12 +23,24 @@
                 margin: 0;
                 padding: 0;
             }
+			
+			/* Dont remove the transform below. This is necassary for the rotation in the Labyrint application */
+			html{
+				transform: rotate(0deg);
+			}
 
             .title{
                 font-weight: 400;
                 font-size: 1.8rem;
                 margin-bottom: 60px;
                 width: 70%;
+            }
+            audio, video{
+                width: 100%;
+                max-width: 100%;
+            }
+            img{
+                max-width: 100%;
             }
 
             .description,

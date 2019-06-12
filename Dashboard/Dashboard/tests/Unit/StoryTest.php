@@ -36,6 +36,8 @@ class StoryTest extends TestCase
             UploadedFile::fake()->image('test1.qwe', 1920, 1080),
             UploadedFile::fake()->image('test2.jpg', 1920, 1080),
             UploadedFile::fake()->image('test3.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test4.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test5.jpg', 1920, 1080),
         ];
 
         $filename = 'Test document.docx';
@@ -50,7 +52,52 @@ class StoryTest extends TestCase
         $this->assertEquals('failed', $response->json()['response']);
 
 
-        // Replace first file
+        // Replace first file docx
+        if (Storage::disk('storage')->exists($filename)) {
+
+            $data['files'][0] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
+        $filename = 'Test document.pdf';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
+        if (Storage::disk('storage')->exists($filename)) {
+
+            $data['files'][1] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
+        $filename = 'Test video.mp4';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
+        if (Storage::disk('storage')->exists($filename)) {
+
+            $data['files'][2] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
+        $filename = 'Test video2.mp4';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
         if (Storage::disk('storage')->exists($filename)) {
 
             $data['files'][0] = new UploadedFile(
