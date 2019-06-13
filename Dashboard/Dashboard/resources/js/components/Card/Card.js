@@ -30,15 +30,15 @@ const card = (props) => {
     return data;
   }
 
-  function toggleSwitch(id){
+  function toggleSwitch(){
     var card = document.getElementById(props.storyID);
-    console.log(card)
-    // if(card.id == id){
-    //   console.log(card.firstChild.innerHTML)
-    //   // if(card.firstChild.innerHTML){
-
-    //   // }
-    // }
+    if(card.firstChild.classList.contains('active')){
+      card.firstChild.classList.add("notActive")
+      card.firstChild.classList.remove("active")
+    }else{
+      card.firstChild.classList.remove("notActive")
+      card.firstChild.classList.add("active")     
+    }
   }
 
   return (        
@@ -52,7 +52,7 @@ const card = (props) => {
          <div className="card-content white-text">
           <div className="row adminPanel">
             <div className="col s8">
-              <div className="switch" onChange={toggleSwitch(props.storyID)}>
+              <div className="switch" onChange={toggleSwitch}>
                 <label>
                   Inactief
                   {props.active ? (
