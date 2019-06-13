@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="">
+    <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="Information piece rotating">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/information-piece.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/information-piece.blade.php" afterDir="false" />
     </list>
@@ -38,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="34" column="75" selection-start-line="34" selection-start-column="74" selection-end-line="34" selection-end-column="75" />
+            <state relative-caret-position="255">
+              <caret line="27" column="24" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="24" />
               <folding>
                 <element signature="e#393#432#0#PHP" expanded="true" />
               </folding>
@@ -50,8 +50,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/information-piece.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+            <state relative-caret-position="472">
+              <caret line="110" column="7" lean-forward="true" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -59,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="7004">
+              <caret line="424" column="26" selection-start-line="424" selection-start-column="20" selection-end-line="424" selection-end-column="26" />
               <folding>
                 <element signature="e#46#63#0#PHP" expanded="true" />
               </folding>
@@ -71,11 +71,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/Unit/StoryTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+            <state relative-caret-position="1241">
+              <caret line="82" column="25" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
               <folding>
                 <element signature="e#30#43#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Desktop/test_edge.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16">
+              <caret line="187" lean-forward="true" selection-start-line="187" selection-end-line="215" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -91,7 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>stati</find>
       <find>overvie</find>
       <find>overv</find>
       <find>webpack.config</find>
@@ -121,6 +129,7 @@
       <find>var_dump</find>
       <find>var_d</find>
       <find>print_</find>
+      <find>delete</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -130,7 +139,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Providers/StoryServiceProvider.php" />
         <option value="$PROJECT_DIR$/resources/views/informationPiece.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/test_story_view.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Sorting.php" />
@@ -180,6 +188,7 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/tests/Unit/StoryTest.php" />
+        <option value="$USER_HOME$/Desktop/test_edge.html" />
         <option value="$PROJECT_DIR$/resources/views/information-piece.blade.php" />
       </list>
     </option>
@@ -283,6 +292,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -439,7 +449,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -450,19 +459,19 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\views\test" />
-      <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\public\images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\storage" />
       <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\sass" />
       <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\public\images" />
       <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\public\images\sprites" />
       <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\views\test" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\views\test" />
+      <recent name="E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\public\images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -477,7 +486,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.StoryTest.testStoryChangeActive">
+  <component name="RunManager" selected="PHPUnit.StoryTest.testDeleteStoryItem">
     <configuration name="LabyrintApiTest.testConvertFile" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner class="Tests\Unit\LabyrintApiTest" file="$PROJECT_DIR$/tests/Unit/LabyrintApiTest.php" method="testConvertFile" scope="Method" />
       <method v="2" />
@@ -488,6 +497,14 @@
     </configuration>
     <configuration name="StoryTest.testAllClasses" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Tests\Unit\StoryTest" file="$PROJECT_DIR$/tests/Unit/StoryTest.php" method="testAllClasses" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="StoryTest.testDeleteStory" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\StoryTest" file="$PROJECT_DIR$/tests/Unit/StoryTest.php" method="testDeleteStory" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="StoryTest.testDeleteStoryItem" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\StoryTest" file="$PROJECT_DIR$/tests/Unit/StoryTest.php" method="testDeleteStoryItem" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="StoryTest.testStoryChangeActive" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
@@ -537,10 +554,14 @@
       <item itemvalue="PHPUnit.phpunit.xml" />
       <item itemvalue="PHPUnit.StoryTest.testAllClasses" />
       <item itemvalue="PHPUnit.StoryTest.testStoryChangeActive" />
+      <item itemvalue="PHPUnit.StoryTest.testDeleteStory" />
+      <item itemvalue="PHPUnit.StoryTest.testDeleteStoryItem" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.StoryTest.testDeleteStoryItem" />
         <item itemvalue="PHPUnit.StoryTest.testStoryChangeActive" />
+        <item itemvalue="PHPUnit.StoryTest.testDeleteStory" />
         <item itemvalue="PHPUnit.StoryTest.testAllClasses" />
       </list>
     </recent_temporary>
@@ -589,21 +610,8 @@
       <workItem from="1560342877258" duration="5721000" />
       <workItem from="1560351466356" duration="8000000" />
       <workItem from="1560411050972" duration="9287000" />
-      <workItem from="1560424897971" duration="606000" />
-    </task>
-    <task id="LOCAL-00023" summary="Fix story">
-      <created>1559034925340</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1559034925340</updated>
-    </task>
-    <task id="LOCAL-00024" summary="new Story">
-      <created>1559057212182</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1559057212183</updated>
+      <workItem from="1560424897971" duration="8920000" />
+      <workItem from="1560437135685" duration="1250000" />
     </task>
     <task id="LOCAL-00025" summary="changed PUT to POST api">
       <created>1559118721171</created>
@@ -934,31 +942,24 @@
       <option name="project" value="LOCAL" />
       <updated>1560424631500</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Information piece font smaller for overview">
+      <created>1560425533246</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1560425533247</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Information piece rotating">
+      <created>1560430631935</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1560430631935</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 05m 51s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 07m 37s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 07m 41s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 08m 23s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 09m 45s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 10m 11s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 10m 34s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
     <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 11m 15s.xml">
       <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
@@ -968,9 +969,30 @@
     <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 23m 45s.xml">
       <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
+    <history-entry file="StoryTest_testDeleteStory - 2019.06.13 at 13h 45m 44s.xml">
+      <configuration name="StoryTest.testDeleteStory" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="StoryTest_testDeleteStory - 2019.06.13 at 13h 45m 55s.xml">
+      <configuration name="StoryTest.testDeleteStory" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="StoryTest_testDeleteStory - 2019.06.13 at 13h 46m 16s.xml">
+      <configuration name="StoryTest.testDeleteStory" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 48m 19s.xml">
+      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 48m 33s.xml">
+      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="StoryTest_testDeleteStoryItem - 2019.06.13 at 13h 50m 16s.xml">
+      <configuration name="StoryTest.testDeleteStoryItem" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="StoryTest_testDeleteStoryItem - 2019.06.13 at 13h 59m 16s.xml">
+      <configuration name="StoryTest.testDeleteStoryItem" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243459000" />
+    <option name="totallyTimeSpent" value="253023000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -983,9 +1005,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20788912" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21055438" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="npm" order="3" side_tool="true" />
@@ -993,15 +1014,15 @@
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" sideWeight="0.49946696" weight="0.312026" />
-      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.48667377" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.4856753" weight="0.33260393" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" sideWeight="0.4978678" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5165245" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51432467" side_tool="true" visible="true" weight="0.3261105" />
       <window_info anchor="bottom" id="Application Servers" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49520257" weight="0.31852654" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.48347548" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.48347548" weight="0.32936078" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1013,8 +1034,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="DB refresh and fill" />
-    <MESSAGE value="CKeditor fixed image upload" />
     <MESSAGE value="Example" />
     <MESSAGE value="statistics" />
     <MESSAGE value="Optimized requests and better test data" />
@@ -1038,18 +1057,11 @@
     <MESSAGE value="tests" />
     <MESSAGE value="merge" />
     <MESSAGE value="Merge branch 'master' of https://github.com/Veldin/deduikelaar&#10;&#10;# Conflicts:&#10;#&#9;Labyrint/Classes/GameObjectFactory/Builder.cs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/Veldin/deduikelaar&#10;&#10;# Conflicts:&#10;#&#9;Labyrint/Classes/GameObjectFactory/Builder.cs" />
+    <MESSAGE value="Information piece font smaller for overview" />
+    <MESSAGE value="Information piece rotating" />
+    <option name="LAST_COMMIT_MESSAGE" value="Information piece rotating" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-react/dist/ckeditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1338,10 +1350,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="27" column="24" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="24" />
+          <folding>
+            <element signature="e#393#432#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="7004">
+          <caret line="424" column="26" selection-start-line="424" selection-start-column="20" selection-end-line="424" selection-end-column="26" />
           <folding>
             <element signature="e#46#63#0#PHP" expanded="true" />
           </folding>
@@ -1350,28 +1372,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/Unit/StoryTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+        <state relative-caret-position="1241">
+          <caret line="82" column="25" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
           <folding>
             <element signature="e#30#43#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
+    <entry file="file://$USER_HOME$/Desktop/test_edge.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="34" column="75" selection-start-line="34" selection-start-column="74" selection-end-line="34" selection-end-column="75" />
-          <folding>
-            <element signature="e#393#432#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="16">
+          <caret line="187" lean-forward="true" selection-start-line="187" selection-end-line="215" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/information-piece.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        <state relative-caret-position="472">
+          <caret line="110" column="7" lean-forward="true" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
         </state>
       </provider>
     </entry>
