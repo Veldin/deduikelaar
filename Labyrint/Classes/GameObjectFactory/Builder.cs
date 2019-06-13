@@ -220,6 +220,8 @@ namespace GameObjectFactory
                     gameObject.setActiveBitmap("Assets/Redrand.png");
                     break;
             }
+
+
         }
     }
 }

@@ -5,6 +5,7 @@ using FileReaderWriterSystem;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text;
+using System;
 
 namespace ApiParser
 {
@@ -20,9 +21,13 @@ namespace ApiParser
             AddStatistics();
 
             // Try to get the data from the api
-            SaveItemOrdersAsync();
-            SaveStoriesAsync();
-            SaveQuestionsAsync();
+            Task saveItemOrdersAsync = Task.Run(async () => await SaveItemOrdersAsync());
+            Task saveStoriesAsync = Task.Run(async () => await SaveStoriesAsync());
+            Task saveQuestionsAsync = Task.Run(async () => await SaveQuestionsAsync());
+
+            saveItemOrdersAsync.Wait();
+            saveStoriesAsync.Wait();
+            saveQuestionsAsync.Wait();
 
             // Fill all the static collections from the json files
             AddItemOrder();
@@ -303,7 +308,7 @@ namespace ApiParser
         /// <summary>
         /// Save the stories list in a json file
         /// </summary>
-        public static async void SaveStoriesAsync()
+        public static async Task SaveStoriesAsync()
         {
             // Call the json text from the api
             string json = await CallApi("http://localhost:8000/api/v1/stories");
@@ -318,6 +323,7 @@ namespace ApiParser
             //json = JsonConvert.SerializeObject(stories);
 
             SaveStories(json);
+            return;
         }
 
         /// <summary>
@@ -336,7 +342,7 @@ namespace ApiParser
         /// <summary>
         /// Save the questions list in a json file
         /// </summary>
-        public static async void SaveQuestionsAsync()
+        public static async Task SaveQuestionsAsync()
         {
             // Call the json text from the api
             string json = await CallApi("http://localhost:8000/api/v1/feedback");
@@ -351,6 +357,7 @@ namespace ApiParser
             //json = JsonConvert.SerializeObject(questions);
 
             SaveQuestions(json);
+            return;
         }
 
         /// <summary>
@@ -369,7 +376,7 @@ namespace ApiParser
         /// <summary>
         /// Save the itemorders queue in a json file
         /// </summary>
-        public static async void SaveItemOrdersAsync()
+        public static async Task SaveItemOrdersAsync()
         {
             // Call the json text from the api
             string json = await CallApi("http://localhost:8000/api/v1/order");
@@ -385,6 +392,7 @@ namespace ApiParser
             //json = JsonConvert.SerializeObject(itemOrders);
 
             SaveItemOrders(json);
+            return;
         }
 
         /// <summary>
