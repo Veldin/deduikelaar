@@ -239,5 +239,10 @@
   <ItemGroup>
     <Resource Include="Assets\Sprites\answers\poststamp.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\answers\angryStamp.png" />
+    <Resource Include="Assets\Sprites\answers\happyStamp.png" />
+    <Resource Include="Assets\Sprites\answers\sadStamp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

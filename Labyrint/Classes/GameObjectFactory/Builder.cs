@@ -116,7 +116,7 @@ namespace GameObjectFactory
                 case "button":      // value = new object[] { camera, storyId, anwserId, browser }
                     object[] val = value as object[];
 
-                    gameObject.Width = 70;
+                    gameObject.Width = 82.35f;
                     gameObject.Height = 70;
 
                     gameObject.highVisibility = true;

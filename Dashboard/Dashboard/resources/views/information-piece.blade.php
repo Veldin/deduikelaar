@@ -22,6 +22,7 @@
                 background-color: #aa9479;
                 margin: 0;
                 padding: 0;
+				overflow:auto
             }
 			
 			/* Dont remove the transform below. This is necassary for the rotation in the Labyrint application */
