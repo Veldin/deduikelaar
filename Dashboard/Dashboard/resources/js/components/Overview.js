@@ -10,7 +10,6 @@ class Overview extends Component {
 
     this.state = {
       card: [],
-      switch: true,
       modal: null,
       modalContent: ""
     }
@@ -21,22 +20,9 @@ class Overview extends Component {
     fetch('/api/v1/overview')
     .then((response) => response.json())
     .then((responseJson) => {
-      const filteredCardList = []
-
-      responseJson.map((card, key) =>
-        {if(this.state.switch == true){
-          this.setState({ 
-            card: responseJson
-          })
-        }else{
-          {if(responseJson[key]['active'] == true){
-            filteredCardList.push(card)
-            this.setState({ 
-              card: filteredCardList
-            })
-          }}
-        }}
-      );
+      this.setState({ 
+        card: responseJson
+      })
     })
   }
 
@@ -87,11 +73,7 @@ class Overview extends Component {
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief
-                {this.state.switch ? (
-                    <input type="checkbox" defaultChecked></input> 
-                  ) : (
-                    <input type="checkbox"></input> 
-                  )}
+                <input type="checkbox" defaultChecked></input> 
                 <span className="lever"></span>
                 Alle
               </label>

@@ -30,8 +30,19 @@ const card = (props) => {
     return data;
   }
 
+  function toggleSwitch(id){
+    var card = document.getElementById(props.storyID);
+    console.log(card)
+    // if(card.id == id){
+    //   console.log(card.firstChild.innerHTML)
+    //   // if(card.firstChild.innerHTML){
+
+    //   // }
+    // }
+  }
+
   return (        
-    <div className="col s12 m4">
+    <div className="cardBox col s12 m4" id={props.storyID}>
       {props.active ? (
         <span className="active"></span>
       ) : (
@@ -41,7 +52,7 @@ const card = (props) => {
          <div className="card-content white-text">
           <div className="row adminPanel">
             <div className="col s8">
-              <div className="switch">
+              <div className="switch" onChange={toggleSwitch(props.storyID)}>
                 <label>
                   Inactief
                   {props.active ? (

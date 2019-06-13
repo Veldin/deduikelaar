@@ -65735,8 +65735,18 @@ var card = function card(props) {
     return data;
   }
 
+  function toggleSwitch(id) {
+    var card = document.getElementById(props.storyID);
+    console.log(card); // if(card.id == id){
+    //   console.log(card.firstChild.innerHTML)
+    //   // if(card.firstChild.innerHTML){
+    //   // }
+    // }
+  }
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s12 m4"
+    className: "cardBox col s12 m4",
+    id: props.storyID
   }, props.active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "active"
   }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65750,7 +65760,8 @@ var card = function card(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s8"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "switch"
+    className: "switch",
+    onChange: toggleSwitch(props.storyID)
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Inactief", props.active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "checkbox",
     defaultChecked: true
@@ -65759,8 +65770,6 @@ var card = function card(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "lever"
   }), "Actief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col s2"
-  }), "Inactief"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col s4"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "right-buttons"
@@ -66478,7 +66487,6 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
     _this.state = {
       card: [],
-      "switch": true,
       modal: null,
       modalContent: ""
     };
@@ -66496,23 +66504,8 @@ function (_Component) {
       fetch('/api/v1/overview').then(function (response) {
         return response.json();
       }).then(function (responseJson) {
-        var filteredCardList = [];
-        responseJson.map(function (card, key) {
-          if (_this2.state["switch"] == true) {
-            _this2.setState({
-              card: responseJson
-            });
-          } else {
-            {
-              if (responseJson[key]['active'] == true) {
-                filteredCardList.push(card);
-
-                _this2.setState({
-                  card: filteredCardList
-                });
-              }
-            }
-          }
+        _this2.setState({
+          card: responseJson
         });
       });
     }
@@ -66523,14 +66516,12 @@ function (_Component) {
       var i;
 
       for (i = 0; i < elements.length; i++) {
-        console.log(elements[i].parentNode);
-
         if (elements[i].parentNode.style.display === "none") {
           elements[i].parentNode.style.display = "block";
         } else {
           elements[i].parentNode.style.display = "none";
         }
-      } 
+      }
     }
   }, {
     key: "deleteItem",
@@ -66543,10 +66534,7 @@ function (_Component) {
         return response.json();
       }).then(function (response) {
         if (response['response'] == "success") {
-          toastr__WEBPACK_IMPORTED_MODULE_1___default.a.success('Het item is verwijderd!', '', {
-            positionClass: "toast-bottom-right",
-            timeOut: 40000
-          });
+          toastr__WEBPACK_IMPORTED_MODULE_1___default.a.success('Het item is verwijderd!', '');
 
           _this3.setState({
             card: _this3.state.card.filter(function (s) {
@@ -66554,10 +66542,7 @@ function (_Component) {
             })
           });
         } else {
-          toastr__WEBPACK_IMPORTED_MODULE_1___default.a.warning('dit item is al verwijderd', '', {
-            positionClass: "toast-bottom-right",
-            timeOut: 40000
-          });
+          toastr__WEBPACK_IMPORTED_MODULE_1___default.a.warning('dit item is al verwijderd', '');
         }
       });
     }
@@ -66588,8 +66573,6 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Alleen Actief", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "checkbox",
         defaultChecked: true
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lever"
       }), "Alle")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

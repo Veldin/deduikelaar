@@ -99,9 +99,9 @@ namespace Labyrint
            //Innitialise all the Facades
             FileReaderWriterFacade.Init();
             SettingsFacade.Init();
+            ApiParserFacade.Init();
             GameObjectFactoryFacade.innit();
             MazeFacade.Init();
-            ApiParserFacade.Init();
 
             // Create the camera.
             camera = new Camera(gameCanvas, mainWindow);
