@@ -23,7 +23,6 @@ namespace Settings
             //Add values to the defaults
             defaults.Add("resolution", "1920x1080");
             defaults.Add("quality", "high");
-            defaults.Add("cat", "dog");
 
             PopulateFromIni();
 

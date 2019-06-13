@@ -119,14 +119,15 @@ class File extends Model
         $cmd = '"'.storage_path().'\\app\\pdftohtml.exe" "'.$source_pdf.'" "'.$output_folder.'\\'.$this->fileName.'"';
         exec( $cmd, $out, $ret);
 
-        $data = file_get_contents($output_folder.'\\'.$this->fileName.'s.html');
-        $data = preg_replace_callback ('/src="(.*?)"/i', function($matches) use ($output_folder) {
-            $file = $output_folder."\\".$matches[1];
-            $type = pathinfo($file, PATHINFO_EXTENSION);
-            $data = file_get_contents($file);
-            return 'src="data:image/' . $type . ';base64,' . base64_encode($data).'"';
-        }, $data);
-
+        if(file_exists($output_folder.'\\'.$this->fileName.'s.html')){
+            $data = file_get_contents($output_folder.'\\'.$this->fileName.'s.html');
+            $data = preg_replace_callback ('/src="(.*?)"/i', function($matches) use ($output_folder) {
+                $file = $output_folder."\\".$matches[1];
+                $type = pathinfo($file, PATHINFO_EXTENSION);
+                $data = file_get_contents($file);
+                return 'src="data:image/' . $type . ';base64,' . base64_encode($data).'"';
+            }, $data);
+        }
         // Delete only with this filename
         $files = glob($output_folder.'/'.$this->fileName.'*');
         foreach($files as $file){ // iterate files

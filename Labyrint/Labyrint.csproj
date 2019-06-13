@@ -77,7 +77,6 @@
     <Compile Include="Classes\Behaviours\SetToTargetBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpaceButtonsHorisontallyBehaviour.cs" />
     <Compile Include="Classes\Behaviours\SpawnNewItemsBehaviour.cs" />
-    <Compile Include="Classes\BrowserUIControl\BrowserUIControlFacade.cs" />
     <Compile Include="Classes\Command.cs" />
     <Compile Include="Classes\GameObjectFactory\Builder.cs" />
     <Compile Include="Classes\GameObjectFactory\Factory.cs" />

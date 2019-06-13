@@ -30,25 +30,18 @@ namespace GameObjectFactory
 
         //Location where this gameObject is within the game.
         //This is also used for the hitbox 
-        protected float width;
-        protected float height;
-        protected float fromLeft;
-        protected float fromTop;
-        protected int fromBehind;
-
-        protected float health;
-        protected float maxHealth;
-
-        //Objects can be facing top, right, bottom and left
-        public String direction { get; set; }
+        private float width;
+        private float height;
+        private float fromLeft;
+        private float fromTop;
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
         //The sprite can be more to the left or right then the hitbox.
-        protected float leftDrawOffset;
-        protected float rightDrawOffset;
-        protected float topDrawOffset;
-        protected float bottomDrawOffset;
+        private float leftDrawOffset;
+        private float rightDrawOffset;
+        private float topDrawOffset;
+        private float bottomDrawOffset;
 
         public Rectangle rectangle;
         public TextBlock textBlock;
@@ -60,21 +53,18 @@ namespace GameObjectFactory
 
         public Boolean highVisibility;
 
-        protected float movementSpeed;
-        protected int group;
+        private float movementSpeed;
+        private int group;
 
-        protected Boolean collision;
+        private Boolean collision;
 
         //Holds the string the builder used to make this object.
-        protected string builderType;
+        private string builderType;
 
         //The sprite location and the CanvasBitmap are stored seperatly
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         //protected CanvasBitmap sprite;
-        protected String location;
-
-        private List<FrameworkElement> drawables;
-
+        private string location;    
 
         public GameObject(float width = 0, float height = 0, float fromLeft = 0, float fromTop = 0)
         {
@@ -107,20 +97,12 @@ namespace GameObjectFactory
                 Log.Warning("Can't invoke Application.Current.Dispatcher.");
             }
 
-            this.health = 1200;
-
             assemblyName = "Labyrint";
 
             //Default location of the sprite.
             //setActiveBitmap("Assets/redrand.png");
             //location = "Assets/redrand.png";
             //setActiveBitmap(location);
-        }
-
-        public List<FrameworkElement> Drawables
-        {
-            get { return drawables; }
-            set { drawables = value; }
         }
 
         public String Location
@@ -152,12 +134,6 @@ namespace GameObjectFactory
         {
             get { return fromTop; }
             set { fromTop = value; }
-        }
-
-        public int FromBehind
-        {
-            get { return fromBehind; }
-            set { fromBehind = value; }
         }
 
         //Methods to add ammounts to fields that have to do with positioning of the GameOgject.
@@ -291,18 +267,6 @@ namespace GameObjectFactory
             set { builderType = value; }
         }
 
-        public float Health
-        {
-            get { return health; }
-            set { health = value; }
-        }
-
-        public float MaxHealth
-        {
-            get { return maxHealth; }
-            set { maxHealth = value; }
-        }
-
         public Random Random
         {
             get { return random; }
@@ -313,72 +277,6 @@ namespace GameObjectFactory
         {
             get { return collision; }
             set { collision = value; }
-        }
-
-        //Move to target
-        public Boolean MoveToTarget(float delta)
-        {
-            if (Target is null)
-            {
-                return false;
-            }
-
-            float differenceLeftAbs;
-            if (Target.FromLeft() - (FromLeft + (Width / 2)) == 0)
-            {
-                differenceLeftAbs = 0.000000001f;
-            }
-            else
-            {
-                differenceLeftAbs = Math.Abs(Target.FromLeft() - (FromLeft + (Width / 2)));
-            }
-
-            float differenceTopAbs;
-            if (Target.FromTop() - (FromTop + (Height / 2)) == 0)
-            {
-                differenceTopAbs = 0.0000000001f;
-            }
-            else
-            {
-                differenceTopAbs = Math.Abs(Target.FromTop() - (FromTop + (Height / 2)));
-            }
-
-            float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
-
-            if (!(totalDifferenceAbs < -1 || totalDifferenceAbs > 1))
-            {
-                return true;
-            }
-
-            float originalmoveSpeed = movementSpeed;
-
-
-            float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
-            float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-
-
-            float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
-            float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
-
-            if (Target.FromLeft() > FromLeft)
-            {
-                AddFromLeft((moveLeftDistance * delta) / 10000);
-            }
-            else
-            {
-                AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
-            }
-
-            if (Target.FromTop() > FromTop)
-            {
-                AddFromTop((moveTopDistance * delta) / 10000);
-            }
-            else
-            {
-                AddFromTop(((moveTopDistance * delta) / 10000) * -1);
-            }
-
-            return true;
         }
 
         public float DifferenceLeftAbs()
@@ -554,15 +452,6 @@ namespace GameObjectFactory
             return false;
         }
 
-        /// <summary>
-        /// Add an FrameworkElement to the drawables
-        /// </summary>
-        /// <param name="element"> This is a FrameworkElement that need to be drawn</param>
-        public void AddDrawable(FrameworkElement element)
-        {
-            drawables.Add(element);
-        }
-
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public Boolean OnTick(List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
@@ -644,8 +533,6 @@ namespace GameObjectFactory
             {
                 Log.Warning("Can't invoke Application.Current.Dispatcher.");
             }
-
-            health = 0;
 
             assemblyName = "Labyrint";
             //Default location of the sprite.
