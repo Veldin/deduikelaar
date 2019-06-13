@@ -158,12 +158,28 @@
   background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
   background-size: contain;
   background-repeat: no-repeat;
-  height: 650px;
-  width: 573px;
-  min-height: 650px;
-  min-width: 573px;
-  margin-left: -287px;
-  left: 50%;
+  height: 120%;
+  width: 60%;
+  left: 25%;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content .title {
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+  width: 90%;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content .description {
+  font-size: 1rem;
+}
+
+#superContainer .contentContainer .modal.preview .modal-content .modal-container {
+  position: relative;
+  top: 80px;
+  height: 65%;
+  width: 80%;
+  left: 5%;
+  overflow: auto;
 }
 
 #superContainer .contentContainer .modal.preview .modal-content #spinner {
@@ -176,54 +192,26 @@
   margin-top: -50px;
 }
 
-#superContainer .contentContainer .modal.preview .modal-content .modal-container {
-  position: relative;
-  top: 120px;
-  height: 400px;
-  width: 90%;
-  left: 5%;
-  overflow: auto;
-}
-
 #superContainer .contentContainer .modal.preview .modal-footer {
   border-top: none;
-  width: 618px;
-  left: 50%;
+  left: 25%;
   margin-left: -309px;
   background-color: rgba(255, 255, 255, 0);
 }
 
-#superContainer .contentContainer .modal.preview .modal-footer .modal-close {
-  background-color: white;
-}
-
-@media screen and (max-width: 1100px), screen and (max-height: 900px) {
+@media screen and (max-width: 415px) {
   #superContainer .contentContainer .modal.preview .modal-content {
-    height: 400px;
-    width: 353px;
-    min-height: 400px;
-    min-width: 353px;
-    margin-left: -177px;
+    width: 330px;
+    margin-left: -82px;
   }
 
   #superContainer .contentContainer .modal.preview .modal-content .modal-container {
-    top: 80px;
-    height: 240px;
+    top: 5px;
+    height: 290px;
   }
 
   #superContainer .contentContainer .modal.preview .modal-footer {
-    width: 353px;
-    margin-left: -177px;
-  }
-}
-
-@media screen and (max-width: 450px), screen and (max-height: 650px) {
-  #superContainer .contentContainer .modal.preview {
-    width: 100%;
-  }
-
-  #superContainer .contentContainer .modal.preview .modal-footer {
-    text-align: center;
+    width: 428px;
   }
 }
 
@@ -4030,7 +4018,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 95%;
+  width: 90%;
 }
 
 @media only screen and (min-width : 601px) {
