@@ -194,11 +194,5 @@ class DatabaseSeeder extends Seeder
         });
 
 
-//            ->create()->each(function (Story $story) use ($feedbackItems) {
-//            $story->storyItems()->save($feedbackItems[mt_rand(0,count($feedbackItems))]);
-//        });
-
-
-
     }
 }
