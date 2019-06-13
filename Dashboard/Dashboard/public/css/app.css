@@ -67,6 +67,11 @@
   justify-content: space-around;
 }
 
+#superContainer .contentContainer .overviewFilter .sortDropdown select {
+  display: flex;
+  justify-content: flex-end;
+}
+
 #superContainer .contentContainer .overviewFilter .overviewSwitch {
   display: flex;
   justify-content: flex-end;
