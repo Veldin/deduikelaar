@@ -66,6 +66,14 @@
 			align-items: flex-end;
 			justify-content: space-around;
 
+			.sortDropdown{
+				select{
+					display: flex;
+					justify-content: flex-end;
+					border: none;
+				}
+			}
+
 			.overviewSwitch{
 				display: flex;
     			justify-content: flex-end;
