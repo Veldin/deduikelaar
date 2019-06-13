@@ -77,24 +77,65 @@ namespace Labyrint
 
                     int closestBorder = engine.GetLastClickClosestBorder();
                     int degrees = 0;
-                    string compas = "south";
+                    string compas = "Down";
                     switch (closestBorder)
                     {
                         case 0:
                             degrees = 180;
-                            compas = "north";
+                            compas = "Up";
+
+                            // Invoke the Ui thread
+                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            {
+                                Thickness margin = browser.Margin;
+                                margin.Left = 60;
+                                margin.Top = 60;
+                                margin.Right = 30;
+                                margin.Bottom = 60;
+
+                                browser.Margin = margin;
+                            }));
+
                             break;
                         case 1:
                             degrees = 270;
-                            compas = "east";
+                            compas = "Right";
+
+                            // Invoke the Ui thread
+                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            {
+                                // Needs to be initialized
+                                Thickness margin = browser.Margin;
+                                browser.Margin = margin;
+                            }));
                             break;
                         case 2:
                             degrees = 0;
-                            compas = "south";
+                            compas = "Down";
+
+                            // Invoke the Ui thread
+                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            {
+                                Thickness margin = browser.Margin;
+                                margin.Left = 30;
+                                margin.Top = 60;
+                                margin.Right = 30;
+                                margin.Bottom = 60;
+                            }));
+
                             break;
                         case 3:
                             degrees = 90;
-                            compas = "west";
+                            compas = "Left";
+
+                            // Invoke the Ui thread
+                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            {
+                                // Needs to be initialized
+                                Thickness margin = browser.Margin;
+                                browser.Margin = margin;
+                            }));
+
                             break;
                     }
 
@@ -154,8 +195,8 @@ namespace Labyrint
                                     browser.RenderTransform = rotateTransform1;
 
                                     // Make the lettet a bit bigger than the browser
-                                    letter.AddHeight((float)(browser.Height + 300));
-                                    letter.AddWidth((float)(browser.Width + 200));
+                                    letter.AddHeight((float)(browser.Height + 250));
+                                    letter.AddWidth((float)(browser.Width + 250));
                                 }));
 
                                 // Position the letter right
@@ -172,40 +213,6 @@ namespace Labyrint
                                 //val[2] Compas Direction - north / east / south / west
                                 arguments[0] = camera;
 
-
-
-                                //GameObject 
-
-
-                                //Log.Debug( letterTest.Width / camera.GetWidth());
-                                //Log.Debug(camera.GetWidth() - letterTest.Width);
-
-                                //gameObjects.Add(GameObjectFactoryFacade.GetGameObject("cover",0,0, camera));
-
-                                /*
-                                //Bottom Centre
-                                arguments[1] = true; //Orientation
-                                arguments[2] = "South"; //Compas Direction
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 37.50f, 50, arguments));
-
-                                //Left
-                                arguments[1] = false; //Orientation
-                                arguments[2] = "West"; //Compas Direction
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 6.25f, 33.33f, arguments));
-
-                                //Top Centre
-                                arguments[1] = true; //Orientation
-                                arguments[2] = "North"; //Compas Direction
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 37.50f, 8.33f, arguments));
-
-                                //Right
-                                arguments[1] = false; //Orientation
-                                arguments[2] = "East"; //Compas Direction
-                                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("letter", 62.50f, 33.33f, arguments));
-                                */
-
-
-
                                 lock (gameObjects)
                                 {
                                     GameObject toAdd = null;
@@ -214,13 +221,35 @@ namespace Labyrint
                                     //i * 10 - (10) + 50
                                     for (int i = 0; i < question.anwsers.Count; i++)
                                     {
+                                        float fromLeftPosition = 0;
+                                        float fromTopPosition = 0;
+
+                                        switch (degrees)
+                                        {
+                                            case 0:
+                                                fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+                                                fromTopPosition = 80f;
+                                                break;
+                                            case 90:
+                                                fromLeftPosition = 32f;
+                                                fromTopPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 15);
+                                                break;
+                                            case 180:
+                                                fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+                                                fromTopPosition = 23f;
+                                                break;
+                                            case 270:
+                                                fromLeftPosition = 68f;
+                                                fromTopPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 15);
+                                                break;
+                                        }
 
                                         //int a = (i * 10 + 50) * question.anwsers.Count / 2;
-                 
-                                        int fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+
+                                        //int fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
 
                                         toAdd = null;
-                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, 84.5f, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
+                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, fromTopPosition, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
 
                                         switch (question.anwsers[i].response)
                                         {
@@ -234,7 +263,98 @@ namespace Labyrint
                                                 toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
                                                 break;
                                             default:
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/poststamp.png");
                                                 toAdd.SetText(question.anwsers[i].response);
+
+                                                switch (degrees)
+                                                {
+                                                    case 0:
+                                                        // Invoke the Ui thread
+                                                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                                                        {
+                                                            // Set the width of the textBlock
+                                                            toAdd.textBlock.Width = toAdd.Width - 10;
+
+                                                            // Set the fontSize of the textBlock
+                                                            toAdd.textBlock.FontSize = 10;
+
+                                                            // Add some margins to the textBlock
+                                                            Thickness textblockMargin = toAdd.textBlock.Margin;
+                                                            textblockMargin.Top = 15;
+                                                            textblockMargin.Left = 10;
+                                                            toAdd.textBlock.Margin = textblockMargin;
+
+                                                            // Make text /n if it cant fit in the textblock
+                                                            toAdd.textBlock.TextWrapping = TextWrapping.Wrap;
+                                                        }));
+                                                        break;
+                                                    case 90:
+                                                        // Invoke the Ui thread
+                                                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                                                        {
+                                                            // Set the width and height of the textBlock
+                                                            toAdd.textBlock.Width = toAdd.Width - 10;
+                                                            toAdd.textBlock.Height = toAdd.Height - 10;
+
+                                                            // Set the fontSize of the textBlock
+                                                            toAdd.textBlock.FontSize = 10;
+
+                                                            // Add some margins to the textBlock
+                                                            Thickness textblockMargin = toAdd.textBlock.Margin;
+                                                            textblockMargin.Top = 10;
+                                                            textblockMargin.Right = 25;
+                                                            textblockMargin.Left = -5;
+                                                            toAdd.textBlock.Margin = textblockMargin;
+
+                                                            // Make text /n if it cant fit in the textblock
+                                                            toAdd.textBlock.TextWrapping = TextWrapping.Wrap;
+                                                        }));
+                                                        break;
+                                                    case 180:
+                                                        // Invoke the Ui thread
+                                                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                                                        {
+                                                            // Set the width of the textBlock
+                                                            toAdd.textBlock.Width = toAdd.Width - 10;
+                                                            toAdd.textBlock.Height = toAdd.Height - 10;
+
+                                                            // Set the fontSize of the textBlock
+                                                            toAdd.textBlock.FontSize = 10;
+
+                                                            // Add some margins to the textBlock
+                                                            Thickness textblockMargin = toAdd.textBlock.Margin;
+                                                            textblockMargin.Top = -15;
+                                                            textblockMargin.Left = -10;
+                                                            toAdd.textBlock.Margin = textblockMargin;
+
+                                                            // Make text /n if it cant fit in the textblock
+                                                            toAdd.textBlock.TextWrapping = TextWrapping.Wrap;
+                                                        }));
+
+                                                        break;
+                                                    case 270:
+                                                        // Invoke the Ui thread
+                                                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                                                        {
+                                                            // Set the width and height of the textBlock
+                                                            toAdd.textBlock.Width = toAdd.Width - 10;
+                                                            toAdd.textBlock.Height = toAdd.Height - 10;
+
+                                                            // Set the fontSize of the textBlock
+                                                            toAdd.textBlock.FontSize = 10;
+
+                                                            // Add some margins to the textBlock
+                                                            Thickness textblockMargin = toAdd.textBlock.Margin;
+                                                            textblockMargin.Top = -10;
+                                                            textblockMargin.Right = -25;
+                                                            textblockMargin.Left = 5;
+                                                            toAdd.textBlock.Margin = textblockMargin;
+
+                                                            // Make text /n if it cant fit in the textblock
+                                                            toAdd.textBlock.TextWrapping = TextWrapping.Wrap;
+                                                        }));
+                                                        break;
+                                                }
                                                 break;
                                         }
 

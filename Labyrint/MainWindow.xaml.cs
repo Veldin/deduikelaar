@@ -721,7 +721,7 @@ namespace Labyrint
             // Check which distance is the lowest
             int lowestKey = 0;
             float lowestVal = cursor.FromTop;
-            for (int i = 1; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 if (distances[i] < lowestVal)
                 {
@@ -730,6 +730,7 @@ namespace Labyrint
                 }
             }
 
+            Log.Debug(lowestKey);
             // Save the value in an attibrute
             lastClickClosestBorder = lowestKey;
         }

@@ -93,7 +93,7 @@ namespace Settings
                 return value;
             }
 
-            fromFile.Add(needle, defaultReturn);
+            //fromFile.Add(needle, defaultReturn);
 
             return defaultReturn;
         }
@@ -118,7 +118,7 @@ namespace Settings
                 return defaultReturn;
             }
 
-            fromFile.Add(needle, defaultReturn.ToString());
+            //fromFile.Add(needle, defaultReturn.ToString());
 
             return defaultReturn;
         }
