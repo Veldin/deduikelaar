@@ -15,6 +15,7 @@
                 max-width: 100%;
             }
             html, body{
+                position: absolute;
                 width: 100%;
                 height: 100%;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -22,12 +23,13 @@
                 background-color: #aa9479;
                 margin: 0;
                 padding: 0;
+                overflow:auto;
+                transform-origin: center center;
             }
-			
-			/* Dont remove the transform below. This is necassary for the rotation in the Labyrint application */
-			html{
-				transform: rotate(0deg);
-			}
+
+            html{
+                overflow: hidden;
+            }
 
             .title{
                 font-weight: 400;
@@ -67,5 +69,43 @@
                 {!! $storyItem->text !!}<br />
             @endforeach
         </div>
+        <script>
+
+            @if(isset($_GET['overview']))
+            var rotate = 0;
+            @else
+            var rotate = --rotatingAngle--;
+            @endif
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var w = window,
+                    d = document,
+                    e = d.documentElement,
+                    g = d.getElementsByTagName('body')[0],
+                    width = w.innerWidth || e.clientWidth || g.clientWidth,
+                    height = w.innerHeight|| e.clientHeight|| g.clientHeight;
+
+                if(rotate === 90){
+                    document.querySelector('body').style.marginLeft = (width-height)/2 + "px";
+                    document.querySelector('body').style.marginTop = "-"+(width-height)/2+"px";
+                    document.querySelector('body').style.width = height+"px";
+                    document.querySelector('body').style.height = width+"px";
+                    document.querySelector('body').style.transform = "rotateZ(90deg) translate(0,0)";
+
+                }else if(rotate === 180){
+                    document.querySelector('body').style.transform = "rotateZ(180deg) translate(0,0)";
+                }else if(rotate === 270){
+                    document.querySelector('body').style.top = width/2+"px";
+                    document.querySelector('body').style.left = height/2+"px";
+                    document.querySelector('body').style.marginLeft = (width-height) + "px";
+                    document.querySelector('body').style.marginTop = "-"+(width-height)+"px";
+                    document.querySelector('body').style.width = height+"px";
+                    document.querySelector('body').style.height = width+"px";
+                    document.querySelector('body').style.transform = "rotateZ(270deg) translate(50%,-50%)";
+                }
+
+            });
+
+        </script>
     </body>
 </html>
