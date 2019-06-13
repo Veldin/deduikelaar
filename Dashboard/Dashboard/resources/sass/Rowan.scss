@@ -250,10 +250,10 @@ div.itemCollection {
 //mobile
 @media screen and (max-width: 415px) {
     .exampleCard .allContent .content {
-      height: 150px;
+      height: 110px;
     }
     .exampleCard .allContent .title{
-        padding: 0px 5px;
+        padding: 10px;
         font-size: 1.2rem;
         word-wrap: break-word;
     }
@@ -284,6 +284,10 @@ div.itemCollection {
         padding: 0px;
         margin-top: 35px;
     }            
+    .itemImage img{
+        height: 120px;
+        width: auto;
+    }
   }
 
   @media screen and (max-width: 1270px) and (min-width: 416px) {

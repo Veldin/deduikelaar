@@ -19,7 +19,7 @@
                 width: 100%;
                 height: 100%;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-                font-size: @if(isset($_GET['overview'])) 0.8rem @else 1rem @endif;
+                font-size: @if(isset($_GET['overview'])) 0.5rem @else 1rem @endif;
                 background-color: #aa9479;
                 margin: 0;
                 padding: 0;
@@ -34,7 +34,7 @@
             .title{
                 font-weight: 400;
                 font-size: 1.8rem;
-                margin-bottom: 60px;
+                margin-bottom: @if(isset($_GET['overview'])) 20px @else 60px @endif;
                 width: 70%;
             }
             audio, video{
