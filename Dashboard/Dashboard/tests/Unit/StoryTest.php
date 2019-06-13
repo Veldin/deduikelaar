@@ -38,6 +38,7 @@ class StoryTest extends TestCase
             UploadedFile::fake()->image('test3.jpg', 1920, 1080),
             UploadedFile::fake()->image('test4.jpg', 1920, 1080),
             UploadedFile::fake()->image('test5.jpg', 1920, 1080),
+            UploadedFile::fake()->image('test6.jpg', 1920, 1080),
         ];
 
         $filename = 'Test document.docx';
@@ -100,7 +101,22 @@ class StoryTest extends TestCase
         // Replace second file pdf
         if (Storage::disk('storage')->exists($filename)) {
 
-            $data['files'][0] = new UploadedFile(
+            $data['files'][3] = new UploadedFile(
+                $file_path,
+                $filename,
+                $finfo->file($file_path),
+                filesize($file_path),
+                0,
+                false
+            );
+        }
+        $filename = 'Test audio.mp3';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+        // Replace second file pdf
+        if (Storage::disk('storage')->exists($filename)) {
+
+            $data['files'][4] = new UploadedFile(
                 $file_path,
                 $filename,
                 $finfo->file($file_path),

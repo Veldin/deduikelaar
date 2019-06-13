@@ -59,7 +59,7 @@ class LabyrintApiTest extends TestCase
         ];
         // Check success
         $response = $this->json('POST', '/api/v1/feedback', $data);
-
+//        var_dump($response->json());
         $this->assertEquals('success', $response->json()['response']);
 
 
@@ -71,6 +71,30 @@ class LabyrintApiTest extends TestCase
 
 
 
+    }
+
+    public function testConvertFile(){
+
+        $filename = 'Test document.pdf';
+        $file_path = storage_path($filename);
+        $finfo = new finfo(16);
+
+        $file = new UploadedFile(
+            $file_path,
+            $filename,
+            $finfo->file($file_path),
+            filesize($file_path),
+            0,
+            false
+        );
+        $response = $this->json('POST', '/api/v1/file/convert', ['file' => $file]);
+//        var_dump($response->json());
+        $this->assertEquals('success', $response->json()['response']);
+    }
+
+    public function databaseSeed(){
+        $dbs = new \DatabaseSeeder();
+        $dbs->run();
     }
 
 //    private function getFeedbackCount($storyId, $answerId){

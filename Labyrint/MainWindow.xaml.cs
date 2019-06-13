@@ -79,6 +79,8 @@ namespace Labyrint
 
         private Command command;
 
+        private int lastClickClosestBorder;
+
         public MainWindow()
         {
             //Initialize the Window
@@ -209,6 +211,23 @@ namespace Labyrint
 
             //browser.NavigateToString(str);
         }
+
+        /***************************************************************************
+         * GETTERS AND SETTERS
+         * ************************************************************************/
+        #region gettersSetters
+
+        /// <summary>
+        /// This method returns the closest border to the last click.
+        /// 0 = top, 1 = right, 2 = bottom, 4 = left
+        /// </summary>
+        /// <returns>Returns the number of the closest border</returns>
+        public int GetLastClickClosestBorder()
+        {
+            return lastClickClosestBorder;
+        }
+
+        #endregion
 
         /***************************************************************************
          * PUBLIC METHODS
@@ -556,36 +575,6 @@ namespace Labyrint
                 player.Target.AddFromLeft(differenceLeft * 20f);
                 player.Target.AddFromTop(differenceTop * 20f);
 
-                // Calc the distance between the cursor to the border
-                float[] distances = new float[]
-                {
-                    // Cursor to top border
-                    Math.Abs(camera.GetFromTop() - cursor.FromTop), 
-
-                    // Cursor to right border
-                    Math.Abs(camera.GetWidth()  +  camera.GetFromLeft() - cursor.FromLeft),
-
-                    // Cursor to bottom border
-                    Math.Abs(camera.GetHeight() +  camera.GetFromTop() - cursor.FromTop),
-
-                    // Cursor to left border
-                    Math.Abs(camera.GetFromLeft() - cursor.FromLeft)
-                };
-
-                // Check which distance is the lowest
-                int lowestKey = 0;
-                float lowestVal = cursor.FromTop;
-                for (int i = 1; i < 4; i++)
-                {
-                    if (distances[i] < lowestVal)
-                    {
-                        lowestVal = distances[i];
-                        lowestKey = i;
-                    }
-                }
-
-                //Log.Debug(lowestKey);
-
             }
         }
 
@@ -678,6 +667,37 @@ namespace Labyrint
             gameObjects.Add(controllerAnchor);
             controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop);
             gameObjects.Add(controllerCursor);
+
+            // Calc the distance between the cursor to the border
+            float[] distances = new float[]
+            {
+                    // Cursor to top border
+                    Math.Abs(camera.GetFromTop() - cursor.FromTop), 
+
+                    // Cursor to right border
+                    Math.Abs(camera.GetWidth()  +  camera.GetFromLeft() - cursor.FromLeft),
+
+                    // Cursor to bottom border
+                    Math.Abs(camera.GetHeight() +  camera.GetFromTop() - cursor.FromTop),
+
+                    // Cursor to left border
+                    Math.Abs(camera.GetFromLeft() - cursor.FromLeft)
+            };
+
+            // Check which distance is the lowest
+            int lowestKey = 0;
+            float lowestVal = cursor.FromTop;
+            for (int i = 1; i < 4; i++)
+            {
+                if (distances[i] < lowestVal)
+                {
+                    lowestVal = distances[i];
+                    lowestKey = i;
+                }
+            }
+
+            // Save the value in an attibrute
+            lastClickClosestBorder = lowestKey;
         }
 
         /// <summary>
