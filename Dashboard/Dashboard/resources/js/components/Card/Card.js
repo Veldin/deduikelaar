@@ -9,7 +9,7 @@ const card = (props) => {
 
   function createBarData(toDataArray){
     var data = [];
-    var colors = ["#009688","#304964","#ff0043","#e7edf2"];
+    var colors = ["#009688","#84c7c1","#ff0043","#e7edf2"];
 
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function(element) {
