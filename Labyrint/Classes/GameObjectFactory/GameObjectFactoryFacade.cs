@@ -44,7 +44,7 @@ namespace GameObjectFactory
         /// Counts the avaibale gameObjects in the pool.
         /// </summary>
         /// <returns>The amount of objects available.</returns>
-        public static int countAvailable()
+        public static int CountAvailable()
         {
             return factory.countAvailable();
         }

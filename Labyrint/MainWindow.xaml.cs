@@ -22,7 +22,6 @@ using Maze;
 using CameraSystem;
 using FileReaderWriterSystem;
 using ApiParser;
-using BrowserUIControl;
 using Settings;
 
 namespace Labyrint
@@ -163,17 +162,12 @@ namespace Labyrint
             gameObjects.Add(cursor);
 
 
-            for (int i = 0; i < 5; i++)
-            {
-                //DropNewPickup();
-            }
-
             TestBrowser();
 
             //PopulateButtonObject();
 
             backgroundObjects = new List<GameObject>();
-            populateBackgroundObject();
+            PopulateBackgroundObject();
 
             onTickList = new List<IBehaviour>();
             onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
@@ -608,7 +602,7 @@ namespace Labyrint
         /// <summary>
         /// Loops trough the maze and adds background objects where walls are.
         /// </summary>
-        private void populateBackgroundObject()
+        private void PopulateBackgroundObject()
         {
             for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
             {
@@ -637,34 +631,6 @@ namespace Labyrint
                     camera
                 ));
             }
-        }
-
-        /// <summary>
-        /// Creates a new pickup somewere in the maze.
-        /// </summary>
-        private void DropNewPickup()
-        {
-            GameObject newPickup; //holds the new pickup
-            do
-            {
-                int randomFromTop, randomFromLeft;
-                do
-                {
-                    //Get a random wall position
-                    randomFromTop = random.Next(MazeFacade.GetMazeHeight());
-                    randomFromLeft = random.Next(MazeFacade.GetMazeWidth());
-                } while (MazeFacade.IsWall(randomFromLeft, randomFromTop)); //If its a wall pick a new location
-
-                // create the pickup
-                newPickup = GameObjectFactoryFacade.GetGameObject(
-                    "pickup",
-                    randomFromLeft * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
-                    randomFromTop * (MazeFacade.tileSize) + MazeFacade.tileSize / 2,
-                    new object[2] { browser, camera }
-                );
-            } while (newPickup.distanceBetween(player) < 300); //if its to close to the player pick a new location
-
-            gameObjects.Add(newPickup);
         }
 
         #endregion

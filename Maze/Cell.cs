@@ -30,7 +30,7 @@ namespace Maze
         /// Checks if all (north/east/south/west) borders are not passable.
         /// </summary>
         /// <returns>False if one or more of the borders are passable or null.</returns>
-        public Boolean hasAllBorders()
+        public Boolean HasAllBorders()
         {
             if (north is null || north.passable)
             {
