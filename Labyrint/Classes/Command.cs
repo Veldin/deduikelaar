@@ -138,7 +138,6 @@ namespace Labyrint
                 quickCommands[text].ExecuteMethod();
             }
 
-            
             switch (text)
             {
                 case "clear": 

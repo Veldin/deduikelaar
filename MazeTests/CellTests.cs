@@ -40,7 +40,7 @@ namespace Maze.Tests
             
             //No borders set
             cell = new Cell(0, 0, false);
-            Assert.IsFalse(cell.hasAllBorders());
+            Assert.IsFalse(cell.HasAllBorders());
 
             //All cells surrounding are not passable
             cell = new Cell(0, 0, false);
@@ -48,7 +48,7 @@ namespace Maze.Tests
             cell.east = new Cell(0, 0, false);
             cell.south = new Cell(0, 0, false);
             cell.west = new Cell(0, 0, false);
-            Assert.IsTrue(cell.hasAllBorders());
+            Assert.IsTrue(cell.HasAllBorders());
 
             //cells surrounding are not all passable
             cell = new Cell(0, 0, false);
@@ -56,7 +56,7 @@ namespace Maze.Tests
             cell.east = new Cell(0, 0, false);
             cell.south = new Cell(0, 0, false);
             cell.west = new Cell(0, 0, false);
-            Assert.IsFalse(cell.hasAllBorders());
+            Assert.IsFalse(cell.HasAllBorders());
 
             //cells surrounding are not all passable
             cell = new Cell(0, 0, false);
@@ -64,7 +64,7 @@ namespace Maze.Tests
             cell.east = new Cell(0, 0, true);
             cell.south = new Cell(0, 0, false);
             cell.west = new Cell(0, 0, false);
-            Assert.IsFalse(cell.hasAllBorders());
+            Assert.IsFalse(cell.HasAllBorders());
 
             //cells surrounding are not all passable
             cell = new Cell(0, 0, false);
@@ -72,7 +72,7 @@ namespace Maze.Tests
             cell.east = new Cell(0, 0, false);
             cell.south = new Cell(0, 0, true);
             cell.west = new Cell(0, 0, false);
-            Assert.IsFalse(cell.hasAllBorders());
+            Assert.IsFalse(cell.HasAllBorders());
 
             //cells surrounding are not all passable
             cell = new Cell(0, 0, false);
@@ -80,7 +80,7 @@ namespace Maze.Tests
             cell.east = new Cell(0, 0, false);
             cell.south = new Cell(0, 0, false);
             cell.west = new Cell(0, 0, true);
-            Assert.IsFalse(cell.hasAllBorders());
+            Assert.IsFalse(cell.HasAllBorders());
         }
     }
 }
