@@ -23,7 +23,7 @@
                 background-color: #aa9479;
                 margin: 0;
                 padding: 0;
-                overflow:auto;
+                overflow: auto;
                 transform-origin: center center;
             }
 

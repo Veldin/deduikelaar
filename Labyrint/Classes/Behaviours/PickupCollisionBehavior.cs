@@ -121,6 +121,7 @@ namespace Labyrint
                                 margin.Top = 60;
                                 margin.Right = 30;
                                 margin.Bottom = 60;
+                                browser.Margin = margin;
                             }));
 
                             break;
@@ -218,27 +219,29 @@ namespace Labyrint
                                     GameObject toAdd = null;
 
 
-                                    //i * 10 - (10) + 50
+                                    // Loop through all answers of the question to create buttons for the answers
                                     for (int i = 0; i < question.anwsers.Count; i++)
                                     {
+                                        // Create the variables for the position of the buttons
                                         float fromLeftPosition = 0;
                                         float fromTopPosition = 0;
 
+                                        // Set the right positions of the buttons depending on the rotation
                                         switch (degrees)
                                         {
-                                            case 0:
+                                            case 0:     // Down
                                                 fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
                                                 fromTopPosition = 80f;
                                                 break;
-                                            case 90:
+                                            case 90:    // Left
                                                 fromLeftPosition = 32f;
                                                 fromTopPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 15);
                                                 break;
-                                            case 180:
+                                            case 180:   // Up
                                                 fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
                                                 fromTopPosition = 23f;
                                                 break;
-                                            case 270:
+                                            case 270:   // Right
                                                 fromLeftPosition = 68f;
                                                 fromTopPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 15);
                                                 break;
@@ -254,13 +257,13 @@ namespace Labyrint
                                         switch (question.anwsers[i].response)
                                         {
                                             case "\\u1F603": // smile head
-                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/happy.gif");
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/happyStamp.png");
                                                 break;
                                             case "\\u1F620": // angry head
-                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/angry.gif");
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/angryStamp.png");
                                                 break;
                                             case "\\u1F622": // sad head
-                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/sad.gif");
+                                                toAdd.setActiveBitmap("Assets/Sprites/Answers/sadStamp.png");
                                                 break;
                                             default:
                                                 toAdd.setActiveBitmap("Assets/Sprites/Answers/poststamp.png");
@@ -273,15 +276,15 @@ namespace Labyrint
                                                         Application.Current.Dispatcher.Invoke(new Action(() =>
                                                         {
                                                             // Set the width of the textBlock
-                                                            toAdd.textBlock.Width = toAdd.Width - 10;
+                                                            toAdd.textBlock.Width = toAdd.Width - 15;
 
                                                             // Set the fontSize of the textBlock
-                                                            toAdd.textBlock.FontSize = 10;
+                                                            toAdd.textBlock.FontSize = 9;
 
                                                             // Add some margins to the textBlock
                                                             Thickness textblockMargin = toAdd.textBlock.Margin;
                                                             textblockMargin.Top = 15;
-                                                            textblockMargin.Left = 10;
+                                                            textblockMargin.Left = 15;
                                                             toAdd.textBlock.Margin = textblockMargin;
 
                                                             // Make text /n if it cant fit in the textblock
@@ -293,17 +296,17 @@ namespace Labyrint
                                                         Application.Current.Dispatcher.Invoke(new Action(() =>
                                                         {
                                                             // Set the width and height of the textBlock
-                                                            toAdd.textBlock.Width = toAdd.Width - 10;
-                                                            toAdd.textBlock.Height = toAdd.Height - 10;
+                                                            toAdd.textBlock.Width = toAdd.Width - 15;
+                                                            toAdd.textBlock.Height = toAdd.Height - 15;
 
                                                             // Set the fontSize of the textBlock
-                                                            toAdd.textBlock.FontSize = 10;
+                                                            toAdd.textBlock.FontSize = 9;
 
                                                             // Add some margins to the textBlock
                                                             Thickness textblockMargin = toAdd.textBlock.Margin;
                                                             textblockMargin.Top = 10;
                                                             textblockMargin.Right = 25;
-                                                            textblockMargin.Left = -5;
+                                                            textblockMargin.Left = -10;
                                                             toAdd.textBlock.Margin = textblockMargin;
 
                                                             // Make text /n if it cant fit in the textblock
@@ -315,16 +318,16 @@ namespace Labyrint
                                                         Application.Current.Dispatcher.Invoke(new Action(() =>
                                                         {
                                                             // Set the width of the textBlock
-                                                            toAdd.textBlock.Width = toAdd.Width - 10;
-                                                            toAdd.textBlock.Height = toAdd.Height - 10;
+                                                            toAdd.textBlock.Width = toAdd.Width - 15;
+                                                            toAdd.textBlock.Height = toAdd.Height - 15;
 
                                                             // Set the fontSize of the textBlock
-                                                            toAdd.textBlock.FontSize = 10;
+                                                            toAdd.textBlock.FontSize = 9;
 
                                                             // Add some margins to the textBlock
                                                             Thickness textblockMargin = toAdd.textBlock.Margin;
                                                             textblockMargin.Top = -15;
-                                                            textblockMargin.Left = -10;
+                                                            textblockMargin.Left = -15;
                                                             toAdd.textBlock.Margin = textblockMargin;
 
                                                             // Make text /n if it cant fit in the textblock
@@ -337,17 +340,17 @@ namespace Labyrint
                                                         Application.Current.Dispatcher.Invoke(new Action(() =>
                                                         {
                                                             // Set the width and height of the textBlock
-                                                            toAdd.textBlock.Width = toAdd.Width - 10;
-                                                            toAdd.textBlock.Height = toAdd.Height - 10;
+                                                            toAdd.textBlock.Width = toAdd.Width - 15;
+                                                            toAdd.textBlock.Height = toAdd.Height - 15;
 
                                                             // Set the fontSize of the textBlock
-                                                            toAdd.textBlock.FontSize = 10;
+                                                            toAdd.textBlock.FontSize = 9;
 
                                                             // Add some margins to the textBlock
                                                             Thickness textblockMargin = toAdd.textBlock.Margin;
-                                                            textblockMargin.Top = -10;
+                                                            textblockMargin.Top = -15;
                                                             textblockMargin.Right = -25;
-                                                            textblockMargin.Left = 5;
+                                                            textblockMargin.Left = 10;
                                                             toAdd.textBlock.Margin = textblockMargin;
 
                                                             // Make text /n if it cant fit in the textblock
