@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/Assets/Sprites/Letters/LetterEast_800_468_128.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/Assets/Sprites/Letters/LetterNorth_640_586_128.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/Assets/Sprites/Letters/LetterSouth_640_586_128.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/Assets/Sprites/Letters/LetterWest_800_468_128.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Labyrint/Classes/GameObjectFactory/Builder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Labyrint/Classes/GameObjectFactory/Builder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/Labyrint.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Labyrint/Labyrint.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Labyrint/MainWindow.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Labyrint/MainWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Settings/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Settings/Manager.cs" afterDir="false" />
     </list>
     <list id="4493c035-579c-433e-a2af-1b0e3bf08a09" name="ide" comment="ide" />
     <list id="f9c35244-0ee0-4716-ae4b-899e839bf992" name="Revert: " comment="no idea" />
@@ -437,6 +427,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/storage/app/uploads/17-05-2013_69650050.js" />
     <property name="last_opened_file_path" value="F:/Werk/laravel/applicaties/Optima-cycles" />
@@ -581,7 +572,7 @@
       <workItem from="1560336005049" duration="5467000" />
       <workItem from="1560342877258" duration="5721000" />
       <workItem from="1560351466356" duration="8000000" />
-      <workItem from="1560411050972" duration="9099000" />
+      <workItem from="1560411050972" duration="9287000" />
     </task>
     <task id="LOCAL-00023" summary="Fix story">
       <created>1559034925340</created>
@@ -962,7 +953,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242665000" />
+    <option name="totallyTimeSpent" value="242853000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -989,11 +980,11 @@
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" sideWeight="0.4978678" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51492536" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5154584" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Application Servers" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49520257" weight="0.31852654" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.48507464" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Messages" order="13" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.48454157" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1004,7 +995,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="DB seeder, word files with images" />
     <MESSAGE value="DB refresh and fill" />
     <MESSAGE value="CKeditor fixed image upload" />
     <MESSAGE value="Example" />
@@ -1029,7 +1019,8 @@
     <MESSAGE value="Fix pdf" />
     <MESSAGE value="tests" />
     <MESSAGE value="merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/Veldin/deduikelaar&#10;&#10;# Conflicts:&#10;#&#9;Labyrint/Classes/GameObjectFactory/Builder.cs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/Veldin/deduikelaar&#10;&#10;# Conflicts:&#10;#&#9;Labyrint/Classes/GameObjectFactory/Builder.cs" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-react/dist/ckeditor.js">
