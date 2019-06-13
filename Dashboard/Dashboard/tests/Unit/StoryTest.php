@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use App\File;
 use App\Http\Controllers\Api\StoryApiController;
+use App\Story;
+use App\StoryItem;
 use finfo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +24,95 @@ class StoryTest extends TestCase
             'Test text 2'
         ]
     ];
+
+
+    public function testAllClasses(){
+        var_dump(get_class_methods(StoryApiController::class));
+
+    // "getOverview"
+    // "getStory"
+    // "getStories"
+    // "deleteStory"
+    // "deleteStoryItem"
+    }
+
+    public function testDeleteStory(){
+
+        // Create a story
+        $story = Story::create([
+            'title' => 'name 1',
+            'icon' => 'name 2'
+        ]);
+        $testStory = Story::find($story->id);
+        if(!$testStory){
+            $this->assertTrue(false);
+            return;
+        }
+
+        $this->json('DELETE', '/api/v1/story/'.$story->id);
+
+        $testStory = Story::find($story->id);
+
+        $this->assertNull($testStory);
+
+    }
+
+    public function testDeleteStoryItem(){
+
+        // Create a story
+        $story = Story::create([
+            'title' => 'name 1',
+            'icon' => 'name 2'
+        ]);
+        // Create a story item
+        $storyItem = StoryItem::create([
+            'storyId' => $story->id,
+        ]);
+        $testStoryItem = StoryItem::find($storyItem->id);
+        if(!$testStoryItem){
+            $this->assertTrue(false);
+            return;
+        }
+
+        $this->json('DELETE', '/api/v1/storyItem/'.$storyItem->id);
+
+        $testStoryItem = StoryItem::find($storyItem->id);
+
+        $this->assertNull($testStoryItem);
+
+        $story->delete();
+
+    }
+
+    public function testStoryChangeActive(){
+
+        // Test failed when story not exists
+        $response = $this->json('GET', '/api/v1/story/a/activate');
+        $this->assertEquals('failed', $response->json()['response']);
+
+        $story = Story::create([
+            'title' => 'name 1',
+            'icon' => 'name 2',
+        ]);
+        $active = $story->active;
+        $id = $story->id;
+
+
+        // Check if active is changed
+        $this->json('GET', '/api/v1/story/'.$story->id.'/'.($story->active ? 'deactivate' : 'activate'));
+        $story = Story::find($id);
+        $this->assertNotEquals($active, $story->active);
+
+        // Check if active is changed back
+        $this->json('GET', '/api/v1/story/'.$story->id.'/'.($story->active ? 'deactivate' : 'activate'));
+        $story = Story::find($id);
+        $this->assertEquals($active, $story->active);
+
+
+        $story->delete();
+
+    }
+
 
     /**
      * A basic unit test example.
@@ -198,15 +289,6 @@ class StoryTest extends TestCase
             $this->json('DELETE', '/api/v1/story/'.$id);
 
         }
-
-
-//        $file = \Illuminate\Support\Facades\File::get(storage_path('Test document.docx'));
-//
-//        $sc = new StoryController();
-//        $data = $sc->convertWordFile($file);
-
-//        assertEquals('','');
-//        assertTrue(true);
     }
 
 }

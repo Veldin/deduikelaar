@@ -9,7 +9,7 @@ const card = (props) => {
 
   function createBarData(toDataArray){
     var data = [];
-    var colors = ["#009688","#304964","#ff0043","#e7edf2"];
+    var colors = ["#009688","#84c7c1","#ff0043","#e7edf2"];
 
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function(element) {
@@ -30,8 +30,19 @@ const card = (props) => {
     return data;
   }
 
+  function toggleSwitch(){
+    var card = document.getElementById(props.storyID);
+    if(card.firstChild.classList.contains('active')){
+      card.firstChild.classList.add("notActive")
+      card.firstChild.classList.remove("active")
+    }else{
+      card.firstChild.classList.remove("notActive")
+      card.firstChild.classList.add("active")     
+    }
+  }
+
   return (        
-    <div className="col s12 m4">
+    <div className="cardBox col s12 m4" id={props.storyID}>
       {props.active ? (
         <span className="active"></span>
       ) : (
@@ -41,7 +52,7 @@ const card = (props) => {
          <div className="card-content white-text">
           <div className="row adminPanel">
             <div className="col s8">
-              <div className="switch">
+              <div className="switch" onChange={toggleSwitch}>
                 <label>
                   Inactief
                   {props.active ? (

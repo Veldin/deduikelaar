@@ -116,7 +116,7 @@ namespace GameObjectFactory
                 case "button":      // value = new object[] { camera, storyId, anwserId, browser }
                     object[] val = value as object[];
 
-                    gameObject.Width = 70;
+                    gameObject.Width = 82.35f;
                     gameObject.Height = 70;
 
                     gameObject.highVisibility = true;
@@ -196,14 +196,33 @@ namespace GameObjectFactory
                     //gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
 
                     //val[1] should contain the orientation (True is horizontal, false is vertical)
-                    if (!Convert.ToBoolean(val2[1]))
-                    {
-                        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_800_468_128.gif");
-                    }
-                    else
-                    {
-                        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
-                    }
+                    //switch (val2[2])
+                    //{
+                    //    case "Up":
+                    //        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
+                    //        break;
+                    //    case "Right":
+                    //        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_800_468_128.gif");
+                    //        break;
+                    //    case "Down":
+                    //        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
+                    //        break;
+                    //    case "West":
+                           
+                    //        break;
+                    //}
+
+                    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_1080_1080.gif");
+
+
+                    //if (!Convert.ToBoolean(val2[1]))
+                    //{
+                    //    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_800_468_128.gif");
+                    //}
+                    //else
+                    //{
+                    //    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
+                    //}
                     break;
                 case "ControllerAncher":
                     gameObject.Width = 50f;

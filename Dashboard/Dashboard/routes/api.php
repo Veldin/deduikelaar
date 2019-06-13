@@ -70,30 +70,3 @@ Route::prefix('testStory')->group(function(){
     });
 });
 
-//
-//
-//Route::prefix('database')->group(function() {
-//
-//    Route::get('fill', function(){
-//        Artisan::call('db:seed');
-//    });
-//    Route::get('refresh', function(){
-//
-//        if(Schema::hasTable('migrations')){
-//            $migration = DB::table('migrations')->orderBy('batch', 'DESC')->first();
-//
-//            for($i=0;$i<$migration->batch;$i++){
-//                try{
-//                    Artisan::call('migrate:rollback');
-//                }catch (Exception $e){
-//
-//                }
-//            }
-//        }
-//
-//        Artisan::call('migrate');
-//        Artisan::call('db:seed');
-//    });
-//
-//});
-
