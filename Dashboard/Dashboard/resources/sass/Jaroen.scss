@@ -222,14 +222,16 @@
 
 @media screen and (max-width: 415px){
 	#superContainer .contentContainer .modal.preview .modal-content{
-		width: 330px;
-		margin-left: -82px;
+		width: 99%;
+    	margin-left: -73px;
 	}
 	#superContainer .contentContainer .modal.preview .modal-content .modal-container{
-		top: 5px;
-		height: 290px;
+		top: 50px;
+		height: 200px;
+		width: 95%;
 	}
 	#superContainer .contentContainer .modal.preview .modal-footer{
+		margin-top: 16px;
 		width: 428px;
 	}
 }
