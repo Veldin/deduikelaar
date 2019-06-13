@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\File;
 use App\Http\Controllers\Api\StoryApiController;
+use App\Story;
 use finfo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +23,49 @@ class StoryTest extends TestCase
             'Test text 2'
         ]
     ];
+
+
+    public function testAllClasses(){
+        var_dump(get_class_methods(StoryApiController::class));
+
+    // "getOverview"
+    // "getStory"
+    // "getStories"
+    // "previewStory"
+    // "deleteStory"
+    // "deleteStoryItem"
+    // "storyChangeActive"
+    }
+
+
+    public function testStoryChangeActive(){
+//
+//        Route::get('{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
+//            'active' => '(deactivate|activate)'
+
+        $response = $this->json('GET', '/api/v1/story/a/activate');
+//        var_dump($response->json());
+//        var_dump($response->json()['response']);
+        $this->assertEquals('failed', $response->json()['response']);
+
+        $story = Story::first();
+        $active = $story->active;
+        $id = $story->id;
+
+
+        $this->json('GET', '/api/v1/story/'.$story->id.'/'.($story->active ? 'deactivate' : 'activate'));
+        $story = Story::find($id);
+        // Check if active is changed
+        $this->assertNotEquals($active, $story->active);
+
+        // Check if active is changed back
+        $this->json('GET', '/api/v1/story/'.$story->id.'/'.($story->active ? 'deactivate' : 'activate'));
+        $story = Story::find($id);
+
+        $this->assertEquals($active, $story->active);
+
+    }
+
 
     /**
      * A basic unit test example.
@@ -198,15 +242,6 @@ class StoryTest extends TestCase
             $this->json('DELETE', '/api/v1/story/'.$id);
 
         }
-
-
-//        $file = \Illuminate\Support\Facades\File::get(storage_path('Test document.docx'));
-//
-//        $sc = new StoryController();
-//        $data = $sc->convertWordFile($file);
-
-//        assertEquals('','');
-//        assertTrue(true);
     }
 
 }

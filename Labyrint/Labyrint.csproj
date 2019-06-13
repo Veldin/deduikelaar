@@ -201,18 +201,6 @@
     <Resource Include="Assets\Sprites\letterBackground_800.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Sprites\Letters\LetterNorth_640_586_128.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Sprites\Letters\LetterSouth_640_586_128.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Sprites\Letters\LetterEast_800_468_128.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Sprites\Letters\LetterWest_800_468_128.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Sprites\Player\back1_145_200_32_v2.gif" />
     <Resource Include="Assets\Sprites\Player\back2_145_200_32_v2.gif" />
     <Resource Include="Assets\Sprites\Player\back3_145_200_32_v2.gif" />
@@ -241,6 +229,15 @@
     <Resource Include="Assets\Sprites\Orb1.gif" />
     <Resource Include="Assets\Sprites\Orb2.gif" />
     <Resource Include="Assets\Sprites\Orb3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Letters\LetterDown_1080_1080.gif" />
+    <Resource Include="Assets\Sprites\Letters\LetterLeft_1080_1080.gif" />
+    <Resource Include="Assets\Sprites\Letters\LetterRight_1080_1080.gif" />
+    <Resource Include="Assets\Sprites\Letters\LetterUp_1080_1080.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\answers\poststamp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

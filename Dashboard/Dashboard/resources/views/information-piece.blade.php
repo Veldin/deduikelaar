@@ -18,7 +18,7 @@
                 width: 100%;
                 height: 100%;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-                font-size: 1rem;
+                font-size: @if(isset($_GET['overview'])) 0.8rem @else 1rem @endif;
                 background-color: #aa9479;
                 margin: 0;
                 padding: 0;
