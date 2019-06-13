@@ -55,9 +55,6 @@ class StoryApiController extends Controller
         }
         $stories = $stories->get();
 
-
-
-
         $storyFeedback = StoryFeedback::getCount();
 
         $feedbacks = Feedback::with('feedbackItems')->get();
