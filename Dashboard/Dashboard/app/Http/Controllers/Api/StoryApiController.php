@@ -30,7 +30,7 @@ class StoryApiController extends Controller
 
         $data = [];
 
-        $order = ['id' => 'ASC'];
+        $order = ['created_at' => 'DESC'];
         if(isset($_GET['order'])){
             $orders = explode(",", $_GET['order']);
             $order = [];
