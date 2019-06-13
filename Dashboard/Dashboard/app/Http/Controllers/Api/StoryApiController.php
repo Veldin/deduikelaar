@@ -30,16 +30,34 @@ class StoryApiController extends Controller
 
         $data = [];
 
+        $order = ['created_at' => 'DESC'];
+        if(isset($_GET['order'])){
+            $orders = explode(",", $_GET['order']);
+            $order = [];
+            foreach ($orders as $v){
+                $a = explode(":", $v);
+                if(count($a) == 2){
+                    $order[$a[0]] = $a[1];
+                }else{
+                    $order[$a[0]] = 'ASC';
+                }
+            }
+        }
+
         // Get all stories
         if(isset($_GET['onlyActive'])){
-            $stories = \App\Story::with('storyFeedback')->where('active', 1)->get();
+            $stories = Story::with('storyFeedback')->where('active', 1);
         }else{
-            $stories = \App\Story::with('storyFeedback')->get();
+            $stories = Story::with('storyFeedback');
         }
+        foreach ($order as $k => $v){
+            $stories->orderBy($k, $v);
+        }
+        $stories = $stories->get();
 
         $storyFeedback = StoryFeedback::getCount();
 
-        $feedbacks = \App\Feedback::with('feedbackItems')->get();
+        $feedbacks = Feedback::with('feedbackItems')->get();
 
         // Loop through all stories
         foreach ($stories as $story){

@@ -98,7 +98,7 @@
 
 				.showItem{
 					color: $accent-green;
-					margin-right: 5px;
+					margin-right: 10px;
 				}
 
 
@@ -175,10 +175,20 @@
 				min-width: 573px;
 				margin-left: -287px;
 				left: 50%;
+				#spinner{
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					width: 100px;
+					height: 100px;
+					margin-left: -50px;
+					margin-top: -50px;
+
+				}
 				.modal-container{
 					position: relative;
-					top: 150px;
-					height: 380px;
+					top: 120px;
+					height: 400px;
 					width: 90%;
 					left: 5%;
 					overflow: auto;
@@ -214,5 +224,13 @@
 	#superContainer .contentContainer .modal.preview .modal-footer{
 		width: 353px;
 		margin-left: -177px;
+	}
+}
+@media screen and (max-width: 450px), screen and (max-height: 650px) {
+	#superContainer .contentContainer .modal.preview{
+		width: 100%;
+	}
+	#superContainer .contentContainer .modal.preview .modal-footer{
+		text-align: center;
 	}
 }

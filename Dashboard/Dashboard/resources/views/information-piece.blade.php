@@ -19,8 +19,7 @@
                 height: 100%;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
                 font-size: 1rem;
-                /*background-color: #aa9479;*/
-                background: transparent;
+                background-color: #aa9479;
                 margin: 0;
                 padding: 0;
             }
@@ -36,8 +35,9 @@
                 margin-bottom: 60px;
                 width: 70%;
             }
-            video{
+            audio, video{
                 width: 100%;
+                max-width: 100%;
             }
             img{
                 max-width: 100%;

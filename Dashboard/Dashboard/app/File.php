@@ -14,10 +14,11 @@ class File extends Model
     protected $table = 'file';
 
     // TODO: PDF omzetten wanneer tijd over
-    public static $allowedExtensions = ['docx','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg', 'webm'];
+    public static $allowedExtensions = ['docx','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg', 'webm', 'mp3','wav'];
 
     public static $imageFileExtensions = ['jpeg','jpg','png','gif','bmp'];
     public static $videoFilesExtensions = ['avi','mp4','mpeg', 'webm'];
+    public static $audioFilesExtensions = ['mp3','wav'];
 
     protected $fillable = [
         'fileName',
@@ -53,6 +54,11 @@ class File extends Model
             // Set story item text if the file is an video file
             $text = $this->convertVideoFile();
         }
+        // Audio files
+        if(in_array($this->extension, self::$audioFilesExtensions)){
+            // Set story item text if the file is an video file
+            $text = $this->convertAudioFile();
+        }
         return $text;
     }
 
@@ -60,7 +66,6 @@ class File extends Model
 
         // Check if it is an image file
         if(!in_array($this->extension, self::$imageFileExtensions)) return "";
-
         $path = storage_path($this->path.$this->fileName);
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
@@ -82,34 +87,49 @@ class File extends Model
         $base64 = 'data:video/' . $type . ';base64,' . base64_encode($data);
 
 
-        return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
+        return "<video controls><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
+    }
+
+    private function convertAudioFile(){
+
+        // Check if it is an image file
+        if(!in_array($this->extension, self::$audioFilesExtensions)) return "";
+
+
+
+        $path = storage_path($this->path.$this->fileName);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
+
+
+        return "<audio controls><source type=\"audio/".$type."\" src=\"".$base64."\"></audio>";
     }
 
     private function convertPDFFile(){
 
         // Check if it is an image file
-        if($this->extension != 'pdf') return null;
-
-//        var_dump($pdf->html(1));
-
+        if($this->extension != 'pdf') return "";
+        if(strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') return "";
         $source_pdf=storage_path($this->path.$this->fileName);
         $output_folder=storage_path("app/uploads/temp");
-//        var_dump($output_folder);
+
         if(!file_exists($output_folder)) mkdir($output_folder, 777);
 
         $cmd = '"'.storage_path().'\\app\\pdftohtml.exe" "'.$source_pdf.'" "'.$output_folder.'\\'.$this->fileName.'"';
         exec( $cmd, $out, $ret);
 
-
-        $data = file_get_contents($output_folder.'\\'.$this->fileName.'s.html');
-        $data = preg_replace_callback ('/src="(.*?)"/i', function($matches) use ($output_folder) {
-            $file = $output_folder."\\".$matches[1];
-            $type = pathinfo($file, PATHINFO_EXTENSION);
-            $data = file_get_contents($file);
-            return 'src="data:image/' . $type . ';base64,' . base64_encode($data).'"';
-        }, $data);
-
-        $files = glob($output_folder.'/*'); // get all file names
+        if(file_exists($output_folder.'\\'.$this->fileName.'s.html')){
+            $data = file_get_contents($output_folder.'\\'.$this->fileName.'s.html');
+            $data = preg_replace_callback ('/src="(.*?)"/i', function($matches) use ($output_folder) {
+                $file = $output_folder."\\".$matches[1];
+                $type = pathinfo($file, PATHINFO_EXTENSION);
+                $data = file_get_contents($file);
+                return 'src="data:image/' . $type . ';base64,' . base64_encode($data).'"';
+            }, $data);
+        }
+        // Delete only with this filename
+        $files = glob($output_folder.'/'.$this->fileName.'*');
         foreach($files as $file){ // iterate files
             if(is_file($file))
                 unlink($file); // delete file
