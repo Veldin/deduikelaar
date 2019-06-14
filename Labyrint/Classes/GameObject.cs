@@ -596,7 +596,7 @@ namespace GameObjectFactory
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                textBlock.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffffff"));
                 textBlock.Text = text;
             }));
         }

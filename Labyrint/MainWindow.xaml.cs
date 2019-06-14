@@ -659,6 +659,8 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
+            Log.Debug("Mouse down");
+
             // Set IsMouseDown on true
             pressedKeys.Add("LeftMouse");
 
@@ -708,6 +710,9 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
+
+            Log.Debug("mouse up");
+
             // Set IsMouseDown on false
             pressedKeys.Remove("LeftMouse");
 
