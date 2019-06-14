@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import toastr from 'toastr';
 import Card from './Card/Card';
+import ReactDOM from 'react-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
@@ -68,8 +69,16 @@ class Overview extends Component {
     return (
       <div className="overviewContentContainer">
         <div className="row overviewFilter">
-          <div className="col s4 m2 l2 overviewLabel">Alle Items</div>
-          <div className="col s8 m10 l10 overviewSwitch">
+          <div className="col s4 m2 l8 overviewLabel">Alle Items</div>
+          <div className="input-field col hide-on-small-only m2 l2 sortDropdown">
+            <select>
+              <option value="">Sorteer op..</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div className="col s5 m8 l2 overviewSwitch">
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief

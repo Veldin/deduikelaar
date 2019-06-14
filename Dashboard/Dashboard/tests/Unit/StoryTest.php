@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\File;
 use App\Http\Controllers\Api\StoryApiController;
 use App\Story;
+use App\StoryItem;
 use finfo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -31,38 +32,84 @@ class StoryTest extends TestCase
     // "getOverview"
     // "getStory"
     // "getStories"
-    // "previewStory"
     // "deleteStory"
     // "deleteStoryItem"
-    // "storyChangeActive"
     }
 
+    public function testDeleteStory(){
+
+        // Create a story
+        $story = Story::create([
+            'title' => 'name 1',
+            'icon' => 'name 2'
+        ]);
+        $testStory = Story::find($story->id);
+        if(!$testStory){
+            $this->assertTrue(false);
+            return;
+        }
+
+        $this->json('DELETE', '/api/v1/story/'.$story->id);
+
+        $testStory = Story::find($story->id);
+
+        $this->assertNull($testStory);
+
+    }
+
+    public function testDeleteStoryItem(){
+
+        // Create a story
+        $story = Story::create([
+            'title' => 'name 1',
+            'icon' => 'name 2'
+        ]);
+        // Create a story item
+        $storyItem = StoryItem::create([
+            'storyId' => $story->id,
+        ]);
+        $testStoryItem = StoryItem::find($storyItem->id);
+        if(!$testStoryItem){
+            $this->assertTrue(false);
+            return;
+        }
+
+        $this->json('DELETE', '/api/v1/storyItem/'.$storyItem->id);
+
+        $testStoryItem = StoryItem::find($storyItem->id);
+
+        $this->assertNull($testStoryItem);
+
+        $story->delete();
+
+    }
 
     public function testStoryChangeActive(){
-//
-//        Route::get('{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
-//            'active' => '(deactivate|activate)'
 
+        // Test failed when story not exists
         $response = $this->json('GET', '/api/v1/story/a/activate');
-//        var_dump($response->json());
-//        var_dump($response->json()['response']);
         $this->assertEquals('failed', $response->json()['response']);
 
-        $story = Story::first();
+        $story = Story::create([
+            'title' => 'name 1',
+            'icon' => 'name 2',
+        ]);
         $active = $story->active;
         $id = $story->id;
 
 
+        // Check if active is changed
         $this->json('GET', '/api/v1/story/'.$story->id.'/'.($story->active ? 'deactivate' : 'activate'));
         $story = Story::find($id);
-        // Check if active is changed
         $this->assertNotEquals($active, $story->active);
 
         // Check if active is changed back
         $this->json('GET', '/api/v1/story/'.$story->id.'/'.($story->active ? 'deactivate' : 'activate'));
         $story = Story::find($id);
-
         $this->assertEquals($active, $story->active);
+
+
+        $story->delete();
 
     }
 

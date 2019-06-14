@@ -169,10 +169,10 @@ namespace Labyrint
                                 string html = htmlArray[0] + addHtml + htmlArray[1];
 
                                 // Split the new html again to apply the right rotation
-                                string[] htmlArray2 = html.Split(new string[] { "transform: rotate(0deg);" }, StringSplitOptions.None);
+                                string[] htmlArray2 = html.Split(new string[] { "--rotatingAngle--" }, StringSplitOptions.None);
 
                                 // Create the right string to insert in the css
-                                string addCss = "transform: rotate(" + degrees + "deg);";
+                                string addCss = degrees.ToString();
 
                                 // Combine everything back together
                                 string html2 = htmlArray2[0] + addCss + htmlArray2[1];
