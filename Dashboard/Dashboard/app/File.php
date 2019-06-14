@@ -67,6 +67,7 @@ class File extends Model
         // Check if it is an image file
         if(!in_array($this->extension, self::$imageFileExtensions)) return "";
         $path = storage_path($this->path.$this->fileName);
+        if(!file_exists($path)) return "";
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -82,6 +83,7 @@ class File extends Model
 
 
         $path = storage_path($this->path.$this->fileName);
+        if(!file_exists($path)) return "";
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:video/' . $type . ';base64,' . base64_encode($data);
@@ -98,6 +100,7 @@ class File extends Model
 
 
         $path = storage_path($this->path.$this->fileName);
+        if(!file_exists($path)) return "";
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
