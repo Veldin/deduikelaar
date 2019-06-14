@@ -91,7 +91,7 @@ class Overview extends Component {
     return (
       <div className="overviewContentContainer">
         <div className="row overviewFilter">
-          <div className="col s4 m2 l8 overviewLabel">Alle Items</div>
+          <div className="col s5 m2 l8 overviewLabel">Alle Items</div>
           <div className="input-field col hide-on-small-only m2 l2 sortDropdown">
             <select onChange={this.handleSorting.bind(this)}>
               <option value="">Sorteer op..</option>
@@ -99,7 +99,7 @@ class Overview extends Component {
               <option value="alpha">Alfabetisch</option>
             </select>
           </div>
-          <div className="col s5 m8 l2 overviewSwitch">
+          <div className="col s7 m8 l2 overviewSwitch">
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>
               <label>
                 Alleen Actief

@@ -180,29 +180,21 @@
 			// https://calculateaspectratio.com/
 			// 2466 * 2797
 
+
 			.modal-content{
-				position: relative;
+				// position: relative;
 				background-image: url("../../public/images/letterBackgroundMaze.png");
 				background-size: contain;
 				background-repeat: no-repeat;
-				height: 120%;
-				width: 60%;
-				left: 25%;
-				.title{
-					font-size: 1.4rem;
-					margin-bottom: 25px;
-					width: 90%;
-				}
-				.description{
-					font-size: 1.0rem;
-				}
+				background-position: center;
+				display: flex;
+    			justify-content: center;
+
 				.modal-container{
 					position: relative;
-					top: 80px;
-					height: 65%;
-					width: 80%;
-					left: 5%;
 					overflow: auto;
+					top: 18%;
+    				height: 67%;
 				}
 				#spinner{
 					position: absolute;
@@ -212,33 +204,29 @@
 					height: 100px;
 					margin-left: -50px;
 					margin-top: -50px;
-
 				}
 			}
 
 			.modal-footer{
 				border-top: none;
-				left: 25%;
-				margin-left: -309px;
+				display: flex;
+    			justify-content: center;
 				background-color: rgba(255,255,255,0);
 			}
 		}
 	}
 }
 
-@media screen and (max-width: 415px){
+@media screen and (max-width: 600px){
 	#superContainer .contentContainer .modal.preview .modal-content{
-		width: 99%;
-    	margin-left: -73px;
+
 	}
 	#superContainer .contentContainer .modal.preview .modal-content .modal-container{
-		top: 50px;
-		height: 200px;
-		width: 95%;
-		left: 0%;
+		top: 30%;
+		height: 48%;
+		max-width: 100%;
 	}
 	#superContainer .contentContainer .modal.preview .modal-footer{
-		margin-top: 16px;
-		width: 428px;
+
 	}
 }
