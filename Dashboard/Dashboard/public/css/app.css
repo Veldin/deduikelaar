@@ -67,9 +67,20 @@
   justify-content: space-around;
 }
 
+#superContainer .contentContainer .overviewFilter .sortDropdown {
+  margin: 0;
+}
+
 #superContainer .contentContainer .overviewFilter .sortDropdown select {
   display: flex;
   justify-content: flex-end;
+  border: none;
+  background-color: #26a69a;
+  color: white;
+}
+
+#superContainer .contentContainer .overviewFilter .sortDropdown select:hover {
+  background-color: #2bbbad;
 }
 
 #superContainer .contentContainer .overviewFilter .overviewSwitch {
@@ -4030,7 +4041,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 90%;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {

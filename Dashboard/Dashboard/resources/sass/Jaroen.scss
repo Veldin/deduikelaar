@@ -67,10 +67,18 @@
 			justify-content: space-around;
 
 			.sortDropdown{
+				margin: 0;
+				
 				select{
 					display: flex;
 					justify-content: flex-end;
 					border: none;
+					background-color: #26a69a;
+					color: white;
+
+					&:hover{
+						background-color: #2bbbad;
+					}
 				}
 			}
 
