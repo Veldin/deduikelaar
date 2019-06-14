@@ -166,17 +166,12 @@
 
 			.modal-content{
 				position: relative;
-				background-image: url("../../public/images/letterBackground.png");
+				background-image: url("../../public/images/letterBackgroundMaze.png");
 				background-size: contain;
 				background-repeat: no-repeat;
 				height: 120%;
 				width: 60%;
 				left: 25%;
-				// width: 573px;
-				// min-height: 650px;
-				// min-width: 573px;
-				// margin-left: -287px;
-				// left: 50%;
 				.title{
 					font-size: 1.4rem;
 					margin-bottom: 25px;
@@ -208,13 +203,8 @@
 			.modal-footer{
 				border-top: none;
 				left: 25%;
-				// width: 618px;
-				// left: 50%;
 				margin-left: -309px;
 				background-color: rgba(255,255,255,0);
-				// .modal-close{
-				// 	background-color: rgba(255,255,255,1);
-				// }
 			}
 		}
 	}
@@ -229,17 +219,10 @@
 		top: 50px;
 		height: 200px;
 		width: 95%;
+		left: 0%;
 	}
 	#superContainer .contentContainer .modal.preview .modal-footer{
 		margin-top: 16px;
 		width: 428px;
 	}
 }
-// @media screen and (max-width: 450px), screen and (max-height: 650px) {
-// 	#superContainer .contentContainer .modal.preview{
-// 		width: 100%;
-// 	}
-// 	#superContainer .contentContainer .modal.preview .modal-footer{
-// 		text-align: center;
-// 	}
-// }

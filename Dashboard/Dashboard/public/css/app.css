@@ -155,7 +155,7 @@
 
 #superContainer .contentContainer .modal.preview .modal-content {
   position: relative;
-  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-image: url(/images/letterBackgroundMaze.png?9e778977df6d265b481da6a136df048c);
   background-size: contain;
   background-repeat: no-repeat;
   height: 120%;
@@ -209,6 +209,7 @@
     top: 50px;
     height: 200px;
     width: 95%;
+    left: 0%;
   }
 
   #superContainer .contentContainer .modal.preview .modal-footer {
@@ -380,7 +381,7 @@ div.items {
 }
 
 .exampleCard {
-  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-image: url(/images/letterBackgroundMaze.png?9e778977df6d265b481da6a136df048c);
   background-size: 98%;
   flex-direction: column;
   justify-content: center;
@@ -403,13 +404,13 @@ div.items {
 }
 
 .exampleCard .allContent .title {
-  padding: 0px 10px;
+  padding-top: 50px;
   font-size: 1.8rem;
   word-wrap: break-word;
 }
 
 .exampleCard .allContent .content {
-  height: 300px;
+  height: 220px;
   padding: 0px 10px;
   overflow: auto;
 }
@@ -457,13 +458,17 @@ div.items {
   max-width: 100%;
 }
 
+.feedback p {
+  margin-left: 10px;
+}
+
 @media screen and (max-width: 415px) {
   .exampleCard .allContent .content {
     height: 110px;
   }
 
   .exampleCard .allContent .title {
-    padding: 10px;
+    padding-top: 20px;
     font-size: 1.2rem;
     word-wrap: break-word;
   }
