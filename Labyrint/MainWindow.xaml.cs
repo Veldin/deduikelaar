@@ -31,9 +31,6 @@ namespace Labyrint
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Version of the application
-        private static string version { get; } = "v0.1";
-
         //For keeping the sizes of the window (on the canvas, not IRL)
         private int width;
         private int height;
