@@ -51,7 +51,8 @@ namespace Labyrint
         private  Camera camera;
 
         //The brush used to fill in the background
-        SolidColorBrush backgroundBrush;
+        private SolidColorBrush backgroundBrush;
+        private Rectangle rectangle;
 
         public Random random;
 
@@ -69,13 +70,14 @@ namespace Labyrint
 
         private int renderDistance;
 
-        private Rectangle rectangle;
-
+        //TODO: controllers in list?
         private GameObject controllerAnchor;
         private GameObject controllerCursor;
 
         private Command command;
 
+        // Holds the last location of the touch input
+        // 0 north, 1 east, 2 south, 3 west
         private int lastClickClosestBorder;
 
         public MainWindow()
@@ -92,20 +94,23 @@ namespace Labyrint
             Window.GetWindow(this).KeyDown += KeyDown;
             Window.GetWindow(this).SizeChanged += SizeChanged;
 
-           //Innitialise all the Facades
+            //Innitialise all the Facades
             FileReaderWriterFacade.Init();
             SettingsFacade.Init();
             ApiParserFacade.Init();
             GameObjectFactoryFacade.Init();
             MazeFacade.Init();
 
-            // Create the camera.
+            // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
 
+            // Create the command bar
             command = new Command(this, CommandBar, CommandResponse);
 
+            // Create an instance of the Random class
             random = new Random();
 
+            // Init browser
             browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath()));      //Inits a new navigate call
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -138,75 +143,56 @@ namespace Labyrint
                     WindowState = WindowState.Normal;
                     break;
             }
-
+             
+            //todo: Get them from the Xaml
             width = 1280;
             height = 720;
 
+            //Set the assembly name
             assemblyName = Assembly.GetEntryAssembly().GetName().Name;
 
+            //Inits the pressed keys set
             pressedKeys = new HashSet<String>();
 
-            //player = new GameObject(24 * 2.5f, 42 * 2.5f, 300, 300);
+            //Create a new player, Use the mazefacade to set them in the maze
             player = GameObjectFactoryFacade.GetGameObject("player", MazeFacade.tileSize, MazeFacade.tileSize);
 
-
-
-            this.Cursor = Cursors.None;
+            this.Cursor = Cursors.None; //Hide the default windows cursor.
             cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
 
-            //Innits the GameObject list
+            //Inits the GameObject list
             gameObjects = new List<GameObject>();
-
             gameObjects.Add(player);    
             gameObjects.Add(cursor);
 
-
-            TestBrowser();
-
-            //PopulateButtonObject();
-
+            //Inits the background object list
             backgroundObjects = new List<GameObject>();
             PopulateBackgroundObject();
 
+            // Inits the onTickList and add behaviours.
             onTickList = new List<IBehaviour>();
             onTickList.Add(new SpaceButtonsHorisontallyBehaviour());
             onTickList.Add(new SpawnNewItemsBehaviour(browser, camera, player, this));
 
-            //backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 112, 192, 160));
+            // Set the background brush
             backgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 110, 155, 178));
 
-            renderDistance = SettingsFacade.Get("RenderDistance", 1200);//Desired max fps.
+            // Get the render ditsance from the SettingsFacade or use the default
+            renderDistance = SettingsFacade.Get("RenderDistance", 1200);
 
-            TestBrowser();
-
-
+            // Calculate and sets the hight and with of the camera (internally).
             camera.GenerateHeightAndWidth();
 
+            // Get the fps from the SettingsFacade or use the default
             fps = SettingsFacade.Get("fps", 999);//Desired max fps.
             interval = 1000 / fps;
 
+            // Save the SettingsFacade. This creates the INI file.
             SettingsFacade.Save();
 
+            // Set the time of the 'old' frame on the current time then start the app.
             then = Stopwatch.GetTimestamp();
             Run();
-        }
-
-        /***************************************************************************
-         * TEST METHODS (Remove these before publish)
-         * ************************************************************************/
-        public void TestBrowser()
-        {
-            //browser.Refresh();
-            var str = "<html><head></head><body>sdf</body></html>";
-            //browser.NavigateToString(str);
-
-            //browser = new System.Windows.Controls.WebBrowser();
-            //browser.Visibility = Visibility.Visible;
-            browser.Navigate(new Uri(FileReaderWriterFacade.GetAppDataPath())); //Inits a new navigate call
-
-            browser.NavigateToString("<HTML><H2><B>This page comes using String</B><P></P></H2>");
-
-            //browser.NavigateToString(str);
         }
 
         /***************************************************************************
@@ -231,16 +217,23 @@ namespace Labyrint
          * ************************************************************************/
         #region publicMethods
 
+        /// <summary>
+        ///  Starts the Simulation
+        /// </summary>
         public void Run()
         {
+            //Get the current time
             now = Stopwatch.GetTimestamp();
+
+            //Get the difference between now and then
             delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
 
+            //Check if it should draw a new frame.
             if (delta > interval)
             {
                 then = now; //Remember when this frame was.
                 Logic(delta); //Run the logic of the simulation.
-                Draw();
+                Draw(); // Draw to the canvas
             }
             else
             {
@@ -276,13 +269,14 @@ namespace Labyrint
 
         /// <summary>
         /// This method reset the controls by unpressing all keys and destroying all gameObjects that are needed for the controls
+        /// (callable from the command bar)
         /// </summary>
         public void ResetControls()
         {
             // Unpress all keys
             pressedKeys.Clear();
 
-            // Loop through all the gameObjects
+            // Loop through all the gameObjects to find anchors
             foreach (GameObject gameObject in gameObjects)
             {
                 // Destroy it if its a controllerAnchor or an ControllerCursor
@@ -296,6 +290,10 @@ namespace Labyrint
             Log.Debug("Keys resetted");
         }
 
+        /// <summary>
+        /// Search the player and turn his collision on if off and off if on.
+        /// (usable from the command bar)
+        /// </summary>
         public void ActivateCollision()
         {
             foreach (GameObject gameObject in gameObjects)
@@ -314,7 +312,11 @@ namespace Labyrint
          * PRIVATE METHODS
          * ************************************************************************/
         #region privateMethods
-
+        
+        /// <summary>
+        /// Calculates the logic of this frame
+        /// </summary>
+        /// <param name="delta"> Time passed since the last frame </param>
         private void Logic(long delta)
         {
             //Create a new arraylist used to hold the gameobjects for this loop.
@@ -338,23 +340,17 @@ namespace Labyrint
             camera.SetFromLeft(player.FromLeft - (width / 2) + player.Width / 2);
             camera.SetFromTop(player.FromTop - (height / 2) + player.Height / 2);
 
-            //For every gameobject in the room
+            //For every gameobject in the list
             foreach (GameObject gameObject in loopList)
             {
                 //OnTick every gameObject
-                if (IsKeyPressed("Space"))
+                if (IsKeyPressed("Space")) //Act like the game runs faster if space is pressed
                 {
                     gameObject.OnTick(gameObjects, pressedKeys, delta * 7f);
                 }
                 else
                 {
                     gameObject.OnTick(gameObjects, pressedKeys, delta);
-                }
-
-                //If the key is down 
-                if (IsKeyPressed("LeftMouse"))
-                {
-
                 }
             }
 
@@ -367,6 +363,7 @@ namespace Labyrint
                 }
             }
 
+            //Try catch due to us not knowing if the UI thead exists *it does not in unit tests*
             try
             {
                 //Set the new curser location
@@ -390,7 +387,8 @@ namespace Labyrint
             }
 
 
-            //Destory old objects
+            //Destory old objects by going trough each gameObject and checking if its destroyed.
+            //If it is, remove it from the canvas.
             foreach (GameObject gameObject in loopList)
             {
                 if (gameObject.destroyed)
@@ -406,12 +404,12 @@ namespace Labyrint
 
                     });
 
+                    // Give the gameObject back to the GameObjectFactoryFacade (to the pool)
                     GameObjectFactoryFacade.ReturnGameObject(gameObject);
                 }
             }
 
             MovePlayer();
-
         }
 
         private void Draw()
@@ -419,7 +417,7 @@ namespace Labyrint
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList;
-            lock (gameObjects) lock (backgroundObjects) //lock the gameobjects for duplication
+            lock (gameObjects) lock (backgroundObjects) //lock the lists for duplication
                 {
                     try
                     {
@@ -439,13 +437,17 @@ namespace Labyrint
             //Run it in the UI thread
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
+                //Set the background to the backgroundbrush in the engine
                 gameCanvas.Background = backgroundBrush;
 
+                //Set the background rectangle on the rectangle of the engine.
                 Rectangle bgRect = rectangle;
 
+                //TODO: set the with automatic
                 bgRect.Width = 1280;
                 bgRect.Height = 720;
 
+                //Set the bgRect to left upper corner
                 Canvas.SetLeft(bgRect, 0);
                 Canvas.SetTop(bgRect, 0);
 
@@ -453,11 +455,13 @@ namespace Labyrint
                 if (!gameCanvas.Children.Contains(bgRect))
                     gameCanvas.Children.Insert(0, bgRect);
 
+                //Go trough eatch object to see how to render them.
                 foreach (GameObject gameObject in loopList)
                 {
                     //check if a gameObject is in the render distance.
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
+                        //Remove the Rect and Textblock
                         gameCanvas.Children.Remove(gameObject.rectangle);
                         if (!(gameObject.textBlock is null))
                         {
@@ -467,8 +471,9 @@ namespace Labyrint
                     else
                     {
                         //It is in range so draw it.
-                        Rectangle rect = gameObject.rectangle;
+                        Rectangle rect = gameObject.rectangle; //Set rect to the internal rectangle of a gameObject
 
+                        //Set the width and hight of the shown rectangle.
                         rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
                         rect.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
 
@@ -476,27 +481,29 @@ namespace Labyrint
                         Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
                         Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
 
+                        // If the rect is not in the canvas yet
                         if (!gameCanvas.Children.Contains(rect))
                         {
                             //If the gameobject is important to be seen add it to the end of the array
                             if (gameObject.highVisibility)
                             {
-                                gameCanvas.Children.Add(rect);
+                                gameCanvas.Children.Add(rect); //Add at the end of the list
                             }
                             else
                             {
-                                gameCanvas.Children.Insert(0, rect);
+                                gameCanvas.Children.Insert(0, rect); //Add at the start of the list
                             }
                         }
 
                         //Draw the textblock assosiated with the GameObject
                         if (!(gameObject.textBlock is null))
                         {
-                            TextBlock textBlock = gameObject.textBlock;
+                            TextBlock textBlock = gameObject.textBlock; //Get the textBlock of the GameObject
 
                             Canvas.SetLeft(textBlock, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
                             Canvas.SetTop(textBlock, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
 
+                            // If the textBlock is not in the canvas yet
                             if (!gameCanvas.Children.Contains(textBlock))
                             {
                                 //If the gameobject is important to be seen add it to the end of the array
@@ -590,32 +597,18 @@ namespace Labyrint
         /// </summary>
         private void PopulateBackgroundObject()
         {
+            //Loop trough the width
             for (int fromLeft = 0; fromLeft < MazeFacade.GetMazeWidth(); fromLeft++)
             {
+                //Loop trough the height
                 for (int fromTop = 0; fromTop < MazeFacade.GetMazeHeight(); fromTop++)
                 {
+                    //If its a wall draw an object
                     if (MazeFacade.IsWall(fromLeft, fromTop))
                     {
                         backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void PopulateButtonObject()
-        {
-            int max = 4;
-            for (int i = 0; i < max; i++)
-            {
-                gameObjects.Add(GameObjectFactoryFacade.GetGameObject(
-                    "button",
-                    i * 100 - (100),
-                    i,
-                    camera
-                ));
             }
         }
 
@@ -635,7 +628,6 @@ namespace Labyrint
         {
             pressedKeys.Add(args.Key.ToString());
             command.KeyPressed(args);
-
         }
 
 
@@ -656,18 +648,17 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
-            Log.Debug("Mouse down");
-
             // Set IsMouseDown on true
             pressedKeys.Add("LeftMouse");
 
-            // Create the controller GameObjects
+            // Create the controller GameObjects (on the place of the mouse)
             controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
             gameObjects.Add(controllerAnchor);
             controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop);
             gameObjects.Add(controllerCursor);
 
             // Calc the distance between the cursor to the border
+            // This is to know where the player is standing
             float[] distances = new float[]
             {
                     // Cursor to top border
@@ -684,6 +675,7 @@ namespace Labyrint
             };
 
             // Check which distance is the lowest
+            // 0 north, 1 east, 2 south, 3 west
             int lowestKey = 0;
             float lowestVal = cursor.FromTop;
             for (int i = 0; i < 4; i++)
@@ -694,8 +686,7 @@ namespace Labyrint
                     lowestKey = i;
                 }
             }
-
-            Log.Debug(lowestKey);
+        
             // Save the value in an attibrute
             lastClickClosestBorder = lowestKey;
         }
@@ -707,9 +698,6 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
-
-            Log.Debug("mouse up");
-
             // Set IsMouseDown on false
             pressedKeys.Remove("LeftMouse");
 
@@ -731,12 +719,11 @@ namespace Labyrint
 
         public void SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //camera.
+            // if the width or height is changed call the camera to generate new width and height
             if (e.WidthChanged || e.HeightChanged)
             {
                 camera.GenerateHeightAndWidth();
             }
-            Log.Debug("changed" + camera.GetWidth());
         }
 
         /// <summary>
@@ -747,6 +734,11 @@ namespace Labyrint
             CloseApp();
         }
 
+        /// <summary>
+        /// Clears the pressed keys if you enter the mouse enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Browser_MouseEnter(object sender, MouseEventArgs e)
         {
             pressedKeys.Clear();
