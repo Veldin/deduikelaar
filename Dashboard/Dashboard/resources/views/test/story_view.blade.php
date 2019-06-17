@@ -42,7 +42,7 @@
     </head>
     <body>
         <div class="background">
-            <img src="{{ url('/images/letterBackground.png') }}" alt="letter bg"/>
+            <img src="{{ url('/images/letterBackgroundMaze.png') }}" alt="letter bg"/>
         </div>
         <iframe src="{{ url('/api/v1/testStory/view/'.$id) }}" frameborder="0"></iframe>
     </body>

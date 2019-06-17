@@ -67,9 +67,20 @@
   justify-content: space-around;
 }
 
+#superContainer .contentContainer .overviewFilter .sortDropdown {
+  margin: 0;
+}
+
 #superContainer .contentContainer .overviewFilter .sortDropdown select {
   display: flex;
   justify-content: flex-end;
+  border: none;
+  background-color: #26a69a;
+  color: white;
+}
+
+#superContainer .contentContainer .overviewFilter .sortDropdown select:hover {
+  background-color: #2bbbad;
 }
 
 #superContainer .contentContainer .overviewFilter .overviewSwitch {
@@ -159,32 +170,19 @@
 }
 
 #superContainer .contentContainer .modal.preview .modal-content {
-  position: relative;
-  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-image: url(/images/letterBackgroundMaze.png?9e778977df6d265b481da6a136df048c);
   background-size: contain;
   background-repeat: no-repeat;
-  height: 120%;
-  width: 60%;
-  left: 25%;
-}
-
-#superContainer .contentContainer .modal.preview .modal-content .title {
-  font-size: 1.4rem;
-  margin-bottom: 25px;
-  width: 90%;
-}
-
-#superContainer .contentContainer .modal.preview .modal-content .description {
-  font-size: 1rem;
+  background-position: center;
+  display: flex;
+  justify-content: center;
 }
 
 #superContainer .contentContainer .modal.preview .modal-content .modal-container {
   position: relative;
-  top: 80px;
-  height: 65%;
-  width: 80%;
-  left: 5%;
   overflow: auto;
+  top: 18%;
+  height: 67%;
 }
 
 #superContainer .contentContainer .modal.preview .modal-content #spinner {
@@ -199,26 +197,16 @@
 
 #superContainer .contentContainer .modal.preview .modal-footer {
   border-top: none;
-  left: 25%;
-  margin-left: -309px;
+  display: flex;
+  justify-content: center;
   background-color: rgba(255, 255, 255, 0);
 }
 
-@media screen and (max-width: 415px) {
-  #superContainer .contentContainer .modal.preview .modal-content {
-    width: 99%;
-    margin-left: -73px;
-  }
-
+@media screen and (max-width: 600px) {
   #superContainer .contentContainer .modal.preview .modal-content .modal-container {
-    top: 50px;
-    height: 200px;
-    width: 95%;
-  }
-
-  #superContainer .contentContainer .modal.preview .modal-footer {
-    margin-top: 16px;
-    width: 428px;
+    top: 30%;
+    height: 48%;
+    max-width: 100%;
   }
 }
 
@@ -385,7 +373,7 @@ div.items {
 }
 
 .exampleCard {
-  background-image: url(/images/letterBackground.png?5365a3da9aa57fa4b6e9a295697fcfdf);
+  background-image: url(/images/letterBackgroundMaze.png?9e778977df6d265b481da6a136df048c);
   background-size: 98%;
   flex-direction: column;
   justify-content: center;
@@ -408,13 +396,13 @@ div.items {
 }
 
 .exampleCard .allContent .title {
-  padding: 0px 10px;
+  padding-top: 50px;
   font-size: 1.8rem;
   word-wrap: break-word;
 }
 
 .exampleCard .allContent .content {
-  height: 300px;
+  height: 220px;
   padding: 0px 10px;
   overflow: auto;
 }
@@ -462,13 +450,17 @@ div.items {
   max-width: 100%;
 }
 
-@media screen and (max-width: 415px) {
+.feedback p {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 600px) {
   .exampleCard .allContent .content {
     height: 110px;
   }
 
   .exampleCard .allContent .title {
-    padding: 10px;
+    padding-top: 20px;
     font-size: 1.2rem;
     word-wrap: break-word;
   }
@@ -526,6 +518,20 @@ div.items {
 
 .label {
   color: #8391a5 !important;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  html {
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+    -webkit-transform-origin: left top;
+            transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 }
 
 .materialize-red {
