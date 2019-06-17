@@ -30,10 +30,15 @@ class StoryApiController extends Controller
 
         $data = [];
 
+        // Set default order
         $order = ['created_at' => 'DESC'];
+
+        // Check if an order is given with the request
         if(isset($_GET['order'])){
+            // Split the different orders
             $orders = explode(",", $_GET['order']);
             $order = [];
+            // Loop through order options
             foreach ($orders as $v){
                 $a = explode(":", $v);
                 if(count($a) == 2){
@@ -44,19 +49,24 @@ class StoryApiController extends Controller
             }
         }
 
-        // Get all stories
+        // Start creating story query
         if(isset($_GET['onlyActive'])){
             $stories = Story::with('storyFeedback')->where('active', 1);
         }else{
             $stories = Story::with('storyFeedback');
         }
+        // Set ordered by
         foreach ($order as $k => $v){
             $stories->orderBy($k, $v);
         }
+
+        // Get all stories
         $stories = $stories->get();
 
+        // Get number of story feedback
         $storyFeedback = StoryFeedback::getCount();
 
+        // Get all stories with feedback items
         $feedbacks = Feedback::with('feedbackItems')->get();
 
         // Loop through all stories
@@ -73,6 +83,7 @@ class StoryApiController extends Controller
 
         }
 
+        // Return json data
         return response()->json($data);
     }
 
@@ -107,6 +118,7 @@ class StoryApiController extends Controller
         $data['active'] = $story->active ? true : false;
         $data['texts'] = [];
 
+        // Get host and set http or https
         $host = request()->getHttpHost();
         if(substr($host, 0, 4) != 'http'){
             if(substr(url()->current(), 0,5) == 'https'){
@@ -121,16 +133,17 @@ class StoryApiController extends Controller
             $file = null;
             if($storyItem->file){
                 $f = $storyItem->file;
-                // add files
+                // Add files to data
                 $file = [
                     'id' => $f->id,
                     'filename' => $f->fileName,
                     'realname' => $f->realName,
                     'path' => $f->path,
                     'fileType' => $f->fileType,
-                    'download' => $host.'/api/v1/file/'.$f->id // Download file
+                    'download' => $host.'/api/v1/file/'.$f->id // Download link for file
                 ];
             }
+            // Add texts to data
             $data['texts'][] = [
                 'id' => $storyItem->id,
                 'text' => $storyItem->text,
@@ -141,6 +154,8 @@ class StoryApiController extends Controller
         // Add feedback
         $data['feedbackItems'] = $story->allFeedback(null, StoryFeedback::getCount($story));
 
+
+        // Return JSON data
         return response()->json($data);
     }
 
@@ -150,13 +165,15 @@ class StoryApiController extends Controller
      * @throws \Throwable
      */
     public function getStories(){
-        ini_set('max_execution_time', 300); // 5 minutes
+
+        // Set max execution time to 5 minutes
+        ini_set('max_execution_time', 300);
         $data = [];
 
         // Get all active stories
         $stories = Story::with('storyItems')->where('active', 1)->get();
 
-        // Set the correct data
+        // Set the story data for the Labyrint
         foreach ($stories as $story){
             $data[] = [
                 'storyId' => $story->id,
@@ -164,6 +181,8 @@ class StoryApiController extends Controller
                 'html' => view('information-piece', compact('story'))->render()
             ];
         }
+
+        // Return JSON data
         return response()->json($data);
     }
 
@@ -182,7 +201,7 @@ class StoryApiController extends Controller
         $files = $request->file('files');
 
 
-        // Validate
+        // Validate request
         $validation = Validator::make($request->all(), [
             'title' => 'required',
             'icon' => 'required',
@@ -192,6 +211,8 @@ class StoryApiController extends Controller
         // When validation fails, return error
         if ($validation->fails()) {
             $errors = 0;
+
+            // Ignore error 'Failed to upload'
             foreach ($validation->errors()->toArray() as $error){
                 foreach ($error as $msg){
                     if(strpos($msg, 'failed to upload') == false){
@@ -199,6 +220,8 @@ class StoryApiController extends Controller
                     }
                 }
             }
+
+            // Return errors when having errors
             if($errors){
                 return response()->json([
                     'response' => 'failed',
@@ -271,6 +294,7 @@ class StoryApiController extends Controller
 
                 $text = $file->getFileAsText();
 
+
                 if($text != ""){
                     $storyItem->update(['text' => $text]);
                 }
@@ -307,16 +331,23 @@ class StoryApiController extends Controller
 
         $newData = [];
 
+        // Set title when given with request
         if($request->has('title')){
             $newData['title'] = $request->get('title');
         }
+
+        // Set icon when given with request
         if($request->has('icon')){
             $newData['icon'] = $request->get('icon');
         }
+
+        // Set description when given with request
         if($request->has('description')){
             $newData['description'] = $request->get('description');
         }
 
+
+        // Set texts when given with request
         if($request->has('texts')){
             $texts = $request->get('texts');
             foreach ($story->storyItems as $storyItem){
@@ -326,6 +357,10 @@ class StoryApiController extends Controller
                 }
             }
         }
+
+
+
+        // Add texts when given with request
         if($request->has('newTexts')){
             foreach ($request->get('newTexts') as $text){
                 if(strlen($text) == 0) continue;
