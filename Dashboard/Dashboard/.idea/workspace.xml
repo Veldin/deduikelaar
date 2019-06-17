@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="">
+    <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/File.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/File.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Labyrint/Labyrint.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Labyrint/Labyrint.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Unit/StoryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Unit/StoryTest.php" afterDir="false" />
     </list>
     <list id="4493c035-579c-433e-a2af-1b0e3bf08a09" name="ide" comment="ide" />
     <list id="f9c35244-0ee0-4716-ae4b-899e839bf992" name="Revert: " comment="no idea" />
@@ -51,50 +51,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/information-piece.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
+            <state relative-caret-position="1836">
               <caret line="108" column="17" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/File.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="69" column="42" selection-start-line="69" selection-start-column="42" selection-end-line="69" selection-end-column="42" />
+            <state relative-caret-position="1020">
+              <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7004">
-              <caret line="424" column="26" selection-start-line="424" selection-start-column="20" selection-end-line="424" selection-end-column="26" />
+            <state relative-caret-position="195">
+              <caret line="122" column="42" selection-start-line="122" selection-start-column="42" selection-end-line="122" selection-end-column="42" />
               <folding>
                 <element signature="e#46#63#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/Unit/StoryTest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="82" column="25" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
-              <folding>
-                <element signature="e#30#43#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Desktop/test_edge.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3179">
-              <caret line="187" selection-start-line="187" selection-end-line="215" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -190,16 +169,16 @@
         <option value="$PROJECT_DIR$/tests/Unit/LabyrintApiTest.php" />
         <option value="$PROJECT_DIR$/app/Console/Commands/Database.php" />
         <option value="$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php" />
         <option value="$PROJECT_DIR$/storage/app/.gitignore" />
         <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/routes/api.php" />
-        <option value="$PROJECT_DIR$/tests/Unit/StoryTest.php" />
-        <option value="$USER_HOME$/Desktop/test_edge.html" />
         <option value="$PROJECT_DIR$/resources/views/information-piece.blade.php" />
         <option value="$PROJECT_DIR$/.idea/.gitignore" />
         <option value="$PROJECT_DIR$/app/File.php" />
+        <option value="$USER_HOME$/Desktop/test_edge.html" />
+        <option value="$PROJECT_DIR$/tests/Unit/StoryTest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php" />
       </list>
     </option>
   </component>
@@ -443,6 +422,20 @@
             <path>
               <item name="Dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Dashboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Dashboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -496,7 +489,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.StoryTest.testDeleteStoryItem">
+  <component name="RunManager" selected="PHPUnit.StoryTest.testDeleteStory">
     <configuration name="LabyrintApiTest.testConvertFile" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner class="Tests\Unit\LabyrintApiTest" file="$PROJECT_DIR$/tests/Unit/LabyrintApiTest.php" method="testConvertFile" scope="Method" />
       <method v="2" />
@@ -569,9 +562,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.StoryTest.testDeleteStory" />
         <item itemvalue="PHPUnit.StoryTest.testDeleteStoryItem" />
         <item itemvalue="PHPUnit.StoryTest.testStoryChangeActive" />
-        <item itemvalue="PHPUnit.StoryTest.testDeleteStory" />
         <item itemvalue="PHPUnit.StoryTest.testAllClasses" />
       </list>
     </recent_temporary>
@@ -622,14 +615,10 @@
       <workItem from="1560411050972" duration="9287000" />
       <workItem from="1560424897971" duration="8920000" />
       <workItem from="1560437135685" duration="2553000" />
-      <workItem from="1560503781964" duration="46000" />
-    </task>
-    <task id="LOCAL-00027" summary="File download api">
-      <created>1559131860295</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1559131860295</updated>
+      <workItem from="1560503781964" duration="971000" />
+      <workItem from="1560518348018" duration="665000" />
+      <workItem from="1560521581154" duration="1810000" />
+      <workItem from="1560765799687" duration="1393000" />
     </task>
     <task id="LOCAL-00028" summary="Get a single story">
       <created>1559131973767</created>
@@ -967,13 +956,17 @@
       <option name="project" value="LOCAL" />
       <updated>1560438497604</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="file">
+      <created>1560503855551</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1560503855553</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 11m 15s.xml">
-      <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
-    </history-entry>
     <history-entry file="StoryTest_testStoryChangeActive - 2019.06.13 at 13h 11m 41s.xml">
       <configuration name="StoryTest.testStoryChangeActive" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
@@ -1001,9 +994,12 @@
     <history-entry file="StoryTest_testDeleteStoryItem - 2019.06.13 at 13h 59m 16s.xml">
       <configuration name="StoryTest.testDeleteStoryItem" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
+    <history-entry file="StoryTest_testDeleteStory - 2019.06.17 at 12h 04m 29s.xml">
+      <configuration name="StoryTest.testDeleteStory" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254372000" />
+    <option name="totallyTimeSpent" value="259165000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1018,7 +1014,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21268657" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21908316" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="npm" order="3" side_tool="true" />
@@ -1026,15 +1022,15 @@
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" sideWeight="0.49946696" weight="0.312026" />
-      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.4856753" weight="0.33260393" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" sideWeight="0.48507464" visible="true" weight="0.33152762" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" sideWeight="0.4978678" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51432467" side_tool="true" visible="true" weight="0.3261105" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51492536" side_tool="true" visible="true" weight="0.33152762" />
       <window_info anchor="bottom" id="Application Servers" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49520257" weight="0.31852654" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.48347548" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.48134327" weight="0.32936078" />
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1046,7 +1042,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="statistics" />
     <MESSAGE value="Optimized requests and better test data" />
     <MESSAGE value="overview" />
     <MESSAGE value="Statistics" />
@@ -1071,7 +1066,8 @@
     <MESSAGE value="Information piece font smaller for overview" />
     <MESSAGE value="Information piece rotating" />
     <MESSAGE value="idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="idea" />
+    <MESSAGE value="file" />
+    <option name="LAST_COMMIT_MESSAGE" value="file" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/resources/views/test/story_insert.blade.php">
@@ -1339,6 +1335,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" lean-forward="true" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/storage/app/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1346,10 +1349,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/.gitignore">
+    <entry file="file://$USER_HOME$/Desktop/test_edge.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="11" lean-forward="true" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+        <state relative-caret-position="537">
+          <caret line="215" column="13" selection-start-line="215" selection-start-column="13" selection-end-line="215" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1363,44 +1366,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7004">
-          <caret line="424" column="26" selection-start-line="424" selection-start-column="20" selection-end-line="424" selection-end-column="26" />
-          <folding>
-            <element signature="e#46#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Unit/StoryTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="82" column="25" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
-          <folding>
-            <element signature="e#30#43#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/test_edge.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3179">
-          <caret line="187" selection-start-line="187" selection-end-line="215" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/information-piece.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
+        <state relative-caret-position="1836">
           <caret line="108" column="17" selection-start-line="108" selection-start-column="17" selection-end-line="108" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/File.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="69" column="42" selection-start-line="69" selection-start-column="42" selection-end-line="69" selection-end-column="42" />
+        <state relative-caret-position="1020">
+          <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Unit/StoryTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="345" column="56" selection-start-line="345" selection-start-column="56" selection-end-line="345" selection-end-column="56" />
+          <folding>
+            <element signature="e#30#43#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="122" column="42" selection-start-line="122" selection-start-column="42" selection-end-line="122" selection-end-column="42" />
+          <folding>
+            <element signature="e#46#63#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
