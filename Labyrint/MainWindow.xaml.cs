@@ -99,7 +99,7 @@ namespace Labyrint
             FileReaderWriterFacade.Init();
             SettingsFacade.Init();
             ApiParserFacade.Init();
-            GameObjectFactoryFacade.innit();
+            GameObjectFactoryFacade.Init();
             MazeFacade.Init();
 
             // Create the camera.

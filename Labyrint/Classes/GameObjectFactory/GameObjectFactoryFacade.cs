@@ -11,7 +11,7 @@ namespace GameObjectFactory
     {
         private static Factory factory;
 
-        public static bool innit()
+        public static bool Init()
         {
             factory = new Factory();
 
