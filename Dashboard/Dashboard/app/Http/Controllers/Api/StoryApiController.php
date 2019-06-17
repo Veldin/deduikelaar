@@ -331,16 +331,23 @@ class StoryApiController extends Controller
 
         $newData = [];
 
+        // Set title when given with request
         if($request->has('title')){
             $newData['title'] = $request->get('title');
         }
+
+        // Set icon when given with request
         if($request->has('icon')){
             $newData['icon'] = $request->get('icon');
         }
+
+        // Set description when given with request
         if($request->has('description')){
             $newData['description'] = $request->get('description');
         }
 
+
+        // Set texts when given with request
         if($request->has('texts')){
             $texts = $request->get('texts');
             foreach ($story->storyItems as $storyItem){
@@ -350,6 +357,10 @@ class StoryApiController extends Controller
                 }
             }
         }
+
+
+
+        // Add texts when given with request
         if($request->has('newTexts')){
             foreach ($request->get('newTexts') as $text){
                 if(strlen($text) == 0) continue;
