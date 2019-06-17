@@ -251,7 +251,7 @@ div.itemCollection {
 }
 
 //mobile
-@media screen and (max-width: 415px) {
+@media screen and (max-width: 600px) {
     .exampleCard .allContent .content {
       height: 110px;
     }
@@ -309,4 +309,16 @@ div.itemCollection {
 
   .label{
     color: $secondary-light !important;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    html {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
   }

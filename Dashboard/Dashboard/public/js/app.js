@@ -66594,7 +66594,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row overviewFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s4 m2 l8 overviewLabel"
+        className: "col s5 m2 l8 overviewLabel"
       }, "Alle Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col hide-on-small-only m2 l2 sortDropdown"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
@@ -66606,7 +66606,7 @@ function (_Component) {
       }, "Datum (nieuw/oud)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "alpha"
       }, "Alfabetisch"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col s5 m8 l2 overviewSwitch"
+        className: "col s7 m8 l2 overviewSwitch"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "switch",
         onChange: this.toggleSwitch.bind(this)
