@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import { Router, Route, Link } from 'react-router';
 
+// This class dictates the default structure of every page, containing navigation and header
 class Master extends Component {
 
+  // This function gets executed when the page loads
   componentDidMount() {
+    // Forwards the page to overview else an empty page would show
     if(window.location.pathname == '/'){
       document.getElementById("overview").click();
     }
   }
 
+  // Render the navigation and header
   render(){
     return (
       <div>
@@ -36,6 +40,7 @@ class Master extends Component {
             </div>
             <div className="col s1"></div>
             <div className="col s12 m9 l9 contentContainer">
+              {/* Here all the page content will be loaded */}
               {this.props.children}
             </div>
           </div>
