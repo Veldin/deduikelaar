@@ -68,16 +68,24 @@
 
 			.sortDropdown{
 				margin: 0;
-				
+
+				option{
+					background-color: $primary-dark;
+					cursor: pointer;
+				}
 				select{
+					cursor: pointer;
 					display: flex;
 					justify-content: flex-end;
 					border: none;
-					background-color: #26a69a;
+					border-bottom: white solid 2px;
+					background-color: transparent;
 					color: white;
+					height: 2.5rem;
 
-					&:hover{
-						background-color: #2bbbad;
+					&:visited, &:focus, &:checked{
+						border: none;
+						border-bottom: white solid 2px;
 					}
 				}
 			}
