@@ -8,8 +8,8 @@ import Overview from './components/Overview';
 import CreateItem from './components/CreateItem';
 import Statistics from './components/Statistics';
 
-
-
+// Setting routes for the different pages in the dashboard
+// This dictates the navigation structure
 render(
   	<Router history={browserHistory}>
         <Route path="/" component={Master} >
@@ -18,4 +18,4 @@ render(
             <Route path="/statistics" component={Statistics} />
         </Route>
     </Router>,
-document.getElementById('superContainer'));
+document.getElementById('superContainer')); // The element that holds all the content

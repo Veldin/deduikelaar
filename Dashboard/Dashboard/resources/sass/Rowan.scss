@@ -163,7 +163,7 @@ div.itemCollection {
 // example 
 
 .exampleCard{
-    background-image: url("../../public/images/letterBackground.png");
+    background-image: url("../../public/images/letterBackgroundMaze.png");
     background-size: 98%;
     flex-direction: column;
     justify-content: center;
@@ -186,13 +186,13 @@ div.itemCollection {
 }
 
 .exampleCard .allContent .title{
-    padding: 0px 10px;
+    padding-top: 50px;
     font-size: 1.8rem;
     word-wrap: break-word;
 }
 
 .exampleCard .allContent .content{
-    height: 300px;
+    height: 220px;
     padding: 0px 10px;
     overflow: auto;
 }
@@ -246,14 +246,17 @@ div.itemCollection {
 .content img{
     max-width: 100%;
 }
+.feedback p{
+    margin-left: 10px;
+}
 
 //mobile
-@media screen and (max-width: 415px) {
+@media screen and (max-width: 600px) {
     .exampleCard .allContent .content {
       height: 110px;
     }
     .exampleCard .allContent .title{
-        padding: 10px;
+        padding-top: 20px;
         font-size: 1.2rem;
         word-wrap: break-word;
     }
@@ -306,4 +309,16 @@ div.itemCollection {
 
   .label{
     color: $secondary-light !important;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    html {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
   }

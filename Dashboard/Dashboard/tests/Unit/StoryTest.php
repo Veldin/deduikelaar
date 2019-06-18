@@ -16,6 +16,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class StoryTest extends TestCase
 {
 
+    // Base story data
     private $storyData = [
         'title' => 'Story for testing',
         'description' => 'Story description',
@@ -26,9 +27,11 @@ class StoryTest extends TestCase
     ];
 
 
+    // Get all class methods of StoryApiController class
     public function testAllClasses(){
         var_dump(get_class_methods(StoryApiController::class));
 
+    // Methods to test
     // "getOverview"
     // "getStory"
     // "getStories"
@@ -36,6 +39,9 @@ class StoryTest extends TestCase
     // "deleteStoryItem"
     }
 
+    /**
+     * Test deleting a story
+     */
     public function testDeleteStory(){
 
         // Create a story
@@ -57,6 +63,10 @@ class StoryTest extends TestCase
 
     }
 
+
+    /**
+     * Test deleting a story item
+     */
     public function testDeleteStoryItem(){
 
         // Create a story
@@ -84,16 +94,23 @@ class StoryTest extends TestCase
 
     }
 
+
+    /**
+     * Test changing activating or deactivating a story
+     */
     public function testStoryChangeActive(){
 
         // Test failed when story not exists
         $response = $this->json('GET', '/api/v1/story/a/activate');
         $this->assertEquals('failed', $response->json()['response']);
 
+        // Create a story
         $story = Story::create([
             'title' => 'name 1',
             'icon' => 'name 2',
         ]);
+
+        // Set active and id
         $active = $story->active;
         $id = $story->id;
 
@@ -109,19 +126,19 @@ class StoryTest extends TestCase
         $this->assertEquals($active, $story->active);
 
 
+        // Delete created story
         $story->delete();
 
     }
 
 
     /**
-     * A basic unit test example.
-     *
-     * @return void
+     * Test creating a story
      */
     public function testNewStory()
     {
 
+        // Files, all images
         $files = [
 //            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
             UploadedFile::fake()->image('test1.qwe', 1920, 1080),
@@ -132,19 +149,25 @@ class StoryTest extends TestCase
             UploadedFile::fake()->image('test6.jpg', 1920, 1080),
         ];
 
+        // Set base data
+        $data = $this->storyData;
+
+        // add files
+        $data['files'] = $files;
+
+        // Test a failed request
+        $response = $this->json('POST', '/api/v1/story', $data);
+        $this->assertEquals('failed', $response->json()['response']);
+
+        // Add icon to the request data
+        $data['icon'] = "candle";
+
+        // Get and set file data for an docx file
         $filename = 'Test document.docx';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
 
-        $data = $this->storyData;
-        $data['files'] = $files;
-
-        $response = $this->json('POST', '/api/v1/story', $data);
-
-        $this->assertEquals('failed', $response->json()['response']);
-
-
-        // Replace first file docx
+        // Replace first file for an docx file
         if (Storage::disk('storage')->exists($filename)) {
 
             $data['files'][0] = new UploadedFile(
@@ -156,10 +179,13 @@ class StoryTest extends TestCase
                 false
             );
         }
+
+        // Get and set file data for an pdf file
         $filename = 'Test document.pdf';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
-        // Replace second file pdf
+
+        // Replace second file for an pdf file
         if (Storage::disk('storage')->exists($filename)) {
 
             $data['files'][1] = new UploadedFile(
@@ -171,10 +197,14 @@ class StoryTest extends TestCase
                 false
             );
         }
+
+
+        // Get and set file data for an mp4 file
         $filename = 'Test video.mp4';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
-        // Replace second file pdf
+
+        // Replace third file for an mp4 file
         if (Storage::disk('storage')->exists($filename)) {
 
             $data['files'][2] = new UploadedFile(
@@ -186,10 +216,14 @@ class StoryTest extends TestCase
                 false
             );
         }
+
+
+        // Get and set file data for an mp4 file
         $filename = 'Test video2.mp4';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
-        // Replace second file pdf
+
+        // Replace fourth file for an mp4 file
         if (Storage::disk('storage')->exists($filename)) {
 
             $data['files'][3] = new UploadedFile(
@@ -201,10 +235,13 @@ class StoryTest extends TestCase
                 false
             );
         }
+
+        // Get and set file data for an mp3 file
         $filename = 'Test audio.mp3';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
-        // Replace second file pdf
+
+        // Replace fifth file for an mp3 file
         if (Storage::disk('storage')->exists($filename)) {
 
             $data['files'][4] = new UploadedFile(
@@ -217,9 +254,11 @@ class StoryTest extends TestCase
             );
         }
 
-        $data['icon'] = "candle";
+        // Do request
         $response = $this->json('POST', '/api/v1/story', $data);
 
+
+        // Check response
         if (isset($response->json()['response'])) {
             if($response->json()['response'] == "failed") var_dump($response->json()['errors']);
             $this->assertEquals('success', $response->json()['response']);
@@ -233,18 +272,20 @@ class StoryTest extends TestCase
         }
     }
 
+    /**
+     *  Test changing a story
+     */
     public function testChangeStory(){
 
 
         // Check failed
         $response = $this->json('POST', '/api/v1/story/-102/change', []);
-
         $this->assertEquals('failed', $response->json()['response']);
 
 
 
 
-        // Check success
+        // Add fake image files
         $files = [
 //            \Illuminate\Support\Facades\File::get(storage_path('Test document.docx')),
             UploadedFile::fake()->image('test1.jpg'),
@@ -252,10 +293,12 @@ class StoryTest extends TestCase
             UploadedFile::fake()->image('test3.jpg'),
         ];
 
+        // Get and set file data for an docx file
         $filename = 'Test document.docx';
         $file_path = storage_path($filename);
         $finfo = new finfo(16);
 
+        // Replace first file for an docx file
         if (Storage::disk('storage')->exists($filename)) {
 
             $files[0] = new UploadedFile(
@@ -268,26 +311,39 @@ class StoryTest extends TestCase
             );
         }
 
+        // Set base data
         $data = $this->storyData;
-        $data['files'] = $files;
-        $data['icon'] = "candle";
-//        $data['files'] = $files;
 
+        // Add files to data
+        $data['files'] = $files;
+
+        // Add icon to data
+        $data['icon'] = "candle";
+
+        // Do and check request (create new story)
         $response = $this->json('POST', '/api/v1/story', $data);
         $this->assertEquals('success', $response->json()['response']);
 
+        // Change story
         if(isset($response->json()['storyId'])){
+
+            // Set id of the story
             $id = $response->json()['storyId'];
+
+            // Set new data
             $data = [
                 'title' => 'Changed title'
             ];
+
+            // Do change request
             $response = $this->json('POST', '/api/v1/story/'.$id.'/change', $data);
 
+            // Should be successful
             $this->assertEquals('success', $response->json()['response']);
 
 
+            // Delete story
             $this->json('DELETE', '/api/v1/story/'.$id);
-
         }
     }
 
