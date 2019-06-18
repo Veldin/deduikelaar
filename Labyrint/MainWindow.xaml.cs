@@ -743,8 +743,6 @@ namespace Labyrint
             pressedKeys.Clear();
         }
 
-        #endregion
-
         private void MainWindow_TouchDown(object sender, TouchEventArgs e)
         {
 
@@ -811,5 +809,7 @@ namespace Labyrint
                 controllerCursor.destroyed = true;
             }
         }
+
+        #endregion
     }
 }
