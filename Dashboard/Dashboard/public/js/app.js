@@ -66632,7 +66632,7 @@ function (_Component) {
         onChange: this.handleSorting.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: ""
-      }, "Sorteer op.."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      }, "Sorteer op ..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "date"
       }, "Datum (nieuw/oud)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "alpha"
