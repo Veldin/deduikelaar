@@ -286,7 +286,7 @@ namespace Labyrint
             }
 
             // Give programmer feedback
-            Log.Debug("Keys resetted");
+            Log.Info("Keys resetted");
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace Labyrint
                 if (gameObject.BuilderType == "player")
                 {
                     gameObject.Collition = !gameObject.Collition;
-                    Log.Debug("The player collision is now: " + gameObject.Collition);
+                    Log.Info("The player collision is now: " + gameObject.Collition);
                 }
             }
         }
