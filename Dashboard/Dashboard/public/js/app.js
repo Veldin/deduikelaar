@@ -65662,6 +65662,8 @@ __webpack_require__(/*! ./materialize */ "./resources/js/materialize.js");
 
 
 
+ // Setting routes for the different pages in the dashboard
+// This dictates the navigation structure
 
 Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Router"], {
   history: react_router__WEBPACK_IMPORTED_MODULE_2__["browserHistory"]
@@ -65677,7 +65679,7 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Route"], {
   path: "/statistics",
   component: _components_Statistics__WEBPACK_IMPORTED_MODULE_6__["default"]
-}))), document.getElementById('superContainer'));
+}))), document.getElementById('superContainer')); // The element that holds all the content
 
 /***/ }),
 
@@ -65699,28 +65701,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ // Hook to load in the cards
 
 var card = function card(props) {
+  // Declare variables that access methods in the overview class using dependency injection
   var deleteItem = function deleteItem() {
     return props.onDelete(props.storyID);
   };
 
   var showItem = function showItem() {
     return props.onShow(props.storyID);
-  };
+  }; // Creates a feedback bar for each feedbackType in a story
+
 
   function createBarData(toDataArray) {
-    var data = [];
-    var colors = ["#009688", "#84c7c1", "#ff0043", "#e7edf2"];
+    var data = []; // Declare the colours the bar uses
+
+    var colors = ["#009688", "#84c7c1", "#ff0043", "#e7edf2"]; // Data to loop through
+
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function (element) {
+      // Check if feedback matches the correct story by comparing IDs
       if (toDataArray.storyID == element.storyId) {
-        var i = 0;
         element.feedback.forEach(function (feedbackItem) {
+          // If oneWord is undefined, feedbackType doesn't exist
           if (typeof data[feedbackItem.oneWord] === 'undefined') {
             data[feedbackItem.oneWord] = [];
-          }
+          } // Loop through data and set each feedbackType with its data
+
 
           Object.entries(feedbackItem.feedback).map(function (element, index) {
             return data[feedbackItem.oneWord][index] = {
@@ -65731,9 +65739,11 @@ var card = function card(props) {
           });
         });
       }
-    });
+    }); // Returns all the loaded data of feedback
+
     return data;
-  }
+  } // Adds/Removes class based on switch state of card
+
 
   function toggleSwitch() {
     var card = document.getElementById(props.storyID);
@@ -65745,7 +65755,8 @@ var card = function card(props) {
       card.firstChild.classList.remove("notActive");
       card.firstChild.classList.add("active");
     }
-  }
+  } // Renders the JSX of the cards
+
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "cardBox col s12 m4",
@@ -65815,7 +65826,8 @@ var card = function card(props) {
       data: element[1]
     })))));
   })))));
-};
+}; // Exports data to use
+
 
 /* harmony default export */ __webpack_exports__["default"] = (card);
 
@@ -65832,17 +65844,16 @@ var card = function card(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _popup_Popup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./popup/Popup */ "./resources/js/components/popup/Popup.js");
-/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
-/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ckeditor/ckeditor5-react */ "./node_modules/@ckeditor/ckeditor5-react/dist/ckeditor.js");
-/* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
-/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./plugins/CustomUploadAdapter.js */ "./resources/js/components/plugins/CustomUploadAdapter.js");
+/* harmony import */ var _popup_Popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./popup/Popup */ "./resources/js/components/popup/Popup.js");
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+/* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ckeditor/ckeditor5-react */ "./node_modules/@ckeditor/ckeditor5-react/dist/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./plugins/CustomUploadAdapter.js */ "./resources/js/components/plugins/CustomUploadAdapter.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65860,10 +65871,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
 
 
 
@@ -65907,14 +65914,14 @@ function (_Component) {
       }]
     };
     return _this;
-  }
+  } // Set custom upload adapter for CKeditor
+
 
   _createClass(CreateItem, [{
     key: "customAdapterPlugin",
     value: function customAdapterPlugin(editor) {
       editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
-        // Configure the URL to the upload script in your back-end here!
-        return new _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_8__["default"](loader);
+        return new _plugins_CustomUploadAdapter_js__WEBPACK_IMPORTED_MODULE_7__["default"](loader);
       };
     }
   }, {
@@ -65930,7 +65937,8 @@ function (_Component) {
       this.setState({
         isChecked: !this.state.isChecked
       });
-    }
+    } // Sets the preview of the uploaded files
+
   }, {
     key: "setFile",
     value: function setFile(e) {
@@ -65938,18 +65946,19 @@ function (_Component) {
       this.setState({
         imagesContent: ""
       });
-      var files = e.target.files;
+      var files = e.target.files; // Gets files that are selected
+      // Loop through selected files to show them in preview
 
       for (var i = 0; i < files.length; i++) {
         var reader = new FileReader();
-        reader.num = i; // = input.files[0].name.split('.').pop().toLowerCase();
-
+        reader.num = i;
         reader.readAsDataURL(files[i]);
 
         reader.onload = function (e) {
           var _this2 = this;
 
-          var extension = files[this.num].name.split('.').pop().toLowerCase();
+          var extension = files[this.num].name.split('.').pop().toLowerCase(); // If pdf or docx, convert into usable format for preview
+          // Else convert other files with base64
 
           if (['pdf', 'docx'].indexOf(extension) >= 0) {
             var formData = new FormData();
@@ -65965,7 +65974,7 @@ function (_Component) {
                   imagesContent: t.state.imagesContent + response['data']
                 });
               } else {
-                toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.');
+                toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.');
                 console.log('Er kon geen voorbeeld van het bestand ' + files[_this2.num].name + ' getoond worden.');
               }
             });
@@ -65974,7 +65983,6 @@ function (_Component) {
               imagesContent: t.state.imagesContent + "<img src='" + this.result + "' alt='preview' style='max-width: 100%;' />"
             });
           } else if (['avi', 'mp4', 'mpeg', 'webm'].indexOf(extension) >= 0) {
-            // return "<video controls autoplay><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
             t.setState({
               imagesContent: t.state.imagesContent + "<video controls style='max-width: 100%;width: 100%;'><source src='" + this.result + "' /></video>"
             });
@@ -65984,14 +65992,16 @@ function (_Component) {
             });
           } else {
             console.log('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
-            toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
+            toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er kon geen voorbeeld van het bestand ' + files[this.num].name + ' getoond worden.');
           }
         };
 
         reader.onerror = function (error) {
           console.log('Error: ', error);
+          toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         };
-      }
+      } // Set files state
+
 
       this.setState({
         files: files
@@ -66057,10 +66067,10 @@ function (_Component) {
         console.log(response);
 
         if (response['response'] == "success") {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.success('Het item is toegevoegd!');
+          toastr__WEBPACK_IMPORTED_MODULE_2___default.a.success('Het item is toegevoegd!');
           window.location.href = "/overview";
         } else {
-          toastr__WEBPACK_IMPORTED_MODULE_3___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
+          toastr__WEBPACK_IMPORTED_MODULE_2___default.a.warning('Er is iets fout gedaan. Probeer het a.u.b opnieuw.');
         }
       });
     }
@@ -66097,10 +66107,10 @@ function (_Component) {
         htmlFor: "title"
       }, "Titel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question questionTitle col s1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
         onClick: this.togglePopup1.bind(this)
-      }))), this.state.showPopup1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
         title: this.state.text[0].title,
         closePopup: this.togglePopup1.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -66121,10 +66131,10 @@ function (_Component) {
         className: "lever"
       }), "Ja")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question col s1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
         onClick: this.togglePopup2.bind(this)
-      }))), this.state.showPopup2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
         title: this.state.text[1].title,
         closePopup: this.togglePopup2.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66132,8 +66142,8 @@ function (_Component) {
         style: hidden
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-field col s11"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_6___default.a, {
-        editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_7___default.a,
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_5___default.a, {
+        editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6___default.a,
         data: " ",
         config: {
           toolbar: [['Heading'], ['Bold'], ['Italic'], ['imageUpload']],
@@ -66146,10 +66156,10 @@ function (_Component) {
         }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question questionOwnText col s1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
         onClick: this.togglePopup3.bind(this)
-      }))), this.state.showPopup3 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup3 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
         title: this.state.text[2].title,
         closePopup: this.togglePopup3.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66174,10 +66184,10 @@ function (_Component) {
         type: "text"
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "question questionExFile col s1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faQuestionCircle"],
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faQuestionCircle"],
         onClick: this.togglePopup4.bind(this)
-      }))), this.state.showPopup4 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), this.state.showPopup4 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_popup_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
         title: this.state.text[3].title,
         closePopup: this.togglePopup4.bind(this)
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -66361,7 +66371,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-
+ // This class dictates the default structure of every page, containing navigation and header
 
 var Master =
 /*#__PURE__*/
@@ -66376,11 +66386,14 @@ function (_Component) {
 
   _createClass(Master, [{
     key: "componentDidMount",
+    // This function gets executed when the page loads
     value: function componentDidMount() {
+      // Forwards the page to overview else an empty page would show
       if (window.location.pathname == '/') {
         document.getElementById("overview").click();
       }
-    }
+    } // Render the navigation and header
+
   }, {
     key: "render",
     value: function render() {
@@ -66471,7 +66484,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // Shows the individual stories in cards with all the required information therein
 
 var Overview =
 /*#__PURE__*/
@@ -66483,7 +66496,9 @@ function (_Component) {
 
     _classCallCheck(this, Overview);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this));
+    // Execute constructor of component
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Overview).call(this)); // Set default values
+
     _this.state = {
       card: [],
       modal: null,
@@ -66491,7 +66506,8 @@ function (_Component) {
       selectValue: ""
     };
     return _this;
-  }
+  } // This function gets executed when the page loads
+
 
   _createClass(Overview, [{
     key: "componentDidMount",
@@ -66499,12 +66515,14 @@ function (_Component) {
       var _this2 = this;
 
       var sort = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      // Sets the initial state of the model that shows the examples of stories
       this.state.modal = M.Modal.init(document.getElementById('story_example'), {
         opacity: 0
-      });
+      }); // Determines in what order stories are displayed
 
       switch (sort) {
         case 'date':
+          // Gets stories ordered by date from the API
           fetch('/api/v1/overview?order=created_at:desc').then(function (response) {
             return response.json();
           }).then(function (responseJson) {
@@ -66515,6 +66533,7 @@ function (_Component) {
           break;
 
         case 'alpha':
+          // Gets stories ordered by alphabet from the API
           fetch('/api/v1/overview?order=title:asc').then(function (response) {
             return response.json();
           }).then(function (responseJson) {
@@ -66525,6 +66544,7 @@ function (_Component) {
           break;
 
         default:
+          // Gets stories
           fetch('/api/v1/overview').then(function (response) {
             return response.json();
           }).then(function (responseJson) {
@@ -66533,35 +66553,43 @@ function (_Component) {
             });
           });
       }
-    }
+    } // Handles active/nonactive states showing the stories based on the state of the switch
+
   }, {
     key: "toggleSwitch",
     value: function toggleSwitch() {
-      var elements = document.getElementsByClassName('notActive');
+      var elements = document.getElementsByClassName('notActive'); // Get all non active elements
+
       var i;
 
       for (i = 0; i < elements.length; i++) {
+        // If display is none then show the card else hide the card
         if (elements[i].parentNode.style.display === "none") {
           elements[i].parentNode.style.display = "block";
         } else {
           elements[i].parentNode.style.display = "none";
         }
       }
-    }
+    } // Removes story from DOM and Database based on given id
+
   }, {
     key: "deleteItem",
     value: function deleteItem(id) {
       var _this3 = this;
 
+      // Calls API function to delete a story
       fetch('/api/v1/story/' + id, {
         method: 'DELETE'
       }).then(function (response) {
         return response.json();
-      }).then(function (response) {
+      }) // Parses response to JSON
+      .then(function (response) {
+        // Give the user feedback
         if (response['response'] == "success") {
           toastr__WEBPACK_IMPORTED_MODULE_1___default.a.success('Het item is verwijderd!', '');
 
           _this3.setState({
+            // Filter out the removed card from the card list
             card: _this3.state.card.filter(function (s) {
               return s.storyId !== id;
             })
@@ -66570,7 +66598,8 @@ function (_Component) {
           toastr__WEBPACK_IMPORTED_MODULE_1___default.a.warning('dit item is al verwijderd', '');
         }
       });
-    }
+    } // Calls componentDidMount with the value of select box to sort the card list
+
   }, {
     key: "handleSorting",
     value: function handleSorting(event) {
@@ -66578,12 +66607,14 @@ function (_Component) {
     }
   }, {
     key: "showItem",
+    // Open modal and load data based on storyID
     value: function showItem(id) {
       this.setState({
         modalContent: "<iframe onload=\"this.style.display='block';document.getElementById('spinner').style.display = 'none';\" class=\"modal-container\" src=\"/api/v1/story/" + id + "/preview?overview\" frameborder=\"0\" style='display: none;'></iframe><svg id=\"spinner\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"spinner\" class=\"svg-inline--fa fa-spinner fa-w-32 fa-spin fa-pulse \" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path fill=\"currentColor\" d=\"M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z\"></path></svg>"
       });
       this.state.modal.open();
-    }
+    } // Renders the overview with the card components as well as the controls
+
   }, {
     key: "render",
     value: function render() {
@@ -66720,11 +66751,10 @@ function (_Component) {
           _this2.createChart('canvas' + index, item);
         });
       });
-      var script = document.createElement("script");
-      script.src = "js/hack-donutchart.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
+    } // Create chart based on id and data
+    // ID =   Unique number of chart/feedback
+    // Data = Object of given feedback
+
   }, {
     key: "createChart",
     value: function createChart(id, data) {
@@ -66772,7 +66802,8 @@ function (_Component) {
 
       this.state.canvasData[id] = canvasData;
       this.state.canvasSave[id] = ctx.getImageData(0, 0, c.width, c.height);
-    }
+    } // Hover to show feedback and values
+
   }, {
     key: "mouseEnter",
     value: function mouseEnter(e) {
@@ -66822,7 +66853,8 @@ function (_Component) {
 
         ctx.fillText(item.count, 250 + xLoc, 280 + yLoc);
       });
-    }
+    } // Disable hover
+
   }, {
     key: "mouseLeave",
     value: function mouseLeave(e) {
@@ -66984,8 +67016,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deDuikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
