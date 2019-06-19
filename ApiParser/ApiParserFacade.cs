@@ -26,9 +26,9 @@ namespace ApiParser
             Task saveStoriesAsync = Task.Run(async () => await SaveStoriesAsync());
             Task saveQuestionsAsync = Task.Run(async () => await SaveQuestionsAsync());
 
-            //saveItemOrdersAsync.Wait();
-            //saveStoriesAsync.Wait();
-            //saveQuestionsAsync.Wait();
+            saveItemOrdersAsync.Wait();
+            saveStoriesAsync.Wait();
+            saveQuestionsAsync.Wait();
 
             // Fill all the static collections from the json files
             AddItemOrder();
