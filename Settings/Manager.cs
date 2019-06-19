@@ -53,7 +53,7 @@ namespace Settings
                     {
                         continue;
                     }
-                    fromFile.Add(pair[0], pair[1]);
+                    fromFile.Add(pair[0], string.Join(":", pair.Skip(1).ToArray()));
                 }
                 catch { }
             }
@@ -92,7 +92,10 @@ namespace Settings
                 return value;
             }
 
-            //fromFile.Add(needle, defaultReturn);
+            if (!fromFile.ContainsKey(needle))
+            {
+                fromFile.Add(needle, defaultReturn);
+            }
 
             return defaultReturn;
         }
@@ -117,7 +120,10 @@ namespace Settings
                 return defaultReturn;
             }
 
-            //fromFile.Add(needle, defaultReturn.ToString());
+            if (!fromFile.ContainsKey(needle))
+            {
+                fromFile.Add(needle, defaultReturn.ToString());
+            }
 
             return defaultReturn;
         }

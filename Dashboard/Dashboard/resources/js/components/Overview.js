@@ -119,14 +119,14 @@ class Overview extends Component {
       <div className="overviewContentContainer">
         <div className="row overviewFilter">
           <div className="col s5 m2 l8 overviewLabel">Alle Items</div>
-          <div className="input-field col hide-on-small-only m2 l2 sortDropdown">
-            {/* Calls handleSorting function when switching */}
+           <div className="input-field col hide-on-small-only m2 l2 sortDropdown">
+             {/* Calls handleSorting function when switching  */}
             <select onChange={this.handleSorting.bind(this)}>
-              <option value="">Sorteer op..</option>
+              <option value="">Sorteer op ...</option>
               <option value="date">Datum (nieuw/oud)</option>
               <option value="alpha">Alfabetisch</option>
             </select>
-          </div>
+          </div> 
           <div className="col s7 m8 l2 overviewSwitch">
             {/* Calls toggleSwitch when clicking the switch */}
             <div className="switch" onChange={this.toggleSwitch.bind(this)}>

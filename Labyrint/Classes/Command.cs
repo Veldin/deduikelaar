@@ -50,6 +50,7 @@ namespace Labyrint
             // Subscribe to the log
             Log.Subscribe(this);
 
+            // Create the quick commands
             CreateQuickCommands();
         }
 
@@ -59,9 +60,18 @@ namespace Labyrint
             string[] split = message.GetFilePath().Split('\\');
             string className = split[split.Length - 1];
 
-            if (logClass.Contains(className) || logClass.Count == 0)
+            // Check if the message is equal or above the given LogLevel in the ini file
+            if ((int) message.GetLogLevel() >= SettingsFacade.Get("LogLevel", 2))
             {
-                DisplayLine(className + " " + message.GetMemberName() + " Line: " + message.GetLineNumber() + " " + message.GetLogLevel().ToString() + ": " + message.GetMessage());
+                // If the LogLevel in the ini file is info or above, display only the LogLevel and the message.
+                // Else the place where the message is called is added to the message
+                if (SettingsFacade.Get("LogLevel", 2) > 1)
+                {
+                    DisplayLine(message.GetLogLevel().ToString() + ": " + message.GetMessage());
+                } else
+                {
+                    DisplayLine(className + " " + message.GetMemberName() + " Line: " + message.GetLineNumber() + " " + message.GetLogLevel().ToString() + ": " + message.GetMessage());
+                }              
             }
         }
 
@@ -76,7 +86,7 @@ namespace Labyrint
 
             switch (key)
             {
-                case "Oem3":                // ` key. Activate and deactivated the commandBar
+                case "Escape":                // Esc key. Activate and deactivated the commandBar
                     SetActive();
                     break;
                 case "Return":              // Execute a command or enter a parameters
@@ -133,11 +143,15 @@ namespace Labyrint
 
         private bool ExecuteQuickCommand(string text)
         {
+            // Check if there is a quickcommand with that command
             if (quickCommands.ContainsKey(text))
             {
+                // Execute the method of the quickCommand
                 quickCommands[text].ExecuteMethod();
             }
 
+            // Below are the hardcode quickcommands 
+            // TODO set each in a class with the IQuickCommand interface
             switch (text)
             {
                 case "clear": 
@@ -156,13 +170,6 @@ namespace Labyrint
                 case "SettingsFacade.Save":
                     ExecuteMethod("Settings SettingsFacade.Save");
                     DisplayLine("Settings saved to the .ini file.");
-                    break;
-                case "logFilter.clear":
-                    logClass.Clear();
-                    Log.Debug("logFilter cleared");
-                    break;
-                case "logFilter.AddClass":
-                    ExecuteMethod("Labyrint Command.AddLogClass");                 
                     break;
                 case "collision":
                     engine.ActivateCollision();

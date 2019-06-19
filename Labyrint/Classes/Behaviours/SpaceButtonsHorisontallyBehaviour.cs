@@ -41,8 +41,19 @@ namespace Labyrint
             }
 
             int i = 0;
+
+            if (loopList is null)
+            {
+                loopList = new List<GameObject>();
+            }
+
             foreach (GameObject needle in loopList)
             {
+                if (needle is null)
+                {
+                    continue;
+                }
+
                 if (needle.BuilderType == "button")
                 {
                     buttonList.Add(needle);

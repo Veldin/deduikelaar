@@ -71,16 +71,27 @@
   margin: 0;
 }
 
+#superContainer .contentContainer .overviewFilter .sortDropdown option {
+  background-color: #1e344c;
+  cursor: pointer;
+}
+
 #superContainer .contentContainer .overviewFilter .sortDropdown select {
+  cursor: pointer;
   display: flex;
   justify-content: flex-end;
   border: none;
-  background-color: #26a69a;
+  border-bottom: white solid 2px;
+  background-color: transparent;
   color: white;
+  height: 2.5rem;
 }
 
-#superContainer .contentContainer .overviewFilter .sortDropdown select:hover {
-  background-color: #2bbbad;
+#superContainer .contentContainer .overviewFilter .sortDropdown select:visited,
+#superContainer .contentContainer .overviewFilter .sortDropdown select:focus,
+#superContainer .contentContainer .overviewFilter .sortDropdown select:checked {
+  border: none;
+  border-bottom: white solid 2px;
 }
 
 #superContainer .contentContainer .overviewFilter .overviewSwitch {
@@ -4036,7 +4047,7 @@ table span.badge {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  width: 90%;
+  width: 95%;
 }
 
 @media only screen and (min-width : 601px) {

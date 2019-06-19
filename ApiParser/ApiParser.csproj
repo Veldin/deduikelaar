@@ -61,6 +61,10 @@
       <Project>{7616142C-77AC-411B-ABB4-D38773455720}</Project>
       <Name>Log</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Settings\Settings.csproj">
+      <Project>{f3250d28-2b7f-42dd-b49f-c0937a624c65}</Project>
+      <Name>Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

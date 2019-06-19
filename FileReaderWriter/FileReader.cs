@@ -12,6 +12,7 @@ namespace FileReaderWriterSystem
     {
         private ReadFormatFactory factory;
         private Dictionary<string, IReadFormat> readFormats;
+        private static object locker = new object();
 
         public FileReader()
         {
@@ -27,52 +28,56 @@ namespace FileReaderWriterSystem
         /// <returns>Returns all text from the file</returns>
         public string ReadFile(string filePath, string readFormat = null, object value = null)
         {
-            // Check if a write format is requested
-            if (readFormat != null)
+            // Lock the whole process to make it thread safe
+            lock (locker)
             {
-                // Check if the write format does already exist
-                if (readFormats.ContainsKey(readFormat))
+                // Check if a write format is requested
+                if (readFormat != null)
                 {
-                    // Write the text with the method of the write format
-                    readFormats[readFormat].ReadFile(filePath, value);
-                    return null;
-                }
-                else
-                {
-                    // Try to add the write format to the writeformats dictionarty
-                    AddReadFormat(readFormat);
+                    // Check if the write format does already exist
+                    if (readFormats.ContainsKey(readFormat))
+                    {
+                        // Write the text with the method of the write format
+                        readFormats[readFormat].ReadFile(filePath, value);
+                        return null;
+                    }
+                    else
+                    {
+                        // Try to add the write format to the writeformats dictionarty
+                        AddReadFormat(readFormat);
+                    }
+
+                    // Try to write the text with the writeFormat
+                    if (readFormats.ContainsKey(readFormat))
+                    {
+                        readFormats[readFormat].ReadFile(filePath, value);
+                        return null;
+                    }
                 }
 
-                // Try to write the text with the writeFormat
-                if (readFormats.ContainsKey(readFormat))
-                {
-                    readFormats[readFormat].ReadFile(filePath, value);
-                    return null;
+                try
+                {   // Open the text file using a stream reader.
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        // Read the stream to a string
+                        String line = sr.ReadToEnd();
+
+                        // Log the file that is read
+                        Log.Debug("The following file is read: " + filePath);
+
+                        // Return the contents of the file
+                        return line;
+                    }
                 }
+                catch (IOException e)
+                {
+                    // Throw a warning
+                    Log.Warning("File '" + filePath + "' could not be read");
+                    Log.Warning(e.Message);
+                }
+
+                return null;
             }
-
-            try
-            {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader(filePath))
-                {
-                    // Read the stream to a string
-                    String line = sr.ReadToEnd();
-
-                    // Log the file that is read
-                    Log.Debug("The following file is read: " + filePath);
-                 
-                    // Return the contents of the file
-                    return line;
-                }
-            }
-            catch (IOException e)
-            {
-                // Throw a warning
-                Log.Warning("File '" + filePath + "' could not be read");
-                Log.Warning(e.Message);
-            }
-
-            return null;
         }
 
         /// <summary>
