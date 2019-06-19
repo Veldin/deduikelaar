@@ -53,7 +53,7 @@ namespace Settings
                     {
                         continue;
                     }
-                    fromFile.Add(pair[0], pair[1]);
+                    fromFile.Add(pair[0], string.Join(":", pair.Skip(1).ToArray()));
                 }
                 catch { }
             }
