@@ -120,7 +120,10 @@ namespace Settings
                 return defaultReturn;
             }
 
-            //fromFile.Add(needle, defaultReturn.ToString());
+            if (!fromFile.ContainsKey(needle))
+            {
+                fromFile.Add(needle, defaultReturn.ToString());
+            }
 
             return defaultReturn;
         }
