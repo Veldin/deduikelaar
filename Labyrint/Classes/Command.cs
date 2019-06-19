@@ -50,6 +50,7 @@ namespace Labyrint
             // Subscribe to the log
             Log.Subscribe(this);
 
+            // Create the quick commands
             CreateQuickCommands();
         }
 
@@ -76,7 +77,7 @@ namespace Labyrint
 
             switch (key)
             {
-                case "Oem3":                // ` key. Activate and deactivated the commandBar
+                case "Escape":                // ` key. Activate and deactivated the commandBar
                     SetActive();
                     break;
                 case "Return":              // Execute a command or enter a parameters

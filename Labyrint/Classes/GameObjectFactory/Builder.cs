@@ -71,7 +71,7 @@ namespace GameObjectFactory
                     gameObject.onTickList.Add(new PickupCollisionBehavior(value));
                     gameObject.onTickList.Add(new HaveAStoryBehaviour(gameObject));
 
-                    gameObject.MovementSpeed = 1200;
+                    gameObject.MovementSpeed = 800;
 
                     gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 

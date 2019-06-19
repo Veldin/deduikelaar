@@ -296,7 +296,7 @@ namespace Maze
             }
 
             Maze maze = null;
-            if (countCellsWithMoreThenThreeNeighbours < 3)
+            if (countCellsWithMoreThenThreeNeighbours < 4)
             {
                 maze = GetNewMaze(leftSize, rightSize); //Remake the maze
             }
