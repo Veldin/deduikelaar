@@ -6,24 +6,22 @@ using System.Threading.Tasks;
 
 namespace Labyrint
 {
-    public class QCQuit : IQuickCommand
+    class QCHelp : IQuickCommand
     {
         private string command { get; }
         private string description { get; }
         private string title { get; }
         private string helpCommand { get; }
-        private MainWindow mainWindow;
         private Command commandClass;
 
-        public QCQuit(MainWindow mainWindow, Command commandClass)
+        public QCHelp(MainWindow mainWindow, Command commandClass)
         {
-            this.mainWindow = mainWindow;
             this.commandClass = commandClass;
 
-            command = "quit";
-            helpCommand = "help quit";
-            description = "This quick command closes the application.";
-            title = "Quit";
+            command = "help";
+            helpCommand = "help help";
+            description = "This quick command explains how to get the description of the other quick commands and shows all quick commands.";
+            title = "Help";
         }
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace Labyrint
         /// <returns>Returns whether is was executed succesfully</returns>
         public bool ExecuteMethod()
         {
-            mainWindow.CloseApp();
+            commandClass.Help();
             return true;
         }
 

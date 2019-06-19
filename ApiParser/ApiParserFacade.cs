@@ -26,9 +26,9 @@ namespace ApiParser
             Task saveStoriesAsync = Task.Run(async () => await SaveStoriesAsync());
             Task saveQuestionsAsync = Task.Run(async () => await SaveQuestionsAsync());
 
-            //saveItemOrdersAsync.Wait();
-            //saveStoriesAsync.Wait();
-            //saveQuestionsAsync.Wait();
+            saveItemOrdersAsync.Wait();
+            saveStoriesAsync.Wait();
+            saveQuestionsAsync.Wait();
 
             // Fill all the static collections from the json files
             AddItemOrder();
@@ -94,7 +94,7 @@ namespace ApiParser
                     StringContent content = new StringContent(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json"), UnicodeEncoding.UTF8, "application/json");
 
                     // Sent the JSOn to the API
-                    HttpResponseMessage response = await client.PostAsync("http:////" + SettingsFacade.Get("FeedbackEndpoint", "http://localhost:8000/api/v1/feedback"), content);
+                    HttpResponseMessage response = await client.PostAsync(SettingsFacade.Get("FeedbackEndpoint", "http://localhost:8000/api/v1/feedback"), content);
 
                     // Get the response of the api
                     string success = await response.Content.ReadAsStringAsync();

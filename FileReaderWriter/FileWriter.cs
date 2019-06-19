@@ -12,6 +12,7 @@ namespace FileReaderWriterSystem
     {
         private Dictionary<string, IWriteFormat> writeFormats;
         private WriteFormatFactory factory;
+        private static object locker = new object();
 
         public FileWriter()
         {
@@ -58,39 +59,43 @@ namespace FileReaderWriterSystem
         /// <param name="append">If true the text will be added to the file. If false the new text will overwrite all already existing text.</param>
         public void WriteText(string[] text, string filePath, bool append, string writeFormat = null)
         {
-            // Check if a write format is requested
-            if (writeFormat != null)
+            // Lock the whole process to make it thread safe
+            lock (locker)
             {
-                // Check if the write format does already exist
-                if (writeFormats.ContainsKey(writeFormat))
+                // Check if a write format is requested
+                if (writeFormat != null)
                 {
-                    // Write the text with the method of the write format
-                    writeFormats[writeFormat].WriteText(text, filePath, append);
-                    return;
-                }
-                else
-                {
-                    // Try to add the write format to the writeformats dictionarty
-                    AddWriteFormat(writeFormat);
+                    // Check if the write format does already exist
+                    if (writeFormats.ContainsKey(writeFormat))
+                    {
+                        // Write the text with the method of the write format
+                        writeFormats[writeFormat].WriteText(text, filePath, append);
+                        return;
+                    }
+                    else
+                    {
+                        // Try to add the write format to the writeformats dictionarty
+                        AddWriteFormat(writeFormat);
+                    }
+
+                    // Try to write the text with the writeFormat
+                    if (writeFormats.ContainsKey(writeFormat))
+                    {
+                        writeFormats[writeFormat].WriteText(text, filePath, append);
+                        return;
+                    }
                 }
 
-                // Try to write the text with the writeFormat
-                if (writeFormats.ContainsKey(writeFormat))
+                using (StreamWriter outputFile = new StreamWriter(filePath, append))
                 {
-                    writeFormats[writeFormat].WriteText(text, filePath, append);
-                    return;
-                }                
+                    // Write the lines one by one in the file
+                    foreach (string line in text)
+                    {
+                        outputFile.WriteLine(line);
+                    }
+                }
+                Log.Debug("Text is written in " + filePath);
             }
-
-            using (StreamWriter outputFile = new StreamWriter(filePath, append))
-            {
-                // Write the lines one by one in the file
-                foreach (string line in text)
-                {
-                    outputFile.WriteLine(line);
-                } 
-            }
-            Log.Debug("Text is written in " + filePath);
         }
 
         /// <summary>

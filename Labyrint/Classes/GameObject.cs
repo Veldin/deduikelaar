@@ -22,40 +22,52 @@ namespace GameObjectFactory
     {
         private Dictionary<string, BitmapImage> bitmaps;
 
-        //Target!
+        // The target this gameobject uses.
+        // This gets used to know where the gameObject wants to go.
         protected Target target;
 
-        //Strategies
+        //List with Strategies that get run onTick
         public List<IBehaviour> onTickList;
 
-        //Location where this gameObject is within the game.
-        //This is also used for the hitbox 
+        // Location where this gameObject is within the game.
+        // This is also used for the hitbox 
         private float width;
         private float height;
         private float fromLeft;
         private float fromTop;
 
-        //Offset where to draw the gameObject in the game.
-        //The Sprite can be bigger or smaller then the hitbox.
-        //The sprite can be more to the left or right then the hitbox.
+        // Offset where to draw the gameObject in the game.
+        // The Sprite can be bigger or smaller then the hitbox.
+        // The sprite can be more to the left or right then the hitbox.
         private float leftDrawOffset;
         private float rightDrawOffset;
         private float topDrawOffset;
         private float bottomDrawOffset;
 
+        // Rectangle and Textblock can get rendered in the canvas.
+        // The rectangle always gets rendered and the textblock only if its not null
         public Rectangle rectangle;
         public TextBlock textBlock;
 
+        // Holds the assemblyName to locate the sprites
         public string assemblyName;
 
+        // Holds an instance of the random class
         public Random random;
+
+        // If this boolean is set to true the engine will consider this to be destroyed.
         public Boolean destroyed;
 
+        // This boolean dictates if the engine should treat this object as important to see.
         public Boolean highVisibility;
 
+        // This is the movementSpeed in units that this gameObject can go
         private float movementSpeed;
+
+        // GameObjects can be internaly grouped
         private int group;
 
+        // If the collition boolean is false the move methods wont check for collition bevore moving the gameObject
         private Boolean collision;
 
         //Holds the string the builder used to make this object.
