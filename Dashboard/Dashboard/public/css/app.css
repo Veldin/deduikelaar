@@ -76,10 +76,6 @@
   cursor: pointer;
 }
 
-#superContainer .contentContainer .overviewFilter .sortDropdown option:hover {
-  background-color: greenyellow;
-}
-
 #superContainer .contentContainer .overviewFilter .sortDropdown select {
   cursor: pointer;
   display: flex;
