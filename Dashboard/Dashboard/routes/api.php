@@ -30,11 +30,11 @@ Route::delete('storyItem/{storyItemId}', 'Api\StoryApiController@deleteStoryItem
 
 Route::prefix('story')->group(function() {
 
-    Route::post('story/', 'Api\StoryApiController@newStory');
-    Route::get('story/{storyId}', 'Api\StoryApiController@getStory');
-    Route::get('story/{storyId}/preview', 'Api\StoryApiController@previewStory');
-    Route::post('story/{storyId}/change', 'Api\StoryApiController@changeStory');
-    Route::get('story/{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
+    Route::post('/', 'Api\StoryApiController@newStory');
+    Route::get('{storyId}', 'Api\StoryApiController@getStory');
+    Route::get('{storyId}/preview', 'Api\StoryApiController@previewStory');
+    Route::post('{storyId}/change', 'Api\StoryApiController@changeStory');
+    Route::get('{storyId}/{active}', 'Api\StoryApiController@storyChangeActive')->where([
         'active' => '(deactivate|activate)'
     ]);
     Route::delete('{storyId}', 'Api\StoryApiController@deleteStory');
