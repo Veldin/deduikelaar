@@ -92,7 +92,10 @@ namespace Settings
                 return value;
             }
 
-            //fromFile.Add(needle, defaultReturn);
+            if (!fromFile.ContainsKey(needle))
+            {
+                fromFile.Add(needle, defaultReturn);
+            }
 
             return defaultReturn;
         }
