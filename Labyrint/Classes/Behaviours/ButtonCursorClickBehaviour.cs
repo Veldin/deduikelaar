@@ -11,6 +11,9 @@ using LogSystem;
 
 namespace Labyrint
 {
+    /// <summary>
+    /// Check if a button is clicked and save the responce.
+    /// </summary>
     class ButtonCursorClickBehaviour : IBehaviour
     {
         GameObject cursor;

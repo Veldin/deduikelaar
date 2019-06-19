@@ -8,6 +8,9 @@ using LogSystem;
 
 namespace Labyrint
 {
+    /// <summary>
+    /// Used to animate the Opacity to the maxOpacity.
+    /// </summary>
     class AnimateOpacityBehaviour : IBehaviour
     {
         private float currentDelta;

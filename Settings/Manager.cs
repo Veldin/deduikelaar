@@ -10,8 +10,15 @@ namespace Settings
 {
     public class Manager
     {
+        // Holds the settings that are gotten from the file and are written to the file again on save.
         private static Dictionary<string, string> fromFile;
+
+        // Holds default settings that are set in the contructor.
         private static Dictionary<string, string> defaults;
+
+        // Holds the combination of the fromFile and the defaults.
+        // This one gets checked for the geting and setting of settings.
+        // (The fromFile wil have prioritiy during merging.)
         private static Dictionary<string, string> merge;
 
         public Manager()
