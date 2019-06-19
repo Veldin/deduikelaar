@@ -29,6 +29,7 @@ namespace Settings
         public static void Save()
         {
             manager.PopulateToIni();
+            manager.RefeshSettings();
         }
 
         /// <summary>

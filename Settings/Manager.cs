@@ -33,6 +33,24 @@ namespace Settings
         }
 
         /// <summary>
+        /// Reload the settings from the options.ini file
+        /// </summary>
+        public void RefeshSettings()
+        {
+            // Clear the fromFile and merge lists
+            fromFile.Clear();
+            merge.Clear();
+
+            //Populate the fromFile dictionary from the options.ini
+            PopulateFromIni();
+
+            //Merge the defauts to the fromFile. The fromFile wil have prioritiy;
+            merge = fromFile.Concat(defaults)
+                .ToLookup(x => x.Key, x => x.Value)
+                .ToDictionary(x => x.Key, g => g.First());
+        }
+
+        /// <summary>
         /// Populates the fromFile dictionary from the options.ini
         /// </summary>
         public void PopulateFromIni()
