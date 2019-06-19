@@ -47,13 +47,13 @@ namespace Labyrint
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
         {
-            //If the anchor is null search an anchor.
-            if (pointer == null)
-            {
-                pointer = GameObjectFactoryFacade.GetGameObject("pointer", destinationFromLeft, destinationFromTop);
-                pointer.Target = new Target(0,0);
-                gameObjects.Add(pointer);
-            }
+            ////If the anchor is null search an anchor.
+            //if (pointer == null)
+            //{
+            //    pointer = GameObjectFactoryFacade.GetGameObject("pointer", destinationFromLeft, destinationFromTop);
+            //    pointer.Target = new Target(0,0);
+            //    gameObjects.Add(pointer);
+            //}
 
 
             //If the anchor is null search an anchor.
@@ -94,7 +94,7 @@ namespace Labyrint
             if (diffFromTopAbs > 300 || diffFromLeftAbs > 550)
             {
                 //Show the arrow
-                pointer.SetOpacity(1);
+                //pointer.SetOpacity(1);
 
                 if (!modifiersApplied)
                 {
@@ -128,25 +128,25 @@ namespace Labyrint
                     gameobject.Target.AddFromTop(percentageFromLeft * 2.5f);
                 }
 
-                pointer.Target = new Target(gameobject, false);
-                if (diffFromTop > 0)
-                {
-                    pointer.Target.AddFromTop((percentageFromLeft * -1) / 5);
-                }
-                else
-                {
-                    pointer.Target.AddFromTop(percentageFromLeft / 5);
-                }
+                //pointer.Target = new Target(gameobject, false);
+                //if (diffFromTop > 0)
+                //{
+                //    pointer.Target.AddFromTop((percentageFromLeft * -1) / 5);
+                //}
+                //else
+                //{
+                //    pointer.Target.AddFromTop(percentageFromLeft / 5);
+                //}
 
-                if (diffFromLeft > 0)
-                {
-                    pointer.Target.AddFromLeft((percentageFromTop * -1) / 5);
-                }
-                else
-                {
-                    pointer.Target.AddFromLeft(percentageFromTop / 5);
+                //if (diffFromLeft > 0)
+                //{
+                //    pointer.Target.AddFromLeft((percentageFromTop * -1) / 5);
+                //}
+                //else
+                //{
+                //    pointer.Target.AddFromLeft(percentageFromTop / 5);
 
-                }
+                //}
 
 
 
@@ -166,7 +166,7 @@ namespace Labyrint
                 gameobject.Target.SetFromTop(destinationFromTop);
 
                 //And hide the arrow
-                pointer.SetOpacity(0);
+                //pointer.SetOpacity(0);
             }
 
             return true;

@@ -3,23 +3,31 @@ import HSBar from 'react-horizontal-stacked-bar-chart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 
+// Hook to load in the cards
 const card = (props) => {
+  // Declare variables that access methods in the overview class using dependency injection
   const deleteItem = () => props.onDelete(props.storyID);
   const showItem = () => props.onShow(props.storyID);
 
+  // Creates a feedback bar for each feedbackType in a story
   function createBarData(toDataArray){
     var data = [];
+
+    // Declare the colours the bar uses
     var colors = ["#009688","#84c7c1","#ff0043","#e7edf2"];
 
+    // Data to loop through
     var toloop = toDataArray.cardInfo[0];
     toloop.forEach(function(element) {
+      // Check if feedback matches the correct story by comparing IDs
       if(toDataArray.storyID == element.storyId){
-        var i = 0;
         element.feedback.forEach(function(feedbackItem) {
+          // If oneWord is undefined, feedbackType doesn't exist
           if (typeof data[feedbackItem.oneWord] === 'undefined') {
             data[feedbackItem.oneWord] = [];
           }
 
+          // Loop through data and set each feedbackType with its data
           Object.entries(feedbackItem.feedback).map((element, index) =>
               data[feedbackItem.oneWord][index] ={value: element[1].count, description: element[1].count, color: colors[index]}
           );
@@ -27,9 +35,11 @@ const card = (props) => {
       }
     });
     
+    // Returns all the loaded data of feedback
     return data;
   }
 
+  // Adds/Removes class based on switch state of card
   function toggleSwitch(){
     var card = document.getElementById(props.storyID);
     if(card.firstChild.classList.contains('active')){
@@ -41,6 +51,7 @@ const card = (props) => {
     }
   }
 
+  // Renders the JSX of the cards
   return (        
     <div className="cardBox col s12 m4" id={props.storyID}>
       {props.active ? (
@@ -89,6 +100,7 @@ const card = (props) => {
             </div>
           </div>
           <div className="row feedback">
+          {/* Loops through the feedback and makes a bar for each feedbackType */}
           {Object.entries(createBarData(props)).map((element, index) =>
               <span key={element[0]}>
                 <div key={element[0]}>
@@ -113,5 +125,5 @@ const card = (props) => {
 
 
 };
-
+// Exports data to use
 export default card;

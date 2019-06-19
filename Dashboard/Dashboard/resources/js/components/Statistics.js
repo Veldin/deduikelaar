@@ -19,22 +19,15 @@ class Statistics extends Component {
           card: responseJson
         });
 
-          responseJson.map((item, index) => {
-
-              this.createChart('canvas'+index, item);
-
-          })
+        responseJson.map((item, index) => {
+            this.createChart('canvas'+index, item);
+        })
       });
-
-      const script = document.createElement("script");
-      script.src = "js/hack-donutchart.js";
-      script.async = true;
-      document.body.appendChild(script);
-
-
-
   }
 
+  // Create chart based on id and data
+  // ID =   Unique number of chart/feedback
+  // Data = Object of given feedback
   createChart(id, data){
 
       var total = parseInt(data['count']);
@@ -86,6 +79,7 @@ class Statistics extends Component {
 
   }
 
+  // Hover to show feedback and values
   mouseEnter (e) {
       var c = e.target;
       var ctx = c.getContext("2d");
@@ -126,32 +120,28 @@ class Statistics extends Component {
       });
   }
 
+  // Disable hover
   mouseLeave (e) {
       var c = e.target;
       var ctx = c.getContext("2d");
       ctx.putImageData(this.state.canvasSave[c.id], 0, 0);
   }
 
-
-
   render(){
-      return (
-              <div className="statisticsContentContainer">
-                  <div className="row statisticsFilter">
-                      <div className="col s12 m2 l2 offset-m10 offset-l10 statisticsLabel">Statestieken</div>
-                  </div>
-                  <div className="row allCharts">
-                  {this.state.card.map((item, index) => {
-
-
-                      return <div className="col s12 m6 l6 chart" key={index}>
-                          <canvas id={"canvas"+index} onMouseEnter={this.mouseEnter.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}></canvas>
-                      </div>
-
-                  })}
-                  </div>
-              </div>
-      )
+    return (
+        <div className="statisticsContentContainer">
+            <div className="row statisticsFilter">
+                <div className="col s12 m2 l2 offset-m10 offset-l10 statisticsLabel">Statestieken</div>
+            </div>
+            <div className="row allCharts">
+            {this.state.card.map((item, index) => {
+                return <div className="col s12 m6 l6 chart" key={index}>
+                    <canvas id={"canvas"+index} onMouseEnter={this.mouseEnter.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}></canvas>
+                </div>
+            })}
+            </div>
+        </div>
+    )
   }
 }
 export default Statistics;

@@ -5,6 +5,7 @@ using FileReaderWriterSystem;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text;
+using Settings;
 using System;
 
 namespace ApiParser
@@ -25,9 +26,9 @@ namespace ApiParser
             Task saveStoriesAsync = Task.Run(async () => await SaveStoriesAsync());
             Task saveQuestionsAsync = Task.Run(async () => await SaveQuestionsAsync());
 
-            saveItemOrdersAsync.Wait();
-            saveStoriesAsync.Wait();
-            saveQuestionsAsync.Wait();
+            //saveItemOrdersAsync.Wait();
+            //saveStoriesAsync.Wait();
+            //saveQuestionsAsync.Wait();
 
             // Fill all the static collections from the json files
             AddItemOrder();
@@ -89,14 +90,19 @@ namespace ApiParser
                 // Call asynchronous network methods in a try/catch block to handle exceptions
                 try
                 {
+                    // Set the JSON as stringcontent
                     StringContent content = new StringContent(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "Items\\Statistics.json"), UnicodeEncoding.UTF8, "application/json");
-                    
-                    HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/v1/feedback", content);
 
+                    // Sent the JSOn to the API
+                    HttpResponseMessage response = await client.PostAsync("http:////" + SettingsFacade.Get("FeedbackEndpoint", "http://localhost:8000/api/v1/feedback"), content);
+
+                    // Get the response of the api
                     string success = await response.Content.ReadAsStringAsync();
 
+                    // Inform the programmer
                     Log.Debug(success);
 
+                    // If the response contains succes return true
                     if (success.Contains("success"))
                     {
                         return true;
@@ -106,7 +112,8 @@ namespace ApiParser
                 }
                 catch (HttpRequestException e)
                 {
-                    Log.Warning("Api call failed. http://localhost:8000/api/v1/feedback can not be found.");
+                    // Throw a warning and return false
+                    Log.Warning("Api call failed.");
                     return false;
                 }
             }
@@ -310,8 +317,10 @@ namespace ApiParser
         /// </summary>
         public static async Task SaveStoriesAsync()
         {
+            Log.Debug(SettingsFacade.Get("StoriesEndpoint", "http://localhost:8000/api/v1/stories"));
             // Call the json text from the api
-            string json = await CallApi("http://localhost:8000/api/v1/stories");
+            string json = await CallApi(SettingsFacade.Get("StoriesEndpoint", "http://localhost:8000/api/v1/stories"));
+            
 
             // Null check
             if (json == null)
@@ -344,8 +353,9 @@ namespace ApiParser
         /// </summary>
         public static async Task SaveQuestionsAsync()
         {
+            Log.Debug(SettingsFacade.Get("QuestionsEndpoint", "http://localhost:8000/api/v1/feedback"));
             // Call the json text from the api
-            string json = await CallApi("http://localhost:8000/api/v1/feedback");
+            string json = await CallApi(SettingsFacade.Get("QuestionsEndpoint", "http://localhost:8000/api/v1/feedback"));
 
             // Null check
             if (json == null)
@@ -378,8 +388,9 @@ namespace ApiParser
         /// </summary>
         public static async Task SaveItemOrdersAsync()
         {
+            Log.Debug(SettingsFacade.Get("OrderEndpoint", "http://localhost:8000/api/v1/order"));
             // Call the json text from the api
-            string json = await CallApi("http://localhost:8000/api/v1/order");
+            string json = await CallApi(SettingsFacade.Get("OrderEndpoint", "http://localhost:8000/api/v1/order"));
 
             // Null check
             if (json == null)
