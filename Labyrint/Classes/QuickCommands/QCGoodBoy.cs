@@ -11,6 +11,7 @@ namespace Labyrint
         private string command { get; }
         private string description { get; }
         private string title { get; }
+        private string helpCommand { get; }
         private Command commandClass;
 
         public QCGoodBoy(MainWindow mainWindow, Command commandClass)
@@ -18,6 +19,7 @@ namespace Labyrint
             this.commandClass = commandClass;
 
             command = "who is a good boy?";
+            helpCommand = "help who is a good boy?";
             description = "This quick command tells who is a good boy.";
             title = "GoodBoy";
         }
@@ -57,6 +59,23 @@ namespace Labyrint
         public string GetTitle()
         {
             return title;
+        }
+
+        /// <summary>
+        /// This method returns the commmand that should be used to execute the helpCommand
+        /// </summary>
+        /// <returns>returns the commmand that should be used to execute the helpCommand</returns>
+        public string GetHelpCommand()
+        {
+            return helpCommand;
+        }
+
+        /// <summary>
+        /// This method executes the helpCommand which should inform the user about this command
+        /// </summary>
+        public void ExecuteHelpCommand()
+        {
+            commandClass.DisplayLine(description);
         }
     }
 }

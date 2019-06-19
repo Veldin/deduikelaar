@@ -113,8 +113,12 @@
     <Compile Include="Classes\GameObjectFactory\Pool.cs" />
     <Compile Include="Classes\IBehaviour.cs" />
     <Compile Include="Classes\IQuickCommand.cs" />
+    <Compile Include="Classes\QuickCommands\QCClear.cs" />
+    <Compile Include="Classes\QuickCommands\QCCollision.cs" />
     <Compile Include="Classes\QuickCommands\QCGoodBoy.cs" />
+    <Compile Include="Classes\QuickCommands\QCHelp.cs" />
     <Compile Include="Classes\QuickCommands\QCQuit.cs" />
+    <Compile Include="Classes\QuickCommands\QCResetControls.cs" />
     <Compile Include="Classes\Target.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
