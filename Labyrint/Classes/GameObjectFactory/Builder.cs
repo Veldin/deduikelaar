@@ -98,7 +98,7 @@ namespace GameObjectFactory
                     gameObject.highVisibility = true;
                     gameObject.Collition = false;
 
-                    gameObject.setActiveBitmap("Assets/Sprites/Orb" + gameObject.random.Next(4) + ".gif");
+                    gameObject.setActiveBitmap("Assets/Sprites/Orb.gif");
 
                     break;
                 case "pointer":
@@ -110,7 +110,7 @@ namespace GameObjectFactory
                     gameObject.highVisibility = true;
                     gameObject.Collition = false;
 
-                    gameObject.setActiveBitmap("Assets/Sprites/Orb" + gameObject.random.Next(4) + ".gif");
+                    gameObject.setActiveBitmap("Assets/Sprites/Orb.gif");
 
                     break;
                 case "button":      // value = new object[] { camera, storyId, anwserId, browser }
