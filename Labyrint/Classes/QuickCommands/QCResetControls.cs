@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Labyrint
 {
-    public class QCQuit : IQuickCommand
+    class QCResetControls : IQuickCommand
     {
         private string command { get; }
         private string description { get; }
@@ -15,15 +15,15 @@ namespace Labyrint
         private MainWindow mainWindow;
         private Command commandClass;
 
-        public QCQuit(MainWindow mainWindow, Command commandClass)
+        public QCResetControls(MainWindow mainWindow, Command commandClass)
         {
             this.mainWindow = mainWindow;
             this.commandClass = commandClass;
 
-            command = "quit";
-            helpCommand = "help quit";
-            description = "This quick command closes the application.";
-            title = "Quit";
+            command = "resetControls";
+            helpCommand = "help resetControls";
+            description = "This quick command resets the controls by unpressing all keys and destroying all gameObjects that are needed for the controls";
+            title = "resetControls";
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Labyrint
         /// <returns>Returns whether is was executed succesfully</returns>
         public bool ExecuteMethod()
         {
-            mainWindow.CloseApp();
+            mainWindow.ResetControls();
             return true;
         }
 
@@ -81,3 +81,4 @@ namespace Labyrint
         }
     }
 }
+

@@ -20,11 +20,10 @@ namespace Labyrint
         private TextBox commandBar;                                 // The upper textbox where the commands are filled in
         private TextBox commandResponse;                            // The lower textbox where the feedback is given
         private bool active;                                        // If this bool is true commands can be typed
-        private List<string> logClass;                              // If filled only messages from those classes will be shown
         private MethodInfo methodInfo;                              // This is the method info of a method whereby the parameters still needs to be given
         private List<string> commandHistory;                        // In this list are all the commands saved that are made
         private int historyIndex = -1;                              // This index shows the command that is displayed in the commandHistory. If no command in the commandHistory is displayed the value is -1
-        private Dictionary<string, IQuickCommand> quickCommands;    // This dictionary holds all the quickCommands
+        private HashSet<IQuickCommand> quickCommands;               // This dictionary holds all the quickCommands
 
         public Command(MainWindow engine, TextBox commandBar, TextBox commandResponse)
         {
@@ -33,9 +32,8 @@ namespace Labyrint
             this.commandBar = commandBar;
             this.commandResponse = commandResponse;
             active = false;
-            logClass = new List<string>();
             methodInfo = null;
-            quickCommands = new Dictionary<string, IQuickCommand>();
+            quickCommands = new HashSet<IQuickCommand>();
             
             // Get the commandHistory and reverse it
             commandHistory = FileReaderWriterFacade.ReadLines(FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt");
@@ -54,12 +52,17 @@ namespace Labyrint
             CreateQuickCommands();
         }
 
+        /***************************************************************************
+         * METHODS FORM INTERFACE OR ABSTRACT
+         * ************************************************************************/
+        #region mandatoryMethods
+
+        /// <summary>
+        /// This method displays the LogMessages in de commandResponse
+        /// </summary>
+        /// <param name="message">The logMessage from the Log</param>
         public void LogUpdate(LogMessage message)
         {
-            // Write message into the commandResponse
-            string[] split = message.GetFilePath().Split('\\');
-            string className = split[split.Length - 1];
-
             // Check if the message is equal or above the given LogLevel in the ini file
             if ((int) message.GetLogLevel() >= SettingsFacade.Get("LogLevel", 2))
             {
@@ -70,61 +73,99 @@ namespace Labyrint
                     DisplayLine(message.GetLogLevel().ToString() + ": " + message.GetMessage());
                 } else
                 {
+                    // Write message into the commandResponse
+                    string[] split = message.GetFilePath().Split('\\');
+                    string className = split[split.Length - 1];
+
+                    // Display the data of the LogMessage in the commandResponse
                     DisplayLine(className + " " + message.GetMemberName() + " Line: " + message.GetLineNumber() + " " + message.GetLogLevel().ToString() + ": " + message.GetMessage());
                 }              
             }
         }
 
+        #endregion
+
+        /***************************************************************************
+         * PUBLIC METHODS
+         * ************************************************************************/
+        #region publicMetods
+
+        /// <summary>
+        /// This method handles the incoming key input
+        /// </summary>
+        /// <param name="input">The key that has been pressed on the keyboard</param>
         public void KeyPressed(KeyEventArgs input)
         {
+            // Get the character(s) of the key that has been pressed
             string key = input.Key.ToString();
 
+            // If the key is a deadCharProcessed get the key
             if (key == "DeadCharProcessed")
             {
                 key = input.DeadCharProcessedKey.ToString();
             }
 
+            // In this switch case are the keys handled
             switch (key)
             {
                 case "Escape":                // Esc key. Activate and deactivated the commandBar
                     SetActive();
                     break;
-                case "Return":              // Execute a command or enter a parameters
+                case "Return":                  // Execute a command or enter a parameters
+                    // Check if the commandBar is active
                     if (!active) { return; }
+
+                    // If the methodInfo is not null the user is in the process of executing a method with parameters, continue this process
+                    // Else execute the method if it is not a quickCommand
                     if (methodInfo != null)
                     {
                         ExecuteMethodWithParameters(commandBar.Text);
                     }
                     else
                     {
+                        // Try to execute a QuickCommand, if it fails try to execute the text in the commandBar as method
                         if (!ExecuteQuickCommand(commandBar.Text))
                         {
                             ExecuteMethod(commandBar.Text);
                         }
                     }
 
+                    // Save the typed text by writing the input in a list and in a file
                     WriteInput(commandBar.Text);
+
+                    // Clear the commandBar
                     commandBar.Text = "";
                     break;
                 case "Up":                  // Go through the command history
-                    if (active && historyIndex +1 < commandHistory.Count)
+                    // Check if the commandBar is active and if the historyIndex is still in range of the CommandHistory list
+                    if (active && historyIndex + 1 < commandHistory.Count)
                     {
+                        // Increase the history index
                         historyIndex++;
+
+                        // Set the command history in the commandBar
                         commandBar.Text = commandHistory[historyIndex];
                     }
                     break;
                 case "Down":                // Go through the command history
-                    if (active && historyIndex -1 > -1)
+
+                    // Check if the commandBar is active and if the historyIndex is still in range of the CommandHistory list
+                    if (active && historyIndex - 1 > -1)
                     {
+                        // Decrease the history index
                         historyIndex--;
+
+                        // Set the command history in the commandBar
                         commandBar.Text = commandHistory[historyIndex];
                     }
-                    if (historyIndex -1 == -1)
+
+                    // If the historyIndex is -1, clear the commandBar
+                    if (historyIndex - 1 == -1)
                     {
                         commandBar.Text = "";
                     }
                     break;
-                case "Tab":
+                case "Tab":                 // Try to autofill the current text in the commandBar
                     AutoFill();
                     break;
             }
@@ -135,52 +176,100 @@ namespace Labyrint
             commandBar.Focus();
         }
 
-        public void AddLogClass(string className)
+        /// <summary>
+        /// This method displays a line of text in the commandResponse
+        /// </summary>
+        /// <param name="text">The text that is gonna be displayed in the commandResponse</param>
+        public void DisplayLine(string text)
         {
-            logClass.Add(className);
-            Log.Debug(className + " added to the logFilter");
+            // Try to invoke the UI thread
+            try
+            {
+                //Run it in the UI thread
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    commandResponse.Text = text + "\n" + commandResponse.Text;
+                });
+            }
+            catch
+            {
+                Log.Debug("Failed to invoke the Ui thread");
+            }
+           
         }
 
+        /// <summary>
+        /// This method clears the commandResponse
+        /// </summary>
+        public void ClearCommandResponse()
+        {
+            // Clear the commandResponse
+            commandResponse.Text = "";
+        }
+
+        /// <summary>
+        /// This method provides help with using the quickCommands
+        /// </summary>
+        public void Help()
+        {
+            // Loop through every quickCommand to display all quick commands
+            foreach (IQuickCommand quickCommand in quickCommands)
+            {
+                // Display the command of the quick command
+                DisplayLine(quickCommand.GetCommand());
+            }
+
+            // Give the user help for using the quickCommands
+            DisplayLine("To get more information about the quick command type: help <command>");
+            DisplayLine("Below are all the quick commands.");
+        }
+
+        #endregion
+
+        /***************************************************************************
+         * PRIVATE METHODS
+         * ************************************************************************/
+        #region privateMethods
+
+        /// <summary>
+        /// This method will check if there are QuickCommands that can be executed by the given text and executed them if possible
+        /// </summary>
+        /// <param name="text">A command of a QuickCommand</param>
+        /// <returns>Returns a bool whether a QuickCommand is executed</returns>
         private bool ExecuteQuickCommand(string text)
         {
-            // Check if there is a quickcommand with that command
-            if (quickCommands.ContainsKey(text))
+            // Loop through every quickCommand
+            foreach (IQuickCommand quickCommand in quickCommands)
             {
-                // Execute the method of the quickCommand
-                quickCommands[text].ExecuteMethod();
+                // Check of the text given is a command
+                if (quickCommand.GetCommand() == text)
+                {
+                    // Exectute the method of the QuickCommand and return true
+                    quickCommand.ExecuteMethod();
+                    return true;
+                }
+
+                // Check if the text given is a help command
+                if (quickCommand.GetHelpCommand() == text)
+                {
+                    // Execute the helpCommand and return true
+                    quickCommand.ExecuteHelpCommand();
+                    return true;
+                }
             }
 
-            // Below are the hardcode quickcommands 
-            // TODO set each in a class with the IQuickCommand interface
-            switch (text)
-            {
-                case "clear": 
-                    commandResponse.Text = "";
-                    break;
-                case "qqq":
-                    //engine.CloseApp();
-                    //ExecuteMethod("Labyrint MainWindow.CloseApp");
-                    break;
-                case "resetControls":
-                    engine.ResetControls();
-                    break;
-                case "who is a good boy?":
-                    DisplayLine("Robin is good boy!");
-                    break;
-                case "SettingsFacade.Save":
-                    ExecuteMethod("Settings SettingsFacade.Save");
-                    DisplayLine("Settings saved to the .ini file.");
-                    break;
-                case "collision":
-                    engine.ActivateCollision();
-                    break;
-                default:
-                    return false;
-            }
-
-            return true;
+            // Return false because no quickCommand is executed
+            return false;
         }
 
+        /// <summary>
+        /// This method tries to execute a method from another class.
+        /// The text herefore needed needs to be written in the format below
+        /// AssemblyName TypeName.MethodName
+        /// 
+        /// If the method has parameters, will the be needed when they are asked later
+        /// </summary>
+        /// <param name="text">The text necessary to execute a method</param>
         private void ExecuteMethod(string text)
         {
             // Check the assembly
@@ -205,11 +294,11 @@ namespace Labyrint
 
             // Get the Method
             MethodInfo method = GetMethod(splittedText[0], splittedText2[0], splittedText2[1]);
-            
+
 
             // If method is null, return
             if (method == null)
-            {                
+            {
                 DisplayLine("No method found");
                 return;
             }
@@ -229,7 +318,8 @@ namespace Labyrint
                     if (returnValue != null)
                     {
                         DisplayLine(returnValue.ToString());
-                    } else
+                    }
+                    else
                     {
                         DisplayLine("Method succesfully executed!");
                     }
@@ -237,6 +327,7 @@ namespace Labyrint
                 }
                 catch
                 {
+                    // Give the user/programmer feedback
                     Log.Warning("Failed to execute method: " + method.Name);
                     return;
                 }
@@ -247,7 +338,7 @@ namespace Labyrint
 
             // Make a string to show which parameters are needed to execute this method
             string parametersString = "";
-            for (int i = 0; i < parameters.Length ; i++)
+            for (int i = 0; i < parameters.Length; i++)
             {
                 if (i == parameters.Length - 1)
                 {
@@ -255,7 +346,7 @@ namespace Labyrint
                 }
                 else
                 {
-                    parametersString += parameters[i].ParameterType.ToString() + " " +  parameters[i].Name + ", ";
+                    parametersString += parameters[i].ParameterType.ToString() + " " + parameters[i].Name + ", ";
                 }
             }
 
@@ -263,6 +354,10 @@ namespace Labyrint
             DisplayLine(parametersString);
         }
 
+        /// <summary>
+        /// This method tries to execute a method with parameters
+        /// </summary>
+        /// <param name="text">This is a string with all the parameters seperated by a comma</param>
         private void ExecuteMethodWithParameters(string text)
         {
             // Get the parametersInfo from the methodInfo
@@ -292,10 +387,12 @@ namespace Labyrint
                 }
                 catch
                 {
+                    // Give the programmer feedback
                     Log.Debug("Failed to execute " + methodInfo.Name);
                 }
-                    
-            } else
+
+            }
+            else
             {
                 // Split the input by the comma's
                 string[] parametersStrings = text.Split(',');
@@ -330,6 +427,7 @@ namespace Labyrint
                 }
                 catch
                 {
+                    // Give the programmer feedback
                     Log.Debug("Failed to execute " + methodInfo.Name);
                 }
             }
@@ -338,6 +436,10 @@ namespace Labyrint
             methodInfo = null;
         }
 
+        /// <summary>
+        /// Set the Command classs active or deactive based on the current state.
+        /// Also change the visibility of the commandBar and commandResponse depanding on the active bool
+        /// </summary>
         private void SetActive()
         {
             active = !active;
@@ -354,24 +456,10 @@ namespace Labyrint
             }
         }
 
-        public void DisplayLine(string text)
-        {
-            // Try to invoke the UI thread
-            try
-            {
-                //Run it in the UI thread
-                Application.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    commandResponse.Text = text + "\n" + commandResponse.Text;
-                });
-            }
-            catch
-            {
-                Log.Debug("Failed to invoke the Ui thread");
-            }
-           
-        }
-
+        /// <summary>
+        /// This method saves the entered text in a list and in an file in the appdata
+        /// </summary>
+        /// <param name="text">The entered text</param>
         private void WriteInput(string text)
         {
             // If stringg is not empty write it in a textFile
@@ -380,10 +468,14 @@ namespace Labyrint
                 // Add it to the commandHistory
                 commandHistory.Add(text);
 
+                // Write the text in the CommandBar.txt file
                 FileReaderWriterFacade.WriteText(new string[] { text }, FileReaderWriterFacade.GetAppDataPath() + "Log\\CommandBar.txt", true);
             }
         }
 
+        /// <summary>
+        /// This method is tries to autofill the text in the commandBar to an string that can execute a method
+        /// </summary>
         private void AutoFill()
         {
             // Fix the assembly
@@ -399,10 +491,13 @@ namespace Labyrint
             // It may not be smaller than 2
             if (splittedText.Length < 2) { return; }
 
+            // Split the second part of the splittedText  at the point
             string[] splittedText2 = splittedText[1].Split('.');
 
+            // Check if the texts contains a type
             if (!ContainsType(splittedText[0], splittedText2[0]))
             {
+                // Try to autofill the type and return
                 FillType(splittedText[0], splittedText2[0]);
                 return;
             }
@@ -410,9 +505,14 @@ namespace Labyrint
             // It may not be smaller than 2
             if (splittedText2.Length < 2) { return; }
 
+            // Try to autofill the mehod
             FillMethod(splittedText[0], splittedText2[0], splittedText2[1]);
         }
 
+        /// <summary>
+        /// This method tries to autofill the assembly. If the assembly name can be multiple assemblies, display them all in the commmandResponse
+        /// </summary>
+        /// <param name="text">The assemblyName</param>
         private void FillAssembly(string text)
         {
             // Get all assemblies in this solution
@@ -453,6 +553,11 @@ namespace Labyrint
             }
         }
 
+        /// <summary>
+        /// This method checks if the given assemblyName is indeed an assemblyName
+        /// </summary>
+        /// <param name="assemlbyName">A string of the assemblyName</param>
+        /// <returns>Returns whether he given assemblyName is indeed an assemblyName</returns>
         private bool IsAssembly(string assemlbyName)
         {
             // Get all assemblies in this solution
@@ -474,6 +579,11 @@ namespace Labyrint
             return false;
         }
 
+        /// <summary>
+        /// This method checks whether an assembly name contains the given string
+        /// </summary>
+        /// <param name="text">The exact name of the assembly</param>
+        /// <returns>Returns a bool whether an assembly name containts the given text</returns>
         private bool ContainsAssembly(string text)
         {
             // Get all assemblies in this solution
@@ -495,6 +605,11 @@ namespace Labyrint
             return false;
         }
 
+        /// <summary>
+        /// This method tries to autofill the type. If the typeName can be multiple types, display them all in the commmandResponse
+        /// </summary>
+        /// <param name="assemblyName">The exect name of the assembly where the type is in</param>
+        /// <param name="typeName">The text where a string of the type suppose to be is</param>
         private void FillType(string assemblyName, string typeName)
         {
             // Load the typed assembly
@@ -538,6 +653,12 @@ namespace Labyrint
             }
         }
 
+        /// <summary>
+        /// This method checks if the string that should be a type a type is
+        /// </summary>
+        /// <param name="assemblyName">The exect name of the assembly where the type is in</param>
+        /// <param name="typeName">The text where a string of the type suppose to be is</param>
+        /// <returns>Returns whether the typeName is indeed a type</returns>
         private bool ContainsType(string assemblyName, string typeName)
         {
             // Load the typed assembly
@@ -561,6 +682,12 @@ namespace Labyrint
             return false;
         }
 
+        /// <summary>
+        /// This method tries to auto fill the method name in the commandBar or if there are multiple options avalible. Display them in the commandResponse
+        /// </summary>
+        /// <param name="assemblyName">>A string of the exact name of the assembly where the method is in</param>
+        /// <param name="typeName">The exect name of the type where the method is in</param>
+        /// <param name="methodName">The text that is typed where the method is suppose to be</param>
         private void FillMethod(string assemblyName, string typeName, string methodName)
         {
             // Difine a type
@@ -630,6 +757,13 @@ namespace Labyrint
             }
         }
 
+        /// <summary>
+        /// This method returns the methodInfo of a method
+        /// </summary>
+        /// <param name="assemblyName">A string of the exact name of the assembly where the method is in</param>
+        /// <param name="typeName">The exect name of the type where the method is in</param>
+        /// <param name="methodName">The exact name of the method</param>
+        /// <returns>The methodInfo of the method</returns>
         private MethodInfo GetMethod(string assemblyName, string typeName, string methodName)
         {
             try
@@ -676,26 +810,37 @@ namespace Labyrint
             }
         }
 
+        /// <summary>
+        /// This method creates all the QuickCommand classes and sets them in the quickCommand list
+        /// </summary>
         private void CreateQuickCommands()
         {
-            Assembly QCs = Assembly.Load("Labyrint");
+            // Load the Laybrint assembly
+            Assembly labyrint = Assembly.Load("Labyrint");
             
-            Type[] types = QCs.GetTypes();
+            // Get all types from the labyrint assembly
+            Type[] types = labyrint.GetTypes();
 
+            // Create an object array with the parameters for the QuickCommands
             object[] parameters = new object[] { engine, this };
 
+            // Loop through every type in the labyrint assembly
             foreach(Type type in types)
             {
-                if (type.ToString().Substring(9,2) != "QC")
+                // If the type does not has the IQuickCommand interface go to the next type
+                if (type.GetInterface("IQuickCommand") == null)
                 {                    
                     continue;
                 }
 
+                // Create een instance of the type
                 IQuickCommand instance = (IQuickCommand)Activator.CreateInstance(type, parameters);
 
+                // If the instance is not null add it to de quickcommands dictionary and give the programmer feedback
+                // Else give the programmer feedback of the failure
                 if (instance != null)
                 {
-                    quickCommands.Add(instance.GetCommand(), instance);
+                    quickCommands.Add(instance);
                     Log.Debug(type + " is created");
                 }
                 else
@@ -704,5 +849,7 @@ namespace Labyrint
                 }
             }
         }
+
+        #endregion
     }
 }

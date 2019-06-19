@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using CameraSystem;
 using GameObjectFactory;
+using LogSystem;
 using Maze;
 
 namespace Labyrint
@@ -45,28 +46,33 @@ namespace Labyrint
 
         public bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            // Clear the loopList
             loopList.Clear();
+
+            // Set all gameObjects in the loopList
             lock (gameObjects)
             {
                 loopList.AddRange(gameObjects);
             }
 
+            // Loop through all the gameObjects
             foreach (GameObject needle in loopList)
             {
+                // Check if there is a gameObject with the BuilderType is pickup
                 if (needle.BuilderType == "pickup")
                 {
+                    // Return false because there still exist pickups
                     return false;
                 }
             }
-            ///
 
+            // Create five new pickups
             for (int i = 0; i < 5; i++)
             {
                 DropNewPickup(gameObjects);
             }
 
-            ///
-
+            // Return true because the pickups were succesfully created
             return true;
         }
 
@@ -111,10 +117,9 @@ namespace Labyrint
                 randomFromTop * MazeFacade.tileSize + MazeFacade.tileSize / 2,
                 newPickup
             );
-
+         
             gameObjects.Add(orb);
             gameObjects.Add(newPickup);
-
         }
     }
 }
