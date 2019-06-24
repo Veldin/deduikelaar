@@ -13,13 +13,19 @@ class File extends Model
      */
     protected $table = 'file';
 
-    // TODO: PDF omzetten wanneer tijd over
+    // All allowed file extensions
     public static $allowedExtensions = ['docx','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg', 'webm', 'mp3','wav'];
 
+    // Image file extensions
     public static $imageFileExtensions = ['jpeg','jpg','png','gif','bmp'];
+
+    // Video file extensions
     public static $videoFilesExtensions = ['avi','mp4','mpeg', 'webm'];
+
+    // Audio file extensions
     public static $audioFilesExtensions = ['mp3','wav'];
 
+    // Fields from the database
     protected $fillable = [
         'fileName',
         'realName',
@@ -29,10 +35,15 @@ class File extends Model
         'storyItemId'
     ];
 
+    // Get the storyItem
     public function storyItem() {
         return $this->belongsTo(StoryItem::class,'storyItemId','id');
     }
 
+    /**
+     * Get the file as text (html)
+     * @return false|string|null
+     */
     public function getFileAsText(){
         $text = "";
         // Image files
@@ -62,81 +73,126 @@ class File extends Model
         return $text;
     }
 
+    /**
+     * Convert an image to html tag
+     * @return string
+     */
     private function convertImageFile(){
 
         // Check if it is an image file
         if(!in_array($this->extension, self::$imageFileExtensions)) return "";
-        $path = storage_path($this->path.$this->fileName);
-        if(!file_exists($path)) return "";
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
+        // Get file location
+        $path = storage_path($this->path.$this->fileName);
+
+        // If file not exists, return empty string.
+        if(!file_exists($path)) return "";
+
+
+        $type = pathinfo($path, PATHINFO_EXTENSION); // Get file type
+        $data = file_get_contents($path); // Get the file content
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data); // Convert file content to base64
+
+        // Return string(html)
         return "<img src='".$base64."' alt='".$this->realName."'>";
     }
 
     private function convertVideoFile(){
 
-        // Check if it is an image file
+        // Check if it is an video file
         if(!in_array($this->extension, self::$videoFilesExtensions)) return "";
 
-
-
+        // Get file location
         $path = storage_path($this->path.$this->fileName);
+
+        // If file not exists, return empty string.
         if(!file_exists($path)) return "";
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:video/' . $type . ';base64,' . base64_encode($data);
 
 
+        $type = pathinfo($path, PATHINFO_EXTENSION); // Get file type
+        $data = file_get_contents($path); // Get the file content
+        $base64 = 'data:video/' . $type . ';base64,' . base64_encode($data); // Convert file content to base64
+
+        // Return string(html)
         return "<video controls><source type=\"video/".$type."\" src=\"".$base64."\"></video>";
     }
 
     private function convertAudioFile(){
 
-        // Check if it is an image file
+        // Check if it is an audio file
         if(!in_array($this->extension, self::$audioFilesExtensions)) return "";
 
-
-
+        // Get file location
         $path = storage_path($this->path.$this->fileName);
+
+        // If file not exists, return empty string.
         if(!file_exists($path)) return "";
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data);
 
 
+        $type = pathinfo($path, PATHINFO_EXTENSION); // Get file type
+        $data = file_get_contents($path); // Get the file content
+        $base64 = 'data:audio/' . $type . ';base64,' . base64_encode($data); // Convert file content to base64
+
+        // Return string(html)
         return "<audio controls><source type=\"audio/".$type."\" src=\"".$base64."\"></audio>";
     }
 
     private function convertPDFFile(){
 
-        // Check if it is an image file
+        // Check if it is an pdf file
         if($this->extension != 'pdf') return "";
-        if(strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') return "";
-        $source_pdf=storage_path($this->path.$this->fileName);
-        $output_folder=storage_path("app/uploads/temp");
 
+        // Check if the computer where php is running on, is a windows computer
+        if(strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') return "";
+
+        // Get the pdf location
+        $source_pdf = storage_path($this->path.$this->fileName);
+
+        // Set the output folder
+        $output_folder = storage_path("app/uploads/temp");
+
+        // Create output folder if it doesn't exists
         if(!file_exists($output_folder)) mkdir($output_folder, 777);
 
+        // Command to convert pdf to html with 'pdftohtml.exe'
         $cmd = '"'.storage_path().'\\app\\pdftohtml.exe" "'.$source_pdf.'" "'.$output_folder.'\\'.$this->fileName.'"';
+
+        // Execute command
         exec( $cmd, $out, $ret);
 
+        // Set empty data when execution didn't go well
+        $data = "";
+
+        // Execution was successful
         if(file_exists($output_folder.'\\'.$this->fileName.'s.html')){
+            // Get the html data
             $data = file_get_contents($output_folder.'\\'.$this->fileName.'s.html');
+
+            // Find and replace image tags.
             $data = preg_replace_callback ('/src="(.*?)"/i', function($matches) use ($output_folder) {
+                // Get the image location
                 $file = $output_folder."\\".$matches[1];
+
+                // Get the image info
                 $type = pathinfo($file, PATHINFO_EXTENSION);
+
+                // Get the image content
                 $data = file_get_contents($file);
+
+                // Convert image content to base64 and return it
                 return 'src="data:image/' . $type . ';base64,' . base64_encode($data).'"';
             }, $data);
         }
-        // Delete only with this filename
+
+        // Get files only with this filename
         $files = glob($output_folder.'/'.$this->fileName.'*');
+
         foreach($files as $file){ // iterate files
             if(is_file($file))
                 unlink($file); // delete file
         }
+
+        // Return the data
         return $data;
     }
 
@@ -271,16 +327,18 @@ class File extends Model
      */
     private function findDrawing($v){
 
-        // Find drawing tag
+        // Search for drawing tag
         foreach ($v->r as $l => $w) {
             if(isset($w->drawing)){
-                return $w->drawing;
+                return $w->drawing; // drawing tag was found
             }
+            // If tag has children, go search deeper
             if(count($w) > 0){
-                $d = $this->findDrawing($w);
-                if($d != null) return $d;
+                $d = $this->findDrawing($w); // Search deeper
+                if($d != null) return $d; // Return drawing
             }
         }
+        // Drawing not found, return null
         return null;
     }
 
