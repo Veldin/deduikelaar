@@ -66091,6 +66091,7 @@ function (_Component) {
         className: "col s12 m5 l5 inputFields"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         name: "createItemForm",
+        autocomplete: "off",
         encType: "multipart/form-data"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"

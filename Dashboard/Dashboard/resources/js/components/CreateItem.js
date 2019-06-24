@@ -179,7 +179,7 @@ class CreateItem extends Component {
     <div className="container-fluid containerAddItem">
 
       <div className="col s12 m5 l5 inputFields">
-        <form name="createItemForm" encType="multipart/form-data">
+        <form name="createItemForm" autocomplete="off" encType="multipart/form-data">
 
         <div className="row">
           <div className="input-field col s11">
