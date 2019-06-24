@@ -466,7 +466,7 @@ namespace GameObjectFactory
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
-        public Boolean OnTick(List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public Boolean OnTick(ref List<GameObject> gameObjects, ref HashSet<String> pressedKeys, float delta)
         {
             if (onTickList.Count == 0)
             {

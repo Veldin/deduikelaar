@@ -286,7 +286,7 @@ namespace Labyrint
             }
 
             // Give programmer feedback
-            Log.Debug("Keys resetted");
+            Log.Info("Keys resetted");
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace Labyrint
                 if (gameObject.BuilderType == "player")
                 {
                     gameObject.Collition = !gameObject.Collition;
-                    Log.Debug("The player collision is now: " + gameObject.Collition);
+                    Log.Info("The player collision is now: " + gameObject.Collition);
                 }
             }
         }
@@ -345,11 +345,11 @@ namespace Labyrint
                 //OnTick every gameObject
                 if (IsKeyPressed("Space")) //Act like the game runs faster if space is pressed
                 {
-                    gameObject.OnTick(gameObjects, pressedKeys, delta * 7f);
+                    gameObject.OnTick(ref gameObjects, ref pressedKeys, delta * 7f);
                 }
                 else
                 {
-                    gameObject.OnTick(gameObjects, pressedKeys, delta);
+                    gameObject.OnTick(ref gameObjects, ref pressedKeys, delta);
                 }
             }
 

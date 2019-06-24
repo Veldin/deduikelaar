@@ -7,9 +7,12 @@ using GameObjectFactory;
 
 namespace Labyrint
 {
+    /// <summary>
+    /// Set the opacity of the orb to 1 if the pickupTargetBehaviour.modifiersApplied is true
+    /// </summary>
     class OrbOpacityBehaviour : IBehaviour
     {
-
+        //The behaviour to check the modifiersApplied from
         private pickupTargetBehaviour anchor;
 
         public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)

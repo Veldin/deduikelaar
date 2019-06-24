@@ -23,9 +23,7 @@ namespace Labyrint
         //The pickup floats around an anchor.
         private GameObject anchor;
 
-        private GameObject pointer; //The arrow is used to point to the anchor
-
-
+        //private GameObject pointer; //The arrow is used to point to the anchor
 
 
         /// <summary>
@@ -54,8 +52,7 @@ namespace Labyrint
             //    pointer.Target = new Target(0,0);
             //    gameObjects.Add(pointer);
             //}
-
-
+            
             //If the anchor is null search an anchor.
             if (anchor == null)
             {
@@ -128,6 +125,7 @@ namespace Labyrint
                     gameobject.Target.AddFromTop(percentageFromLeft * 2.5f);
                 }
 
+                //Set the pointer to the right position
                 //pointer.Target = new Target(gameobject, false);
                 //if (diffFromTop > 0)
                 //{
@@ -147,9 +145,6 @@ namespace Labyrint
                 //    pointer.Target.AddFromLeft(percentageFromTop / 5);
 
                 //}
-
-
-
             }
             else
             {

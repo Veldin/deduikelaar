@@ -259,11 +259,6 @@
     <Resource Include="Assets\Sprites\Orb0.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Sprites\Orb1.gif" />
-    <Resource Include="Assets\Sprites\Orb2.gif" />
-    <Resource Include="Assets\Sprites\Orb3.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Sprites\Letters\LetterDown_1080_1080.gif" />
     <Resource Include="Assets\Sprites\Letters\LetterLeft_1080_1080.gif" />
     <Resource Include="Assets\Sprites\Letters\LetterRight_1080_1080.gif" />
@@ -288,6 +283,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\Orb.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\DragInner.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Sprites\DragOuter.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

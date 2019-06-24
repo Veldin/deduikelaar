@@ -230,20 +230,22 @@ namespace Labyrint
                                         switch (degrees)
                                         {
                                             case 0:     // Down
-                                                fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+                                                //fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+                                                fromLeftPosition = 50 - (82.35f / camera.GetWidth() * 100 * (i+1) /2 )  - (i) * 82.35f / camera.GetWidth() * 100 + 82.35f / camera.GetWidth() * 100 * (question.anwsers.Count -1); 
                                                 fromTopPosition = 80f;
                                                 break;
                                             case 90:    // Left
                                                 fromLeftPosition = 32f;
-                                                fromTopPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 15);
+                                                //fromTopPosition = camera.GetFromLeft() +camera
+                                                fromTopPosition = 50 - (82.35f / camera.GetHeight() * 100 * (i + 1) / 2) - (i) * 82.35f / camera.GetHeight() * 100 + 82.35f / camera.GetHeight() * 100 * (question.anwsers.Count - 1);
                                                 break;
                                             case 180:   // Up
-                                                fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
+                                                fromLeftPosition = 50 - (82.35f / camera.GetWidth() * 100 * (i + 1) / 2) - (i) * 82.35f / camera.GetWidth() * 100 + 82.35f / camera.GetWidth() * 100 * (question.anwsers.Count - 1);
                                                 fromTopPosition = 23f;
                                                 break;
                                             case 270:   // Right
                                                 fromLeftPosition = 68f;
-                                                fromTopPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 15);
+                                                fromTopPosition = 50 - (82.35f / camera.GetHeight() * 100 * (i + 1) / 2) - (i) * 82.35f / camera.GetHeight() * 100 + 82.35f / camera.GetHeight() * 100 * (question.anwsers.Count - 1);
                                                 break;
                                         }
 

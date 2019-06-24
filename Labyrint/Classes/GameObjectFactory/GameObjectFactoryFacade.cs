@@ -46,7 +46,7 @@ namespace GameObjectFactory
         /// <returns>The amount of objects available.</returns>
         public static int CountAvailable()
         {
-            return factory.countAvailable();
+            return factory.CountAvailable();
         }
     }
 }

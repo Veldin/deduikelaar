@@ -12,6 +12,7 @@ using System.Windows.Controls;
 
 namespace GameObjectFactory
 {
+    //The builder holds a method that can transform a gameObject by giving a specivic requested as a string
     public class Builder
     {
         public Builder()
@@ -29,24 +30,26 @@ namespace GameObjectFactory
 
             switch (wantToGet)
             {
+                // Get a Player gameObject
                 case "player":
                     gameObject.Width = 45f;
                     gameObject.Height = 45f;
 
-                    gameObject.MovementSpeed = 0;
-                    gameObject.Group = 1;
-
+                    // Draw the height higher but don't increase the hitbox.
                     gameObject.TopDrawOffset = 15;
 
+                    // The player has to move to the target and chance sprite
                     gameObject.onTickList.Add(new MoveToTargetBehaviour());
                     gameObject.onTickList.Add(new PlayerSpriteBehaviour());
 
                     gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
+                    //Set the first sprite, the playerSprite behaviour wil replace it on the first tick.
                     gameObject.setActiveBitmap("Assets/Sprites/Player/right1_145_200_32.gif");
                     break;
+                //Get a Cursor looking gameObject
                 case "cursor":
-                    //Set the windowState.
+                    //Set the bitmap depending on a setting.
                     switch (SettingsFacade.Get("CursorState", "Normal"))
                     {
                         case "None":
@@ -61,23 +64,25 @@ namespace GameObjectFactory
                             break;
                     }
                     break;
+                // Create a pickup.
                 case "pickup":       // value = new object[2] { browser, camera, engine }
                     gameObject.Width = 55f;
                     gameObject.Height = 55f;
 
-
-                    gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop));
-                    gameObject.onTickList.Add(new MoveToTargetBehaviour());
-                    gameObject.onTickList.Add(new PickupCollisionBehavior(value));
-                    gameObject.onTickList.Add(new HaveAStoryBehaviour(gameObject));
+                    //Add the onTick effects for the pickup.
+                    gameObject.onTickList.Add(new pickupTargetBehaviour(gameObject.FromLeft, gameObject.FromTop)); //Sets the target of this pickup
+                    gameObject.onTickList.Add(new MoveToTargetBehaviour()); //Move to the target set by the pickupTarget
+                    gameObject.onTickList.Add(new PickupCollisionBehavior(value)); //On collition the pickup is picked up
+                    gameObject.onTickList.Add(new HaveAStoryBehaviour(gameObject)); //give this object a story 
 
                     gameObject.MovementSpeed = 800;
 
                     gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
-                    gameObject.Collition = false;
+                    gameObject.Collition = false; //Pickups dont colide with the walls
                     break;
                 case "tile":
+                    //Make a tile the size of the mazefacade tile
                     gameObject.Width = MazeFacade.tileSize;
                     gameObject.Height = MazeFacade.tileSize;
 
@@ -85,22 +90,23 @@ namespace GameObjectFactory
 
                     gameObject.setActiveBitmap("Assets/wall_600_600_16.gif");
                     break;
+                //Orbs spawn behind items if they are to far away (to indicate direction)
                 case "orb": // value is the gameObject the orb needs to get pulled in.
                     gameObject.Width = 50;
                     gameObject.Height = 50;
 
-                    gameObject.Target = new Target(value as GameObject);
+                    gameObject.Target = new Target(value as GameObject); //The value contains the target the orb apears under
 
-                    gameObject.onTickList.Add(new SetToTargetBehaviour());
-                    gameObject.onTickList.Add(new OrbOpacityBehaviour());
-
+                    gameObject.onTickList.Add(new SetToTargetBehaviour()); //Instead of moving the target, it just gets set to the target
+                    gameObject.onTickList.Add(new OrbOpacityBehaviour()); //Hide the orb if its close to a target
 
                     gameObject.highVisibility = true;
-                    gameObject.Collition = false;
+                    gameObject.Collition = false; //Orbs dont colide with the walls
 
-                    gameObject.setActiveBitmap("Assets/Sprites/Orb" + gameObject.random.Next(4) + ".gif");
+                    gameObject.setActiveBitmap("Assets/Sprites/Orb.gif");
 
                     break;
+                //Pointers can get used to point to a direction, they are used with the orbs.
                 case "pointer":
                     gameObject.Width = 10;
                     gameObject.Height = 10;
@@ -110,9 +116,10 @@ namespace GameObjectFactory
                     gameObject.highVisibility = true;
                     gameObject.Collition = false;
 
-                    gameObject.setActiveBitmap("Assets/Sprites/Orb" + gameObject.random.Next(4) + ".gif");
+                    gameObject.setActiveBitmap("Assets/Sprites/Orb.gif");
 
                     break;
+                //Create buttons the player can click on 
                 case "button":      // value = new object[] { camera, storyId, anwserId, browser }
                     object[] val = value as object[];
 
@@ -124,38 +131,15 @@ namespace GameObjectFactory
                     gameObject.MovementSpeed = 1200;
                     gameObject.Collition = false;
 
+                    //Resises and moves a gameobject to act like a scaling user interface item.
                     gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val[0] as Camera));
-
-                    //gameObject.onTickList.Add(new FollowCameraBehaviour(val[0] as Camera));
                     gameObject.onTickList.Add(new SetToTargetBehaviour());
+
+                    //Dictate what to do on click
                     gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val[1]), Convert.ToInt32(val[2]), val[3] as WebBrowser));
 
-                    //gameObject.SetText("Button Text");
-
-                    //gameObject.setActiveBitmap("Assets/tile.gif");
                     break;
-                case "cover":       // value = new object[] { camera, storyId, anwserId, browser }
-                    gameObject.Width = (value as Camera).GetWidth();
-                    gameObject.Height = (value as Camera).GetHeight();
-
-                    gameObject.highVisibility = true;
-
-                    gameObject.MovementSpeed = 1200;
-                    gameObject.Collition = false;
-
-                    gameObject.SetOpacity(0);
-
-                    //gameObject.FromLeft = (value as Camera).GetFromLeft();
-                    //gameObject.FromTop = (value as Camera).GetFromTop();
-
-                    //gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
-                    gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, value as Camera));
-
-                    gameObject.onTickList.Add(new SetToTargetBehaviour());
-                    gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
-
-                    gameObject.setActiveBitmap("Assets/Sprites/Black.gif");
-                    break;
+                //Spawn a letter icon at a location
                 case "letter":      // value = new object[] { camera, storyId, anwserId, browser }
                     object[] val2 = value as object[];
                     //val[0] should contain a Camera
@@ -172,71 +156,34 @@ namespace GameObjectFactory
                         gameObject.Width = (val2[0] as Camera).GetWidth() * 0.3125f; // The Width is 5 / 16 of the camera
                         gameObject.Height = (val2[0] as Camera).GetHeight() * 0.3333333f; // The Height is 4 / 12 of the camera
                     }
-                    Log.Debug((4f / 16f));
-
-                    Log.Debug(Convert.ToBoolean(val2[1]));
-
-                    Log.Debug(gameObject.Width);
-
-                    //gameObject.Height = gameObject.Width * 1.125f;
 
                     gameObject.highVisibility = true;
-
                     gameObject.MovementSpeed = 1200;
                     gameObject.Collition = false;
-
-
-                    //gameObject.FromLeft = (value as Camera).GetFromLeft();
-                    //gameObject.FromTop = (value as Camera).GetFromTop();
-
-                    //gameObject.onTickList.Add(new FollowCameraBehaviour(value as Camera));
-                    //gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val2[0] as Camera));
-
-                    //gameObject.onTickList.Add(new SetToTargetBehaviour());
-                    //gameObject.onTickList.Add(new AnimateOpacityBehaviour(0.5f));
-
-                    //val[1] should contain the orientation (True is horizontal, false is vertical)
-                    //switch (val2[2])
-                    //{
-                    //    case "Up":
-                    //        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
-                    //        break;
-                    //    case "Right":
-                    //        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_800_468_128.gif");
-                    //        break;
-                    //    case "Down":
-                    //        gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
-                    //        break;
-                    //    case "West":
-                           
-                    //        break;
-                    //}
-
                     gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_1080_1080.gif");
 
-
-                    //if (!Convert.ToBoolean(val2[1]))
-                    //{
-                    //    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_800_468_128.gif");
-                    //}
-                    //else
-                    //{
-                    //    gameObject.setActiveBitmap("Assets/Sprites/Letters/Letter" + val2[2] + "_640_586_128.gif");
-                    //}
                     break;
+                //ControllerAncher gets used with ControllerCursor for the drag system
                 case "ControllerAncher":
-                    gameObject.Width = 50f;
-                    gameObject.Height = 50f;
+                    gameObject.Width = 20;
+                    gameObject.Height = 20;
+
+                    gameObject.TopDrawOffset = 20;
+                    gameObject.LeftDrawOffset = 20;
 
                     gameObject.Target = new Target(fromLeft, fromTop);
 
-                    gameObject.setActiveBitmap("Assets/Redrand.png");
+                    gameObject.setActiveBitmap("Assets/Sprites/DragOuter.gif");
                     break;
+                //ControllerCursor gets used with ControllerAncher for the drag system
                 case "ControllerCursor":
-                    gameObject.Width = 46f;
-                    gameObject.Height = 46f;
+                    gameObject.Width = 12;
+                    gameObject.Height = 12;
 
-                    gameObject.setActiveBitmap("Assets/Redrand.png");
+                    gameObject.TopDrawOffset = 12;
+                    gameObject.LeftDrawOffset = 12;
+
+                    gameObject.setActiveBitmap("Assets/Sprites/DragInner.gif");
                     break;
             }
 

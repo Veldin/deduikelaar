@@ -8,8 +8,12 @@ using GameObjectFactory;
 
 namespace Labyrint
 {
+    /// <summary>
+    /// Makes a GameObject move to the target using its movement speed.
+    /// </summary>
     class MoveToTargetBehaviour : IBehaviour
     {
+        //If the behaviour is set to be pauzed it returns false in the OnTick
         public Boolean pauzed;
 
         public MoveToTargetBehaviour()
