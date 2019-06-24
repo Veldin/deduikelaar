@@ -23,18 +23,24 @@ namespace Maze
         /// <returns>An int that indicates the passable walls surrounding the cell.</returns>
         public Maze GetConcatNewMaze(int leftSize = 12, int rightSize = 12)
         {
+            //Generate the 4 mazes that get combined later.
             Maze leftUpper = GetNewMaze(leftSize, rightSize);
             Maze leftLower = GetNewMaze(leftSize, rightSize);
             Maze rightUpper = GetNewMaze(leftSize, rightSize);
             Maze rightLowwer = GetNewMaze(leftSize, rightSize);
 
+            //The full width and height is one less then the with and height of 2 mazes because the outer walls wil be combined.
             int FullWidth = leftUpper.Walls.GetLength(0) + rightUpper.Walls.GetLength(0) - 1;
             int FullHeight = leftUpper.Walls.GetLength(1) + leftLower.Walls.GetLength(1) - 1;
 
+            //Create the bool array that wil hold maze information.
             bool[,] fullWalls = new bool[FullWidth, FullHeight];
 
+            //Set the left and top offset to 0
             int leftoffset = 0;
             int topoffset = 0;
+
+            //Loop trough all the cells of the left upper maze to duplicate it into full walls.
             for (int fromLeft = 0; fromLeft < leftUpper.Walls.GetLength(0); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < leftUpper.Walls.GetLength(1); fromTop++)
@@ -43,8 +49,11 @@ namespace Maze
                 }
             }
 
+            //Set the left offset to the leftupper lenght minus one (the walls wil be combined)
             leftoffset = leftUpper.Walls.GetLength(0) - 1;
             topoffset = 0;
+
+            //Loop trough the cells of the right upper to duplicate it into full walls.
             for (int fromLeft = 0; fromLeft < rightUpper.Walls.GetLength(0); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < rightUpper.Walls.GetLength(1); fromTop++)
@@ -53,8 +62,11 @@ namespace Maze
                 }
             }
 
+            //Set the top offset to the leftupper height minus one (the walls wil be combined)
             leftoffset = 0;
             topoffset = leftUpper.Walls.GetLength(1) - 1;
+
+            //Loop trough the cells of the left lower to duplicate it into full walls.
             for (int fromLeft = 0; fromLeft < leftLower.Walls.GetLength(0); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < leftLower.Walls.GetLength(1); fromTop++)
@@ -63,8 +75,11 @@ namespace Maze
                 }
             }
 
+            //Set the top and left offset to the leftupper height and width, both minus one (the walls wil be combined)
             leftoffset = leftUpper.Walls.GetLength(0) - 1;
             topoffset = leftUpper.Walls.GetLength(1) - 1;
+
+            //Loop trough the cells of the right lower to duplicate it into full walls.
             for (int fromLeft = 0; fromLeft < rightLowwer.Walls.GetLength(0); fromLeft++)
             {
                 for (int fromTop = 0; fromTop < rightLowwer.Walls.GetLength(1); fromTop++)
@@ -73,33 +88,40 @@ namespace Maze
                 }
             }
 
+            //Now the maze is combined, but the 4 mazes are not reachable from eachoter.
+            //The middle wall needs to have a place to cross over to other mazes.
+
             // The middle point of the maze
             int middlePoint = leftUpper.Walls.GetLength(0) - 1;
-            Random random = new Random();
+            Random random = new Random(); //Create an instane of random
 
             //For every point to the edge from the middle a random wall is removed.
             List<int> choices = new List<int>();
+            //Add all the choices to remove to the choices list, and then choose one and remove the wall.
             for (int i = 0; i < middlePoint; i += 2)
             {
                 choices.Add(i + 1);
             }
             fullWalls[middlePoint, choices[random.Next(choices.Count)]] = false;
-
             choices.Clear();
+
+            //Add all the choices to remove to the choices list, and then choose one and remove the wall.
             for (int i = middlePoint; i < middlePoint * 2; i += 2)
             {
                 choices.Add(i + 1);
             }
             fullWalls[middlePoint, choices[random.Next(choices.Count)]] = false;
-
             choices.Clear();
+
+            //Add all the choices to remove to the choices list, and then choose one and remove the wall.
             for (int i = 0; i < middlePoint; i += 2)
             {
                 choices.Add(i + 1);
             }
             fullWalls[choices[random.Next(choices.Count)], middlePoint] = false;
-
             choices.Clear();
+
+            //Add all the choices to remove to the choices list, and then choose one and remove the wall.
             for (int i = middlePoint; i < middlePoint * 2; i += 2)
             {
                 choices.Add(i + 1);
@@ -146,6 +168,8 @@ namespace Maze
                 rightSize = 3;
             }
 
+            //due to cells needing to have an outer wall, the maze is never even
+            //So if it is even, add one to the size to make it not even
             if (leftSize % 2 == 0)
             {
                 leftSize++;
@@ -205,12 +229,13 @@ namespace Maze
 
             int lastSide = 0;
 
+            // Create instance of random.
+            Random random = new Random();
+
             while (cellStack.Count > 0)
             {
 
                 Cell[] neighbours = GetUnvisitedNeighbours(currentCell);
-
-                Random random = new Random();
 
                 Cell selectedNeighbour = null;
 

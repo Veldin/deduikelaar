@@ -345,11 +345,11 @@ namespace Labyrint
                 //OnTick every gameObject
                 if (IsKeyPressed("Space")) //Act like the game runs faster if space is pressed
                 {
-                    gameObject.OnTick(gameObjects, pressedKeys, delta * 7f);
+                    gameObject.OnTick(ref gameObjects, ref pressedKeys, delta * 7f);
                 }
                 else
                 {
-                    gameObject.OnTick(gameObjects, pressedKeys, delta);
+                    gameObject.OnTick(ref gameObjects, ref pressedKeys, delta);
                 }
             }
 
