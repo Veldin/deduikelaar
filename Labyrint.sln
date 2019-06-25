@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeTests", "MazeTests\Maze
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundSystem", "SoundSystem\SoundSystem.csproj", "{12AC1CD2-8628-4848-8427-3B6453A58EB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundSystemTests", "SoundSystemTests\SoundSystemTests.csproj", "{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileReaderWriter", "FileReaderWriter\FileReaderWriter.csproj", "{690650BC-4A7E-4881-BBA1-4C58135B4212}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiParser", "ApiParser\ApiParser.csproj", "{B1757604-D7C3-48BB-AD1B-3A3A0180B399}"
@@ -59,10 +57,6 @@ Global
 		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12AC1CD2-8628-4848-8427-3B6453A58EB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1877D84B-0E72-46FC-8677-B6C75CCF9A2B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{690650BC-4A7E-4881-BBA1-4C58135B4212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{690650BC-4A7E-4881-BBA1-4C58135B4212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{690650BC-4A7E-4881-BBA1-4C58135B4212}.Release|Any CPU.ActiveCfg = Release|Any CPU

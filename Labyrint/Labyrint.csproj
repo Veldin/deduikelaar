@@ -96,6 +96,7 @@
     <Compile Include="Classes\Behaviours\HaveAStoryBehaviour.cs" />
     <Compile Include="Classes\Behaviours\FollowCameraBehaviour.cs" />
     <Compile Include="Classes\Behaviours\MoveToTargetBehaviour.cs" />
+    <Compile Include="Classes\Behaviours\OnClickPopupBehaviour.cs" />
     <Compile Include="Classes\Behaviours\OrbOpacityBehaviour.cs" />
     <Compile Include="Classes\Behaviours\PickupCollisionBehavior.cs" />
     <Compile Include="Classes\Behaviours\pickupTargetBehaviour.cs" />

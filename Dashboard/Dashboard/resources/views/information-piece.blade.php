@@ -57,7 +57,7 @@
 			}
         </style>
     </head>
-    <body>
+    <body oncontextmenu="return false;">
         <header>
             <h1 class="title">{{ $story->title }}</h1>
         </header>

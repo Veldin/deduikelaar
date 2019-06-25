@@ -190,6 +190,18 @@ namespace Labyrint
             // Save the SettingsFacade. This creates the INI file.
             SettingsFacade.Save();
 
+            // Check if all the necassary JSON files exist
+            // If not create a popup and close the application
+            if (!ApiParserFacade.ExistJsonFiles())
+            {
+                // Navigate the browser to the html page with the error message and set it on visible
+                browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "\\Errors\\MissingFileError.html"));
+                browser.Visibility = Visibility.Visible;
+
+                // Create a button for the popup and add it to the gameObjects list
+                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, new object[2] { camera, this }));
+            }
+
             // Set the time of the 'old' frame on the current time then start the app.
             then = Stopwatch.GetTimestamp();
             Run();

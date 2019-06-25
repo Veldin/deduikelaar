@@ -106,6 +106,10 @@ namespace Labyrint
                             {
                                 // Needs to be initialized
                                 Thickness margin = browser.Margin;
+                                margin.Left = 30;
+                                margin.Top = 60;
+                                margin.Right = 30;
+                                margin.Bottom = 60;
                                 browser.Margin = margin;
                             }));
                             break;
@@ -134,6 +138,10 @@ namespace Labyrint
                             {
                                 // Needs to be initialized
                                 Thickness margin = browser.Margin;
+                                margin.Left = 30;
+                                margin.Top = 50;
+                                margin.Right = 30;
+                                margin.Bottom = 60;
                                 browser.Margin = margin;
                             }));
 

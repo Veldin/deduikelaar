@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace GameObjectFactory
@@ -184,6 +185,31 @@ namespace GameObjectFactory
                     gameObject.LeftDrawOffset = 12;
 
                     gameObject.setActiveBitmap("Assets/Sprites/DragInner.gif");
+                    break;
+                case "popupButton":     // value = Camera, MainWindow
+
+                    gameObject.Width = 82.35f;
+                    gameObject.Height = 70;
+
+                    gameObject.highVisibility = true;
+
+                    gameObject.MovementSpeed = 1200;
+                    gameObject.Collition = false;
+
+                    object[] val3 = value as object[];
+
+                    gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val3[0] as Camera));
+                    gameObject.onTickList.Add(new SetToTargetBehaviour());
+                    gameObject.onTickList.Add(new OnClickPopupBehaviour(val3[1] as MainWindow));
+
+                    gameObject.setActiveBitmap("Assets/Sprites/Answers/poststamp.png");
+                    gameObject.SetText("Quit");
+
+                    Thickness thickness = gameObject.textBlock.Margin;
+                    thickness.Left = 25;
+                    thickness.Top = 20;
+                    gameObject.textBlock.Margin = thickness;
+
                     break;
             }
 

@@ -455,5 +455,53 @@ namespace ApiParser
             return false;
         }
 
+        /// <summary>
+        /// This method checks if the necassary JSON files for the use of the applicatie exist
+        /// </summary>
+        /// <returns>Returns whether the necassary JSON files for the use of the applicatie exist</returns>
+        public static bool ExistJsonFiles()
+        {
+            // Get all the files in the Items folder
+            string[] files = FileReaderWriterFacade.CheckFolder(FileReaderWriterFacade.GetAppDataPath() + "Items");
+
+            // Make a dictionary with the necassary files
+            Dictionary<string, bool> necassaryFiles = new Dictionary<string, bool>()
+            {
+                { "Stories.json", false },          // This is the file that contains all the stories
+                { "Feedback.json", false },         // This is the file that contains all the questions with anwsers
+                { "ItemOrder.json", false }         // This is the file that contains the order in which the stories and questions are shown
+            };
+
+            // Loop through all the fileNames
+            foreach (string file in files)
+            {
+                // Check if the file is in the necassaryFiles dictionary
+                if (necassaryFiles.ContainsKey(file))
+                {
+                    // Set the file on true
+                    necassaryFiles[file] = true;
+                }
+            }
+
+            // Check if there are still files on false
+            if (necassaryFiles.ContainsValue(false))
+            {
+                // Loop through all the keys
+                foreach(string key in necassaryFiles.Keys)
+                {
+                    // If a file is on files, create an error
+                    if (!necassaryFiles[key])
+                    {
+                        Log.Error(key + " file is missing");
+                    }
+                }
+
+                // Return false because not all the necassary files exist
+                return false;
+            }
+
+            // Return true because all the necassary files exist
+            return true;           
+        }
     }
 }
