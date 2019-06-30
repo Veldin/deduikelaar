@@ -120,7 +120,7 @@ namespace Labyrint
             }));
 
             //Set the windowsstyle (,the bar above the application).
-            switch (SettingsFacade.Get("WindowsStyle", "ToolWindow"))
+            switch (SettingsFacade.Get("WindowsStyle", "ToolWindow", "Dictates the window style [ToolWindow || None]"))
             {
                 case "None":
                     WindowStyle = WindowStyle.None;
@@ -131,7 +131,7 @@ namespace Labyrint
             }
 
             //Set the windowState.
-            switch (SettingsFacade.Get("WindowState", "Normal"))
+            switch (SettingsFacade.Get("WindowState", "Normal", "Dictates the window state [Normal || Maximized || Minimized]"))
             {
                 case "Maximized":
                     WindowState = WindowState.Maximized;
@@ -195,8 +195,8 @@ namespace Labyrint
             if (!ApiParserFacade.ExistJsonFiles())
             {
                 // Navigate the browser to the html page with the error message and set it on visible
-                browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "\\Errors\\MissingFileError.html"));
-                browser.Visibility = Visibility.Visible;
+                //browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "\\Errors\\MissingFileError.html"));
+                //browser.Visibility = Visibility.Visible;
 
                 // Create a button for the popup and add it to the gameObjects list
                 gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, new object[2] { camera, this }));
@@ -274,8 +274,11 @@ namespace Labyrint
             // Save the settings
             SettingsFacade.Save();
 
-            // Close the application
-            System.Windows.Application.Current.Shutdown();
+            // Close the application on the UI thread
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                System.Windows.Application.Current.Shutdown();
+            }));
         }
 
         /// <summary>

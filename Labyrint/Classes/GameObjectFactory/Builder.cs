@@ -51,7 +51,7 @@ namespace GameObjectFactory
                 //Get a Cursor looking gameObject
                 case "cursor":
                     //Set the bitmap depending on a setting.
-                    switch (SettingsFacade.Get("CursorState", "Normal"))
+                    switch (SettingsFacade.Get("CursorState", "Normal", "Dictates the cursor state [Normal || None]"))
                     {
                         case "None":
                             gameObject.Width = 2;
