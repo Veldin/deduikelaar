@@ -11,6 +11,7 @@ use App\Story;
 use App\StoryFeedback;
 use App\StoryItem;
 use Carbon\Carbon;
+use finfo;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -559,7 +560,6 @@ class StoryApiController extends Controller
             'response' => 'success'
         ]);
     }
-
 
 
 }
