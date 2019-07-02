@@ -347,5 +347,35 @@ class StoryTest extends TestCase
         }
     }
 
+    /**
+     * Test convert an pdf document
+     */
+    public function testConvertFile(){
+
+        // Set file name
+        $filename = 'Test document.pdf';
+
+        // Get file path
+        $file_path = storage_path($filename);
+
+        // Get file info
+        $finfo = new finfo(16);
+
+        // Fake file as uploaded file
+        $file = new \Illuminate\Http\UploadedFile(
+            $file_path,
+            $filename,
+            $finfo->file($file_path),
+            filesize($file_path),
+            0,
+            false
+        );
+
+        // Do request
+        $response = $this->json('POST', '/api/v1/file/convert', ['file' => $file]);
+
+        // Check response
+        $this->assertEquals('success', $response->json()['response']);
+    }
 }
 
