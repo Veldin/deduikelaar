@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labyrint"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Name="mainWindow" Closing="MainWindow_Closing" 
+        Title="Labyrint" Height="350" Width="525" Name="mainWindow" Closing="MainWindow_Closing" 
 >
 
     <Grid x:Name="LayoutRoot">
