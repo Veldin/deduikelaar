@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Robin\Documents\DeDuikelaar\deduikelaar\3\deduikelaar_publish\</PublishUrl>
+    <PublishUrl>C:\Users\Robin\Documents\DeDuikelaar\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,7 +25,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -112,6 +113,7 @@
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\GameObjectFactory\GameObjectFactoryFacade.cs" />
     <Compile Include="Classes\GameObjectFactory\Pool.cs" />
+    <Compile Include="Classes\GameObjects.cs" />
     <Compile Include="Classes\IBehaviour.cs" />
     <Compile Include="Classes\IQuickCommand.cs" />
     <Compile Include="Classes\QuickCommands\QCClear.cs" />
@@ -293,6 +295,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Sprites\DragOuter.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\MissingFileError.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,6 +23,7 @@ using CameraSystem;
 using FileReaderWriterSystem;
 using ApiParser;
 using Settings;
+using System.IO;
 
 namespace Labyrint
 {
@@ -60,8 +61,7 @@ namespace Labyrint
 
         private GameObject cursor;
 
-        private List<GameObject> gameObjects;
-        private List<GameObject> backgroundObjects;
+        private GameObjects gameObjects;
 
         //Strategies
         public List<IBehaviour> onTickList;
@@ -120,7 +120,7 @@ namespace Labyrint
             }));
 
             //Set the windowsstyle (,the bar above the application).
-            switch (SettingsFacade.Get("WindowsStyle", "ToolWindow"))
+            switch (SettingsFacade.Get("WindowsStyle", "ToolWindow", "Dictates the window style [ToolWindow || None]"))
             {
                 case "None":
                     WindowStyle = WindowStyle.None;
@@ -131,7 +131,7 @@ namespace Labyrint
             }
 
             //Set the windowState.
-            switch (SettingsFacade.Get("WindowState", "Normal"))
+            switch (SettingsFacade.Get("WindowState", "Normal", "Dictates the window state [Normal || Maximized || Minimized]"))
             {
                 case "Maximized":
                     WindowState = WindowState.Maximized;
@@ -143,7 +143,7 @@ namespace Labyrint
                     WindowState = WindowState.Normal;
                     break;
             }
-             
+
             //todo: Get them from the Xaml
             width = 1280;
             height = 720;
@@ -158,15 +158,14 @@ namespace Labyrint
             player = GameObjectFactoryFacade.GetGameObject("player", MazeFacade.tileSize, MazeFacade.tileSize);
 
             this.Cursor = Cursors.None; //Hide the default windows cursor.
-            cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300);
+            cursor = GameObjectFactoryFacade.GetGameObject("cursor", 300, 300, 10);
 
             //Inits the GameObject list
-            gameObjects = new List<GameObject>();
+            gameObjects = new GameObjects();
             gameObjects.Add(player);    
             gameObjects.Add(cursor);
 
             //Inits the background object list
-            backgroundObjects = new List<GameObject>();
             PopulateBackgroundObject();
 
             // Inits the onTickList and add behaviours.
@@ -194,12 +193,24 @@ namespace Labyrint
             // If not create a popup and close the application
             if (!ApiParserFacade.ExistJsonFiles())
             {
+                // Invoke the Ui thread
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    // Rescale the browser by adding margins
+                    Thickness margin = browser.Margin;
+                    margin.Left = 30;
+                    margin.Top = 60;
+                    margin.Right = 30;
+                    margin.Bottom = 60;
+                    browser.Margin = margin;
+                }));
+
                 // Navigate the browser to the html page with the error message and set it on visible
-                browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "\\Errors\\MissingFileError.html"));
+                browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetProjectDirectoryPath() + "\\Assets\\MissingFileError.html"));
                 browser.Visibility = Visibility.Visible;
 
                 // Create a button for the popup and add it to the gameObjects list
-                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, new object[2] { camera, this }));
+                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, 4, new object[2] { camera, this }));
             }
 
             // Set the time of the 'old' frame on the current time then start the app.
@@ -220,6 +231,11 @@ namespace Labyrint
         public int GetLastClickClosestBorder()
         {
             return lastClickClosestBorder;
+        }
+
+        public int GetFps()
+        {
+            return (1000 / (int)delta);
         }
 
         #endregion
@@ -274,8 +290,11 @@ namespace Labyrint
             // Save the settings
             SettingsFacade.Save();
 
-            // Close the application
-            System.Windows.Application.Current.Shutdown();
+            // Close the application on the UI thread
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                System.Windows.Application.Current.Shutdown();
+            }));
         }
 
         /// <summary>
@@ -323,7 +342,7 @@ namespace Labyrint
          * PRIVATE METHODS
          * ************************************************************************/
         #region privateMethods
-        
+
         /// <summary>
         /// Calculates the logic of this frame
         /// </summary>
@@ -332,13 +351,14 @@ namespace Labyrint
         {
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
-            ArrayList loopList;
+            GameObjects loopList;
             lock (gameObjects) //lock the gameobjects for duplication
             {
                 try
                 {
                     //Try to duplicate the arraylist.
-                    loopList = new ArrayList(gameObjects);
+                    loopList = new GameObjects();
+                    loopList.AddRange(gameObjects);
                 }
                 catch
                 {
@@ -370,7 +390,7 @@ namespace Labyrint
             {
                 foreach (IBehaviour behaivior in onTickList)
                 {
-                    behaivior.OnTick(gameObjects, delta);
+                    behaivior.OnTick(ref gameObjects, delta);
                 }
             }
 
@@ -427,16 +447,16 @@ namespace Labyrint
         {
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
-            ArrayList loopList;
-            lock (gameObjects) lock (backgroundObjects) //lock the lists for duplication
+            GameObjects loopList;
+            lock (gameObjects)  //lock the list for duplication
                 {
                     try
                     {
-                        //Try to duplicate the arraylist.
-                        loopList = new ArrayList(backgroundObjects);
-                        loopList.AddRange(gameObjects);
-
+                        //Try to duplicate the list.
+                        loopList = new GameObjects();
                         loopList.Add(cursor);
+                        loopList.AddRange(gameObjects);
+                        
                     }
                     catch
                     {
@@ -448,6 +468,15 @@ namespace Labyrint
             //Run it in the UI thread
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
+                //gameCanvas.Children.Clear();
+
+                //gameCanvas = new Canvas();
+
+                //gameCanvas.Width = 1280;
+                //gameCanvas.Height = 720;
+
+
+
                 //Set the background to the backgroundbrush in the engine
                 gameCanvas.Background = backgroundBrush;
 
@@ -467,8 +496,10 @@ namespace Labyrint
                     gameCanvas.Children.Insert(0, bgRect);
 
                 //Go trough eatch object to see how to render them.
-                foreach (GameObject gameObject in loopList)
+                for (int i = 0; i < loopList.Count; i++)
                 {
+                    GameObject gameObject = loopList[i];
+
                     //check if a gameObject is in the render distance.
                     if (player.distanceBetween(gameObject) > renderDistance)
                     {
@@ -483,7 +514,7 @@ namespace Labyrint
                     {
                         //It is in range so draw it.
                         Rectangle rect = gameObject.rectangle; //Set rect to the internal rectangle of a gameObject
-
+              
                         //Set the width and hight of the shown rectangle.
                         rect.Width = gameObject.Width + gameObject.RightDrawOffset + gameObject.LeftDrawOffset;
                         rect.Height = gameObject.Height + gameObject.TopDrawOffset + gameObject.BottomDrawOffset;
@@ -491,19 +522,12 @@ namespace Labyrint
                         // Set up the position in the window.
                         Canvas.SetLeft(rect, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
                         Canvas.SetTop(rect, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
-
+                        
                         // If the rect is not in the canvas yet
                         if (!gameCanvas.Children.Contains(rect))
                         {
-                            //If the gameobject is important to be seen add it to the end of the array
-                            if (gameObject.highVisibility)
-                            {
-                                gameCanvas.Children.Add(rect); //Add at the end of the list
-                            }
-                            else
-                            {
-                                gameCanvas.Children.Insert(0, rect); //Add at the start of the list
-                            }
+                            Panel.SetZIndex(rect, (int)gameObject.FromBehind);
+                            gameCanvas.Children.Add(rect); //Add at the end of the list
                         }
 
                         //Draw the textblock assosiated with the GameObject
@@ -512,25 +536,18 @@ namespace Labyrint
                             TextBlock textBlock = gameObject.textBlock; //Get the textBlock of the GameObject
 
                             Canvas.SetLeft(textBlock, gameObject.FromLeft - gameObject.LeftDrawOffset - camera.GetFromLeft());
-                            Canvas.SetTop(textBlock, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());
+                            Canvas.SetTop(textBlock, gameObject.FromTop - gameObject.TopDrawOffset - camera.GetFromTop());                    
 
                             // If the textBlock is not in the canvas yet
                             if (!gameCanvas.Children.Contains(textBlock))
                             {
-                                //If the gameobject is important to be seen add it to the end of the array
-                                if (gameObject.highVisibility)
-                                {
-                                    gameCanvas.Children.Add(textBlock);
-                                }
-                                else
-                                {
-                                    gameCanvas.Children.Insert(0, textBlock);
-                                }
+                                Panel.SetZIndex(textBlock, (int)gameObject.FromBehind);
+                                gameCanvas.Children.Add(textBlock);
                             }
                         }
                     }
-                }
-            });
+                }           
+            });    
         }
 
         /// <summary>
@@ -617,7 +634,7 @@ namespace Labyrint
                     //If its a wall draw an object
                     if (MazeFacade.IsWall(fromLeft, fromTop))
                     {
-                        backgroundObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop));
+                        gameObjects.Add(GameObjectFactoryFacade.GetGameObject("tile", MazeFacade.tileSize * fromLeft, MazeFacade.tileSize * fromTop, -1));
                     }
                 }
             }
@@ -638,7 +655,7 @@ namespace Labyrint
         public void KeyDown(object sender, KeyEventArgs args)
         {
             pressedKeys.Add(args.Key.ToString());
-            command.KeyPressed(args);
+            command.KeyPressed(args);           
         }
 
 
@@ -659,13 +676,14 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
+            //gameObjects.LogOrder();
             // Set IsMouseDown on true
             pressedKeys.Add("LeftMouse");
 
             // Create the controller GameObjects (on the place of the mouse)
-            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
+            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop, 4);
             gameObjects.Add(controllerAnchor);
-            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop);
+            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop, 5);
             gameObjects.Add(controllerCursor);
 
             // Calc the distance between the cursor to the border

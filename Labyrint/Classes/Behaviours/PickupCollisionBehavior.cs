@@ -31,7 +31,7 @@ namespace Labyrint
             this.engine = values[2] as MainWindow;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
  
             loopList.Clear();
@@ -186,7 +186,7 @@ namespace Labyrint
                                 string html2 = htmlArray2[0] + addCss + htmlArray2[1];
 
                                 // Create the letter (thing behind the browser and buttons)
-                                GameObject letter = GameObjectFactoryFacade.GetGameObject("letter", 0, 0, new object[] { camera, true, compas });
+                                GameObject letter = GameObjectFactoryFacade.GetGameObject("letter", 0, 0, 3, new object[] { camera, true, compas });
 
                                 // Invoke the Ui thread
                                 Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -262,7 +262,7 @@ namespace Labyrint
                                         //int fromLeftPosition = (50 - ((question.anwsers.Count * 10) / 2)) + (i * 10);
 
                                         toAdd = null;
-                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, fromTopPosition, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
+                                        toAdd = GameObjectFactoryFacade.GetGameObject("button", fromLeftPosition, fromTopPosition, 4, new object[] { camera, storyBehaviour.GetStoryId(), question.anwsers[i].answerId, browser });
 
                                         switch (question.anwsers[i].response)
                                         {
@@ -414,7 +414,7 @@ namespace Labyrint
             return true;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }

@@ -28,7 +28,7 @@ namespace Labyrint
             position = "right";
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
             bool moved = false;
             if (Math.Abs(lastPositionFromLeft - gameobject.FromLeft) > 0.01f)
@@ -96,7 +96,7 @@ namespace Labyrint
             return false;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }

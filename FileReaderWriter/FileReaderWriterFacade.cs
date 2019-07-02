@@ -13,6 +13,7 @@ namespace FileReaderWriterSystem
         private static FileWriter fileWriter = new FileWriter();
         private static FileReader fileReader = new FileReader();
         private static readonly string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Labyrint\\";
+        private static readonly string projectDirectoryPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
 
         public static void Init()
         {
@@ -102,6 +103,14 @@ namespace FileReaderWriterSystem
         public static string GetAppDataPath()
         {
             return appDataPath;
+        } 
+        
+        /// <summary>
+        /// Returns the appDataPath
+        /// </summary>
+        public static string GetProjectDirectoryPath()
+        {
+            return projectDirectoryPath;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Labyrint
             loopList = new List<GameObject>();
         }
 
-        public bool OnTick (GameObject gameobject, List<GameObject> gameObjects, HashSet<string> pressedKeys, float delta)
+        public bool OnTick (GameObject gameobject, ref GameObjects gameObjects, HashSet<string> pressedKeys, float delta)
         {
             // Clear the loopList
             loopList.Clear();
@@ -34,7 +34,7 @@ namespace Labyrint
             foreach (GameObject needle in loopList)
             {
                 // Check if the gameObject is a cursor and if it is colliding with the gameObject
-                if (needle != null && needle.BuilderType == "cursor" && gameobject.IsColliding(needle))
+                if (needle != null && needle.BuilderType == "cursor" && gameobject.IsColliding(needle) && pressedKeys.Contains("LeftMouse"))
                 {
                     engine.CloseApp();
                     return true;
@@ -44,7 +44,7 @@ namespace Labyrint
             return false;
         }
 
-        public bool OnTick (List<GameObject> gameObjects, float delta)
+        public bool OnTick (ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }

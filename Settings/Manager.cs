@@ -21,11 +21,16 @@ namespace Settings
         // (The fromFile wil have prioritiy during merging.)
         private static Dictionary<string, string> merge;
 
+        // Holds comments
+        private static Dictionary<string, string> comments;
+
         public Manager()
         {
             fromFile = new Dictionary<string, string>();
             defaults = new Dictionary<string, string>();
             merge = new Dictionary<string, string>();
+            comments = new Dictionary<string, string>();
+
 
             //Add values to the defaults
             defaults.Add("resolution", "1920x1080");
@@ -69,8 +74,18 @@ namespace Settings
                 return;
             }
 
+            //if a comment block is found it gets stored in the comment storre until a key is found
+            string commentStore = null;
+
             foreach (string needle in list)
             {
+                //If the first character is a # it is a comment
+                if (needle[0] == '#')
+                {
+                    commentStore += needle.Substring(1);
+                    continue;
+                }
+
                 string[] pair = needle.Split(':');
                 try
                 {
@@ -79,6 +94,12 @@ namespace Settings
                         continue;
                     }
                     fromFile.Add(pair[0], string.Join(":", pair.Skip(1).ToArray()));
+
+                    if (!string.IsNullOrEmpty(commentStore))
+                    {
+                        comments.Add(pair[0], commentStore);
+                        commentStore = String.Empty;
+                    }
                 }
                 catch { }
             }
@@ -89,11 +110,18 @@ namespace Settings
         /// </summary>
         public void PopulateToIni()
         {
-            string[] toFile = new String[fromFile.Count];
+            string[] toFile = new String[fromFile.Count + comments.Count];
 
             int i = 0;
             foreach (var item in fromFile)
             {
+                if (comments.ContainsKey(item.Key))
+                {
+                    toFile[i] = '#' + comments[item.Key];
+                    comments.Remove(item.Key);
+                    i++;
+                }
+
                 toFile[i] = item.Key + ":" + item.Value;
                 i++;
             }
@@ -107,8 +135,9 @@ namespace Settings
         /// </summary>
         /// <param name="needle">The key used for the lookup.</param>
         /// <param name="defaultReturn">The default return value</param>
+        /// <param name="comment">Set a comment for in the ini file</param>
         /// <returns></returns>
-        public string Get(string needle, string defaultReturn = null)
+        public string Get(string needle, string defaultReturn = null, string comment = null)
         {
             //try to vind the key in the dictionary
             if (merge.TryGetValue(needle, out string value))
@@ -120,6 +149,11 @@ namespace Settings
             if (!fromFile.ContainsKey(needle))
             {
                 fromFile.Add(needle, defaultReturn);
+
+                if (!(comment is null) && !comments.ContainsKey(needle))
+                {
+                    comments.Add(needle, comment);
+                }
             }
 
             return defaultReturn;
@@ -131,8 +165,9 @@ namespace Settings
         /// </summary>
         /// <param name="needle">The key used for the lookup.</param>
         /// <param name="defaultReturn">The default return value</param>
+        /// <param name="comment">Set a comment for in the ini file</param>
         /// <returns></returns>
-        public int Get(string needle, int defaultReturn = 0)
+        public int Get(string needle, int defaultReturn = 0, string comment = null)
         {
             //try to vind the key in the dictionary
             if (merge.TryGetValue(needle, out string value))
@@ -148,6 +183,10 @@ namespace Settings
             if (!fromFile.ContainsKey(needle))
             {
                 fromFile.Add(needle, defaultReturn.ToString());
+                if (!(comment is null) && !comments.ContainsKey(needle))
+                {
+                    comments.Add(needle, comment);
+                }
             }
 
             return defaultReturn;

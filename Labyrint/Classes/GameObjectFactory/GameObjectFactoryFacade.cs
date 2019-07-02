@@ -26,9 +26,9 @@ namespace GameObjectFactory
         /// <param name="fromTop">The fromTop location given to the gameobject.</param>
         /// <param name="value">Other variables given to the builder required to build an object. The actual contents differs from object to object.</param>
         /// <returns></returns>
-        public static GameObject GetGameObject(string wantToGet, float fromLeft = 0, float fromTop = 0, object value = null)
+        public static GameObject GetGameObject(string wantToGet, float fromLeft = 0, float fromTop = 0, float fromBehind = 0, object value = null)
         {
-            return factory.GetGameObject(wantToGet, fromLeft, fromTop, value);
+            return factory.GetGameObject(wantToGet, fromLeft, fromTop, fromBehind, value);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace Labyrint
         //The behaviour to check the modifiersApplied from
         private pickupTargetBehaviour anchor;
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
             //try to find a pickupTargetBehaviour to use as an anchor;
             if (anchor is null)
@@ -53,7 +53,7 @@ namespace Labyrint
             return false;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }

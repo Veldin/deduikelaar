@@ -35,6 +35,7 @@ namespace GameObjectFactory
         private float height;
         private float fromLeft;
         private float fromTop;
+        private float fromBehind;
 
         // Offset where to draw the gameObject in the game.
         // The Sprite can be bigger or smaller then the hitbox.
@@ -78,7 +79,7 @@ namespace GameObjectFactory
         //protected CanvasBitmap sprite;
         private string location;    
 
-        public GameObject(float width = 0, float height = 0, float fromLeft = 0, float fromTop = 0)
+        public GameObject(float width = 0, float height = 0, float fromLeft = 0, float fromTop = 0, float fromBehind = 0)
         {
             //bitmaps = new Dictionary<string, BitmapImage>();
             bitmaps = GameObjectStatic.maps;
@@ -88,6 +89,7 @@ namespace GameObjectFactory
             this.height = height;
             this.fromLeft = fromLeft;
             this.fromTop = fromTop;
+            this.fromBehind = fromBehind;
 
             onTickList = new List<IBehaviour>();
 
@@ -148,6 +150,12 @@ namespace GameObjectFactory
             set { fromTop = value; }
         }
 
+        public float FromBehind
+        {
+            get { return fromBehind; }
+            set { fromBehind = value; }
+        }
+
         //Methods to add ammounts to fields that have to do with positioning of the GameOgject.
         //They also return the new number so we can use them to calculate with instandly.
         public float AddWidth(float width)
@@ -158,6 +166,11 @@ namespace GameObjectFactory
         public float AddHeight(float height)
         {
             this.height += height; return this.height;
+        }
+
+        public float AddFromBehind(float fromBehind)
+        {
+            this.fromBehind += fromBehind; return this.fromBehind;
         }
 
         public float AddFromTop(float fromTop)
@@ -466,7 +479,7 @@ namespace GameObjectFactory
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
-        public Boolean OnTick(ref List<GameObject> gameObjects, ref HashSet<String> pressedKeys, float delta)
+        public Boolean OnTick(ref GameObjects gameObjects, ref HashSet<String> pressedKeys, float delta)
         {
             if (onTickList.Count == 0)
             {
@@ -476,7 +489,7 @@ namespace GameObjectFactory
             {
                 foreach (IBehaviour behaivior in onTickList)
                 {
-                    behaivior.OnTick(this, gameObjects, pressedKeys, delta);
+                    behaivior.OnTick(this, ref gameObjects, pressedKeys, delta);
                 }
             }
 

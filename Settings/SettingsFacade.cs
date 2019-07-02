@@ -37,10 +37,11 @@ namespace Settings
         /// </summary>
         /// <param name="needle">The key used for the lookup.</param>
         /// <param name="defaultReturn">The default return value</param>
+        /// <param name="comment">Set a comment for in the ini file</param>
         /// <returns></returns>
-        public static string Get(string needle, string defaultReturn = null)
+        public static string Get(string needle, string defaultReturn = null, string comment = null)
         {
-            return manager.Get(needle, defaultReturn);
+            return manager.Get(needle, defaultReturn, comment);
         }
 
         /// <summary>
@@ -48,10 +49,11 @@ namespace Settings
         /// </summary>
         /// <param name="needle">The key used for the lookup.</param>
         /// <param name="defaultReturn">The default return value</param>
+        /// <param name="comment">Set a comment for in the ini file</param>
         /// <returns></returns>
-        public static int Get(string needle, int defaultReturn = 0)
+        public static int Get(string needle, int defaultReturn = 0, string comment = null)
         {
-            return manager.Get(needle, defaultReturn);
+            return manager.Get(needle, defaultReturn, comment);
         }
 
         /// <summary>

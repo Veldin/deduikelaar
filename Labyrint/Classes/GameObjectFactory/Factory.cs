@@ -28,11 +28,11 @@ namespace GameObjectFactory
         /// <param name="fromTop">the location fromTop</param>
         /// <param name="value">extra value parameter for the builder</param>
         /// <returns></returns>
-        public GameObject GetGameObject(string wantToGet, float fromLeft, float fromTop, object value = null)
+        public GameObject GetGameObject(string wantToGet, float fromLeft, float fromTop, float fromBehind, object value = null)
         {
             //GameObject target = pool.GetGameObject();
             GameObject target = new GameObject();
-            builder.TransformGameObject(target, wantToGet, fromLeft, fromTop, value);
+            builder.TransformGameObject(target, wantToGet, fromLeft, fromTop, fromBehind, value);
 
             return target;
         }

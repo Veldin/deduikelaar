@@ -30,7 +30,7 @@ namespace Labyrint
             isClicked = false;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
             //If there is no cursor, try to find it.
             if (cursor is null)
@@ -90,7 +90,7 @@ namespace Labyrint
             return true;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }
