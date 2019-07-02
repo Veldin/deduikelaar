@@ -192,8 +192,6 @@ namespace GameObjectFactory
                     gameObject.Width = 82.35f;
                     gameObject.Height = 70;
 
-                    gameObject.highVisibility = true;
-
                     gameObject.MovementSpeed = 1200;
                     gameObject.Collition = false;
 

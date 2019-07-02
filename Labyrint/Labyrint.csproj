@@ -296,5 +296,8 @@
   <ItemGroup>
     <Resource Include="Assets\Sprites\DragOuter.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\MissingFileError.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

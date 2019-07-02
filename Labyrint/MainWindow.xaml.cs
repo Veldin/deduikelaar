@@ -23,6 +23,7 @@ using CameraSystem;
 using FileReaderWriterSystem;
 using ApiParser;
 using Settings;
+using System.IO;
 
 namespace Labyrint
 {
@@ -192,12 +193,24 @@ namespace Labyrint
             // If not create a popup and close the application
             if (!ApiParserFacade.ExistJsonFiles())
             {
+                // Invoke the Ui thread
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    // Rescale the browser by adding margins
+                    Thickness margin = browser.Margin;
+                    margin.Left = 30;
+                    margin.Top = 60;
+                    margin.Right = 30;
+                    margin.Bottom = 60;
+                    browser.Margin = margin;
+                }));
+
                 // Navigate the browser to the html page with the error message and set it on visible
-                //browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetAppDataPath() + "\\Errors\\MissingFileError.html"));
-                //browser.Visibility = Visibility.Visible;
+                browser.NavigateToString(FileReaderWriterFacade.ReadFile(FileReaderWriterFacade.GetProjectDirectoryPath() + "\\Assets\\MissingFileError.html"));
+                browser.Visibility = Visibility.Visible;
 
                 // Create a button for the popup and add it to the gameObjects list
-                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, 2, new object[2] { camera, this }));
+                gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, 4, new object[2] { camera, this }));
             }
 
             // Set the time of the 'old' frame on the current time then start the app.

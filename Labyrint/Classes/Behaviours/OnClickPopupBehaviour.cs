@@ -34,7 +34,7 @@ namespace Labyrint
             foreach (GameObject needle in loopList)
             {
                 // Check if the gameObject is a cursor and if it is colliding with the gameObject
-                if (needle != null && needle.BuilderType == "cursor" && gameobject.IsColliding(needle))
+                if (needle != null && needle.BuilderType == "cursor" && gameobject.IsColliding(needle) && pressedKeys.Contains("LeftMouse"))
                 {
                     engine.CloseApp();
                     return true;
