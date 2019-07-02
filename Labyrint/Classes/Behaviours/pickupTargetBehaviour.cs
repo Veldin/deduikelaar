@@ -43,7 +43,7 @@ namespace Labyrint
             modifiersApplied = false;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
             ////If the anchor is null search an anchor.
             //if (pointer == null)
@@ -167,7 +167,7 @@ namespace Labyrint
             return true;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }

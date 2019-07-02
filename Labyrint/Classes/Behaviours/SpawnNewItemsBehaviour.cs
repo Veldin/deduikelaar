@@ -39,12 +39,12 @@ namespace Labyrint
             this.engine = engine;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<string> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<string> pressedKeys, float delta)
         {
             throw new NotImplementedException();
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             // Clear the loopList
             loopList.Clear();
@@ -76,7 +76,7 @@ namespace Labyrint
             return true;
         }
 
-        private void DropNewPickup(List<GameObject> gameObjects)
+        private void DropNewPickup(GameObjects gameObjects)
         {
             GameObject testPickup; //holds the new pickup
 
@@ -107,6 +107,7 @@ namespace Labyrint
                 "pickup",
                 randomFromLeft * MazeFacade.tileSize + MazeFacade.tileSize / 2,
                 randomFromTop * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                2,
                 new object[3] { browser, camera, engine }
             );
 
@@ -115,6 +116,7 @@ namespace Labyrint
                 "orb",
                 randomFromLeft * MazeFacade.tileSize + MazeFacade.tileSize / 2,
                 randomFromTop * MazeFacade.tileSize + MazeFacade.tileSize / 2,
+                1,
                 newPickup
             );
          

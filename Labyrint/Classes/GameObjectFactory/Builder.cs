@@ -21,12 +21,13 @@ namespace GameObjectFactory
 
         }
 
-        public void TransformGameObject(GameObject gameObject, string wantToGet, float fromLeft, float fromTop, object value = null)
+        public void TransformGameObject(GameObject gameObject, string wantToGet, float fromLeft, float fromTop, float fromBehind, object value = null)
         {
             gameObject.BuilderType = wantToGet;
 
             gameObject.FromLeft = fromLeft;
             gameObject.FromTop = fromTop;
+            gameObject.FromBehind = fromBehind;
             gameObject.Collition = true;
 
             switch (wantToGet)
@@ -122,7 +123,7 @@ namespace GameObjectFactory
                     break;
                 //Create buttons the player can click on 
                 case "button":      // value = new object[] { camera, storyId, anwserId, browser }
-                    object[] val = value as object[];
+                    object[] val5 = value as object[];
 
                     gameObject.Width = 82.35f;
                     gameObject.Height = 70;
@@ -133,11 +134,11 @@ namespace GameObjectFactory
                     gameObject.Collition = false;
 
                     //Resises and moves a gameobject to act like a scaling user interface item.
-                    gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val[0] as Camera));
+                    gameObject.onTickList.Add(new ScaleItemBehaviour(gameObject.FromLeft, gameObject.FromTop, val5[0] as Camera));
                     gameObject.onTickList.Add(new SetToTargetBehaviour());
 
                     //Dictate what to do on click
-                    gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val[1]), Convert.ToInt32(val[2]), val[3] as WebBrowser));
+                    gameObject.onTickList.Add(new ButtonCursorClickBehaviour(Convert.ToInt32(val5[1]), Convert.ToInt32(val5[2]), val5[3] as WebBrowser));
 
                     break;
                 //Spawn a letter icon at a location

@@ -25,12 +25,12 @@ namespace Labyrint
             spaceBetween = 100;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
             throw new NotImplementedException();
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             loopList.Clear();
             buttonList.Clear();
@@ -38,6 +38,7 @@ namespace Labyrint
             lock (gameObjects)
             {
                 loopList.AddRange(gameObjects);
+
             }
 
             int i = 0;

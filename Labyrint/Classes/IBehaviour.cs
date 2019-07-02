@@ -19,7 +19,7 @@ namespace Labyrint
         /// <param name="gameObjects">The list of gameObjects that were used for this gameTick.</param>
         /// <param name="pressedKeys">The list of keys that were used pressed.</param>
         /// <param name="delta">The time since the last onTick was performed.</param>
-        bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta);
+        bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta);
 
         /// <summary>
         /// Defines any effect a gameObject or the engine needs to perform. Gets ran every gameTick 
@@ -27,6 +27,6 @@ namespace Labyrint
         /// <param name="gameObjects">The list of gameObjects that were used for this gameTick.</param>
         /// <param name="delta">The time since the last onTick was performed.</param>
         /// <returns></returns>
-        bool OnTick(List<GameObject> gameObjects, float delta);
+        bool OnTick(ref GameObjects gameObjects, float delta);
     }
 }

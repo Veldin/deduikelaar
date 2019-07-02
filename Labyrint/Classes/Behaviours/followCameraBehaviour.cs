@@ -27,7 +27,7 @@ namespace Labyrint
             this.camera = camera;
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<String> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
             if (gameobject.Target == null)
             {
@@ -61,7 +61,7 @@ namespace Labyrint
             return true;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }

@@ -17,7 +17,7 @@ namespace Labyrint
             random = new Random();
         }
 
-        public bool OnTick(GameObject gameobject, List<GameObject> gameObjects, HashSet<string> pressedKeys, float delta)
+        public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<string> pressedKeys, float delta)
         {
             //If the anchor is null search an anchor.
             if (anchor == null)
@@ -73,7 +73,7 @@ namespace Labyrint
             return true;
         }
 
-        public bool OnTick(List<GameObject> gameObjects, float delta)
+        public bool OnTick(ref GameObjects gameObjects, float delta)
         {
             throw new NotImplementedException();
         }
