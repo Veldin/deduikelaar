@@ -821,8 +821,8 @@ namespace Labyrint
             //cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
             //cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
 
-            cursor.FromLeft = ((float)p.X + camera.GetFromLeft()/2 + (player.FromLeft) + player.Width / 2);
-            cursor.FromTop = ((float)p.Y + camera.GetFromTop()/2 + (player.FromTop) + player.Height / 2);
+            cursor.FromLeft = ((float)p.X + camera.GetFromLeft() + (player.FromLeft) + player.Width / 2);
+            cursor.FromTop = ((float)p.Y + camera.GetFromTop() + (player.FromTop) + player.Height / 2);
 
 
             // Set IsMouseDown on true
