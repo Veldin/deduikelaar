@@ -34,92 +34,7 @@ class DatabaseSeeder extends Seeder
             }
 
         }else{
-
-            // Wat was je gevoel hierbij?
-            $feedback = Feedback::create([
-                'question' => 'Wat was je gevoel hierbij?',
-                'extraInfo' => '',
-                'feedbackType' => 'emoticon',
-                'oneWord' => 'Gevoel'
-            ]);
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => '\u1F603',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => '\u1F620',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => '\u1F622',
-                'feedbackId' => $feedback->id
-            ]);
-
-            // Was het goed leesbaar?
-            $feedback = Feedback::create([
-                'question' => 'Was het goed leesbaar?',
-                'extraInfo' => '',
-                'feedbackType' => 'ja/nee',
-                'oneWord' => 'Leesbaar'
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Ja',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Nee',
-                'feedbackId' => $feedback->id
-            ]);
-
-            // Hoe interessant vond je het?
-            $feedback = Feedback::create([
-                'question' => 'Hoe interessant vond je het?',
-                'extraInfo' => '',
-                'feedbackType' => 'tekst',
-                'oneWord' => 'Interessant'
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Erg interessant',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Interessant',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Minder interessant',
-                'feedbackId' => $feedback->id
-            ]);
-
-            // Hoe goed heb jij het begrepen?
-            $feedback = Feedback::create([
-                'question' => 'Hoe goed heb jij het begrepen?',
-                'extraInfo' => '',
-                'feedbackType' => 'tekst',
-                'oneWord' => 'Duidelijkheid'
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Grotendeels begrepen',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Begrepen',
-                'feedbackId' => $feedback->id
-            ]);
-
-            $feedbackItems[] = FeedbackItem::create([
-                'feedback' => 'Niet begrepen',
-                'feedbackId' => $feedback->id
-            ]);
+            $this->addFeedback();
         }
 
 
@@ -194,5 +109,94 @@ class DatabaseSeeder extends Seeder
         });
 
 
+    }
+
+    public function addFeedback(){
+
+        // Wat was je gevoel hierbij?
+        $feedback = Feedback::create([
+            'question' => 'Wat was je gevoel hierbij?',
+            'extraInfo' => '',
+            'feedbackType' => 'emoticon',
+            'oneWord' => 'Gevoel'
+        ]);
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => '\u1F603',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => '\u1F620',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => '\u1F622',
+            'feedbackId' => $feedback->id
+        ]);
+
+        // Was het goed leesbaar?
+        $feedback = Feedback::create([
+            'question' => 'Was het goed leesbaar?',
+            'extraInfo' => '',
+            'feedbackType' => 'ja/nee',
+            'oneWord' => 'Leesbaar'
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Ja',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Nee',
+            'feedbackId' => $feedback->id
+        ]);
+
+        // Hoe interessant vond je het?
+        $feedback = Feedback::create([
+            'question' => 'Hoe interessant vond je het?',
+            'extraInfo' => '',
+            'feedbackType' => 'tekst',
+            'oneWord' => 'Interessant'
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Erg interessant',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Interessant',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Minder interessant',
+            'feedbackId' => $feedback->id
+        ]);
+
+        // Hoe goed heb jij het begrepen?
+        $feedback = Feedback::create([
+            'question' => 'Hoe goed heb jij het begrepen?',
+            'extraInfo' => '',
+            'feedbackType' => 'tekst',
+            'oneWord' => 'Duidelijkheid'
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Grotendeels begrepen',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Begrepen',
+            'feedbackId' => $feedback->id
+        ]);
+
+        $feedbackItems[] = FeedbackItem::create([
+            'feedback' => 'Niet begrepen',
+            'feedbackId' => $feedback->id
+        ]);
     }
 }

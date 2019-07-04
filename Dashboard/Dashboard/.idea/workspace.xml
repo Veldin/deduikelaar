@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="">
+    <list default="true" id="9ff7841e-3162-487b-9e9a-595141b3d621" name="Default Changelist" comment="Some fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
     </list>
     <list id="4493c035-579c-433e-a2af-1b0e3bf08a09" name="ide" comment="ide" />
     <list id="f9c35244-0ee0-4716-ae4b-899e839bf992" name="Revert: " comment="no idea" />
@@ -37,10 +39,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="45" column="46" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+            <state relative-caret-position="204">
+              <caret line="21" column="55" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="55" />
               <folding>
                 <element signature="e#393#432#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/LabyrintApiController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="54" column="91" selection-start-line="54" selection-start-column="91" selection-end-line="54" selection-end-column="91" />
+              <folding>
+                <element signature="e#46#63#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+              <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -88,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/CreateItem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="301" lean-forward="true" selection-start-line="301" selection-end-line="301" />
+            <state relative-caret-position="343">
+              <caret line="307" column="18" lean-forward="true" selection-start-line="307" selection-start-column="18" selection-end-line="307" selection-end-column="18" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -101,10 +115,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="84" column="19" selection-start-line="84" selection-start-column="19" selection-end-line="84" selection-end-column="19" />
+              <folding>
+                <element signature="e#41#58#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="265">
+              <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+              <folding>
+                <element signature="e#7#24#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="209" column="11" lean-forward="true" selection-start-line="209" selection-start-column="11" selection-end-line="209" selection-end-column="11" />
+            <state relative-caret-position="350">
+              <caret line="243" column="9" selection-start-line="243" selection-start-column="9" selection-end-line="243" selection-end-column="9" />
               <folding>
                 <element signature="e#46#63#0#PHP" expanded="true" />
               </folding>
@@ -123,9 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>overvie</find>
-      <find>overv</find>
-      <find>webpack.config</find>
       <find>?sourceMap</find>
       <find>togglePopup1</find>
       <find>self::</find>
@@ -153,6 +188,9 @@
       <find>var_d</find>
       <find>print_</find>
       <find>delete</find>
+      <find>order</find>
+      <find>getOrder</find>
+      <find>kroontjes</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -193,25 +231,25 @@
         <option value="$PROJECT_DIR$/resources/sass/Rowan.scss" />
         <option value="$PROJECT_DIR$/resources/js/components/Statistics.js" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_16_120523_create_file_table.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/LabyrintApiController.php" />
         <option value="$PROJECT_DIR$/resources/views/test/story_view.blade.php" />
         <option value="$PROJECT_DIR$/webpack.mix.js" />
         <option value="$PROJECT_DIR$/resources/js/components/Card/Card.js" />
         <option value="$PROJECT_DIR$/resources/js/components/Overview.js" />
         <option value="$PROJECT_DIR$/resources/sass/Jaroen.scss" />
         <option value="$PROJECT_DIR$/app/Console/Commands/Database.php" />
-        <option value="$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php" />
         <option value="$PROJECT_DIR$/storage/app/.gitignore" />
-        <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
         <option value="$PROJECT_DIR$/resources/views/information-piece.blade.php" />
         <option value="$PROJECT_DIR$/.idea/.gitignore" />
         <option value="$USER_HOME$/Desktop/test_edge.html" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/File.php" />
         <option value="$PROJECT_DIR$/tests/Unit/LabyrintApiTest.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php" />
         <option value="$PROJECT_DIR$/tests/Unit/StoryTest.php" />
         <option value="$PROJECT_DIR$/resources/js/components/CreateItem.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/LabyrintApiController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php" />
+        <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
+        <option value="$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php" />
         <option value="$PROJECT_DIR$/.env" />
       </list>
     </option>
@@ -705,21 +743,7 @@
       <workItem from="1561469253047" duration="207000" />
       <workItem from="1561560517695" duration="952000" />
       <workItem from="1562075665284" duration="717000" />
-      <workItem from="1562228609175" duration="1127000" />
-    </task>
-    <task id="LOCAL-00033" summary="Story test page and database seeder">
-      <created>1559556273526</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1559556273526</updated>
-    </task>
-    <task id="LOCAL-00034" summary="File upload fix">
-      <created>1559559194116</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1559559194116</updated>
+      <workItem from="1562228609175" duration="2740000" />
     </task>
     <task id="LOCAL-00035" summary="Emoticons">
       <created>1559559983961</created>
@@ -1050,7 +1074,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562228782287</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Builded reactjs">
+      <created>1562229783395</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1562229783395</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Some fixes">
+      <created>1562230135149</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1562230135149</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1086,7 +1124,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="273458000" />
+    <option name="totallyTimeSpent" value="275071000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1099,6 +1137,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24360341" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1113,7 +1152,7 @@
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" sideWeight="0.4978678" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.19616205" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.19616205" side_tool="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Application Servers" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49520257" weight="0.31852654" />
       <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.80383795" visible="true" weight="0.32936078" />
@@ -1128,8 +1167,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Images in preview" />
-    <MESSAGE value="merge conflicts fixed" />
     <MESSAGE value="File or text, not both" />
     <MESSAGE value="Docx preview" />
     <MESSAGE value="Video and pdf preview and upload" />
@@ -1153,7 +1190,9 @@
     <MESSAGE value="Fix for api" />
     <MESSAGE value="Api comments etc." />
     <MESSAGE value="Setting names of icons correct" />
-    <option name="LAST_COMMIT_MESSAGE" value="Setting names of icons correct" />
+    <MESSAGE value="Builded reactjs" />
+    <MESSAGE value="Some fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some fixes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/routes/web.php">
@@ -1360,36 +1399,6 @@
     <entry file="file://$PROJECT_DIR$/app/Console/Kernel.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/LabyrintApiController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="352" column="36" selection-start-line="352" selection-start-column="36" selection-end-line="352" selection-end-column="36" />
-          <folding>
-            <element signature="e#46#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="62" column="13" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
-          <folding>
-            <element signature="e#41#72#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3036">
-          <caret line="193" column="11" selection-start-line="193" selection-start-column="11" selection-end-line="193" selection-end-column="11" />
-          <folding>
-            <element signature="e#7#24#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1449,10 +1458,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="21" column="55" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="55" />
+          <folding>
+            <element signature="e#393#432#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="243" column="9" selection-start-line="243" selection-start-column="9" selection-end-line="243" selection-end-column="9" />
+          <folding>
+            <element signature="e#46#63#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/CreateItem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="301" lean-forward="true" selection-start-line="301" selection-end-line="301" />
+        <state relative-caret-position="343">
+          <caret line="307" column="18" lean-forward="true" selection-start-line="307" selection-start-column="18" selection-end-line="307" selection-end-column="18" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -1462,22 +1491,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
+    <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="45" column="46" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+        <state relative-caret-position="265">
+          <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
           <folding>
-            <element signature="e#393#432#0#PHP" expanded="true" />
+            <element signature="e#7#24#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/StoryApiController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/LabyrintApiController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="209" column="11" lean-forward="true" selection-start-line="209" selection-start-column="11" selection-end-line="209" selection-end-column="11" />
+        <state relative-caret-position="241">
+          <caret line="54" column="91" selection-start-line="54" selection-start-column="91" selection-end-line="54" selection-end-column="91" />
           <folding>
             <element signature="e#46#63#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Console/Commands/DatabaseRefresh.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="84" column="19" selection-start-line="84" selection-start-column="19" selection-end-line="84" selection-end-column="19" />
+          <folding>
+            <element signature="e#41#58#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1485,7 +1524,7 @@
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
         </state>
       </provider>
     </entry>
