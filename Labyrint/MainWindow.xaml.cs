@@ -830,6 +830,9 @@ namespace Labyrint
                 return;
             }
 
+            // Reset the controlls
+            ResetControls();
+
             Point p = e.GetTouchPoint((IInputElement)gameCanvas).Position;
             cursor.FromLeft = (float)p.X + camera.GetFromLeft();
             cursor.FromTop = (float)p.Y + camera.GetFromTop();
