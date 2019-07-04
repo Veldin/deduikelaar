@@ -817,7 +817,7 @@ namespace Labyrint
             }
 
             Log.Debug("ViewBox_TouchDown"); 
-            Point p = e.GetTouchPoint((IInputElement)  e.Device).Position;
+            Point p = e.GetTouchPoint((IInputElement)  e.TouchDevice).Position;
             cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
             cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
 
