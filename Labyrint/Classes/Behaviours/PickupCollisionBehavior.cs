@@ -33,7 +33,8 @@ namespace Labyrint
 
         public bool OnTick(GameObject gameobject, ref GameObjects gameObjects, HashSet<String> pressedKeys, float delta)
         {
- 
+
+            return true;
             loopList.Clear();
             
 

@@ -26,10 +26,19 @@ const card = (props) => {
           if (typeof data[feedbackItem.oneWord] === 'undefined') {
             data[feedbackItem.oneWord] = [];
           }
+            Object.entries(feedbackItem.feedback).map((element, index) =>
+                {if(element[1].answer === "\\u1F603"){
+                    element[1].answer = "😃";
+                }else if(element[1].answer === "\\u1F620"){
+                    element[1].answer = "😠";
+                }else if(element[1].answer === "\\u1F622"){
+                    element[1].answer = "😢";
+                }}
+            );
 
           // Loop through data and set each feedbackType with its data
           Object.entries(feedbackItem.feedback).map((element, index) =>
-              data[feedbackItem.oneWord][index] ={value: element[1].count, description: element[1].count, color: colors[index]}
+              data[feedbackItem.oneWord][index] ={value: element[1].count, description: element[1].answer, color: colors[index]}
           );
         });
       }

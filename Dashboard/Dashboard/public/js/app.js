@@ -65727,13 +65727,22 @@ var card = function card(props) {
           // If oneWord is undefined, feedbackType doesn't exist
           if (typeof data[feedbackItem.oneWord] === 'undefined') {
             data[feedbackItem.oneWord] = [];
-          } // Loop through data and set each feedbackType with its data
+          }
 
+          Object.entries(feedbackItem.feedback).map(function (element, index) {
+            if (element[1].answer === "\\u1F603") {
+              element[1].answer = "😃";
+            } else if (element[1].answer === "\\u1F620") {
+              element[1].answer = "😠";
+            } else if (element[1].answer === "\\u1F622") {
+              element[1].answer = "😢";
+            }
+          }); // Loop through data and set each feedbackType with its data
 
           Object.entries(feedbackItem.feedback).map(function (element, index) {
             return data[feedbackItem.oneWord][index] = {
               value: element[1].count,
-              description: element[1].count,
+              description: element[1].answer,
               color: colors[index]
             };
           });

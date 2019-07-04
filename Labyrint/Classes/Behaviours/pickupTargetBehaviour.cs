@@ -82,10 +82,10 @@ namespace Labyrint
             float diffFromTotal = diffFromLeftAbs + diffFromTopAbs;
 
             float percentageFromLeft = diffFromTotal - diffFromLeftAbs;
-            percentageFromLeft = percentageFromLeft / diffFromTotal * 100;
+            percentageFromLeft = (percentageFromLeft * 100) / (diffFromTotal * 100) * 100;
 
             float percentageFromTop = diffFromTotal - diffFromTopAbs;
-            percentageFromTop = percentageFromTop / diffFromTotal * 100;
+            percentageFromTop = (percentageFromTop * 100) / (diffFromTotal * 100) * 100;
 
             //If the absolute difference is high (when its out of the screen) place the object closer.
             if (diffFromTopAbs > 300 || diffFromLeftAbs > 550)
