@@ -781,68 +781,25 @@ namespace Labyrint
 
             // Set IsMouseDown on true
             pressedKeys.Add("touch down");
+            Log.Debug("touch down");
 
-            // Create the controller GameObjects
-            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop);
-            gameObjects.Add(controllerAnchor);
-            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop);
-            gameObjects.Add(controllerCursor);
-
-            // Calc the distance between the cursor to the border
-            float[] distances = new float[]
-            {
-                    // Cursor to top border
-                    Math.Abs(camera.GetFromTop() - cursor.FromTop), 
-
-                    // Cursor to right border
-                    Math.Abs(camera.GetWidth()  +  camera.GetFromLeft() - cursor.FromLeft),
-
-                    // Cursor to bottom border
-                    Math.Abs(camera.GetHeight() +  camera.GetFromTop() - cursor.FromTop),
-
-                    // Cursor to left border
-                    Math.Abs(camera.GetFromLeft() - cursor.FromLeft)
-            };
-
-            // Check which distance is the lowest
-            int lowestKey = 0;
-            float lowestVal = cursor.FromTop;
-            for (int i = 0; i < 4; i++)
-            {
-                if (distances[i] < lowestVal)
-                {
-                    lowestVal = distances[i];
-                    lowestKey = i;
-                }
-            }
-
-            Log.Debug(lowestKey);
-            // Save the value in an attibrute
-            lastClickClosestBorder = lowestKey;
         }
 
         private void MainWindow_TouchUp(object sender, TouchEventArgs e)
         {
-            Log.Debug("");
-
-            // Set IsMouseDown on false
-            pressedKeys.Remove("LeftMouse");
-
-            // Set the target of the player to the current position to stop it from moving
-            player.Target.SetFromLeft(player.FromLeft);
-            player.Target.SetFromTop(player.FromTop);
-
-            // Remove the anchor for the controller
-            if (!(controllerAnchor is null))
-            {
-                controllerAnchor.destroyed = true;
-            }
-            if (!(controllerCursor is null))
-            {
-                controllerCursor.destroyed = true;
-            }
+            Log.Debug("touch up");
         }
 
         #endregion
+
+        private void ViewBox_TouchDown(object sender, TouchEventArgs e)
+        {
+            Log.Debug("touch down");
+        }
+
+        private void ViewBox_TouchEnter(object sender, TouchEventArgs e)
+        {
+            Log.Debug("touch up");
+        }
     }
 }
