@@ -88,6 +88,9 @@ namespace Labyrint
             //Initialize the Window
             InitializeComponent();
 
+            SplashScreen splashScreen = new SplashScreen();
+            splashScreen.Show();
+
             // Add the OnMouseDown and the OnMouseUp as event handler
             AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(OnMouseDown), true);
             AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
@@ -99,10 +102,19 @@ namespace Labyrint
 
             //Innitialise all the Facades
             FileReaderWriterFacade.Init();
+            splashScreen.AddProgress();
+
             SettingsFacade.Init();
+            splashScreen.AddProgress();           
+
             ApiParserFacade.Init();
+            splashScreen.AddProgress();
+
             GameObjectFactoryFacade.Init();
+            splashScreen.AddProgress();
+
             MazeFacade.Init();
+            splashScreen.AddProgress();
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
@@ -232,6 +244,8 @@ namespace Labyrint
                 // Create a button for the popup and add it to the gameObjects list
                 gameObjects.Add(GameObjectFactoryFacade.GetGameObject("popupButton", 49, 80, 4, new object[2] { camera, this }));
             }
+
+            splashScreen.Close();
 
             // Set the time of the 'old' frame on the current time then start the app.
             then = Stopwatch.GetTimestamp();
@@ -416,7 +430,7 @@ namespace Labyrint
 
 
             // If the Controlmode is Mouse or Both set the cursor to the mouse position
-            if (controlMode == "Mouse" && controlMode == "Both")
+            if (controlMode == "Mouse" || controlMode == "Both")
             {
                 //Try catch due to us not knowing if the UI thead exists *it does not in unit tests*
                 try
@@ -815,6 +829,9 @@ namespace Labyrint
             {
                 return;
             }
+
+            // Reset the controlls
+            ResetControls();
 
             Point p = e.GetTouchPoint((IInputElement)gameCanvas).Position;
             cursor.FromLeft = (float)p.X + camera.GetFromLeft();
