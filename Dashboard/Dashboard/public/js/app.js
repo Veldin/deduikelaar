@@ -66261,7 +66261,7 @@ function (_Component) {
         className: "with-gap",
         id: "item5",
         name: "item",
-        value: "kroontjespen",
+        value: "crownsPen",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -66275,7 +66275,7 @@ function (_Component) {
         className: "with-gap",
         id: "item6",
         name: "item",
-        value: "kroontjespen",
+        value: "yat",
         type: "radio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "itemImage"
@@ -67017,8 +67017,8 @@ __webpack_require__(/*! materialize-css */ "./node_modules/materialize-css/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\school\stenden\jaar 3\deduikelaar\Dashboard\Dashboard\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
