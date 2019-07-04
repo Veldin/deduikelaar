@@ -14,7 +14,7 @@ class File extends Model
     protected $table = 'file';
 
     // All allowed file extensions
-    public static $allowedExtensions = ['docx','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg', 'webm', 'mp3','wav'];
+    public static $allowedExtensions = ['docx', 'pdf','jpeg','jpg','png','gif','bmp','avi','mp4','mpeg', 'webm', 'mp3','wav'];
 
     // Image file extensions
     public static $imageFileExtensions = ['jpeg','jpg','png','gif','bmp'];
