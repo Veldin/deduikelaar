@@ -807,7 +807,7 @@ namespace Labyrint
         private void ViewBox_TouchDown(object sender, TouchEventArgs e)
         {
             // If the Controlmode is not Mouse or Both return
-            if (controlMode != "Mouse" && controlMode != "Both")
+            if (controlMode != "Touch" && controlMode != "Both")
             {
                 return;
             }
