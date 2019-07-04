@@ -295,14 +295,14 @@ class CreateItem extends Component {
 
           <label htmlFor="item5">
             <div className="items">
-              <input className="with-gap" id="item5" name="item" value="kroontjespen" type="radio"></input>
+              <input className="with-gap" id="item5" name="item" value="crownsPen" type="radio"></input>
               <span className="itemImage"><img src={ require('../../../public/images/kroontjesPen2.png') } /></span>
             </div>
           </label>
 
           <label htmlFor="item6">
             <div className="items">
-              <input className="with-gap" id="item6" name="item" value="kroontjespen" type="radio"></input>
+              <input className="with-gap" id="item6" name="item" value="yat" type="radio"></input>
               <span className="itemImage"><img src={ require('../../../public/images/yatvasum2.png') } /></span>
             </div>
           </label>
