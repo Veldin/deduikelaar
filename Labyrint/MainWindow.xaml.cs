@@ -627,7 +627,7 @@ namespace Labyrint
                 controllerCursor.FromTop = cursor.FromTop;
 
                 // This adds  movementspeed to the player depending on the distance between the controllerAnchor and the controllerCursor. It's capped on 700!            
-                player.MovementSpeed = 500 + controllerAnchor.distanceBetween(controllerCursor) > 700 ? 700 : 500 + controllerAnchor.distanceBetween(controllerCursor);
+                player.MovementSpeed = 700 + controllerAnchor.distanceBetween(controllerCursor) > 1400 ? 1400 : 700 + controllerAnchor.distanceBetween(controllerCursor);
 
                 // Set the target of the player to the current pos of the player to reset the target
                 player.Target.SetFromLeft(player.FromLeft);
@@ -801,6 +801,7 @@ namespace Labyrint
         /// </summary>
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            e.Cancel = true;
             CloseApp();
         }
 
@@ -898,8 +899,6 @@ namespace Labyrint
             }
         }
 
-        #endregion
-
         private void ViewBox_TouchMove(object sender, TouchEventArgs e)
         {
             // If the Controlmode is not Mouse or Both return
@@ -912,5 +911,9 @@ namespace Labyrint
             cursor.FromLeft = (float)p.X + camera.GetFromLeft();
             cursor.FromTop = (float)p.Y + camera.GetFromTop();
         }
+
+        #endregion
+
+
     }
 }

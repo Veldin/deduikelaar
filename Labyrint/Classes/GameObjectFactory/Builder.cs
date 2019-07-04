@@ -77,7 +77,7 @@ namespace GameObjectFactory
                     gameObject.onTickList.Add(new PickupCollisionBehavior(value)); //On collition the pickup is picked up
                     gameObject.onTickList.Add(new HaveAStoryBehaviour(gameObject)); //give this object a story 
 
-                    gameObject.MovementSpeed = 800;
+                    gameObject.MovementSpeed = 1450;
 
                     gameObject.Target = new Target(gameObject.FromLeft, gameObject.FromTop);
 
