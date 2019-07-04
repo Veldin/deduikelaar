@@ -37,17 +37,6 @@ namespace Labyrint
             {
                 ImageSource = backgroundImage
             };
-
-
-            // Set the maximum value of the progressBar
-            progressBar.Maximum = 6;
-            progressBar.Minimum = 0;
-            progressBar.Value = 0;
-        }
-
-        public void AddProgress()
-        {
-            progressBar.Value++;
         }
     }
 }

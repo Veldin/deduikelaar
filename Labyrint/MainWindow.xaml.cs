@@ -102,19 +102,11 @@ namespace Labyrint
 
             //Innitialise all the Facades
             FileReaderWriterFacade.Init();
-            splashScreen.AddProgress();
-
-            SettingsFacade.Init();
-            splashScreen.AddProgress();           
-
+            SettingsFacade.Init();        
             ApiParserFacade.Init();
-            splashScreen.AddProgress();
-
             GameObjectFactoryFacade.Init();
-            splashScreen.AddProgress();
-
             MazeFacade.Init();
-            splashScreen.AddProgress();
+
 
             // Create the camera
             camera = new Camera(gameCanvas, mainWindow);
