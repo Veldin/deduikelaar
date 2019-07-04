@@ -11,7 +11,7 @@
 
     <Grid x:Name="LayoutRoot">
 
-        <Viewbox Name="viewBox" KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" SizeChanged="SizeChanged" TouchDown="ViewBox_TouchDown" TouchEnter="ViewBox_TouchEnter" TouchUp="ViewBox_TouchUp" >
+        <Viewbox Name="viewBox" KeyUp="KeyUp" KeyDown="KeyDown" Margin="0" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.CachingHint="Cache" SizeChanged="SizeChanged" TouchDown="ViewBox_TouchDown" TouchUp="ViewBox_TouchUp" >
             <Canvas Margin="0" Width="1280" Height="720" Name="gameCanvas" />
         </Viewbox>
 

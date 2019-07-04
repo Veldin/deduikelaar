@@ -73,8 +73,11 @@ namespace Labyrint
         //TODO: controllers in list?
         private GameObject controllerAnchor;
         private GameObject controllerCursor;
+        private string controlMode;
 
         private Command command;
+
+        
 
         // Holds the last location of the touch input
         // 0 north, 1 east, 2 south, 3 west
@@ -141,6 +144,20 @@ namespace Labyrint
                     break;
                 default:
                     WindowState = WindowState.Maximized;
+                    break;
+            }
+
+            // Set the controlmode.
+            switch (SettingsFacade.Get("ControlMode", "Mouse", "Dictates which events will be used [Mouse || Touch || Both]"))
+            {
+                case "Touch":
+                    controlMode = "Touch";
+                    break;
+                case "Minimized":
+                    controlMode = "Both";
+                    break;
+                default:
+                    controlMode = "Mouse";
                     break;
             }
 
@@ -679,7 +696,12 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseDown(object sender, MouseButtonEventArgs args)
         {
-            //gameObjects.LogOrder();
+            // If the Controlmode is not Mouse or Both return
+            if (controlMode != "Mouse" && controlMode != "Both")
+            {
+                return;
+            }
+
             // Set IsMouseDown on true
             pressedKeys.Add("LeftMouse");
 
@@ -730,6 +752,12 @@ namespace Labyrint
         /// <param name="args"></param>
         private void OnMouseUp(object sender, MouseButtonEventArgs args)
         {
+            // If the Controlmode is not Mouse or Both return
+            if (controlMode != "Mouse" && controlMode != "Both")
+            {
+                return;
+            }
+
             // Set IsMouseDown on false
             pressedKeys.Remove("LeftMouse");
 
@@ -776,35 +804,83 @@ namespace Labyrint
             pressedKeys.Clear();
         }
 
-        private void MainWindow_TouchDown(object sender, TouchEventArgs e)
-        {
-
-            // Set IsMouseDown on true
-            pressedKeys.Add("touch down");
-            Log.Debug("touch down");
-
-        }
-
-        private void MainWindow_TouchUp(object sender, TouchEventArgs e)
-        {
-            Log.Debug("touch up");
-        }
-
-        #endregion
-
         private void ViewBox_TouchDown(object sender, TouchEventArgs e)
         {
-            Log.Debug("viewbox touch down");
-        }
+            // If the Controlmode is not Mouse or Both return
+            if (controlMode != "Mouse" && controlMode != "Both")
+            {
+                return;
+            }
 
-        private void ViewBox_TouchEnter(object sender, TouchEventArgs e)
-        {
-            Log.Debug("viewbox touch enter");
+            // Set IsMouseDown on true
+            pressedKeys.Add("LeftMouse");
+
+            // Create the controller GameObjects (on the place of the mouse)
+            controllerAnchor = GameObjectFactoryFacade.GetGameObject("ControllerAncher", cursor.FromLeft, cursor.FromTop, 4);
+            gameObjects.Add(controllerAnchor);
+            controllerCursor = GameObjectFactoryFacade.GetGameObject("ControllerCursor", cursor.FromLeft, cursor.FromTop, 5);
+            gameObjects.Add(controllerCursor);
+
+            // Calc the distance between the cursor to the border
+            // This is to know where the player is standing
+            float[] distances = new float[]
+            {
+                    // Cursor to top border
+                    Math.Abs(camera.GetFromTop() - cursor.FromTop), 
+
+                    // Cursor to right border
+                    Math.Abs(camera.GetWidth()  +  camera.GetFromLeft() - cursor.FromLeft),
+
+                    // Cursor to bottom border
+                    Math.Abs(camera.GetHeight() +  camera.GetFromTop() - cursor.FromTop),
+
+                    // Cursor to left border
+                    Math.Abs(camera.GetFromLeft() - cursor.FromLeft)
+            };
+
+            // Check which distance is the lowest
+            // 0 north, 1 east, 2 south, 3 west
+            int lowestKey = 0;
+            float lowestVal = cursor.FromTop;
+            for (int i = 0; i < 4; i++)
+            {
+                if (distances[i] < lowestVal)
+                {
+                    lowestVal = distances[i];
+                    lowestKey = i;
+                }
+            }
+
+            // Save the value in an attibrute
+            lastClickClosestBorder = lowestKey;
         }
 
         private void ViewBox_TouchUp(object sender, TouchEventArgs e)
         {
-            Log.Debug("viewbox touch up");
+            // If the Controlmode is not Mouse or Both return
+            if (controlMode != "Touch" && controlMode != "Both")
+            {
+                return;
+            }
+
+            // Set IsMouseDown on false
+            pressedKeys.Remove("LeftMouse");
+
+            // Set the target of the player to the current position to stop it from moving
+            player.Target.SetFromLeft(player.FromLeft);
+            player.Target.SetFromTop(player.FromTop);
+
+            // Remove the anchor for the controller
+            if (!(controllerAnchor is null))
+            {
+                controllerAnchor.destroyed = true;
+            }
+            if (!(controllerCursor is null))
+            {
+                controllerCursor.destroyed = true;
+            }
         }
+
+        #endregion
     }
 }
