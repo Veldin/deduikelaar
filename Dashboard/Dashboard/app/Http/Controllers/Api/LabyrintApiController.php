@@ -52,6 +52,8 @@ class LabyrintApiController extends Controller
         $stories = Story::with('feedback')->where('active', 1)->get();
         $feedbacks = Feedback::with('feedbackItems')->get();
 
+        if($stories->count() == 0 || $feedbacks->count() == 0) return response()->json([]);
+
         // Create a default array for the feedback for each story
         $fs = [];
         foreach ($feedbacks as $feedback){
