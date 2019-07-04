@@ -414,29 +414,33 @@ namespace Labyrint
                 }
             }
 
-            //Try catch due to us not knowing if the UI thead exists *it does not in unit tests*
-            try
-            {
-                //Set the new curser location
-                Application.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    try
-                    {
-                        Point p = Mouse.GetPosition(gameCanvas);
-                        cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
-                        cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
-                    }
-                    catch
-                    {
-                        Log.Warning("Could not find pointer location");
-                    }
-                });
-            }
-            catch
-            {
-                Log.Warning("Could not invoke thread");
-            }
 
+            // If the Controlmode is Mouse or Both set the cursor to the mouse position
+            if (controlMode == "Mouse" && controlMode == "Both")
+            {
+                //Try catch due to us not knowing if the UI thead exists *it does not in unit tests*
+                try
+                {
+                    //Set the new curser location
+                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        try
+                        {
+                            Point p = Mouse.GetPosition(gameCanvas);
+                            cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
+                            cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
+                        }
+                        catch
+                        {
+                            Log.Warning("Could not find pointer location");
+                        }
+                    });
+                }
+                catch
+                {
+                    Log.Warning("Could not invoke thread");
+                }
+            }
 
             //Destory old objects by going trough each gameObject and checking if its destroyed.
             //If it is, remove it from the canvas.
