@@ -59,41 +59,28 @@ namespace Labyrint
 
             float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
 
-            //If they are close each other to each other don't move
-            if (totalDifferenceAbs < 50)
-            {
-                return true;
-            }
 
-            float originalmoveSpeed = gameobject.MovementSpeed;
+            float differenceTopPercent = differenceTopAbs / (float)(totalDifferenceAbs / 100);
+            float differenceLeftPercent = differenceLeftAbs / (float)(totalDifferenceAbs / 100);
 
-            float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
-            float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-
-            float moveTopDistance = gameobject.MovementSpeed * (differenceTopPercent / 100);
-            float moveLeftDistance = gameobject.MovementSpeed * (differenceLeftPercent / 100);
+            float moveTopDistance = (gameobject.MovementSpeed * (float)(differenceTopPercent)) / 100;
+            float moveLeftDistance = (gameobject.MovementSpeed * (float)(differenceLeftPercent)) / 100;
 
             float moveTopDistanceDelta = (moveTopDistance * delta) / 10000;
             float moveLeftDistanceDelta = (moveLeftDistance * delta) / 10000;
 
+
+            //if the targets from left is further then the gameObject from left it needs to move right (by adding fromleft)
             if (gameobject.Target.FromLeft() > gameobject.FromLeft)
             {
-                if (differenceLeftAbs < moveLeftDistanceDelta)
-                {
-                    gameobject.AddFromLeft(differenceLeftAbs);
-                }
-                else
-                {
+                if (gameobject.FromLeft + gameobject.Width / 2 + moveLeftDistanceDelta < gameobject.Target.FromLeft())
+                { 
                     gameobject.AddFromLeft(moveLeftDistanceDelta);
                 }
             }
             else
             {
-                if (differenceLeftAbs < moveLeftDistanceDelta)
-                {
-                    gameobject.AddFromLeft(differenceLeftAbs * -1);
-                }
-                else
+                if (gameobject.FromLeft + gameobject.Width / 2 - moveLeftDistanceDelta > gameobject.Target.FromLeft())
                 {
                     gameobject.AddFromLeft(moveLeftDistanceDelta * -1);
                 }
@@ -101,22 +88,14 @@ namespace Labyrint
 
             if (gameobject.Target.FromTop() > gameobject.FromTop)
             {
-                if (differenceTopAbs < moveTopDistanceDelta)
-                {
-                    gameobject.AddFromTop(differenceTopAbs);
-                }
-                else
+                if (gameobject.FromTop + gameobject.Height / 2 + moveTopDistanceDelta < gameobject.Target.FromTop())
                 {
                     gameobject.AddFromTop(moveTopDistanceDelta);
                 }
             }
             else
             {
-                if (differenceTopAbs < moveTopDistanceDelta)
-                {
-                    gameobject.AddFromTop(differenceTopAbs * -1);
-                }
-                else
+                if (gameobject.FromTop + gameobject.Height / 2 - moveTopDistanceDelta > gameobject.Target.FromTop())
                 {
                     gameobject.AddFromTop(moveTopDistanceDelta * -1);
                 }
