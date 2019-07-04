@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Labyrint.exe" size="2692608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Labyrint.exe" size="2693120">
       <assemblyIdentity name="Labyrint" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZIIUl1KsIIjrFwYbSMph8ImxiQ90Sb7MI0PRDoT0SAo=</dsig:DigestValue>
+        <dsig:DigestValue>JbwU1J2GZ6RtY7aDVHt6bO8W+vsHGN3E84kOOYx2rH8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -781,6 +781,7 @@ namespace Labyrint
 
             // Set IsMouseDown on true
             pressedKeys.Add("touch down");
+            Log.Debug("touch down");
 
         }
 
@@ -790,5 +791,15 @@ namespace Labyrint
         }
 
         #endregion
+
+        private void ViewBox_TouchDown(object sender, TouchEventArgs e)
+        {
+            Log.Debug("touch down");
+        }
+
+        private void ViewBox_TouchEnter(object sender, TouchEventArgs e)
+        {
+            Log.Debug("touch up");
+        }
     }
 }
