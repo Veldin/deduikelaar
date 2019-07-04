@@ -794,12 +794,17 @@ namespace Labyrint
 
         private void ViewBox_TouchDown(object sender, TouchEventArgs e)
         {
-            Log.Debug("touch down");
+            Log.Debug("viewbox touch down");
         }
 
         private void ViewBox_TouchEnter(object sender, TouchEventArgs e)
         {
-            Log.Debug("touch up");
+            Log.Debug("viewbox touch enter");
+        }
+
+        private void ViewBox_TouchUp(object sender, TouchEventArgs e)
+        {
+            Log.Debug("viewbox touch enter");
         }
     }
 }
