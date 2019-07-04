@@ -816,15 +816,9 @@ namespace Labyrint
                 return;
             }
 
-            Log.Debug("ViewBox_TouchDown"); 
             Point p = e.GetTouchPoint((IInputElement)gameCanvas).Position;
-            //cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
-            //cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
-            
-
             cursor.FromLeft = (float)p.X + camera.GetFromLeft();
             cursor.FromTop = (float)p.Y + camera.GetFromTop();
-
 
             // Set IsMouseDown on true
             pressedKeys.Add("LeftMouse");
@@ -877,8 +871,6 @@ namespace Labyrint
                 return;
             }
 
-            Log.Debug("ViewBox_TouchUp");
-
             // Set IsMouseDown on false
             pressedKeys.Remove("LeftMouse");
 
@@ -907,9 +899,9 @@ namespace Labyrint
                 return;
             }
 
-            Point p = e.GetTouchPoint((IInputElement)sender).Position;
-            cursor.FromLeft = (float)p.X - width / 2 + (player.FromLeft) + player.Width / 2;
-            cursor.FromTop = (float)p.Y - height / 2 + (player.FromTop) + player.Height / 2;
+            Point p = e.GetTouchPoint((IInputElement)gameCanvas).Position;
+            cursor.FromLeft = (float)p.X + camera.GetFromLeft();
+            cursor.FromTop = (float)p.Y + camera.GetFromTop();
         }
     }
 }
