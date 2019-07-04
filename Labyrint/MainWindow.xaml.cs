@@ -804,7 +804,7 @@ namespace Labyrint
 
         private void ViewBox_TouchUp(object sender, TouchEventArgs e)
         {
-            Log.Debug("viewbox touch enter");
+            Log.Debug("viewbox touch up");
         }
     }
 }
