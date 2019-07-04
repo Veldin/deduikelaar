@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 
+use App\Feedback;
+use App\FeedbackItem;
+use App\StoryFeedback;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +18,7 @@ class DatabaseRefresh extends Command
      *
      * @var string
      */
-    protected $signature = 'db {refresh?} {--f=0} {--fill=0}';
+    protected $signature = 'db {first?} {--f=0} {--fill=0}';
 
     /**
      * The console command description.
@@ -40,15 +43,17 @@ class DatabaseRefresh extends Command
     public function handle()
     {
         $fill = intval($this->option('fill')) + intval($this->option('f'));
-        $r = $this->argument('refresh');
-        $refresh = strtolower($r) == 'r' ? true : strtolower($r) == 'refresh';
+        $f = $this->argument('first');
+        $refresh = strtolower($f) == 'r' || strtolower($f) == 'refresh';
+        $feedback = strtolower($f) == 'feedback';
 
-        if(!$refresh && $fill <= 0){
+        if(!$refresh && !$feedback && $fill <= 0){
             echo "\n";
             echo "Use one of these commands:\n";
             echo "\tphp artisan db refresh\n";
             echo "\tphp artisan db --fill=10\n";
             echo "\tphp artisan db refresh fill=10\n";
+            echo "\tphp artisan db feedback\n";
         }
 
         if($refresh){
@@ -63,6 +68,24 @@ class DatabaseRefresh extends Command
             }
 
             Artisan::call('migrate');
+        }
+
+        if($feedback){
+            echo "\n";
+            echo "Refreshing the database\n";
+            if(Schema::hasTable('migrations')){
+                $migration = DB::table('migrations')->orderBy('batch', 'DESC')->first();
+
+                for($i=0;$i<$migration->batch;$i++){
+                    Artisan::call('migrate:rollback');
+                }
+            }
+
+            Artisan::call('migrate');
+            echo "Adding feedback\n";
+
+            $dbs = new \DatabaseSeeder();
+            $dbs->addFeedback();
         }
 
         if($fill > 0){
